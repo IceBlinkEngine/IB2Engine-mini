@@ -243,3 +243,12 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/IceBlink2mini/Weather.cs
+/IceBlink2mini/WeatherTypeListItem.cs
+/IceBlink2mini/WeatherTypeList.cs
+/IceBlink2mini/WeatherEffect.cs
+/IceBlink2mini/Orbitron Light.ttf
+/IceBlink2mini/LogicTreeRun.cs
+/IceBlink2mini/LogicTreeNode.cs
+/IceBlink2mini/LogicTree.cs
+/IceBlink2mini/FullScreenEffectLayer.cs
