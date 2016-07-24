@@ -137,6 +137,7 @@
     <Compile Include="IBMessageBox.designer.cs" />
     <Compile Include="IbRect.cs" />
     <Compile Include="IbRectF.cs" />
+    <Compile Include="IBScript.cs" />
     <Compile Include="IBScriptEngine.cs" />
     <Compile Include="IceBlinkButtonClose.cs">
       <SubType>Component</SubType>

@@ -13,58 +13,10 @@ namespace IceBlink2mini
 {
     public class Module
     {
-        //public bool useMinimalisticUI = true;
-        //public bool useManualCombatCam = true;
-        //public bool useCombatSmoothMovement = true;
-        /*
-        public int creatureCounterSubstractor = 0;
-        public int moveOrderOfCreatureThatIsBeforeBandChange = 0;
-        public bool enteredFirstTime = false;
-        public int indexOfNorthernNeighbour = -1;
-        public int indexOfSouthernNeighbour = -1;
-        public int indexOfEasternNeighbour = -1;
-        public int indexOfWesternNeighbour = -1;
-        public int indexOfNorthEasternNeighbour = -1;
-        public int indexOfNorthWesternNeighbour = -1;
-        public int indexOfSouthEasternNeighbour = -1;
-        public int indexOfSouthWesternNeighbour = -1;
-
-        public int seamlessModififierMinX = 0;
-        public int seamlessModififierMaxX = 0;
-        public int seamlessModififierMinY = 0;
-        public int seamlessModififierMaxY = 0;
-        */
-
-        //public float fullScreenEffectOpacityWeatherOld = 0;
-        /*
-        public string oldWeatherName = "";
-        public float maintainWeatherFromLastAreaTimer = 0;
-        public bool blockCloudCreation = false;
-        public bool isFoggy = false;
-        public bool blockFogCreation = false;
-        public bool isSnowing = false;
-        public bool isLightning = false;
-        public bool isSandstorm = false;
-        public float logOpacity = 1f;
-        public int logFadeCounter = 120;
-        
-
-        public float pixDistanceToBorderWest = 0;
-        public float pixDistanceToBorderEast = 0;
-        public float pixDistanceToBorderNorth = 0;
-        public float pixDistanceToBorderSouth = 0;
-        public string windDirection = "";
-        public bool isRaining = false;
-        public bool isCloudy = false;
-        public float sandStormDirectionX = 1f;
-        public float sandStormDirectionY = 1f;
-        public string sandStormBlowingTo = "";
-        */
         public string moduleName = "none";
         public string moduleLabelName = "none";
         public int moduleVersion = 1;
         public string saveName = "empty";
-        //public string uniqueSessionIdNumberTag = "";
         public string defaultPlayerFilename = "drin.json";
         public bool mustUsePreMadePC = false;
         public int numberOfPlayerMadePcsAllowed = 1;
@@ -90,11 +42,13 @@ namespace IceBlink2mini
         public string goldLabelSingular = "Gold";
         public string goldLabelPlural = "Gold";
         public bool ArmorClassAscending = true;
-        [JsonIgnore]
-        public List<Item> moduleItemsList = new List<Item>();
-        public List<Encounter> moduleEncountersList = new List<Encounter>();
         public List<Container> moduleContainersList = new List<Container>();
         public List<Shop> moduleShopsList = new List<Shop>();
+
+        [JsonIgnore]
+        public List<Item> moduleItemsList = new List<Item>();
+        [JsonIgnore]
+        public List<Encounter> moduleEncountersList = new List<Encounter>();        
         [JsonIgnore]
         public List<Creature> moduleCreaturesList = new List<Creature>();
         [JsonIgnore]
@@ -109,9 +63,13 @@ namespace IceBlink2mini
         public List<Trait> moduleTraitsList = new List<Trait>();
         [JsonIgnore]
         public List<Effect> moduleEffectsList = new List<Effect>();
+        [JsonIgnore]
         public List<string> moduleAreasList = new List<string>();
+        [JsonIgnore]
         public List<string> moduleConvosList = new List<string>();
+        [JsonIgnore]
         public List<string> moduleIBScriptsList = new List<string>();
+
         public List<Area> moduleAreasObjects = new List<Area>();
         public List<GlobalInt> moduleGlobalInts = new List<GlobalInt>();
         public List<GlobalString> moduleGlobalStrings = new List<GlobalString>();
