@@ -64,11 +64,9 @@ namespace IceBlink2mini
         [JsonIgnore]
         public List<Effect> moduleEffectsList = new List<Effect>();
         [JsonIgnore]
-        public List<string> moduleAreasList = new List<string>();
+        public List<Convo> moduleConvoList = new List<Convo>();
         [JsonIgnore]
-        public List<string> moduleConvosList = new List<string>();
-        [JsonIgnore]
-        public List<string> moduleIBScriptsList = new List<string>();
+        public List<IBScript> moduleIBScriptList = new List<IBScript>();
 
         public List<Area> moduleAreasObjects = new List<Area>();
         public List<GlobalInt> moduleGlobalInts = new List<GlobalInt>();
@@ -325,6 +323,14 @@ namespace IceBlink2mini
             foreach (Race r in this.moduleRacesList)
             {
                 if (r.tag.Equals(tag)) return r;
+            }
+            return null;
+        }
+        public IBScript getIBScriptByName(string name)
+        {
+            foreach (IBScript t in this.moduleIBScriptList)
+            {
+                if (t.scriptName.Equals(name)) return t;
             }
             return null;
         }

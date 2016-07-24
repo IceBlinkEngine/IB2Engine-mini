@@ -54,29 +54,37 @@ namespace IceBlink2mini
         public IBScriptEngine(GameView g, string filename, string parms)
         {
             gv = g;
+            //TODO may need to remove .ibs if included in name
             scriptFilename = filename;
             //read in script file and create line numbered list
-            if (parms != "fullScreenEffectScript")
+            /*if (parms != "fullScreenEffectScript")
             {
                 lines = File.ReadAllLines(gv.cc.GetModulePath() + "\\ibscript\\" + filename + ".ibs");
             }
             else
             {
                 lines = File.ReadAllLines(gv.cc.GetModulePath() + "\\ibscript\\" + "\\fullScreenEffectScripts\\" + filename + ".ibs");
+            }*/
+            //List<string> converttolist = lines.ToList();
+
+            List<string> converttolist = new List<string>();
+            converttolist.Add("//line 0");
+            foreach (string s in gv.mod.getIBScriptByName(scriptFilename).codeLines)
+            {
+                converttolist.Add(s);
             }
-            List<string> converttolist = lines.ToList();
-            converttolist.Insert(0, "//line 0");
-            lines = converttolist.ToArray();
+            //converttolist.Insert(0, "//line 0");
+            //lines = converttolist.ToArray();
 
             //set-up Block lists
             fillForBlocksList();
             fillIfBlocksList();
 
             //convert the parms into a List<String> by comma delimination and remove white space
-            if (parms != "fullScreenEffectScript")
-            {
+            //if (parms != "fullScreenEffectScript")
+            //{
                 parmsList = parms.Split(',').Select(x => x.Trim()).ToList();
-            }
+            //}
         }
 
         public void fillForBlocksList()
