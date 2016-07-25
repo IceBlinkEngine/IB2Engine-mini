@@ -334,28 +334,23 @@ namespace IceBlink2mini
             log.numberOfLinesToShow = mod.logNumberOfLines;            
                         
 		    mod.debugMode = false;
-		    mod.loadAreas(this);
+		    //mod.loadAreas(this);
 		    mod.setCurrentArea(mod.startingArea, this);
 		    mod.PlayerLocationX = mod.startingPlayerPositionX;
 		    mod.PlayerLocationY = mod.startingPlayerPositionY;
 		    cc.title = cc.LoadBitmap("title");
             LoadStandardImages();
-		    cc.LoadRaces();
-		    cc.LoadPlayerClasses();
-		    cc.LoadItems();
-		    cc.LoadContainers();
-		    cc.LoadShops();
-		    cc.LoadEffects();
-		    cc.LoadSpells();
-		    cc.LoadTraits();
-            cc.LoadCreatures();
-		    cc.LoadEncounters();
-		    cc.LoadJournal();
-            //hurghj
-            //if (!mod.useAllTileSystem)
-            //{
-            //    cc.LoadTileBitmapList();
-            //}
+		    //cc.LoadRaces();
+		    //cc.LoadPlayerClasses();
+		    //cc.LoadItems();
+		    //cc.LoadContainers();
+		    //cc.LoadShops();
+		    //cc.LoadEffects();
+		    //cc.LoadSpells();
+		    //cc.LoadTraits();
+            //cc.LoadCreatures();
+		    //cc.LoadEncounters();
+		    //cc.LoadJournal();
 				
 		    foreach (Container c in mod.moduleContainersList)
             {

@@ -6710,11 +6710,11 @@ namespace IceBlink2mini
                     }
                     else if (parm.EndsWith("SizeOfModuleAreasList"))
                     {
-                        return gv.mod.moduleAreasList.Count.ToString();
+                        return gv.mod.moduleAreasObjects.Count.ToString();
                     }
                     else if (parm.EndsWith("SizeOfModuleConvosList"))
                     {
-                        return gv.mod.moduleConvosList.Count.ToString();
+                        return gv.mod.moduleConvoList.Count.ToString();
                     }
                     else if (parm.EndsWith("SizeOfModuleAreasObjects"))
                     {

@@ -45,27 +45,27 @@ namespace IceBlink2mini
         public List<Container> moduleContainersList = new List<Container>();
         public List<Shop> moduleShopsList = new List<Shop>();
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<Item> moduleItemsList = new List<Item>();
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<Encounter> moduleEncountersList = new List<Encounter>();        
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<Creature> moduleCreaturesList = new List<Creature>();
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<JournalQuest> moduleJournal = new List<JournalQuest>();
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<PlayerClass> modulePlayerClassList = new List<PlayerClass>();
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<Race> moduleRacesList = new List<Race>();
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<Spell> moduleSpellsList = new List<Spell>();
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<Trait> moduleTraitsList = new List<Trait>();
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<Effect> moduleEffectsList = new List<Effect>();
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<Convo> moduleConvoList = new List<Convo>();
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<IBScript> moduleIBScriptList = new List<IBScript>();
 
         public List<Area> moduleAreasObjects = new List<Area>();
@@ -149,7 +149,7 @@ namespace IceBlink2mini
         }
         public void loadAreas(GameView gv)
         {
-            foreach (string areaName in this.moduleAreasList)
+            /*foreach (string areaName in this.moduleAreasList)
             {
                 try
                 {
@@ -168,7 +168,7 @@ namespace IceBlink2mini
                 {
                     gv.errorLog(ex.ToString());
                 }
-            }
+            }*/
         }
         public void setCurrentArea(string filename, GameView gv)
         {

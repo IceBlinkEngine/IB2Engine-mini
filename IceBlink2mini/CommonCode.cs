@@ -147,7 +147,7 @@ namespace IceBlink2mini
             Player toReturn = null;
 
             // deserialize JSON directly from a file
-            using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\" + filename))
+            using (StreamReader file = File.OpenText(gv.mainDirectory + "\\default\\NewModule\\data\\" + filename))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 toReturn = (Player)serializer.Deserialize(file, typeof(Player));
@@ -590,17 +590,17 @@ namespace IceBlink2mini
             gv.mod.OnHeartBeatIBScriptParms = saveMod.OnHeartBeatIBScriptParms;
             //}
 
-            LoadRaces();
-            LoadPlayerClasses();
-            LoadItems();
+            //LoadRaces();
+            //LoadPlayerClasses();
+            //LoadItems();
             //no load of containers
             //no load of shops
-            LoadEffects();
-            LoadSpells();
-            LoadTraits();
-            LoadCreatures();
+            //LoadEffects();
+            //LoadSpells();
+            //LoadTraits();
+            //LoadCreatures();
             //no load of encounters
-            LoadJournal();
+            //LoadJournal();
             //LoadTileBitmapList();
             gv.initializeSounds();
 
@@ -925,7 +925,7 @@ namespace IceBlink2mini
 
         public string GetModulePath()
         {
-            return gv.mainDirectory + "\\modules\\" + gv.mod.moduleName;
+            return gv.mainDirectory + "\\modules";
         }
 
         //GENERAL
@@ -3343,74 +3343,27 @@ namespace IceBlink2mini
 
             try
             {
-                if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\tiles\\" + filename + ".png"))
+                //Builder's override folder
+                if (File.Exists(gv.mainDirectory + "\\override\\" + filename + ".png"))
                 {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\tiles\\" + filename + ".png");
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\override\\" + filename + ".png");
                 }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\tiles\\" + filename + ".PNG"))
+                else if (File.Exists(gv.mainDirectory + "\\override\\" + filename + ".jpg"))
                 {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\tiles\\" + filename + ".PNG");
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\override\\" + filename + ".jpg");
                 }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\tiles\\" + filename))
+                else if (File.Exists(gv.mainDirectory + "\\override\\" + filename))
                 {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\tiles\\" + filename);
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\override\\" + filename);
                 }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".png"))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".png");
-                }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".PNG"))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".PNG");
-                }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".jpg"))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".jpg");
-                }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename);
-                }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\ui\\" + filename + ".png"))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\ui\\" + filename + ".png");
-                }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\ui\\" + filename + ".PNG"))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\ui\\" + filename + ".PNG");
-                }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\ui\\" + filename))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\ui\\" + filename);
-                }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\pctokens\\" + filename + ".png"))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\pctokens\\" + filename + ".png");
-                }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\pctokens\\" + filename + ".PNG"))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\pctokens\\" + filename + ".PNG");
-                }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\pctokens\\" + filename))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\pctokens\\" + filename);
-                }                
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename + ".png"))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename + ".png");
-                }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename + ".PNG"))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename + ".PNG");
-                }
-                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename);
-                }
-                //NewModule folders
+                //default graphics locations
                 else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\graphics\\" + filename + ".png"))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\graphics\\" + filename + ".png");
+                }
+                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\graphics\\" + filename + ".PNG"))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\graphics\\" + filename + ".PNG");
                 }
                 else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\graphics\\" + filename + ".jpg"))
                 {
@@ -3420,25 +3373,13 @@ namespace IceBlink2mini
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\graphics\\" + filename);
                 }
-                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\ui\\" + filename + ".png"))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\ui\\" + filename + ".png");
-                }
-                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\ui\\" + filename))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\ui\\" + filename);
-                }
-                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\pctokens\\" + filename + ".png"))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\pctokens\\" + filename + ".png");
-                }
-                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\pctokens\\" + filename))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\pctokens\\" + filename);
-                }
                 else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\tiles\\" + filename + ".png"))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\tiles\\" + filename + ".png");
+                }
+                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\tiles\\" + filename + ".PNG"))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\tiles\\" + filename + ".PNG");
                 }
                 else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\tiles\\" + filename))
                 {
@@ -3448,9 +3389,29 @@ namespace IceBlink2mini
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\portraits\\" + filename + ".png");
                 }
+                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\portraits\\" + filename + ".PNG"))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\portraits\\" + filename + ".PNG");
+                }
+                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\portraits\\" + filename + ".jpg"))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\portraits\\" + filename + ".jpg");
+                }
                 else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\portraits\\" + filename))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\portraits\\" + filename);
+                }
+                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\ui\\" + filename + ".png"))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\ui\\" + filename + ".png");
+                }
+                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\ui\\" + filename + ".jpg"))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\ui\\" + filename + ".jpg");
+                }
+                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\ui\\" + filename))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\ui\\" + filename);
                 }
 
                 else
