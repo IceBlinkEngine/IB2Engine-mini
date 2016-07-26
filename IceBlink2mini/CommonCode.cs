@@ -3093,24 +3093,34 @@ namespace IceBlink2mini
         }
         public void doConversationBasedOnTag(string tag)
         {
-           
-            //if (gv.mod.doConvo)
-            //{
-                try
+            try
+            {
+                gv.screenConvo.currentConvo = gv.mod.getConvoByName(tag);
+                if (gv.screenConvo.currentConvo != null)
                 {
-                    LoadCurrentConvo(tag);
                     gv.screenType = "convo";
                     gv.screenConvo.startConvo();
                 }
-                catch (Exception ex)
+                else
                 {
-                    gv.sf.MessageBox("failed to open conversation with tag: " + tag);
+                    gv.sf.MessageBox("failed to find conversation in list with tag: " + tag);
                 }
-            //}
-            //else
-            //{
-                //gv.mod.doConvo = true;
-            //}
+            }
+            catch (Exception ex)
+            {
+                gv.sf.MessageBox("failed to open conversation with tag: " + tag);
+                gv.errorLog(ex.ToString());
+            }
+            /*try
+            {
+                LoadCurrentConvo(tag);
+                gv.screenType = "convo";
+                gv.screenConvo.startConvo();
+            }
+            catch (Exception ex)
+            {
+                gv.sf.MessageBox("failed to open conversation with tag: " + tag);
+            }*/
         }
         public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target)
         {

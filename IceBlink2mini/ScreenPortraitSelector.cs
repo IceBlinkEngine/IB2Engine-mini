@@ -46,9 +46,9 @@ namespace IceBlink2mini
             {
                 //Load from module folder first
                 string[] files;
-                if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\portraits"))
+                if (Directory.Exists(gv.mainDirectory + "\\portraits"))
                 {
-                    files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\portraits", "*.png");
+                    files = Directory.GetFiles(gv.mainDirectory + "\\portraits", "*.png");
                     foreach (string file in files)
                     {
                         try
@@ -77,9 +77,9 @@ namespace IceBlink2mini
             {
                 //Load from PlayerTokens folder last
                 string[] files;
-                if (Directory.Exists(gv.mainDirectory + "\\PlayerPortraits"))
+                if (Directory.Exists(gv.mainDirectory + "\\default\\NewModule\\portraits"))
                 {
-                    files = Directory.GetFiles(gv.mainDirectory + "\\PlayerPortraits", "*.png");
+                    files = Directory.GetFiles(gv.mainDirectory + "\\default\\NewModule\\portraits", "*.png");
                     foreach (string file in files)
                     {
                         try

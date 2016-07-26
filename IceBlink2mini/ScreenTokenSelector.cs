@@ -46,16 +46,16 @@ namespace IceBlink2mini
             {
                 //Load from module folder first
                 string[] files;
-                if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\pctokens"))
+                if (Directory.Exists(gv.mainDirectory + "\\override"))
                 {
-                    files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\pctokens", "*.png");
+                    files = Directory.GetFiles(gv.mainDirectory + "\\override", "*.png");
                     //directory.mkdirs(); 
                     foreach (string file in files)
                     {
                         try
                         {
                             string filename = Path.GetFileName(file);
-                            if (filename.EndsWith(".png"))
+                            if (filename.StartsWith("pc_"))
                             {
                                 string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
                                 playerTokenList.Add(fileNameWithOutExt);
@@ -78,16 +78,16 @@ namespace IceBlink2mini
             {
                 //Load from PlayerTokens folder last
                 string[] files;
-                if (Directory.Exists(gv.mainDirectory + "\\PlayerTokens"))
+                if (Directory.Exists(gv.mainDirectory + "\\default\\NewModule\\graphics"))
                 {
-                    files = Directory.GetFiles(gv.mainDirectory + "\\PlayerTokens", "*.png");
+                    files = Directory.GetFiles(gv.mainDirectory + "\\\\default\\NewModule\\graphics", "*.png");
                     //directory.mkdirs(); 
                     foreach (string file in files)
                     {
                         try
                         {
                             string filename = Path.GetFileName(file);
-                            if (filename.EndsWith("_pc.png"))
+                            if (filename.StartsWith("pc_"))
                             {
                                 string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
                                 if (!playerTokenList.Contains(fileNameWithOutExt))

@@ -713,7 +713,6 @@ namespace IceBlink2mini
                 pc.AmmoRefs = new ItemRefs();
             }
         }
-	
 
 	    public void doCleanUp()
 	    {

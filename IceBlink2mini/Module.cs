@@ -278,6 +278,14 @@ namespace IceBlink2mini
             }
             return null;
         }
+        public Convo getConvoByName(string name)
+        {
+            foreach (Convo e in this.moduleConvoList)
+            {
+                if (e.ConvoFileName.Equals(name)) return e;
+            }
+            return null;
+        }
         public Creature getCreatureInCurrentEncounterByTag(string tag)
         {
             foreach (Creature crt in this.currentEncounter.encounterCreatureList)
