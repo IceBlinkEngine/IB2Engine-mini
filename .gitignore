@@ -11,7 +11,6 @@
 *.userprefs
 
 # Build results
-[Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
@@ -19,7 +18,6 @@
 [Xx]86/
 [Bb]uild/
 bld/
-[Bb]in/
 [Oo]bj/
 
 # Visual Studio 2015 cache/options directory
@@ -252,3 +250,18 @@ ModelManifest.xml
 /IceBlink2mini/LogicTreeNode.cs
 /IceBlink2mini/LogicTree.cs
 /IceBlink2mini/FullScreenEffectLayer.cs
+/IceBlink2mini/bin/Debug/saves/EscapeFromCharn/slot1.json
+/IceBlink2mini/bin/Debug/saves/EscapeFromCharn/slot1info.json
+/IceBlink2mini/bin/Debug/saves/EscapeFromCharn/slot2.json
+/IceBlink2mini/bin/Debug/saves/EscapeFromCharn/slot2info.json
+/IceBlink2mini/bin/Debug/IceBlink2mini.exe
+/IceBlink2mini/bin/Debug/IceBlink2mini.exe.config
+/IceBlink2mini/bin/Debug/IceBlink2mini.vshost.exe
+/IceBlink2mini/bin/Debug/IceBlink2mini.vshost.exe.config
+/IceBlink2mini/bin/Debug/IceBlink2mini.vshost.exe.manifest
+/IceBlink2mini/bin/Debug/Newtonsoft.Json.xml
+/IceBlink2mini/bin/Debug/SharpDX.Direct2D1.xml
+/IceBlink2mini/bin/Debug/SharpDX.Direct3D11.xml
+/IceBlink2mini/bin/Debug/SharpDX.DXGI.xml
+/IceBlink2mini/bin/Debug/SharpDX.xml
+/IceBlink2mini/bin/Debug/IB2ErrorLog.txt
