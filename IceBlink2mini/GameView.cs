@@ -34,7 +34,7 @@ namespace IceBlink2mini
         public float screenDensity;
         public int screenWidth;
         public int screenHeight;
-        public int squareSizeInPixels = 100;
+        public int squareSizeInPixels = 95;
         public int squareSize; //in dp (squareSizeInPixels * screenDensity)
         public int pS; // = squareSize / 10 ... used for small UI and text location adjustments based on squaresize
         public int squaresInWidth = 19;
@@ -185,14 +185,14 @@ namespace IceBlink2mini
             catch (Exception ex) { errorLog(ex.ToString()); }
 
             //this is the standard way, comment out the next 3 lines if manually forcing a screen resolution for testing UI layouts
-            //this.WindowState = FormWindowState.Maximized;
-            //this.Width = Screen.PrimaryScreen.Bounds.Width;
-            //this.Height = Screen.PrimaryScreen.Bounds.Height;
+            this.WindowState = FormWindowState.Maximized;
+            this.Width = Screen.PrimaryScreen.Bounds.Width;
+            this.Height = Screen.PrimaryScreen.Bounds.Height;
             
             //for testing other screen sizes, manually enter a resolution here
             //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240
-            this.Width = 1280;
-            this.Height = 720;
+            //this.Width = 1280;
+            //this.Height = 720;
 
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;

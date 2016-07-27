@@ -10,7 +10,7 @@
       "hidingXIncrement": -3,
       "hidingYIncrement": 0,
       "Width": 400,
-      "Height": 900,
+      "Height": 930,
       "buttonList": [],
       "toggleList": [],
       "portraitList": [],
@@ -18,7 +18,7 @@
         {
            "tbXloc": 10,
            "tbYloc": 10,
-           "tbWidth": 390,
+           "tbWidth": 360,
            "tbHeight": 890,
            "numberOfLinesToShow": 26
         }
@@ -34,7 +34,7 @@
       "hidingXIncrement": 1,
       "hidingYIncrement": 0,
       "Width": 118,
-      "Height": 1030,
+      "Height": 1060,
       "buttonList": [
         {
 											"tag": "btnToggleArrows",
@@ -141,7 +141,7 @@
       "tag": "BottomPanel",
       "backgroundImageFilename": "ui_bg_hotkeys",
       "shownLocX": 5,
-      "shownLocY": 910,
+      "shownLocY": 940,
       "hiddenLocX": 5,
       "hiddenLocY": 1080,
       "hidingXIncrement": 0,
@@ -419,7 +419,7 @@
 				      "tag": "arrowPanel",
 				      "backgroundImageFilename": "ui_bg_arrows",
 				      "shownLocX": 1490,
-				      "shownLocY": 720,
+				      "shownLocY": 750,
 				      "hiddenLocX": 1500,
 				      "hiddenLocY": 1080,
 				      "hidingXIncrement": 0,

@@ -114,7 +114,7 @@ namespace IceBlink2mini
         }
         public void setupAll(GameView gv)
         {
-            loadHeaderImage(gv);
+            //loadHeaderImage(gv);
             //this.IBBorderInsideColor = gv.module.ModuleTheme.IBBorderInsideColor;
             //this.IBBorderMiddleColor = gv.module.ModuleTheme.IBBorderMiddleColor;
             //this.IBBorderOutsideColor = gv.module.ModuleTheme.IBBorderOutsideColor;            
