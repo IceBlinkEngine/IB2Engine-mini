@@ -52,6 +52,10 @@ namespace IceBlink2mini
         public int oYshift = 0;
         public string mainDirectory;
         public bool showHotKeys = false;
+        public int fontHeight = 8;
+        public int fontWidth = 8;
+        public int fontCharSpacing = 1;
+        public int fontLineSpacing = 2;
 
         public Graphics gCanvas;
 
@@ -80,6 +84,7 @@ namespace IceBlink2mini
         public float drawFontRegHeight;
         public float drawFontLargeHeight;
         public float drawFontSmallHeight;
+        public Dictionary<char, SharpDX.RectangleF> charList = new Dictionary<char, SharpDX.RectangleF>();
         public SolidBrush drawBrush = new SolidBrush(Color.White);
         public string screenType = "splash"; //launcher, title, moreGames, main, party, inventory, combatInventory, shop, journal, combat, combatCast, convo
         public AnimationState animationState = AnimationState.None;
@@ -185,19 +190,19 @@ namespace IceBlink2mini
             catch (Exception ex) { errorLog(ex.ToString()); }
 
             //this is the standard way, comment out the next 3 lines if manually forcing a screen resolution for testing UI layouts
-            this.WindowState = FormWindowState.Maximized;
-            this.Width = Screen.PrimaryScreen.Bounds.Width;
-            this.Height = Screen.PrimaryScreen.Bounds.Height;
+            //this.WindowState = FormWindowState.Maximized;
+            //this.Width = Screen.PrimaryScreen.Bounds.Width;
+            //this.Height = Screen.PrimaryScreen.Bounds.Height;
             
             //for testing other screen sizes, manually enter a resolution here
-            //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240
-            //this.Width = 1280;
-            //this.Height = 720;
+            //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792
+            this.Width = 1280;
+            this.Height = 720;
 
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
-            float sqrW = (float)screenWidth / (squaresInWidth + 2f/10f);
-            float sqrH = (float)screenHeight / (squaresInHeight + 3f/10f);
+            float sqrW = (float)screenWidth / (squaresInWidth + 2f/10f); // 2f/10f
+            float sqrH = (float)screenHeight / (squaresInHeight + 3f/10f); // 3f/10f
             if (sqrW > sqrH)
             {
                 squareSize = (int)(sqrH);
@@ -221,7 +226,36 @@ namespace IceBlink2mini
             //CREATES A FONTFAMILY
             ResetGDIFont();
             ResetDirect2DFont();
-            
+            fillCharList();
+
+            fontWidth = (int)(16 * screenDensity);
+            fontHeight = (int)(16 * screenDensity);
+            fontCharSpacing = fontWidth / 8;
+            fontLineSpacing = fontHeight / 4;
+
+            //force font to best size if squareSize is near to multiple of 48px
+            if ((squareSize >= 40) && (squareSize < 56)) //48x48
+            {
+                fontWidth = 8;
+                fontHeight = 8;
+                fontCharSpacing = 1;
+                fontLineSpacing = 2;
+            }
+            else if ((squareSize >= 84) && (squareSize < 108)) //96x96
+            {
+                fontWidth = 16;
+                fontHeight = 16;
+                fontCharSpacing = 1;
+                fontLineSpacing = 4;
+            }
+            else if ((squareSize >= 128) && (squareSize < 160)) //144x144
+            {
+                fontWidth = 24;
+                fontHeight = 24;
+                fontCharSpacing = 2;
+                fontLineSpacing = 6;
+            }
+
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
 
             log = new IB2HtmlLogBox(this);
@@ -438,6 +472,107 @@ namespace IceBlink2mini
             CurrentResourceFontLoader = new ResourceFontLoader(factoryDWrite, folderPath);
             CurrentFontCollection = new SharpDX.DirectWrite.FontCollection(factoryDWrite, CurrentResourceFontLoader, CurrentResourceFontLoader.Key);
             FontFamilyName = mod.fontName;
+        }
+        private void fillCharList()
+        {
+            charList.Add('A', new SharpDX.RectangleF(fontWidth * 0, fontHeight * 0, fontWidth, fontHeight));
+            charList.Add('B', new SharpDX.RectangleF(fontWidth * 1, fontHeight * 0, fontWidth, fontHeight));
+            charList.Add('C', new SharpDX.RectangleF(fontWidth * 2, fontHeight * 0, fontWidth, fontHeight));
+            charList.Add('D', new SharpDX.RectangleF(fontWidth * 3, fontHeight * 0, fontWidth, fontHeight));
+            charList.Add('E', new SharpDX.RectangleF(fontWidth * 4, fontHeight * 0, fontWidth, fontHeight));
+            charList.Add('F', new SharpDX.RectangleF(fontWidth * 5, fontHeight * 0, fontWidth, fontHeight));
+            charList.Add('G', new SharpDX.RectangleF(fontWidth * 6, fontHeight * 0, fontWidth, fontHeight));
+            charList.Add('H', new SharpDX.RectangleF(fontWidth * 7, fontHeight * 0, fontWidth, fontHeight));
+            charList.Add('I', new SharpDX.RectangleF(fontWidth * 8, fontHeight * 0, fontWidth, fontHeight));
+            charList.Add('J', new SharpDX.RectangleF(fontWidth * 9, fontHeight * 0, fontWidth, fontHeight));
+
+            charList.Add('K', new SharpDX.RectangleF(fontWidth * 0, fontHeight * 1, fontWidth, fontHeight));
+            charList.Add('L', new SharpDX.RectangleF(fontWidth * 1, fontHeight * 1, fontWidth, fontHeight));
+            charList.Add('M', new SharpDX.RectangleF(fontWidth * 2, fontHeight * 1, fontWidth, fontHeight));
+            charList.Add('N', new SharpDX.RectangleF(fontWidth * 3, fontHeight * 1, fontWidth, fontHeight));
+            charList.Add('O', new SharpDX.RectangleF(fontWidth * 4, fontHeight * 1, fontWidth, fontHeight));
+            charList.Add('P', new SharpDX.RectangleF(fontWidth * 5, fontHeight * 1, fontWidth, fontHeight));
+            charList.Add('Q', new SharpDX.RectangleF(fontWidth * 6, fontHeight * 1, fontWidth, fontHeight));
+            charList.Add('R', new SharpDX.RectangleF(fontWidth * 7, fontHeight * 1, fontWidth, fontHeight));
+            charList.Add('S', new SharpDX.RectangleF(fontWidth * 8, fontHeight * 1, fontWidth, fontHeight));
+            charList.Add('T', new SharpDX.RectangleF(fontWidth * 9, fontHeight * 1, fontWidth, fontHeight));
+
+            charList.Add('U', new SharpDX.RectangleF(fontWidth * 0, fontHeight * 2, fontWidth, fontHeight));
+            charList.Add('V', new SharpDX.RectangleF(fontWidth * 1, fontHeight * 2, fontWidth, fontHeight));
+            charList.Add('W', new SharpDX.RectangleF(fontWidth * 2, fontHeight * 2, fontWidth, fontHeight));
+            charList.Add('X', new SharpDX.RectangleF(fontWidth * 3, fontHeight * 2, fontWidth, fontHeight));
+            charList.Add('Y', new SharpDX.RectangleF(fontWidth * 4, fontHeight * 2, fontWidth, fontHeight));
+            charList.Add('Z', new SharpDX.RectangleF(fontWidth * 5, fontHeight * 2, fontWidth, fontHeight));
+            charList.Add('a', new SharpDX.RectangleF(fontWidth * 6, fontHeight * 2, fontWidth, fontHeight));
+            charList.Add('b', new SharpDX.RectangleF(fontWidth * 7, fontHeight * 2, fontWidth, fontHeight));
+            charList.Add('c', new SharpDX.RectangleF(fontWidth * 8, fontHeight * 2, fontWidth, fontHeight));
+            charList.Add('d', new SharpDX.RectangleF(fontWidth * 9, fontHeight * 2, fontWidth, fontHeight));
+
+            charList.Add('e', new SharpDX.RectangleF(fontWidth * 0, fontHeight * 3, fontWidth, fontHeight));
+            charList.Add('f', new SharpDX.RectangleF(fontWidth * 1, fontHeight * 3, fontWidth, fontHeight));
+            charList.Add('g', new SharpDX.RectangleF(fontWidth * 2, fontHeight * 3, fontWidth, fontHeight));
+            charList.Add('h', new SharpDX.RectangleF(fontWidth * 3, fontHeight * 3, fontWidth, fontHeight));
+            charList.Add('i', new SharpDX.RectangleF(fontWidth * 4, fontHeight * 3, fontWidth, fontHeight));
+            charList.Add('j', new SharpDX.RectangleF(fontWidth * 5, fontHeight * 3, fontWidth, fontHeight));
+            charList.Add('k', new SharpDX.RectangleF(fontWidth * 6, fontHeight * 3, fontWidth, fontHeight));
+            charList.Add('l', new SharpDX.RectangleF(fontWidth * 7, fontHeight * 3, fontWidth, fontHeight));
+            charList.Add('m', new SharpDX.RectangleF(fontWidth * 8, fontHeight * 3, fontWidth, fontHeight));
+            charList.Add('n', new SharpDX.RectangleF(fontWidth * 9, fontHeight * 3, fontWidth, fontHeight));
+
+            charList.Add('o', new SharpDX.RectangleF(fontWidth * 0, fontHeight * 4, fontWidth, fontHeight));
+            charList.Add('p', new SharpDX.RectangleF(fontWidth * 1, fontHeight * 4, fontWidth, fontHeight));
+            charList.Add('q', new SharpDX.RectangleF(fontWidth * 2, fontHeight * 4, fontWidth, fontHeight));
+            charList.Add('r', new SharpDX.RectangleF(fontWidth * 3, fontHeight * 4, fontWidth, fontHeight));
+            charList.Add('s', new SharpDX.RectangleF(fontWidth * 4, fontHeight * 4, fontWidth, fontHeight));
+            charList.Add('t', new SharpDX.RectangleF(fontWidth * 5, fontHeight * 4, fontWidth, fontHeight));
+            charList.Add('u', new SharpDX.RectangleF(fontWidth * 6, fontHeight * 4, fontWidth, fontHeight));
+            charList.Add('v', new SharpDX.RectangleF(fontWidth * 7, fontHeight * 4, fontWidth, fontHeight));
+            charList.Add('w', new SharpDX.RectangleF(fontWidth * 8, fontHeight * 4, fontWidth, fontHeight));
+            charList.Add('x', new SharpDX.RectangleF(fontWidth * 9, fontHeight * 4, fontWidth, fontHeight));
+
+            charList.Add('y', new SharpDX.RectangleF(fontWidth * 0, fontHeight * 5, fontWidth, fontHeight));
+            charList.Add('z', new SharpDX.RectangleF(fontWidth * 1, fontHeight * 5, fontWidth, fontHeight));
+            charList.Add('0', new SharpDX.RectangleF(fontWidth * 2, fontHeight * 5, fontWidth, fontHeight));
+            charList.Add('1', new SharpDX.RectangleF(fontWidth * 3, fontHeight * 5, fontWidth, fontHeight));
+            charList.Add('2', new SharpDX.RectangleF(fontWidth * 4, fontHeight * 5, fontWidth, fontHeight));
+            charList.Add('3', new SharpDX.RectangleF(fontWidth * 5, fontHeight * 5, fontWidth, fontHeight));
+            charList.Add('4', new SharpDX.RectangleF(fontWidth * 6, fontHeight * 5, fontWidth, fontHeight));
+            charList.Add('5', new SharpDX.RectangleF(fontWidth * 7, fontHeight * 5, fontWidth, fontHeight));
+            charList.Add('6', new SharpDX.RectangleF(fontWidth * 8, fontHeight * 5, fontWidth, fontHeight));
+            charList.Add('7', new SharpDX.RectangleF(fontWidth * 9, fontHeight * 5, fontWidth, fontHeight));
+
+            charList.Add('8', new SharpDX.RectangleF(fontWidth * 0, fontHeight * 6, fontWidth, fontHeight));
+            charList.Add('9', new SharpDX.RectangleF(fontWidth * 1, fontHeight * 6, fontWidth, fontHeight));
+            charList.Add('.', new SharpDX.RectangleF(fontWidth * 2, fontHeight * 6, fontWidth, fontHeight));
+            charList.Add(',', new SharpDX.RectangleF(fontWidth * 3, fontHeight * 6, fontWidth, fontHeight));
+            charList.Add('"', new SharpDX.RectangleF(fontWidth * 4, fontHeight * 6, fontWidth, fontHeight));
+            charList.Add('\'', new SharpDX.RectangleF(fontWidth * 5, fontHeight * 6, fontWidth, fontHeight));
+            charList.Add('?', new SharpDX.RectangleF(fontWidth * 6, fontHeight * 6, fontWidth, fontHeight));
+            charList.Add('!', new SharpDX.RectangleF(fontWidth * 7, fontHeight * 6, fontWidth, fontHeight));
+            charList.Add('~', new SharpDX.RectangleF(fontWidth * 8, fontHeight * 6, fontWidth, fontHeight));
+            charList.Add('#', new SharpDX.RectangleF(fontWidth * 9, fontHeight * 6, fontWidth, fontHeight));
+
+            charList.Add('$', new SharpDX.RectangleF(fontWidth * 0, fontHeight * 7, fontWidth, fontHeight));
+            charList.Add('%', new SharpDX.RectangleF(fontWidth * 1, fontHeight * 7, fontWidth, fontHeight));
+            charList.Add('^', new SharpDX.RectangleF(fontWidth * 2, fontHeight * 7, fontWidth, fontHeight));
+            charList.Add('&', new SharpDX.RectangleF(fontWidth * 3, fontHeight * 7, fontWidth, fontHeight));
+            charList.Add('*', new SharpDX.RectangleF(fontWidth * 4, fontHeight * 7, fontWidth, fontHeight));
+            charList.Add('(', new SharpDX.RectangleF(fontWidth * 5, fontHeight * 7, fontWidth, fontHeight));
+            charList.Add(')', new SharpDX.RectangleF(fontWidth * 6, fontHeight * 7, fontWidth, fontHeight));
+            charList.Add('-', new SharpDX.RectangleF(fontWidth * 7, fontHeight * 7, fontWidth, fontHeight));
+            charList.Add('_', new SharpDX.RectangleF(fontWidth * 8, fontHeight * 7, fontWidth, fontHeight));
+            charList.Add('+', new SharpDX.RectangleF(fontWidth * 9, fontHeight * 7, fontWidth, fontHeight));
+
+            charList.Add('=', new SharpDX.RectangleF(fontWidth * 0, fontHeight * 8, fontWidth, fontHeight));
+            charList.Add('[', new SharpDX.RectangleF(fontWidth * 1, fontHeight * 8, fontWidth, fontHeight));
+            charList.Add(']', new SharpDX.RectangleF(fontWidth * 2, fontHeight * 8, fontWidth, fontHeight));
+            charList.Add('/', new SharpDX.RectangleF(fontWidth * 3, fontHeight * 8, fontWidth, fontHeight));
+            charList.Add(':', new SharpDX.RectangleF(fontWidth * 4, fontHeight * 8, fontWidth, fontHeight));
+            charList.Add(';', new SharpDX.RectangleF(fontWidth * 5, fontHeight * 8, fontWidth, fontHeight));
+            charList.Add('<', new SharpDX.RectangleF(fontWidth * 6, fontHeight * 8, fontWidth, fontHeight));
+            charList.Add('>', new SharpDX.RectangleF(fontWidth * 7, fontHeight * 8, fontWidth, fontHeight));
+            //charList.Add('/', new SharpDX.RectangleF(64, 64, 8, 12));
+            charList.Add(' ', new SharpDX.RectangleF(fontWidth * 9, fontHeight * 8, fontWidth, fontHeight));
         }
 
         #region Area Music/Sounds
@@ -845,6 +980,45 @@ namespace IceBlink2mini
         }
 
         //DRAW ROUTINES
+        public void DrawText(string text, float xLoc, float yLoc, string color)
+        {
+            SharpDX.Direct2D1.Bitmap bm = cc.GetFromBitmapList("fontWh2.png");
+            if (color.Equals("bk"))
+            {
+                bm = cc.GetFromBitmapList("fontBk2.png");
+            }
+            else if (color.Equals("bu"))
+            {
+                bm = cc.GetFromBitmapList("fontBu.png");
+            }
+            else if (color.Equals("gn"))
+            {
+                bm = cc.GetFromBitmapList("fontGn2.png");
+            }
+            else if (color.Equals("gy"))
+            {
+                bm = cc.GetFromBitmapList("fontGy.png");
+            }
+            else if (color.Equals("ma"))
+            {
+                bm = cc.GetFromBitmapList("fontMa.png");
+            }
+            else if (color.Equals("rd"))
+            {
+                bm = cc.GetFromBitmapList("fontRd.png");
+            }
+            else if (color.Equals("yl"))
+            {
+                bm = cc.GetFromBitmapList("fontYl.png");
+            }
+
+            float x = 0;
+            foreach (char c in text)
+            {
+                DrawD2DBitmap(bm, charList[c], new SharpDX.RectangleF(xLoc + x, yLoc + oYshift, fontWidth, fontHeight), 1);
+                x += fontWidth + fontCharSpacing;
+            }
+        }
         public void CleanUpDrawTextResources()
         {
             if (textFormat != null)
@@ -1267,6 +1441,10 @@ namespace IceBlink2mini
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target)
         {
             DrawD2DBitmap(bitmap, source, target, false);
+        }
+        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int ibmini)
+        {
+            DrawD2DBitmap(bitmap, source, target, 0.0f, false, 1.0f, 0, 0, 0, 0, true);
         }
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror)
         {

@@ -17,7 +17,7 @@ namespace IceBlink2mini
 	    private IbbButton btnLeft = null;
 	    private IbbButton btnRight = null;
 	    private IbbButton btnModuleName = null;
-        private IbbHtmlTextBox description;
+        private IBminiTextBox description;
 	    private List<Module> moduleList = new List<Module>();
 	    private List<Bitmap> titleList = new List<Bitmap>();
 	    private int moduleIndex = 0;
@@ -29,7 +29,7 @@ namespace IceBlink2mini
 		    gv = g;
 		    setControlsStart();
             int pH = (int)((float)gv.screenHeight / 100.0f);
-            description = new IbbHtmlTextBox(gv);
+            description = new IBminiTextBox(gv);
             description.tbXloc = 0 * gv.squareSize + gv.oXshift;
             description.tbYloc = 6 * gv.squareSize + gv.oYshift;
             description.tbWidth = 16 * gv.squareSize;
@@ -117,15 +117,14 @@ namespace IceBlink2mini
             if ((moduleList.Count > 0) && (moduleIndex < moduleList.Count))
 		    {
                 
-                string textToSpan = "<u>Module Description</u>" + "<br>";
-                //textToSpan += "<b><i><big>" + moduleList[moduleIndex].moduleLabelName + "</big></i></b><br>";
-                textToSpan += moduleList[moduleIndex].moduleDescription;
-                description.logLinesList.Clear();
-                description.AddHtmlTextToLog(textToSpan);
+                string textToSpan = "<gn>Module Description</gn>" + "<br>";
                 description.tbXloc = 4 * gv.squareSize + gv.oXshift;
                 description.tbYloc = 6 * gv.squareSize + gv.oYshift;
-                description.tbWidth = 12 * gv.squareSize;
+                description.tbWidth = 9 * gv.squareSize;
                 description.tbHeight = 6 * gv.squareSize;
+                textToSpan += moduleList[moduleIndex].moduleDescription;
+                description.linesList.Clear();
+                description.AddFormattedTextToTextBox(textToSpan);
                 description.onDrawLogBox();
                 
                 btnModuleName.Text = moduleList[moduleIndex].moduleLabelName;

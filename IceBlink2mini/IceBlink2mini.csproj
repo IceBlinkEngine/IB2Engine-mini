@@ -135,6 +135,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IBMessageBox.designer.cs" />
+    <Compile Include="IBminiFormattedLine.cs" />
+    <Compile Include="IBminiFormattedWord.cs" />
+    <Compile Include="IBminiTextBox.cs" />
     <Compile Include="IbRect.cs" />
     <Compile Include="IbRectF.cs" />
     <Compile Include="IBScript.cs" />

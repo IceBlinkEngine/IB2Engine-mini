@@ -42,9 +42,9 @@ namespace IceBlink2mini
         {
             try
             {
-                if (File.Exists(gv.cc.GetModulePath() + "\\data\\MainUILayout.json"))
+                if (File.Exists(gv.mainDirectory + "\\override\\MainUILayout.json"))
                 {
-                    using (StreamReader file = File.OpenText(gv.cc.GetModulePath() + "\\data\\MainUILayout.json"))
+                    using (StreamReader file = File.OpenText(gv.mainDirectory + "\\override\\MainUILayout.json"))
                     {
                         JsonSerializer serializer = new JsonSerializer();
                         mainUiLayout = (IB2UILayout)serializer.Deserialize(file, typeof(IB2UILayout));
@@ -101,22 +101,6 @@ namespace IceBlink2mini
                 gv.errorLog(ex.ToString());
             }
         }
-        public void saveUILayout()
-        {            
-            try
-            {
-                string filepath = gv.mainDirectory + "\\MainUILayout.json";
-                string json = JsonConvert.SerializeObject(mainUiLayout, Newtonsoft.Json.Formatting.Indented);
-                using (StreamWriter sw = new StreamWriter(filepath))
-                {
-                    sw.Write(json.ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }     
         
         //MAIN SCREEN UPDATE
         public void Update(int elapsed)
@@ -840,10 +824,10 @@ namespace IceBlink2mini
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
+                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetX - 1) * gv.squareSize, (gv.playerOffsetY * 2) * gv.squareSize - (6 * gv.pS), 100, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY - 1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
+            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetX - 1) * gv.squareSize, (gv.playerOffsetY * 2) * gv.squareSize - (6 * gv.pS), 100, 100), 1.0f, Color.White);
         }
         public void drawFogOfWar()
         {            

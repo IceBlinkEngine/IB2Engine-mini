@@ -125,9 +125,9 @@ namespace IceBlink2mini
             {
                 thisFontHeight = gv.drawFontSmallHeight;
             }
-            
+
             // DRAW TEXT
-            float stringSize = gv.cc.MeasureString(Text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+            /*float stringSize = gv.cc.MeasureString(Text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
             //place in the center
             float ulX = ((this.Width) - stringSize) / 2;
@@ -141,10 +141,29 @@ namespace IceBlink2mini
                 }
             }
             gv.DrawText(Text, this.X + ulX, this.Y + ulY, scaler, Color.White);
-            
+            */
+
+            //new way
+            float stringSize = Text.Length * (gv.fontWidth + gv.fontCharSpacing);
+
+            //place in the center
+            float ulX = ((this.Width) - stringSize) / 2;
+            float ulY = ((this.Height) - gv.fontHeight) / 2;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText(Text, this.X + ulX + x, this.Y + ulY + y, "bk");
+                }
+            }
+            gv.DrawText(Text, this.X + ulX, this.Y + ulY, "wh");
+
+
+
             // DRAW QUANTITY
-            stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
-            
+            /*stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+
             //place in the bottom right quadrant
             ulX = (((this.Width) - stringSize) / 8) * 7;
             ulY = (((this.Height) - thisFontHeight) / 8) * 7;
@@ -157,11 +176,30 @@ namespace IceBlink2mini
                 }
             }
             gv.DrawText(Quantity, this.X + ulX, this.Y + ulY, scaler, Color.White);
+            */
+
+            //new way
+            stringSize = Quantity.Length * (gv.fontWidth + gv.fontCharSpacing);
+
+            //place in the bottom right
+            ulX = (((this.Width) - stringSize) / 8) * 7;
+            ulY = (((this.Height) - gv.fontHeight) / 8) * 7;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText(Quantity, this.X + ulX + x, this.Y + ulY + y, "bk");
+                }
+            }
+            gv.DrawText(Quantity, this.X + ulX, this.Y + ulY, "wh");
+
+
 
             // DRAW HOTKEY
             if (gv.showHotKeys)
             {
-                stringSize = gv.cc.MeasureString(HotKey, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+                /*stringSize = gv.cc.MeasureString(HotKey, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
                 //place in the bottom center
                 ulX = ((this.Width) - stringSize) / 2;
@@ -175,6 +213,23 @@ namespace IceBlink2mini
                     }
                 }
                 gv.DrawText(HotKey, this.X + ulX, this.Y + ulY, scaler, Color.Red);
+                */
+
+                //new way
+                stringSize = HotKey.Length * (gv.fontWidth + gv.fontCharSpacing);
+
+                //place in the bottom center
+                ulX = ((this.Width) - stringSize) / 2;
+                ulY = (((this.Height) - gv.fontHeight) / 4) * 3;
+
+                for (int x = -2; x <= 2; x++)
+                {
+                    for (int y = -2; y <= 2; y++)
+                    {
+                        gv.DrawText(HotKey, this.X + ulX + x, this.Y + ulY + y, "bk");
+                    }
+                }
+                gv.DrawText(HotKey, this.X + ulX, this.Y + ulY, "gn");
             }
         }
     }

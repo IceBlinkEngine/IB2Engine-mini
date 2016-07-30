@@ -266,7 +266,6 @@ namespace IceBlink2mini
                 MessageBox.Show("draw text on button not working: " + ex.ToString());
             }
         }
-                
     }
 
     public class IBPanel : Panel
