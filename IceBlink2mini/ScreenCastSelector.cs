@@ -174,9 +174,9 @@ namespace IceBlink2mini
             //DRAW TEXT		
 		    locY = (gv.squareSize * 0) + (pH * 2);
 		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-		    gv.DrawText("Select a " + mod.spellLabelSingular + " to Cast", noticeX, pH * 3);
+		    gv.DrawText("Select a " + mod.spellLabelSingular + " to Cast", noticeX, pH * 3, "wh");
 		    //gv.mSheetTextPaint.setColor(Color.YELLOW);
-		    gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY);
+		    gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY, "wh");
 		
 		    //DRAW NOTIFICATIONS
 		    if (isSelectedSpellSlotInKnownSpellsRange())
@@ -192,12 +192,12 @@ namespace IceBlink2mini
 					    if (pc.sp >= GetCurrentlySelectedSpell().costSP)
 					    {
 						    //gv.mSheetTextPaint.setColor(Color.GREEN);
-                            gv.DrawText("Available to Cast", noticeX, noticeY, 1.0f, Color.Lime);
+                            gv.DrawText("Available to Cast", noticeX, noticeY, "gn");
 					    }
 					    else //if known but not enough spell points, "Insufficient SP to Cast" in yellow
 					    {
 						    //gv.mSheetTextPaint.setColor(Color.YELLOW);
-                            gv.DrawText("Insufficient SP", noticeX, noticeY, 1.0f, Color.Yellow);
+                            gv.DrawText("Insufficient SP", noticeX, noticeY, "yl");
 					    }					
 				    }
 				    //not in combat so check if spell can be used on adventure maps
@@ -207,25 +207,25 @@ namespace IceBlink2mini
 					    if (pc.sp >= GetCurrentlySelectedSpell().costSP)
 					    {
 						    //gv.mSheetTextPaint.setColor(Color.GREEN);
-                            gv.DrawText("Available to Cast", noticeX, noticeY, 1.0f, Color.Lime);
+                            gv.DrawText("Available to Cast", noticeX, noticeY, "gn");
 					    }
 					    else //if known but not enough spell points, "Insufficient SP to Cast" in yellow
 					    {
 						    //gv.mSheetTextPaint.setColor(Color.YELLOW);
-                            gv.DrawText("Insufficient SP", noticeX, noticeY, 1.0f, Color.Yellow);
+                            gv.DrawText("Insufficient SP", noticeX, noticeY, "yl");
 					    }					
 				    }
 				    else //can't be used on adventure map
 				    {
 					    //gv.mSheetTextPaint.setColor(Color.YELLOW);
-                        gv.DrawText("Not Available Here", noticeX, noticeY, 1.0f, Color.Yellow);
+                        gv.DrawText("Not Available Here", noticeX, noticeY, "yl");
 				    }	
 			    }
 			    else //spell not known
 			    {
 				    //if unknown spell, "Spell Not Known Yet" in red
 				    //gv.mSheetTextPaint.setColor(Color.RED);
-                    gv.DrawText(mod.spellLabelSingular + " Not Known Yet", noticeX, noticeY, 1.0f, Color.Red);
+                    gv.DrawText(mod.spellLabelSingular + " Not Known Yet", noticeX, noticeY, "rd");
 			    }
 		    }		
 		

@@ -162,7 +162,7 @@ namespace IceBlink2mini
                 }
 
                 // DRAW TEXT
-                float stringSize = gv.cc.MeasureString(Text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+                /*float stringSize = gv.cc.MeasureString(Text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
                 //place in the center
                 float ulX = ((Width * gv.screenDensity) - stringSize) / 2;
@@ -180,9 +180,30 @@ namespace IceBlink2mini
                 int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
                 int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
                 gv.DrawText(Text, xLoc1, yLoc1, scaler, Color.White);
+                */
+                //new way
+                int stringSize = Text.Length * (gv.fontWidth + gv.fontCharSpacing);
+
+                //place in the center
+                int ulX = ((this.Width) - stringSize) / 2;
+                int ulY = ((this.Height) - gv.fontHeight) / 2;
+
+                for (int x = 0; x <= 2; x++)
+                {
+                    for (int y = 0; y <= 2; y++)
+                    {
+                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                        gv.DrawText(Text, xLoc, yLoc, "bk");
+                    }
+                }
+                int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
+                int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
+                gv.DrawText(Text, xLoc1, yLoc1, "wh");
+
 
                 // DRAW QUANTITY
-                stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+                /*stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
                 //place in the bottom right quadrant
                 ulX = (((Width * gv.screenDensity) - stringSize) / 8) * 7;
@@ -200,11 +221,33 @@ namespace IceBlink2mini
                 int xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
                 int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
                 gv.DrawText(Quantity, xLoc2, yLoc2, scaler, Color.White);
+                */
+                //new way
+                stringSize = Quantity.Length * (gv.fontWidth + gv.fontCharSpacing);
+
+                //place in the bottom right
+                ulX = (((this.Width) - stringSize) / 8) * 7;
+                ulY = (((this.Height) - gv.fontHeight) / 8) * 7;
+
+                for (int x = 0; x <= 2; x++)
+                {
+                    for (int y = 0; y <= 2; y++)
+                    {
+                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                        gv.DrawText(Quantity, xLoc, yLoc, "bk");
+                    }
+                }
+                int xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
+                int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
+                gv.DrawText(Quantity, xLoc2, yLoc2, "wh");
+
+
 
                 // DRAW HOTKEY
                 if (gv.showHotKeys)
                 {
-                    stringSize = gv.cc.MeasureString(HotKey, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+                    /*stringSize = gv.cc.MeasureString(HotKey, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
                     //place in the bottom center
                     ulX = ((Width * gv.screenDensity) - stringSize) / 2;
@@ -222,6 +265,26 @@ namespace IceBlink2mini
                     int xLoc3 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
                     int yLoc3 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
                     gv.DrawText(HotKey, xLoc3, yLoc3, scaler, Color.Red);
+                    */
+                    //new way
+                    stringSize = HotKey.Length * (gv.fontWidth + gv.fontCharSpacing);
+
+                    //place in the bottom center
+                    ulX = ((this.Width) - stringSize) / 2;
+                    ulY = (((this.Height) - gv.fontHeight) / 4) * 3;
+
+                    for (int x = 0; x <= 2; x++)
+                    {
+                        for (int y = 0; y <= 2; y++)
+                        {
+                            int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                            int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                            gv.DrawText(HotKey, xLoc, yLoc, "bk");
+                        }
+                    }
+                    int xLoc3 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
+                    int yLoc3 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
+                    gv.DrawText(HotKey, xLoc3, yLoc3, "rd");
                 }
             }
         }

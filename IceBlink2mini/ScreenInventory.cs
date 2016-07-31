@@ -198,11 +198,11 @@ namespace IceBlink2mini
     	
             //DRAW TEXT		
 		    locY = gv.squareSize + (pH * 2);
-		    gv.DrawText("Party", locX + (gv.squareSize * 5) + pW * 2, locY);
-            gv.DrawText("Inventory", locX + (gv.squareSize * 5) + pW * 2, locY += spacing);
+		    gv.DrawText("Party", locX + (gv.squareSize * 5) + pW * 2, locY, "wh");
+            gv.DrawText("Inventory", locX + (gv.squareSize * 5) + pW * 2, locY += spacing, "wh");
 		    locY = gv.squareSize + (pH * 2);
-		    gv.DrawText("Party", tabX2 + (gv.squareSize * 6), locY);
-            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + (gv.squareSize * 6), locY += spacing);
+		    gv.DrawText("Party", tabX2 + (gv.squareSize * 6), locY, "wh");
+            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + (gv.squareSize * 6), locY += spacing, "wh");
 
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX
 		    btnPageIndex.Draw();

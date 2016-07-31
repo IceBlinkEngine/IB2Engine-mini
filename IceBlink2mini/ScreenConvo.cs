@@ -29,9 +29,10 @@ namespace IceBlink2mini
         public Bitmap convoPlusBitmap;
         private bool doActions = true;
         public List<int> nodeIndexList = new List<int>();
-        private IbbHtmlTextBox htmltext;
+        //private IbbHtmlTextBox htmltext;
+        private IBminiTextBox htmltext;
 
-	    public ScreenConvo(Module m, GameView g)
+        public ScreenConvo(Module m, GameView g)
 	    {
 		    mod = m;
 		    gv = g;
@@ -44,7 +45,7 @@ namespace IceBlink2mini
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int padW = gv.squareSize/6;
 
-            htmltext = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
+            htmltext = new IBminiTextBox(gv, 320, 100, 500, 300);
             htmltext.showBoxBorder = false;
 
 		    for (int x = 0; x < 6; x++)
@@ -127,7 +128,7 @@ namespace IceBlink2mini
             int pH = (int)((float)gv.screenHeight / 100.0f);
             int startX = gv.squareSize * 3 + (pW * 3);
             int startY = pH * 4;
-            int width = gv.screenWidth - startX - (pW * 5);
+            int width = gv.screenWidth - startX - (pW * 30);
 		
 		    if (currentConvo.Narration)
             {
@@ -151,15 +152,15 @@ namespace IceBlink2mini
             htmltext.tbYloc = startY;
             htmltext.tbWidth = width;
             htmltext.tbHeight = pH * 50;
-            htmltext.logLinesList.Clear();
-            htmltext.AddHtmlTextToLog(textToSpan);
+            htmltext.linesList.Clear();
+            htmltext.AddFormattedTextToTextBox(textToSpan);
             htmltext.onDrawLogBox();
-            float totalHeight = 0;
-            foreach (FormattedLine fl in htmltext.logLinesList)
+            int totalHeight = htmltext.linesList.Count * (gv.fontHeight + gv.fontLineSpacing);
+            /*foreach (FormattedLine fl in htmltext.logLinesList)
             {
                 totalHeight += fl.lineHeight;
-            }
-            npcNodeEndY = startY + (int)totalHeight;
+            }*/
+            npcNodeEndY = startY + totalHeight;
 	    }
 	    public void drawPcNode()
 	    {          
@@ -169,7 +170,7 @@ namespace IceBlink2mini
 		    int pad = (int)((float)gv.screenHeight / 100.0f);
 		    int startX = gv.squareSize * 1;
 		    int sY = (int)((float)gv.screenHeight / 100.0f) * 4;
-		    int startY = gv.squareSize * 4;		
+		    int startY = gv.squareSize * 4 + (pH * 5);		
 		    int width = gv.screenWidth - startX - startX;
 
 		    if (currentConvo.Narration)
@@ -195,30 +196,31 @@ namespace IceBlink2mini
                 string textToSpan = txt;
                 if (pcNodeGlow == cnt)
                 {
-                    textToSpan = "<font color='red'>" + txt + "</font>";
+                    textToSpan = "<gn>" + txt + "</gn>";
                 }
                 else
                 {
-                    textToSpan = "<font color='white'>" + txt + "</font>";
+                    textToSpan = "<wh>" + txt + "</wh>";
                 }
                 
                 htmltext.tbXloc = startX;
                 htmltext.tbYloc = startY;
                 htmltext.tbWidth = width;
                 htmltext.tbHeight = pH * 50;
-                htmltext.logLinesList.Clear();
-                htmltext.AddHtmlTextToLog(textToSpan);
+                htmltext.linesList.Clear();
+                htmltext.AddFormattedTextToTextBox(textToSpan);
                 htmltext.onDrawLogBox();
-                
-                float totalHeight = 0;
-                float totalWidth = htmltext.tbWidth;
-                foreach (FormattedLine fl in htmltext.logLinesList)
+
+                int totalHeight = htmltext.linesList.Count * (gv.fontHeight + gv.fontLineSpacing);
+                //float totalHeight = 0;
+                int totalWidth = htmltext.tbWidth;
+                /*foreach (FormattedLine fl in htmltext.logLinesList)
                 {
                     totalHeight += fl.lineHeight;
-                }
-                currentPcNodeRectList.Add(new IbRect(startX, startY + gv.oYshift, (int)totalWidth, (int)totalHeight));
+                }*/
+                currentPcNodeRectList.Add(new IbRect(startX, startY + gv.oYshift, totalWidth, totalHeight));
 
-                startY += (int)totalHeight + pad;
+                startY += totalHeight + pad;
                 cnt++;
             }
 	    }
@@ -648,10 +650,10 @@ namespace IceBlink2mini
 	            string npcNode = replaceText(currentConvo.GetContentNodeById(parentIdNum).conversationText);
 	            string pcNode = replaceText(selectedNod.conversationText);
 	            //write to log
-                gv.cc.addLogText("<font color='yellow'>" + NPCname + ": </font>" +
-                                 "<font color='silver'>" + npcNode + "<br>" + "</font>" +
-                                 "<font color='aqua'>" + mod.playerList[mod.selectedPartyLeader].name + ": </font>" +
-                                 "<font color='silver'>" + pcNode + "</font>");
+                gv.cc.addLogText("<yl>" + NPCname + ": </yl>" +
+                                 "<gy>" + npcNode + "<br>" + "</gy>" +
+                                 "<bu>" + mod.playerList[mod.selectedPartyLeader].name + ": </bu>" +
+                                 "<gy>" + pcNode + "</gy>");
 	
 	            int childIdNum = currentConvo.GetContentNodeById(parentIdNum).subNodes[index].idNum;
 	            // if PC node choosen was a linked node, then return the idNum of the linked node

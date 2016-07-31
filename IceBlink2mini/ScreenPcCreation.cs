@@ -29,6 +29,8 @@ namespace IceBlink2mini
         private IbbButton btnFinished = null;
         private IbbButton btnAbort = null;
 
+        private IBminiTextBox description;
+
         private Bitmap blankItemSlot;
         private int pcCreationIndex = 0;
         //private int pcTokenSelectionIndex = 0;
@@ -50,7 +52,12 @@ namespace IceBlink2mini
             CreateRaceList();
             resetPC();
             setControlsStart();
-
+            description = new IBminiTextBox(gv);
+            description.tbXloc = 0 * gv.squareSize + gv.oXshift;
+            description.tbYloc = 3 * gv.squareSize + gv.oYshift;
+            description.tbWidth = 6 * gv.squareSize;
+            description.tbHeight = 6 * gv.squareSize;
+            description.showBoxBorder = false;
         }
 
         public void resetPC()
@@ -368,21 +375,21 @@ namespace IceBlink2mini
             int pH = (int)((float)gv.screenHeight / 100.0f);
 
             int locX = 6 * gv.squareSize;
-            int textH = (int)gv.drawFontRegHeight;
-            int spacing = textH;
-            int locY = 4 * gv.squareSize + gv.squareSize / 4;
-            int locY2 = 4 * gv.squareSize + gv.squareSize / 4;
+            //int textH = (int)gv.drawFontRegHeight;
+            int spacing = gv.fontHeight + gv.fontLineSpacing;
+            int locY = 4 * gv.squareSize + gv.squareSize / 2;
+            int locY2 = 4 * gv.squareSize + gv.squareSize / 2;
             int tabX = pW * 50;
             int tabX2 = pW * 50 + gv.squareSize - pW;
             int leftStartY = pH * 20;
-            int tokenStartX = locX + (textH * 5);
+            int tokenStartX = locX + (gv.fontHeight * 5);
             int tokenStartY = pH * 5 + (spacing / 2);
-            int portraitStartX = 12 * gv.squareSize + (textH * 5);
+            int portraitStartX = 12 * gv.squareSize + (gv.fontHeight * 5);
             int portraitStartY = pH * 5 + (spacing / 2);
             int tokenRectPad = pW * 1;
 
             //Page Title
-            gv.DrawText("CREATE CHARACTER", pW * 40 + gv.squareSize, pH * 1);
+            gv.DrawText("CREATE CHARACTER", pW * 40 + gv.squareSize, pH * 1, "wh");
 
             Color color = Color.White;
 
@@ -392,40 +399,43 @@ namespace IceBlink2mini
             
             if (mod.use3d6 && mod.useLuck)
             {
-                gv.DrawText("Rolling: 3d6, Luck is high for those who need it", locX + pW, locY += (spacing));
+                gv.DrawText("Rolling: 3d6, Luck is high for those who need it", locX + pW, locY += (spacing), "wh");
             }
             else if (mod.use3d6 && !mod.useLuck)
             {
-                gv.DrawText("Rolling: 3d6", locX + pW, locY += (spacing));
+                gv.DrawText("Rolling: 3d6", locX + pW, locY += (spacing), "wh");
             }
             else if (!mod.use3d6 && mod.useLuck)
             {
-                gv.DrawText("Rolling: 6 + d12, Luck is high for those who need it", locX + pW, locY += (spacing));
+                gv.DrawText("Rolling: 6 + d12, Luck is high for those who need it", locX + pW, locY += (spacing), "wh");
             }
             else if (!mod.use3d6 && !mod.useLuck)
             {
-                gv.DrawText("Rolling: 6 + d12", locX + pW, locY += (spacing));
+                gv.DrawText("Rolling: 6 + d12", locX + pW, locY += (spacing), "wh");
 
             }
-            gv.DrawText("STR:  " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength + " (" + ((pc.strength - 10) / 2) + ")", locX + pW, locY += (spacing * 2));
-            gv.DrawText("AC: " + actext, tabX2, locY2 += (spacing * 3));
-            gv.DrawText("BAB: " + pc.baseAttBonus + ", Melee to hit/damage: " + (pc.baseAttBonus + ((pc.strength - 10) / 2)) + "/" + ((pc.strength - 10) / 2) + ", Ranged to hit: " + (pc.baseAttBonus + ((pc.dexterity - 10) / 2)), tabX2, locY2 += spacing);
-            gv.DrawText("DEX: " + pc.baseDex + " + " + (pc.dexterity - pc.baseDex) + " = " + pc.dexterity + " (" + ((pc.dexterity - 10) / 2) + ")", locX + pW, locY += spacing);
-            gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY2 += spacing);
-            gv.DrawText("CON: " + pc.baseCon + " + " + (pc.constitution - pc.baseCon) + " = " + pc.constitution + " (" + ((pc.constitution - 10) / 2) + ")", locX + pW, locY += spacing);
-            gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY2 += spacing);
-            gv.DrawText("INT:  " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence + " (" + ((pc.intelligence - 10) / 2) + ")", locX + pW, locY += spacing);
-            gv.DrawText("FORT: " + pc.fortitude + ", Acid: " + pc.damageTypeResistanceTotalAcid + "%" + ", Cold: " + pc.damageTypeResistanceTotalCold + "%" + ", Normal: " + pc.damageTypeResistanceTotalNormal + "%", tabX2, locY2 += spacing);
-            gv.DrawText("REF:   " + pc.reflex + ", Electricity: " + pc.damageTypeResistanceTotalElectricity + "%" + ", Fire: " + pc.damageTypeResistanceTotalFire + "%", tabX2, locY2 += spacing);
-            gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing);
-            gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", locX + pW, locY += spacing);
-            gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", locX + pW, locY += spacing);
+            gv.DrawText("STR: " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength + " (" + ((pc.strength - 10) / 2) + ")", locX + pW, locY += (spacing * 2), "wh");
+            gv.DrawText("AC: " + actext + ",  BAB: " + pc.baseAttBonus, tabX2, locY2 += (spacing * 3), "wh");
+            gv.DrawText("Melee to hit/damage: " + (pc.baseAttBonus + ((pc.strength - 10) / 2)) + "/" + ((pc.strength - 10) / 2) + ", Ranged to hit: " + (pc.baseAttBonus + ((pc.dexterity - 10) / 2)), tabX2, locY2 += spacing, "wh");
+            gv.DrawText("DEX: " + pc.baseDex + " + " + (pc.dexterity - pc.baseDex) + " = " + pc.dexterity + " (" + ((pc.dexterity - 10) / 2) + ")", locX + pW, locY += spacing, "wh");
+            gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY2 += spacing, "wh");
+            gv.DrawText("CON: " + pc.baseCon + " + " + (pc.constitution - pc.baseCon) + " = " + pc.constitution + " (" + ((pc.constitution - 10) / 2) + ")", locX + pW, locY += spacing, "wh");
+            gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY2 += spacing, "wh");
+            gv.DrawText("INT: " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence + " (" + ((pc.intelligence - 10) / 2) + ")", locX + pW, locY += spacing, "wh");
+            gv.DrawText("FORT: " + pc.fortitude + ", Acid: " + pc.damageTypeResistanceTotalAcid + "%" + ", Cold: " + pc.damageTypeResistanceTotalCold + "%" + ", Normal: " + pc.damageTypeResistanceTotalNormal + "%", tabX2, locY2 += spacing, "wh");
+            gv.DrawText("REF:   " + pc.reflex + ", Electricity: " + pc.damageTypeResistanceTotalElectricity + "%" + ", Fire: " + pc.damageTypeResistanceTotalFire + "%", tabX2, locY2 += spacing, "wh");
+            gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing, "wh");
+            gv.DrawText("WIS: " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", locX + pW, locY += spacing, "wh");
+            gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", locX + pW, locY += spacing, "wh");
             if (mod.useLuck)
             {
-                gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, locX + pW, locY += spacing);
+                gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, locX + pW, locY += spacing, "wh");
             }
-                        
+
             //Description
+            int yLoc = 3 * gv.squareSize + (gv.squareSize / 4);
+            description.tbXloc = tabX + gv.squareSize - pW;
+            description.tbYloc = yLoc;
             string textToSpan = "";
             if (pcCreationIndex == 2)
             {
@@ -436,10 +446,12 @@ namespace IceBlink2mini
             {
                 textToSpan = "Description:" + Environment.NewLine;
                 textToSpan += pc.playerClass.description;
-            }
-            int yLoc = 3 * gv.squareSize;
-            IbRect rect = new IbRect(tabX + gv.squareSize - pW, yLoc, pW * 35, pH * 50);
-            gv.DrawText(textToSpan, rect, 1.0f, Color.White);
+            }            
+            //IbRect rect = new IbRect(tabX + gv.squareSize - pW, yLoc, pW * 35, pH * 50);            
+            description.linesList.Clear();
+            description.AddFormattedTextToTextBox(textToSpan);
+            description.onDrawLogBox();
+            //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
 
             btnPortrait.Img = pc.portrait;
             btnPortrait.Draw();

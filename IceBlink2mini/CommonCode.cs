@@ -1278,31 +1278,31 @@ namespace IceBlink2mini
         {
             if (color.Equals("red"))
             {
-                gv.log.AddHtmlTextToLog("<font color='red'>" + text + "</font>");
+                gv.log.AddHtmlTextToLog("<rd>" + text + "</rd>");
             }
             else if (color.Equals("lime"))
             {
-                gv.log.AddHtmlTextToLog("<font color='lime'>" + text + "</font>");
+                gv.log.AddHtmlTextToLog("<gn>" + text + "</gn>");
             }
             else if (color.Equals("yellow"))
             {
-                gv.log.AddHtmlTextToLog("<font color='yellow'>" + text + "</font>");
+                gv.log.AddHtmlTextToLog("<yl>" + text + "</yl>");
             }
             else if (color.Equals("teal"))
             {
-                gv.log.AddHtmlTextToLog("<font color='teal'>" + text + "</font>");
+                gv.log.AddHtmlTextToLog("<bu>" + text + "</bu>");
             }
             else if (color.Equals("blue"))
             {
-                gv.log.AddHtmlTextToLog("<font color='blue'>" + text + "</font>");
+                gv.log.AddHtmlTextToLog("<bu>" + text + "</bu>");
             }
             else if (color.Equals("fuchsia"))
             {
-                gv.log.AddHtmlTextToLog("<font color='fuchsia'>" + text + "</font>");
+                gv.log.AddHtmlTextToLog("<ma>" + text + "</ma>");
             }
             else
             {
-                gv.log.AddHtmlTextToLog("<font color='white'>" + text + "</font>");
+                gv.log.AddHtmlTextToLog("<wh>" + text + "</wh>");
             }
             /*
             <?xml version="1.0" encoding="utf-8"?>

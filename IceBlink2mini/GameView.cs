@@ -196,8 +196,8 @@ namespace IceBlink2mini
             
             //for testing other screen sizes, manually enter a resolution here
             //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792
-            this.Width = 1280;
-            this.Height = 720;
+            this.Width = 1920;
+            this.Height = 1080;
 
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
@@ -360,7 +360,7 @@ namespace IceBlink2mini
 	    {
 		    //mod = new Module();
 		    mod = cc.LoadModule(mod.moduleName + ".mod", false);
-            
+            mod.useUIBackground = true; //TODO comment out after testing
             //reset fonts
             ResetGDIFont();
             ResetDirect2DFont();
@@ -982,10 +982,10 @@ namespace IceBlink2mini
         //DRAW ROUTINES
         public void DrawText(string text, float xLoc, float yLoc, string color)
         {
-            SharpDX.Direct2D1.Bitmap bm = cc.GetFromBitmapList("fontWh2.png");
+            SharpDX.Direct2D1.Bitmap bm = cc.GetFromBitmapList("fontWh.png");
             if (color.Equals("bk"))
             {
-                bm = cc.GetFromBitmapList("fontBk2.png");
+                bm = cc.GetFromBitmapList("fontBk.png");
             }
             else if (color.Equals("bu"))
             {
@@ -993,7 +993,7 @@ namespace IceBlink2mini
             }
             else if (color.Equals("gn"))
             {
-                bm = cc.GetFromBitmapList("fontGn2.png");
+                bm = cc.GetFromBitmapList("fontGn.png");
             }
             else if (color.Equals("gy"))
             {
@@ -1032,18 +1032,18 @@ namespace IceBlink2mini
                 textLayout = null;
             }
         }
-        public void DrawText(string text, float xLoc, float yLoc)
+        /*public void DrawText(string text, float xLoc, float yLoc)
         {
             DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, SharpDX.Color.White, false);
-        }
+        }*/
         /*public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor)
         {
             DrawText(text, x, y, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, fontColor, false);
         }*/
-        public void DrawText(string text, float xLoc, float yLoc, float scaler, SharpDX.Color fontColor)
+        /*public void DrawText(string text, float xLoc, float yLoc, float scaler, SharpDX.Color fontColor)
         {
             DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor, false);
-        }
+        }*/
         public void DrawText(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
         {
             DrawText(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
@@ -1414,10 +1414,10 @@ namespace IceBlink2mini
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        DrawText("FPS:" + fps.ToString(), new IbRect(x + 5, screenHeight - txtH - 5 + y - oYshift, 100, 100), 1.0f, SharpDX.Color.Black);
+                        DrawText("FPS:" + fps.ToString(), x + 5, screenHeight - txtH - 5 + y - oYshift, "bk");
                     }
                 }
-                DrawText("FPS:" + fps.ToString(), new IbRect(5, screenHeight - txtH - 5 - oYshift, 100, 100), 1.0f, SharpDX.Color.White);
+                DrawText("FPS:" + fps.ToString(), 5, screenHeight - txtH - 5 - oYshift, "wh");
             }
 
             EndDraw(); //uncomment this for DIRECT2D ADDITIONS

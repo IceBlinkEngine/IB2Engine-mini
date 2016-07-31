@@ -232,7 +232,7 @@ namespace IceBlink2mini
     	
             //DRAW TEXT		
 		    locY = (pH * 2);
-		    gv.DrawText("Token Selection", locX + (gv.squareSize * 8), locY);
+		    gv.DrawText("Token Selection", locX + (gv.squareSize * 8), locY, "wh");
 		    
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX
 		    btnPageIndex.Draw();

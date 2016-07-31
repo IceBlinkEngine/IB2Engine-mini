@@ -126,7 +126,7 @@ namespace IceBlink2mini
             {
                 //DRAW TEXT		
                 locY = (gv.squareSize * 0) + (pH * 2);
-                gv.DrawText("Select One Trait to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
+                gv.DrawText("Select One Trait to Learn", noticeX, pH * 1, "gy");
 
                 //DRAW NOTIFICATIONS
                 if (isSelectedTraitSlotInKnownTraitsRange())
@@ -137,18 +137,18 @@ namespace IceBlink2mini
                     if (pc.knownTraitsTags.Contains(tr.tag))
                     {
                         //say that you already know this one
-                        gv.DrawText("Already Known", noticeX, noticeY, 1.0f, Color.Yellow);
+                        gv.DrawText("Already Known", noticeX, noticeY, "yl");
                     }
                     else //trait not known
                     {
                         //check if available to learn
                         if (isAvailableToLearn(tr.tag))
                         {
-                            gv.DrawText("Available to Learn", noticeX, noticeY, 1.0f, Color.Lime);
+                            gv.DrawText("Available to Learn", noticeX, noticeY, "gn");
                         }
                         else //not available yet
                         {
-                            gv.DrawText("Trait Not Available to Learn Yet", noticeX, noticeY, 1.0f, Color.Red);
+                            gv.DrawText("Trait Not Available to Learn Yet", noticeX, noticeY, "rd");
                         }
                     }
                 }

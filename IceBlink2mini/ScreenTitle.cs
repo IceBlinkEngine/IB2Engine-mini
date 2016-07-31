@@ -99,7 +99,7 @@ namespace IceBlink2mini
             //Draw This Module's Version Number
             int xLoc = (gv.screenWidth / 2) - 4;
             int pH = (int)((float)gv.screenHeight / 100.0f);
-            gv.DrawText("v" + mod.moduleVersion, xLoc, (7 * gv.squareSize) + (pH * 4));
+            gv.DrawText("v" + mod.moduleVersion, xLoc, (7 * gv.squareSize) + (pH * 4), "wh");
             
             drawTitleControls();
         }

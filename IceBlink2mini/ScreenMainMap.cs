@@ -820,14 +820,14 @@ namespace IceBlink2mini
             }
 
             int txtH = (int)gv.drawFontRegHeight;            
-            for (int x = -2; x <= 2; x++)
+            for (int x = 0; x <= 2; x++)
             {
-                for (int y = -2; y <= 2; y++)
+                for (int y = 0; y <= 2; y++)
                 {
-                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetX - 1) * gv.squareSize, (gv.playerOffsetY * 2) * gv.squareSize - (6 * gv.pS), 100, 100), 1.0f, Color.Black);
+                    gv.DrawText(hour + ":" + sMinute, gv.oXshift + x + (gv.playerOffsetX - 1) * gv.squareSize, (gv.playerOffsetY * 2) * gv.squareSize - (6 * gv.pS), "bk");
                 }
             }
-            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetX - 1) * gv.squareSize, (gv.playerOffsetY * 2) * gv.squareSize - (6 * gv.pS), 100, 100), 1.0f, Color.White);
+            gv.DrawText(hour + ":" + sMinute, gv.oXshift + (gv.playerOffsetX - 1) * gv.squareSize, (gv.playerOffsetY * 2) * gv.squareSize - (6 * gv.pS), "wh");
         }
         public void drawFogOfWar()
         {            

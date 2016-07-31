@@ -18,9 +18,9 @@
         {
            "tbXloc": 10,
            "tbYloc": 10,
-           "tbWidth": 360,
-           "tbHeight": 890,
-           "numberOfLinesToShow": 26
+           "tbWidth": 300,
+           "tbHeight": 895,
+           "numberOfLinesToShow": 44
         }
       ]
     },
@@ -211,7 +211,7 @@
 											"glowOn": false,
 											"Text": "",
 											"Quantity": "",
-											"HotKey": "I",
+											"HotKey": "J",
 											"X": 900,
 											"Y": 10,
 											"IBScript": "none",
@@ -234,7 +234,7 @@
 											"glowOn": false,
 											"Text": "",
 											"Quantity": "",
-											"HotKey": "I",
+											"HotKey": "",
 											"X": 1000,
 											"Y": 10,
 											"IBScript": "none",
@@ -257,7 +257,7 @@
 											"glowOn": false,
 											"Text": "",
 											"Quantity": "",
-											"HotKey": "I",
+											"HotKey": "C",
 											"X": 1100,
 											"Y": 10,
 											"IBScript": "none",
@@ -280,7 +280,7 @@
 											"glowOn": false,
 											"Text": "",
 											"Quantity": "",
-											"HotKey": "I",
+											"HotKey": "",
 											"X": 1200,
 											"Y": 10,
 											"IBScript": "none",

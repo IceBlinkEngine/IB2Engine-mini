@@ -196,7 +196,7 @@ namespace IceBlink2mini
     	    int tabStartY = 9 * gv.squareSize + pH * 2;
     	    int tabShopStartY = 4 * gv.squareSize + pH * 2;
     	
-    	    gv.DrawText(currentShop.shopName, 7 * gv.squareSize, locY, 1.4f, Color.DarkGray);
+    	    gv.DrawText(currentShop.shopName, 7 * gv.squareSize, locY, "gy");
 		
 	
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX of SHOP
@@ -290,11 +290,11 @@ namespace IceBlink2mini
 		
 		    //DRAW TEXT		
 		    locY = (5 * gv.squareSize) + (pH * 2);
-		    gv.DrawText("Party", locX + gv.squareSize * 4, locY, 1.0f, Color.DarkGray);
-            gv.DrawText("Inventory", locX + gv.squareSize * 4, locY += spacing, 1.0f, Color.DarkGray);
+		    gv.DrawText("Party", locX + gv.squareSize * 4, locY, "gy");
+            gv.DrawText("Inventory", locX + gv.squareSize * 4, locY += spacing, "gy");
 		    locY = (5 * gv.squareSize) + (pH * 2);
-		    gv.DrawText("Party", tabX2 + gv.squareSize * 5, locY, 1.0f, Color.Yellow);
-            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + gv.squareSize * 5, locY += spacing, 1.0f, Color.Yellow);
+		    gv.DrawText("Party", tabX2 + gv.squareSize * 5, locY, "yl");
+            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + gv.squareSize * 5, locY += spacing, "yl");
 		
 		    //DRAW ALL INVENTORY SLOTS		
 		    cntSlot = 0;

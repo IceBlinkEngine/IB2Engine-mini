@@ -161,6 +161,7 @@ namespace IceBlink2mini
 
                 //int ulX = ((int)(this.Width) / 2) - ((int)stringSize / 2);
                 //int ulY = ((int)(this.Height / 2) / 2) + ((int)thisFontHeight / 2);
+                /*
                 int ulX = pW * 0;
                 int ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 2);
 
@@ -176,6 +177,24 @@ namespace IceBlink2mini
                 int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
                 int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
                 gv.DrawText(TextHP, xLoc1, yLoc1, scaler, Color.Lime);
+                */
+                //new way
+                int ulX = pW * 0;
+                int ulY = this.Height - (gv.fontHeight * 2);
+
+                for (int x = 0; x <= 2; x++)
+                {
+                    for (int y = 0; y <= 2; y++)
+                    {
+                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
+                        gv.DrawText(TextHP, xLoc, yLoc, "bk");
+                    }
+                }
+                int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
+                int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
+                gv.DrawText(TextHP, xLoc1, yLoc1, "gn");
+
 
                 //DRAW SP/SPmax
                 // Measure string.
@@ -184,7 +203,7 @@ namespace IceBlink2mini
 
                 //ulX = ((int)(this.Width / 2)) - ((int)stringSize);
                 //ulY = ((int)(this.Height / 2));
-                ulX = pW * 1;
+                /*ulX = pW * 1;
                 ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 1);
 
                 for (int x = -2; x <= 2; x++)
@@ -199,6 +218,23 @@ namespace IceBlink2mini
                 int xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW);
                 int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
                 gv.DrawText(TextSP, xLoc2, yLoc2, scaler, Color.Yellow);
+                */
+                //new way
+                ulX = pW * 0;
+                ulY = this.Height - (gv.fontHeight * 1);
+
+                for (int x = 0; x <= 2; x++)
+                {
+                    for (int y = 0; y <= 2; y++)
+                    {
+                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
+                        gv.DrawText(TextSP, xLoc, yLoc, "bk");
+                    }
+                }
+                xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
+                yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
+                gv.DrawText(TextSP, xLoc1, yLoc1, "yl");
             }
         }
 

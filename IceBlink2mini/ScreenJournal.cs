@@ -140,25 +140,25 @@ namespace IceBlink2mini
     	    }
 			
     	    //DRAW QUESTS
-            Color color = Color.Black;
-		    gv.DrawText("Active Quests:", locX, locY += leftStartY, 1.0f, color);
-		    gv.DrawText("--------------", locX, locY += spacing, 1.0f, color);
+            string color = "bk";
+		    gv.DrawText("Active Quests:", locX, locY += leftStartY, "bk");
+		    gv.DrawText("--------------", locX, locY += spacing, "bk");
 		    if (mod.partyJournalQuests.Count > 0)
     	    {
 			    int cnt = 0;
 			    foreach (JournalQuest jq in mod.partyJournalQuests)
 			    {
-                    if (journalScreenQuestIndex == cnt) { color = Color.Lime; }
-				    else { color = Color.Black; }	
-                    gv.DrawText(jq.Name, locX, locY += spacing, 1.0f, color);
+                    if (journalScreenQuestIndex == cnt) { color = "gn"; }
+				    else { color = "bk"; }	
+                    gv.DrawText(jq.Name, locX, locY += spacing, color);
 				    cnt++;
 			    }
     	    }
 		
 		    //DRAW QUEST ENTRIES
 		    locY = tabStartY;
-		    gv.DrawText("Quest Entry:", locX, locY, 1.0f, Color.Black);
-		    gv.DrawText("--------------", locX, locY += spacing, 1.0f, Color.Black);	
+		    gv.DrawText("Quest Entry:", locX, locY, "bk");
+		    gv.DrawText("--------------", locX, locY += spacing, "bk");	
 		    if (mod.partyJournalQuests.Count > 0)
     	    {
                 //Description

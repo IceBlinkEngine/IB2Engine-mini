@@ -96,42 +96,42 @@ namespace IceBlink2mini
 
             //DRAW LEFT STATS
             //name            
-            gv.DrawText("Name: " + pc.name, locX, locY += leftStartY, 1.0f, Color.White);
+            gv.DrawText("Name: " + pc.name, locX, locY += leftStartY, "wh");
 
             //race
-            gv.DrawText("Race: " + mod.getRace(pc.raceTag).name, locX, locY += spacing, 1.0f, Color.White);
+            gv.DrawText("Race: " + mod.getRace(pc.raceTag).name, locX, locY += spacing, "wh");
 
             //gender
             if (pc.isMale)
             {
-                gv.DrawText("Gender: Male", locX, locY += spacing, 1.0f, Color.White);
+                gv.DrawText("Gender: Male", locX, locY += spacing, "wh");
             }
             else
             {
-                gv.DrawText("Gender: Female", locX, locY += spacing, 1.0f, Color.White);
+                gv.DrawText("Gender: Female", locX, locY += spacing, "wh");
             }
 
             //class
-            gv.DrawText("Class: " + mod.getPlayerClass(pc.classTag).name, locX, locY += spacing, 1.0f, Color.White);
-            gv.DrawText("Level: " + pc.classLevel, locX, locY += spacing, 1.0f, Color.White);
-            gv.DrawText("XP: " + pc.XP + "/" + pc.XPNeeded, locX, locY += spacing, 1.0f, Color.White);
-            gv.DrawText("---------------", locX, locY += spacing, 1.0f, Color.White);
+            gv.DrawText("Class: " + mod.getPlayerClass(pc.classTag).name, locX, locY += spacing, "wh");
+            gv.DrawText("Level: " + pc.classLevel, locX, locY += spacing, "wh");
+            gv.DrawText("XP: " + pc.XP + "/" + pc.XPNeeded, locX, locY += spacing, "wh");
+            gv.DrawText("---------------", locX, locY += spacing, "wh");
             
             //DRAW RIGHT STATS
             int actext = 0;
             if (mod.ArmorClassAscending) { actext = pc.AC; }
             else { actext = 20 - pc.AC; }
             locY = 0;
-            gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY);
-            gv.DrawText("AC: " + actext, tabX2, locY);
-            gv.DrawText("DEX: " + pc.dexterity, tabX, locY += spacing);
-            gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
-            gv.DrawText("CON: " + pc.constitution, tabX, locY += spacing);
-            gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
-            gv.DrawText("INT: " + pc.intelligence, tabX, locY += spacing);
-            gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY);
-            gv.DrawText("WIS: " + pc.wisdom, tabX, locY += spacing);
-            gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing);
+            gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY, "wh");
+            gv.DrawText("AC: " + actext, tabX2, locY, "wh");
+            gv.DrawText("DEX: " + pc.dexterity, tabX, locY += spacing, "wh");
+            gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY, "wh");
+            gv.DrawText("CON: " + pc.constitution, tabX, locY += spacing, "wh");
+            gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY, "wh");
+            gv.DrawText("INT: " + pc.intelligence, tabX, locY += spacing, "wh");
+            gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY, "wh");
+            gv.DrawText("WIS: " + pc.wisdom, tabX, locY += spacing, "wh");
+            gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing, "wh");
                         
             btnReturn.Draw();
         }

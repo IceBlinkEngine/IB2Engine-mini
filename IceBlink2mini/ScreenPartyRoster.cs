@@ -198,7 +198,7 @@ namespace IceBlink2mini
             //Draw screen title name
 		    int textWidth = (int)gv.cc.MeasureString("Current Party Members [" + mod.MaxPartySize + " Maximum]", SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
             int ulX = (gv.screenWidth / 2) - (textWidth / 2);
-		    gv.DrawText("Current Party Members [" + mod.MaxPartySize + " Maximum]", ulX, pH * 3, 1.0f, Color.Gray);
+		    gv.DrawText("Current Party Members [" + mod.MaxPartySize + " Maximum]", ulX, pH * 3, "gy");
 		    		    
 		    //DRAW EACH PC BUTTON
 		    this.refreshPlayerTokens();
@@ -218,7 +218,7 @@ namespace IceBlink2mini
             //Draw screen title name
             textWidth = (int)gv.cc.MeasureString("Party Roster [Players in Reserve]", SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
             ulX = (gv.screenWidth / 2) - (textWidth / 2);
-		    gv.DrawText("Party Roster [Players in Reserve]", ulX, 3 * gv.squareSize + (pH * 0), 1.0f, Color.Gray);
+		    gv.DrawText("Party Roster [Players in Reserve]", ulX, 3 * gv.squareSize + (pH * 0), "gy");
 
             //DRAW EACH ROSTER PC BUTTON
             this.refreshRosterPlayerTokens();
@@ -243,20 +243,20 @@ namespace IceBlink2mini
 		    if (pc != null)
 		    {
 			    //DRAW LEFT STATS
-			    gv.DrawText("Name: " + pc.name, locX, locY += leftStartY);
-			    gv.DrawText("Race: " + mod.getRace(pc.raceTag).name, locX, locY += spacing);
+			    gv.DrawText("Name: " + pc.name, locX, locY += leftStartY, "wh");
+			    gv.DrawText("Race: " + mod.getRace(pc.raceTag).name, locX, locY += spacing, "wh");
 			    if (pc.isMale)
 			    {
-				    gv.DrawText("Gender: Male", locX, locY += spacing);
+				    gv.DrawText("Gender: Male", locX, locY += spacing, "wh");
 			    }
 			    else
 			    {
-				    gv.DrawText("Gender: Female", locX, locY += spacing);
+				    gv.DrawText("Gender: Female", locX, locY += spacing, "wh");
 			    }
-			    gv.DrawText("Class: " + mod.getPlayerClass(pc.classTag).name, locX, locY += spacing);			
-			    gv.DrawText("Level: " + pc.classLevel, locX, locY += spacing);
-			    gv.DrawText("XP: " + pc.XP + "/" + pc.XPNeeded, locX, locY += spacing);
-			    gv.DrawText("---------------", locX, locY += spacing);
+			    gv.DrawText("Class: " + mod.getPlayerClass(pc.classTag).name, locX, locY += spacing, "wh");			
+			    gv.DrawText("Level: " + pc.classLevel, locX, locY += spacing, "wh");
+			    gv.DrawText("XP: " + pc.XP + "/" + pc.XPNeeded, locX, locY += spacing, "wh");
+			    gv.DrawText("---------------", locX, locY += spacing, "wh");
 			
 			    //draw spells known list
 			    string allSpells = "";
@@ -265,7 +265,7 @@ namespace IceBlink2mini
 				    Spell sp = mod.getSpellByTag(s);
 				    allSpells += sp.name + ", ";
 			    }
-			    gv.DrawText(mod.spellLabelPlural + ": " + allSpells, locX, locY += spacing);
+			    gv.DrawText(mod.spellLabelPlural + ": " + allSpells, locX, locY += spacing, "wh");
 			
 			    //draw traits known list
 			    string allTraits = "";
@@ -274,23 +274,23 @@ namespace IceBlink2mini
 				    Trait tr = mod.getTraitByTag(s);
 				    allTraits += tr.name + ", ";
 			    }
-			    gv.DrawText("Traits: " + allTraits, locX, locY += spacing);
+			    gv.DrawText("Traits: " + allTraits, locX, locY += spacing, "wh");
 			
 			    //DRAW RIGHT STATS
                 int actext = 0;
                 if (mod.ArmorClassAscending) { actext = pc.AC; }
                 else { actext = 20 - pc.AC; }
 			    locY = 0;
-			    gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY);
-			    gv.DrawText("AC: " + actext, tabX2, locY);
-			    gv.DrawText("DEX: " + pc.dexterity, tabX, locY += spacing);
-			    gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
-			    gv.DrawText("CON: " + pc.constitution, tabX, locY += spacing);
-			    gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
-			    gv.DrawText("INT: " + pc.intelligence, tabX, locY += spacing);
-			    gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY);
-                gv.DrawText("WIS: " + pc.wisdom, tabX, locY += spacing);
-                gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing);
+			    gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY, "wh");
+			    gv.DrawText("AC: " + actext, tabX2, locY, "wh");
+			    gv.DrawText("DEX: " + pc.dexterity, tabX, locY += spacing, "wh");
+			    gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY, "wh");
+			    gv.DrawText("CON: " + pc.constitution, tabX, locY += spacing, "wh");
+			    gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY, "wh");
+			    gv.DrawText("INT: " + pc.intelligence, tabX, locY += spacing, "wh");
+			    gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY, "wh");
+                gv.DrawText("WIS: " + pc.wisdom, tabX, locY += spacing, "wh");
+                gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing, "wh");
 		    }
        }
         public void onTouchPartyRoster(MouseEventArgs e, MouseEventType.EventType eventType)

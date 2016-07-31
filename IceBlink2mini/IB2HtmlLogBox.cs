@@ -14,7 +14,7 @@ namespace IceBlink2mini
         public GameView gv;
         public string tag = "";
         public List<string> tagStack = new List<string>();
-        public List<FormattedLine> logLinesList = new List<FormattedLine>();
+        public List<IBminiFormattedLine> logLinesList = new List<IBminiFormattedLine>();
         public int currentTopLineIndex = 0;
         public int numberOfLinesToShow = 17;
         public float xLoc = 0;
@@ -41,12 +41,11 @@ namespace IceBlink2mini
             gv = g;
         }
 
-        public void DrawString(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor, float fontHeight, bool isUnderlined)
+        public void DrawString(string text, float x, float y, string fontColor)
         {
-            if ((y > -2) && (y <= (int)(tbHeight * gv.screenDensity) - fontHeight))
+            if ((y > -2) && (y <= tbHeight - gv.fontHeight))
             {
-                //hurgh21
-                gv.DrawText(text, x + (int)(tbXloc * gv.screenDensity) + gv.pS, y, fw, fs, 1.0f, fontColor, isUnderlined);                
+                gv.DrawText(text, x + tbXloc + gv.pS, y, fontColor);                
             }
         }
 
@@ -59,16 +58,16 @@ namespace IceBlink2mini
 
             if ((htmlText.EndsWith("<br>")) || (htmlText.EndsWith("<BR>")))
             {
-                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText, (int)(tbWidth * gv.screenDensity), tagStack);
-                foreach (FormattedLine fl in linesList)
+                List<IBminiFormattedLine> lnList = gv.cc.ProcessHtmlString(htmlText, (int)(tbWidth * gv.screenDensity), tagStack, true);
+                foreach (IBminiFormattedLine fl in lnList)
                 {
                     logLinesList.Add(fl);
                 }
             }
             else
             {
-                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText + "<br>", (int)(tbWidth * gv.screenDensity), tagStack);
-                foreach (FormattedLine fl in linesList)
+                List<IBminiFormattedLine> lnList = gv.cc.ProcessHtmlString(htmlText + "<br>", (int)(tbWidth * gv.screenDensity), tagStack, true);
+                foreach (IBminiFormattedLine fl in lnList)
                 {
                     logLinesList.Add(fl);
                 }
@@ -87,16 +86,16 @@ namespace IceBlink2mini
             }
             //only draw lines needed to fill textbox
             float xLoc = 0.0f;
-            float yLoc = 3.0f;
-            int maxLines = maxLines = currentTopLineIndex + numberOfLinesToShow;
+            float yLoc = 15.0f;
+            int maxLines = currentTopLineIndex + numberOfLinesToShow;
             
             if (maxLines > logLinesList.Count) { maxLines = logLinesList.Count; }
             for (int i = currentTopLineIndex; i < maxLines; i++)
             {
                 //loop through each line and print each word
-                foreach (FormattedWord word in logLinesList[i].wordsList)
+                foreach (IBminiFormattedWord word in logLinesList[i].wordsList)
                 {
-                    if (gv.textFormat != null)
+                    /*if (gv.textFormat != null)
                     {
                         gv.textFormat.Dispose();
                         gv.textFormat = null;
@@ -106,21 +105,25 @@ namespace IceBlink2mini
                     {
                         gv.textLayout.Dispose();
                         gv.textLayout = null;
-                    }
-                    gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
-                    gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, word.text + " ", gv.textFormat, gv.Width, gv.Height);
-                    int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;
-                    if (word.underlined)
-                    {
-                        gv.textLayout.SetUnderline(true, new TextRange(0, word.text.Length - 1));
-                    }
+                    }*/
+                    //gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                    //gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, word.text + " ", gv.textFormat, gv.Width, gv.Height);
+                    //int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;
+                    //if (word.underlined)
+                    //{
+                    //    gv.textLayout.SetUnderline(true, new TextRange(0, word.text.Length - 1));
+                    //}
+                    //int xLoc2 = (int)((parentPanel.currentLocX * gv.screenDensity + xLoc));
+                    //int yLoc2 = (int)((parentPanel.currentLocY * gv.screenDensity + yLoc + difYheight));
+                    //DrawString(word.text + " ", xLoc2, yLoc2, word.fontWeight, word.fontStyle, word.color, word.fontSize, word.underlined);
+                    //xLoc += gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
                     int xLoc2 = (int)((parentPanel.currentLocX * gv.screenDensity + xLoc));
-                    int yLoc2 = (int)((parentPanel.currentLocY * gv.screenDensity + yLoc + difYheight));
-                    DrawString(word.text + " ", xLoc2, yLoc2, word.fontWeight, word.fontStyle, word.color, word.fontSize, word.underlined);
-                    xLoc += gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
+                    int yLoc2 = (int)((parentPanel.currentLocY * gv.screenDensity + yLoc));
+                    DrawString(word.text + " ", xLoc2, yLoc2, word.color);
+                    xLoc += (word.text.Length + 1) * (gv.fontWidth + gv.fontCharSpacing);
                 }
                 xLoc = 0;
-                yLoc += logLinesList[i].lineHeight;
+                yLoc += gv.fontHeight + gv.fontLineSpacing;
             }            
             //draw border for debug info
             //gv.DrawRectangle(new IbRect(parentPanel.currentLocX + tbXloc, parentPanel.currentLocY + tbYloc, tbWidth, tbHeight), SharpDX.Color.DimGray, 1);
@@ -173,8 +176,6 @@ namespace IceBlink2mini
                 if (numberOfTextLinesToMove != 0)
                 {
                     SetCurrentTopLineIndex(-numberOfTextLinesToMove);
-                    //gv.Invalidate();
-                    gv.Render();
                 }
             }
         }        

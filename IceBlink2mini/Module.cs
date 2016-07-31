@@ -32,7 +32,7 @@ namespace IceBlink2mini
         public bool useLuck = false;
         public bool hideRoster = false;
         public bool use3d6 = false;
-        public bool useUIBackground = false;
+        public bool useUIBackground = true;
         public string fontName = "Metamorphous";
         public string fontFilename = "Metamorphous-Regular.ttf";
         public float fontD2DScaleMultiplier = 1.0f;

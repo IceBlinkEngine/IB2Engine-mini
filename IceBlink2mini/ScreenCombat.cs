@@ -2333,7 +2333,7 @@ namespace IceBlink2mini
                 if (showMoveOrder)
                 {
                     int mo = pc.moveOrder + 1;
-                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
+                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), "wh");
                 }
                 
             }
@@ -2412,7 +2412,7 @@ namespace IceBlink2mini
                 if (showMoveOrder)
                 {
                     int mo = crt.moveOrder + 1;
-                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
+                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), "wh");
                 }
             }
         }
@@ -2536,14 +2536,14 @@ namespace IceBlink2mini
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText(gv.cc.floatyText, gv.cc.floatyTextLoc.X + x, gv.cc.floatyTextLoc.Y + txtH + y, 1.0f, Color.Black);
-                    gv.DrawText(gv.cc.floatyText2, gv.cc.floatyTextLoc.X + x, gv.cc.floatyTextLoc.Y + (txtH * 2) + y, 1.0f, Color.Black);
-                    gv.DrawText(gv.cc.floatyText3, gv.cc.floatyTextLoc.X + x, gv.cc.floatyTextLoc.Y + (txtH * 3) + y, 1.0f, Color.Black);
+                    gv.DrawText(gv.cc.floatyText, gv.cc.floatyTextLoc.X + x, gv.cc.floatyTextLoc.Y + txtH + y, "bk");
+                    gv.DrawText(gv.cc.floatyText2, gv.cc.floatyTextLoc.X + x, gv.cc.floatyTextLoc.Y + (txtH * 2) + y, "bk");
+                    gv.DrawText(gv.cc.floatyText3, gv.cc.floatyTextLoc.X + x, gv.cc.floatyTextLoc.Y + (txtH * 3) + y, "bk");
                 }
             }
-            gv.DrawText(gv.cc.floatyText, gv.cc.floatyTextLoc.X, gv.cc.floatyTextLoc.Y + txtH, 1.0f, Color.Yellow);
-            gv.DrawText(gv.cc.floatyText2, gv.cc.floatyTextLoc.X, gv.cc.floatyTextLoc.Y + txtH * 2, 1.0f, Color.Yellow);
-            gv.DrawText(gv.cc.floatyText3, gv.cc.floatyTextLoc.X, gv.cc.floatyTextLoc.Y + txtH * 3, 1.0f, Color.Yellow);
+            gv.DrawText(gv.cc.floatyText, gv.cc.floatyTextLoc.X, gv.cc.floatyTextLoc.Y + txtH, "yl");
+            gv.DrawText(gv.cc.floatyText2, gv.cc.floatyTextLoc.X, gv.cc.floatyTextLoc.Y + txtH * 2, "yl");
+            gv.DrawText(gv.cc.floatyText3, gv.cc.floatyTextLoc.X, gv.cc.floatyTextLoc.Y + txtH * 3, "yl");
         }
         public void drawHPText()
         {
@@ -2551,12 +2551,12 @@ namespace IceBlink2mini
             {
                 foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                 {
-                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), crt.hp + "/" + crt.hpMax, Color.Red);
+                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), crt.hp + "/" + crt.hpMax, "rd");
                     
                 }
                 foreach (Player pc in mod.playerList)
                 {
-                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), pc.hp + "/" + pc.hpMax, Color.Red);
+                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), pc.hp + "/" + pc.hpMax, "rd");
                     
                 }
             }
@@ -2568,17 +2568,17 @@ namespace IceBlink2mini
                 int txtH = (int)gv.drawFontRegHeight;
                 foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                 {
-                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) + txtH, "sp: " + crt.sp, Color.Yellow);
+                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) + txtH, "sp: " + crt.sp, "yl");
                     
                 }
                 foreach (Player pc in mod.playerList)
                 {
-                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) + txtH, pc.sp + "/" + pc.spMax, Color.Yellow);
+                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) + txtH, pc.sp + "/" + pc.spMax, "yl");
                     
                 }
             }
         }
-        public void drawText(int xLoc, int yLoc, string text, Color colr)
+        public void drawText(int xLoc, int yLoc, string text, string colr)
         {
             int txtH = (int)gv.drawFontRegHeight;
 
@@ -2586,10 +2586,10 @@ namespace IceBlink2mini
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText(text, xLoc + x, yLoc + txtH + y, 1.0f, Color.Black);
+                    gv.DrawText(text, xLoc + x, yLoc + txtH + y, "bk");
                 }
             }
-            gv.DrawText(text, xLoc, yLoc + txtH, 1.0f, colr);
+            gv.DrawText(text, xLoc, yLoc + txtH, colr);
         }
         public void drawFloatyTextList()
         {
@@ -2603,27 +2603,27 @@ namespace IceBlink2mini
                     {
                         for (int y = -2; y <= 2; y++)
                         {
-                            gv.DrawText(ft.value, ft.location.X + x + mapStartLocXinPixels, ft.location.Y + y, 1.0f, Color.Black);
+                            gv.DrawText(ft.value, ft.location.X + x + mapStartLocXinPixels, ft.location.Y + y, "bk");
                         }
                     }
-                    Color colr = Color.Yellow;
+                    string colr = "yl";
                     if (ft.color.Equals("yellow"))
                     {
-                        colr = Color.Yellow;
+                        colr = "yl";
                     }
                     else if (ft.color.Equals("blue"))
                     {
-                        colr = Color.Blue;
+                        colr = "bu";
                     }
                     else if (ft.color.Equals("green"))
                     {
-                        colr = Color.Lime;
+                        colr = "gn";
                     }
                     else
                     {
-                        colr = Color.Red;
+                        colr = "rd";
                     }
-                    gv.DrawText(ft.value, ft.location.X + mapStartLocXinPixels, ft.location.Y, 1.0f, colr);
+                    gv.DrawText(ft.value, ft.location.X + mapStartLocXinPixels, ft.location.Y, colr);
                 }
             }
         }

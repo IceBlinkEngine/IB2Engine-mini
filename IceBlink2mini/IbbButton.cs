@@ -144,15 +144,15 @@ namespace IceBlink2mini
             */
 
             //new way
-            float stringSize = Text.Length * (gv.fontWidth + gv.fontCharSpacing);
+            int stringSize = Text.Length * (gv.fontWidth + gv.fontCharSpacing);
 
             //place in the center
-            float ulX = ((this.Width) - stringSize) / 2;
-            float ulY = ((this.Height) - gv.fontHeight) / 2;
+            int ulX = ((this.Width) - stringSize) / 2;
+            int ulY = ((this.Height) - gv.fontHeight) / 2;
 
-            for (int x = -2; x <= 2; x++)
+            for (int x = 0; x <= 2; x++)
             {
-                for (int y = -2; y <= 2; y++)
+                for (int y = 0; y <= 2; y++)
                 {
                     gv.DrawText(Text, this.X + ulX + x, this.Y + ulY + y, "bk");
                 }
@@ -185,9 +185,9 @@ namespace IceBlink2mini
             ulX = (((this.Width) - stringSize) / 8) * 7;
             ulY = (((this.Height) - gv.fontHeight) / 8) * 7;
 
-            for (int x = -2; x <= 2; x++)
+            for (int x = 0; x <= 2; x++)
             {
-                for (int y = -2; y <= 2; y++)
+                for (int y = 0; y <= 2; y++)
                 {
                     gv.DrawText(Quantity, this.X + ulX + x, this.Y + ulY + y, "bk");
                 }
@@ -222,14 +222,14 @@ namespace IceBlink2mini
                 ulX = ((this.Width) - stringSize) / 2;
                 ulY = (((this.Height) - gv.fontHeight) / 4) * 3;
 
-                for (int x = -2; x <= 2; x++)
+                for (int x = 0; x <= 2; x++)
                 {
-                    for (int y = -2; y <= 2; y++)
+                    for (int y = 0; y <= 2; y++)
                     {
                         gv.DrawText(HotKey, this.X + ulX + x, this.Y + ulY + y, "bk");
                     }
                 }
-                gv.DrawText(HotKey, this.X + ulX, this.Y + ulY, "gn");
+                gv.DrawText(HotKey, this.X + ulX, this.Y + ulY, "rd");
             }
         }
     }

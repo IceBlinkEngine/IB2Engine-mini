@@ -133,7 +133,7 @@ namespace IceBlink2mini
 
             //int ulX = ((int)(this.Width) / 2) - ((int)stringSize / 2);
             //int ulY = ((int)(this.Height / 2) / 2) + ((int)thisFontHeight / 2);
-            int ulX = pW * 0;
+            /*int ulX = pW * 0;
             int ulY = this.Height - ((int)thisFontHeight * 2);
 
             for (int x = -2; x <= 2; x++)
@@ -144,7 +144,21 @@ namespace IceBlink2mini
                 }
             }
             gv.DrawText(TextHP, this.X + ulX, this.Y + ulY - pH, scaler, Color.Lime);
-            
+            */
+            //new way
+            int ulX = pW * 0;
+            int ulY = this.Height - (gv.fontHeight * 2);
+
+            for (int x = 0; x <= 2; x++)
+            {
+                for (int y = 0; y <= 2; y++)
+                {
+                    gv.DrawText(TextHP, this.X + ulX + x, this.Y + ulY - pH + y, "bk");
+                }
+            }
+            gv.DrawText(TextHP, this.X + ulX, this.Y + ulY - pH, "gn");
+
+
             //DRAW SP/SPmax
             // Measure string.
             //stringSize = gv.cc.MeasureString(TextSP, thisFont, this.Width);
@@ -152,7 +166,7 @@ namespace IceBlink2mini
 
             //ulX = ((int)(this.Width / 2)) - ((int)stringSize);
             //ulY = ((int)(this.Height / 2));
-            ulX = pW * 1;
+            /*ulX = pW * 1;
             ulY = this.Height - ((int)thisFontHeight * 1);
 
             for (int x = -2; x <= 2; x++)
@@ -163,6 +177,19 @@ namespace IceBlink2mini
                 }
             }
             gv.DrawText(TextSP, this.X + ulX - pW, this.Y + ulY - pH, scaler, Color.Yellow);
+            */
+            //new way
+            ulX = pW * 1;
+            ulY = this.Height - (gv.fontHeight * 1);
+
+            for (int x = 0; x <= 2; x++)
+            {
+                for (int y = 0; y <= 2; y++)
+                {
+                    gv.DrawText(TextSP, this.X + ulX - pW + x, this.Y + ulY - pH + y, "bk");
+                }
+            }
+            gv.DrawText(TextSP, this.X + ulX - pW, this.Y + ulY - pH, "yl");
         }
     }
 }
