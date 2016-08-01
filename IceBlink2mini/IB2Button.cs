@@ -185,8 +185,8 @@ namespace IceBlink2mini
                 int stringSize = Text.Length * (gv.fontWidth + gv.fontCharSpacing);
 
                 //place in the center
-                int ulX = ((this.Width) - stringSize) / 2;
-                int ulY = ((this.Height) - gv.fontHeight) / 2;
+                int ulX = ((int)(this.Width * gv.screenDensity) - stringSize) / 2;
+                int ulY = ((int)(this.Height * gv.screenDensity) - gv.fontHeight) / 2;
 
                 for (int x = 0; x <= 2; x++)
                 {
@@ -226,8 +226,8 @@ namespace IceBlink2mini
                 stringSize = Quantity.Length * (gv.fontWidth + gv.fontCharSpacing);
 
                 //place in the bottom right
-                ulX = (((this.Width) - stringSize) / 8) * 7;
-                ulY = (((this.Height) - gv.fontHeight) / 8) * 7;
+                ulX = (((int)(this.Width * gv.screenDensity) - stringSize) / 8) * 7;
+                ulY = (((int)(this.Height * gv.screenDensity) - gv.fontHeight) / 8) * 7;
 
                 for (int x = 0; x <= 2; x++)
                 {
@@ -270,8 +270,8 @@ namespace IceBlink2mini
                     stringSize = HotKey.Length * (gv.fontWidth + gv.fontCharSpacing);
 
                     //place in the bottom center
-                    ulX = ((this.Width) - stringSize) / 2;
-                    ulY = (((this.Height) - gv.fontHeight) / 4) * 3;
+                    ulX = ((int)(this.Width * gv.screenDensity) - stringSize) / 2;
+                    ulY = (((int)(this.Height * gv.screenDensity) - gv.fontHeight) / 4) * 3;
 
                     for (int x = 0; x <= 2; x++)
                     {

@@ -35,7 +35,7 @@ namespace IceBlink2mini
         {
             mod = m;
             gv = g;
-            mapStartLocXinPixels = 4 * gv.squareSize + gv.oXshift;
+            mapStartLocXinPixels = 3 * gv.squareSize + (gv.squareSize / 4) + gv.oXshift;
             loadMainUILayout();          
         }
         public void loadMainUILayout()
@@ -262,6 +262,7 @@ namespace IceBlink2mini
         }        
         public void drawWorldMap()
         {
+            /*
             int minX = mod.PlayerLocationX - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
             if (minX < 0) { minX = 0; }
             int minY = mod.PlayerLocationY - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
@@ -271,12 +272,18 @@ namespace IceBlink2mini
             if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
             int maxY = mod.PlayerLocationY + gv.playerOffset + 1; // use 2 so that extends down to bottom of screen
             if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
-
+            */
             #region Draw Layer 1
-            for (int x = minX; x < maxX; x++)
+            for (int x = mod.PlayerLocationX - gv.playerOffset; x <= mod.PlayerLocationX + gv.playerOffset; x++)
             {
-                for (int y = minY; y < maxY; y++)
+                for (int y = mod.PlayerLocationY - gv.playerOffset; y <= mod.PlayerLocationY + gv.playerOffset; y++)
                 {
+                    //check if valid map location
+                    if (x < 0) { continue; }
+                    if (y < 0) { continue; }
+                    if (x > this.mod.currentArea.MapSizeX - 1) { continue; }
+                    if (y > this.mod.currentArea.MapSizeY - 1) { continue; }
+
                     string tile = mod.currentArea.Layer1Filename[y * mod.currentArea.MapSizeX + x];
                     int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
                     int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
@@ -298,11 +305,16 @@ namespace IceBlink2mini
             }
             #endregion
             #region Draw Layer 2
-            for (int x = minX; x < maxX; x++)
+            for (int x = mod.PlayerLocationX - gv.playerOffset; x <= mod.PlayerLocationX + gv.playerOffset; x++)
             {
-                for (int y = minY; y < maxY; y++)
+                for (int y = mod.PlayerLocationY - gv.playerOffset; y <= mod.PlayerLocationY + gv.playerOffset; y++)
                 {
-                    //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                    //check if valid map location
+                    if (x < 0) { continue; }
+                    if (y < 0) { continue; }
+                    if (x > this.mod.currentArea.MapSizeX - 1) { continue; }
+                    if (y > this.mod.currentArea.MapSizeY - 1) { continue; }
+
                     string tile = mod.currentArea.Layer2Filename[y * mod.currentArea.MapSizeX + x];
                     int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
                     int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
@@ -739,15 +751,15 @@ namespace IceBlink2mini
         {
             int txtH = (int)gv.drawFontRegHeight;
 
-            for (int x = -2; x <= 2; x++)
+            for (int x = 0; x <= 2; x++)
             {
-                for (int y = -2; y <= 2; y++)
+                for (int y = 0; y <= 2; y++)
                 {
-                    gv.DrawText(gv.cc.floatyText, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels, gv.cc.floatyTextLoc.Y + y + txtH, gv.squareSize * 2, 1000), 0.8f, Color.Black);
+                    gv.DrawText(gv.cc.floatyText, gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels, gv.cc.floatyTextLoc.Y + y + txtH, "bk");
                 }
             }
             
-            gv.DrawText(gv.cc.floatyText, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels, gv.cc.floatyTextLoc.Y + txtH, gv.squareSize * 2, 1000), 0.8f, Color.White);
+            gv.DrawText(gv.cc.floatyText, gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels, gv.cc.floatyTextLoc.Y + txtH, "wh");
         }
         public void drawOverlayTints()
         {
@@ -905,35 +917,35 @@ namespace IceBlink2mini
                     int xLoc = (ft.location.X + gv.playerOffsetX - mod.PlayerLocationX) * gv.squareSize;
                     int yLoc = ((ft.location.Y + gv.playerOffsetY - mod.PlayerLocationY) * gv.squareSize) - (ft.z);
 
-                    for (int x = -2; x <= 2; x++)
+                    for (int x = 0; x <= 2; x++)
                     {
-                        for (int y = -2; y <= 2; y++)
+                        for (int y = 0; y <= 2; y++)
                         {
-                            gv.DrawText(ft.value, new IbRect(xLoc + x + gv.oXshift + mapStartLocXinPixels, yLoc + y + txtH, gv.squareSize * 2, 1000), 0.8f, Color.Black);
+                            gv.DrawText(ft.value, xLoc + x + gv.oXshift + mapStartLocXinPixels, yLoc + y + txtH, "bk");
                         }
                     }
-                    Color colr = Color.Yellow;
+                    string colr = "yl";
                     if (ft.color.Equals("yellow"))
                     {
-                        colr = Color.Yellow;
+                        colr = "yl";
                     }
                     else if (ft.color.Equals("blue"))
                     {
-                        colr = Color.Blue;
+                        colr = "bu";
                     }
                     else if (ft.color.Equals("green"))
                     {
-                        colr = Color.Lime;
+                        colr = "gn";
                     }
                     else if (ft.color.Equals("red"))
                     {
-                        colr = Color.Red;
+                        colr = "rd";
                     }
                     else
                     {
-                        colr = Color.White;
+                        colr = "wh";
                     }
-                    gv.DrawText(ft.value, new IbRect(xLoc + gv.oXshift + mapStartLocXinPixels, yLoc + txtH, gv.squareSize * 2, 1000), 0.8f, colr);
+                    gv.DrawText(ft.value, xLoc + gv.oXshift + mapStartLocXinPixels, yLoc + txtH, colr);
                 }
             }
         }

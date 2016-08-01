@@ -11,7 +11,7 @@ using SharpDX.DirectWrite;
 namespace IceBlink2mini
 {
     public class IbbHtmlLogBox
-    {
+    {        
         public GameView gv = null;
         public Bitmap btn_up;
         public Bitmap btn_down;
@@ -83,15 +83,15 @@ namespace IceBlink2mini
             IbRect dst = new IbRect(x + tbXloc, y + tbYloc - gv.oYshift, bmp.PixelSize.Width, bmp.PixelSize.Height);
             gv.DrawBitmap(bmp, src, dst);
         }
-        public void DrawString(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor, float fontHeight, bool isUnderlined)
+        /*public void DrawString(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor, float fontHeight, bool isUnderlined)
         {
             if ((y > -2) && (y <= tbHeight - fontHeight))
             {
                 //gv.DrawText(text, f, sb, x + tbXloc, y + tbYloc - gv.oYshift);
                 gv.DrawText(text, x + tbXloc + gv.pS, y, fw, fs, 1.0f, fontColor, isUnderlined);
             }
-        }
-
+        }*/
+        
         public void AddHtmlTextToLog(string htmlText)
         {
             //Remove any '\r\n' hard returns from message
@@ -311,7 +311,7 @@ namespace IceBlink2mini
                     {
                         gv.textLayout.SetUnderline(true, new TextRange(0, word.text.Length - 1));
                     }
-                    DrawString(word.text + " ", xLoc, yLoc + difYheight, word.fontWeight, word.fontStyle, word.color, word.fontSize, word.underlined);
+                    //DrawString(word.text + " ", xLoc, yLoc + difYheight, word.fontWeight, word.fontStyle, word.color, word.fontSize, word.underlined);
                     xLoc += gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
 
                     //OLD STUFF
@@ -597,5 +597,6 @@ namespace IceBlink2mini
                 //gv.Invalidate();
             }
         }
+        
     }
 }

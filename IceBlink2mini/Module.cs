@@ -91,6 +91,7 @@ namespace IceBlink2mini
         public Bitmap partyTokenBitmap;
         public List<Player> playerList = new List<Player>();
         public List<Player> partyRosterList = new List<Player>();
+        public List<Player> companionPlayerList = new List<Player>();
         public List<ItemRefs> partyInventoryRefsList = new List<ItemRefs>();
         public List<JournalQuest> partyJournalQuests = new List<JournalQuest>();
         public List<JournalQuest> partyJournalCompleted = new List<JournalQuest>();

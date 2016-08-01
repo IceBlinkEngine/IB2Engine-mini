@@ -196,8 +196,8 @@ namespace IceBlink2mini
             
             //for testing other screen sizes, manually enter a resolution here
             //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792
-            this.Width = 1920;
-            this.Height = 1080;
+            this.Width = 1280;
+            this.Height = 720;
 
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
@@ -1015,11 +1015,11 @@ namespace IceBlink2mini
             float x = 0;
             foreach (char c in text)
             {
-                DrawD2DBitmap(bm, charList[c], new SharpDX.RectangleF(xLoc + x, yLoc + oYshift, fontWidth, fontHeight), 1);
+                DrawD2DBitmap(bm, charList[c], new SharpDX.RectangleF(xLoc + x, yLoc + oYshift, fontWidth, fontHeight), 0.0f, false, 1.0f, 0, 0, 0, 0, true);
                 x += fontWidth + fontCharSpacing;
             }
         }
-        public void CleanUpDrawTextResources()
+        /*public void CleanUpDrawTextResources()
         {
             if (textFormat != null)
             {
@@ -1031,7 +1031,7 @@ namespace IceBlink2mini
                 textLayout.Dispose();
                 textLayout = null;
             }
-        }
+        }*/
         /*public void DrawText(string text, float xLoc, float yLoc)
         {
             DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, SharpDX.Color.White, false);
@@ -1044,11 +1044,11 @@ namespace IceBlink2mini
         {
             DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor, false);
         }*/
-        public void DrawText(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
+        /*public void DrawText(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
         {
             DrawText(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
-        }
-        public void DrawText(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
+        }*/
+        /*public void DrawText(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
         {
             CleanUpDrawTextResources();
             float thisFontHeight = drawFontRegHeight;
@@ -1067,8 +1067,8 @@ namespace IceBlink2mini
                 textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
                 renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
             }
-        }
-        public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor, bool isUnderlined)
+        }*/
+        /*public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor, bool isUnderlined)
         {
             CleanUpDrawTextResources();
             float thisFontHeight = drawFontRegHeight;
@@ -1090,7 +1090,7 @@ namespace IceBlink2mini
                 }
                 renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift), textLayout, scb, DrawTextOptions.None);
             }
-        }
+        }*/
         /*public void DrawRoundRectangle(IbRect rect, int rad, SharpDX.Color penColor, int penWidth)
         {
             RoundedRectangle r = new RoundedRectangle();
@@ -1159,13 +1159,13 @@ namespace IceBlink2mini
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
             DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror);
         }*/
-        public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity)
+        /*public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity)
         {
             //test
             SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
             DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity);
-        }
+        }*/
         /*public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, int angleInDegrees, bool mirror, int Xshift, int Yshift)
         {
             SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
@@ -1442,26 +1442,29 @@ namespace IceBlink2mini
         {
             DrawD2DBitmap(bitmap, source, target, false);
         }
-        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int ibmini)
+        /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int ibmini)
         {
             DrawD2DBitmap(bitmap, source, target, 0.0f, false, 1.0f, 0, 0, 0, 0, true);
-        }
+        }*/
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror)
         {
-            DrawD2DBitmap(bitmap, source, target, 0, mirror, 1.0f , 0, 0, 0, 0, false);
+            DrawD2DBitmap(bitmap, source, target, 0.0f, mirror, 1.0f , 0, 0, 0, 0, false);
         }
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror)
         {
-            DrawD2DBitmap(bitmap, source, target, angleInDegrees, mirror, 1.0f, 0, 0, 0, 0, false);
+            //convert degrees to radians
+            float angleInRadians = (float)(Math.PI * 2 * (float)angleInDegrees / (float)360);
+            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, 1.0f, 0, 0, 0, 0, false);
+            //DrawD2DBitmap(bitmap, source, target, angleInDegrees, mirror, 1.0f, 0, 0, 0, 0, false);
         }
         /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror)
         {
             DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, 1.0f, 0, 0, 0, 0, false);
         }*/
-        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opacity)
+        /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opacity)
         {
             DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opacity, 0, 0, 0, 0, false);
-        }
+        }*/
         /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror, float opac)
         {
             DrawD2DBitmap(bitmap, source, target, 0, mirror, opac, 0, 0, 0, 0, false);
@@ -1478,12 +1481,12 @@ namespace IceBlink2mini
         {
             DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, 1.0f, Xshift, Yshift, Xscale, Yscale, false);
         }*/
-        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation)
+        /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation)
         {
             //convert degrees to radians
             float angleInRadians = (float)(Math.PI * 2 * (float)angleInDegrees / (float)360);
             DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opac, Xshift, Yshift, Xscale, Yscale, false);
-        }
+        }*/
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation)
         {
             int mir = 1;

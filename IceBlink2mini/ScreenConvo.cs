@@ -196,7 +196,7 @@ namespace IceBlink2mini
                 string textToSpan = txt;
                 if (pcNodeGlow == cnt)
                 {
-                    textToSpan = "<gn>" + txt + "</gn>";
+                    textToSpan = "<rd>" + txt + "</rd>";
                 }
                 else
                 {
@@ -535,8 +535,8 @@ namespace IceBlink2mini
         }
         private void doConvo(int prntIdNum) // load up the text for the NPC node and all PC responses
         {
-            String selectedPcOptions = "";
-            String comparePcOptions = "";
+            string selectedPcOptions = "";
+            string comparePcOptions = "";
             currentNpcNode = "";
             currentPcNodeList.Clear();        
             nodeIndexList.Clear();
@@ -569,8 +569,8 @@ namespace IceBlink2mini
                 {            	
                     selectedPcOptions += cnt + "";
                     nodeIndexList.Add(cnt);
-            	    String pcNodeText = replaceText(pcNode.conversationText);
-            	    currentPcNodeList.Add("<font color='lime'>" + trueCount + ") "  + "</font>" + pcNodeText);
+            	    string pcNodeText = replaceText(pcNode.conversationText);
+            	    currentPcNodeList.Add("<gn>" + trueCount + ") "  + "</gn>" + pcNodeText);
             	    trueCount++;
                 }
                 cnt++;

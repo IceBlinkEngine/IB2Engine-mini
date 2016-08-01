@@ -146,6 +146,15 @@ namespace IceBlink2mini
         {
             Player toReturn = null;
 
+            //try finding player in module companionPlayerList first
+            string nameMinusJson = filename.Replace(".json", "");
+            foreach (Player p in gv.mod.companionPlayerList)
+            {
+                if (p.name.Equals(filename))
+                {
+                    return p;
+                }
+            }
             // deserialize JSON directly from a file
             using (StreamReader file = File.OpenText(gv.mainDirectory + "\\default\\NewModule\\data\\" + filename))
             {

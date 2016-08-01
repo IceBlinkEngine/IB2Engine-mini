@@ -201,8 +201,8 @@ namespace IceBlink2mini
 		    gv.DrawText("Party", locX + (gv.squareSize * 5) + pW * 2, locY, "wh");
             gv.DrawText("Inventory", locX + (gv.squareSize * 5) + pW * 2, locY += spacing, "wh");
 		    locY = gv.squareSize + (pH * 2);
-		    gv.DrawText("Party", tabX2 + (gv.squareSize * 6), locY, "wh");
-            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + (gv.squareSize * 6), locY += spacing, "wh");
+		    gv.DrawText("Party", tabX2 + (gv.squareSize * 6), locY, "yl");
+            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + (gv.squareSize * 6), locY += spacing, "yl");
 
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX
 		    btnPageIndex.Draw();
@@ -230,8 +230,8 @@ namespace IceBlink2mini
 		        string textToSpan = "";
                 //textToSpan = "Description:" + Environment.NewLine;
         	    //textToSpan += it.name + Environment.NewLine;
-                textToSpan = "<u>Description</u>" + "<BR>";
-	            textToSpan += "<b><i><big>" + it.name + "</big></i></b><BR>";
+                textToSpan = "<gy>Description</gy>" + "<BR>";
+	            textToSpan += "<gn>" + it.name + "</gn><BR>";
 	            if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
 	            {
 	        	    textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";

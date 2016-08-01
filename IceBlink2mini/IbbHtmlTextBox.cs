@@ -13,8 +13,8 @@ namespace IceBlink2mini
     {
         public GameView gv;
         public List<string> tagStack = new List<string>();
-        public List<FormattedLine> logLinesList = new List<FormattedLine>();
-        float xLoc = 0;
+        public List<IBminiFormattedLine> logLinesList = new List<IBminiFormattedLine>();
+        //float xLoc = 0;
         public int tbHeight = 200;
         public int tbWidth = 300;
         public int tbXloc = 10;
@@ -52,11 +52,11 @@ namespace IceBlink2mini
             IbRect dst = new IbRect(x + tbXloc, y + tbYloc, bmp.PixelSize.Width, bmp.PixelSize.Height);
             gv.DrawBitmap(bmp, src, dst);
         }
-        public void DrawString(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor, float fontHeight, bool isUnderlined)
+        public void DrawString(string text, float x, float y, string fontColor)
         {
-            if ((y > -2) && (y <= tbHeight - fontHeight))
+            if ((y > -2) && (y <= tbHeight - gv.fontHeight))
             {
-                gv.DrawText(text, x + tbXloc, y + tbYloc, fw, fs, 1.0f, fontColor, isUnderlined);
+                gv.DrawText(text, x + tbXloc, y + tbYloc, fontColor);
             }
         }
 
@@ -69,8 +69,8 @@ namespace IceBlink2mini
             if ((htmlText.EndsWith("<br>")) || (htmlText.EndsWith("<BR>")))
             {
                 //ProcessHtmlString(htmlText, tbWidth);
-                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText, tbWidth, tagStack);
-                foreach (FormattedLine fl in linesList)
+                List<IBminiFormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText, tbWidth, tagStack, true);
+                foreach (IBminiFormattedLine fl in linesList)
                 {
                     logLinesList.Add(fl);
                 }
@@ -78,8 +78,8 @@ namespace IceBlink2mini
             else
             {
                 //ProcessHtmlString(htmlText + "<br>", tbWidth);
-                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText + "<br>", tbWidth, tagStack);
-                foreach (FormattedLine fl in linesList)
+                List<IBminiFormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText + "<br>", tbWidth, tagStack, true);
+                foreach (IBminiFormattedLine fl in linesList)
                 {
                     logLinesList.Add(fl);
                 }
@@ -242,9 +242,9 @@ namespace IceBlink2mini
             for (int i = 0; i < logLinesList.Count; i++)
             {
                 //loop through each line and print each word
-                foreach (FormattedWord word in logLinesList[i].wordsList)
+                foreach (IBminiFormattedWord word in logLinesList[i].wordsList)
                 {
-                    if (gv.textFormat != null)
+                    /*if (gv.textFormat != null)
                     {
                         gv.textFormat.Dispose();
                         gv.textFormat = null;
@@ -254,15 +254,15 @@ namespace IceBlink2mini
                     {
                         gv.textLayout.Dispose();
                         gv.textLayout = null;
-                    }
-                    gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
-                    gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, word.text + " ", gv.textFormat, gv.Width, gv.Height);
-                    float ht = gv.textLayout.Metrics.Height;
-                    float wd = gv.textLayout.Metrics.Width;
-                    int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;                    
-                    DrawString(word.text + " ", xLoc, yLoc + difYheight, word.fontWeight, word.fontStyle, word.color, word.fontSize, word.underlined);
+                    }*/
+                    //gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                    //gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, word.text + " ", gv.textFormat, gv.Width, gv.Height);
+                    //float ht = gv.textLayout.Metrics.Height;
+                    //float wd = gv.textLayout.Metrics.Width;
+                    //int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;                    
+                    DrawString(word.text + " ", xLoc, yLoc, word.color);
                     //gv.DrawRectangle(new IbRect((int)xLoc + tbXloc, (int)yLoc + difYheight + tbYloc, (int)wd, (int)ht), SharpDX.Color.White, 1);
-                    xLoc += gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
+                    xLoc += (word.text.Length + 1) * (gv.fontWidth + gv.fontCharSpacing);
 
                     //OLD STUFF
                     //print each word and move xLoc
@@ -275,7 +275,7 @@ namespace IceBlink2mini
                     //xLoc += wordWidth;
                 }
                 xLoc = 0;
-                yLoc += logLinesList[i].lineHeight;
+                yLoc += gv.fontHeight + gv.fontLineSpacing;
             }
 
             //draw border for debug info

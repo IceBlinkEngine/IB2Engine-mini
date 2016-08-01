@@ -180,7 +180,7 @@ namespace IceBlink2mini
                 */
                 //new way
                 int ulX = pW * 0;
-                int ulY = this.Height - (gv.fontHeight * 2);
+                int ulY = (int)(Height * gv.screenDensity) - ((int)gv.fontHeight * 2);
 
                 for (int x = 0; x <= 2; x++)
                 {
@@ -221,7 +221,7 @@ namespace IceBlink2mini
                 */
                 //new way
                 ulX = pW * 0;
-                ulY = this.Height - (gv.fontHeight * 1);
+                ulY = (int)(Height * gv.screenDensity) - ((int)gv.fontHeight * 1);
 
                 for (int x = 0; x <= 2; x++)
                 {

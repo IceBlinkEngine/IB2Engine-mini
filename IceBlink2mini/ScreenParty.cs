@@ -151,10 +151,9 @@ namespace IceBlink2mini
                 btnInfo.Text = "INFO";
                 btnInfo.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnInfo.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnInfo.X = (11 * gv.squareSize) - padW + (int)(gv.squareSize * 0.75f);
+                btnInfo.X = 10 * gv.squareSize + (padW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
                 //btnInfo.Y = 9 * gv.squareSize + pH * 2;
                 btnInfo.Y = 6 * gv.squareSize + (pH * 2);
-                ;
                 btnInfo.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInfo.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -319,13 +318,14 @@ namespace IceBlink2mini
             int pW = (int)((float)gv.screenWidth / 100.0f);
             int pH = (int)((float)gv.screenHeight / 100.0f);
             int padH = gv.squareSize / 6;
-            float locY = 0;
-            int locX = 3 * gv.squareSize + (pW * 1) + gv.oXshift;
-            int tabX = 7 * gv.squareSize + (pW * 0) - (3 * gv.oXshift);
-            int tabX2 = 10 * gv.squareSize + (pW * 0) - gv.oXshift;
+            int locY = 0;
+            int locX = 2 * gv.squareSize + (padH * 3) + gv.oXshift;
+            int tabX0 = 2 * gv.squareSize + (padH * 3) + gv.oXshift;
+            int tabX = 5 * gv.squareSize + (padH * 4) + gv.oXshift;
+            int tabX2 = 9 * gv.squareSize + (padH * 5) + gv.oXshift;
             //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
-            float textH = gv.drawFontRegHeight;
-            float spacing = textH + pH;
+            //int textH = gv.drawFontRegHeight;
+            int spacing = gv.fontHeight + gv.fontLineSpacing;
             int leftStartY = btnPartyIndex[0].Y + btnPartyIndex[0].Height + (pH * 2);
 
             //DRAW EACH PC BUTTON
@@ -371,10 +371,10 @@ namespace IceBlink2mini
             locY += spacing;
                         
             int bottomLocY = 7 * gv.squareSize + pH * 5;
-            btnSpells.Y = (int)bottomLocY;
-            btnTraits.Y = (int)bottomLocY;
-            btnEffects.Y = (int)bottomLocY;
-            btnOthers.Y = (int)bottomLocY;
+            btnSpells.Y = bottomLocY;
+            btnTraits.Y = bottomLocY;
+            btnEffects.Y = bottomLocY;
+            btnOthers.Y = bottomLocY;
             btnPartyRoster.Y = 9 * gv.squareSize + pH * 2;
 
             //LOCATE EQUIPMENT SLOTS
@@ -389,6 +389,7 @@ namespace IceBlink2mini
             btnRing2.Y = startSlotsY2;
             btnBody.Y = startSlotsY2;
             btnFeet.Y = startSlotsY2;
+            btnInfo.Y = startSlotsY2;
 
             //DRAW RIGHT STATS
             int actext = 0;
@@ -396,26 +397,21 @@ namespace IceBlink2mini
             if (mod.ArmorClassAscending) { actext = pc.AC; }
             else { actext = 20 - pc.AC; }
             locY = 0;
-            gv.DrawText("STR:  " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength + " (" + ((pc.strength - 10) / 2) + ")", tabX, locY += leftStartY, "wh");
+            gv.DrawText("STR: " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength + " (" + ((pc.strength - 10) / 2) + ")", tabX, locY += leftStartY, "wh");
             gv.DrawText("AC: " + actext, tabX2, locY, "wh");
-            //gv.DrawText("BAB: " + pc.baseAttBonus + ", Melee to hit/damage: " + (pc.baseAttBonus + ((pc.strength - 10) / 2)) + "/" + ((pc.strength - 10) / 2) + ", Ranged to hit: " + (pc.baseAttBonus + ((pc.dexterity - 10) / 2)), tabX2, locY += spacing);
             gv.DrawText("DEX: " + pc.baseDex + " + " + (pc.dexterity - pc.baseDex) + " = " + pc.dexterity + " (" + ((pc.dexterity - 10) / 2) + ")", tabX, locY += spacing, "wh");
             gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY, "wh");
             gv.DrawText("CON: " + pc.baseCon + " + " + (pc.constitution - pc.baseCon) + " = " + pc.constitution + " (" + ((pc.constitution - 10) / 2) + ")", tabX, locY += spacing, "wh");
             gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY, "wh");
-            gv.DrawText("BAB: " + pc.baseAttBonus + ", Melee to hit/damage: " + (pc.baseAttBonus + ((pc.strength - 10) / 2)) + "/" + ((pc.strength - 10) / 2) + ", Ranged to hit: " + (pc.baseAttBonus + ((pc.dexterity - 10) / 2)), tabX2, locY += spacing, "wh");
-            //gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
-            gv.DrawText("INT:  " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence + " (" + ((pc.intelligence - 10) / 2) + ")", tabX, locY, "wh");
-            gv.DrawText("FORT: " + pc.fortitude + ", Acid: " + pc.damageTypeResistanceTotalAcid + "%" + ", Cold: " + pc.damageTypeResistanceTotalCold + "%" + ", Normal: " + pc.damageTypeResistanceTotalNormal + "%", tabX2, locY += spacing, "wh");
-            gv.DrawText("REF:   " + pc.reflex + ", Electricity: " + pc.damageTypeResistanceTotalElectricity + "%" + ", Fire: " + pc.damageTypeResistanceTotalFire + "%", tabX2, locY += spacing, "wh");
-            gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY += spacing, "wh");
-            gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", tabX, locY -= (spacing * 2), "wh");
+            gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY += spacing, "wh");
+            gv.DrawText("INT: " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence + " (" + ((pc.intelligence - 10) / 2) + ")", tabX, locY, "wh");
+            gv.DrawText("WIS: " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", tabX, locY += spacing, "wh");
+            gv.DrawText("Melee to hit/damage: " + (pc.baseAttBonus + ((pc.strength - 10) / 2)) + "/" + ((pc.strength - 10) / 2) + ", Ranged to hit: " + (pc.baseAttBonus + ((pc.dexterity - 10) / 2)), tabX2, locY, "wh");
             gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", tabX, locY += spacing, "wh");
-            if (mod.useLuck == true)
-            {
-                gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, tabX, locY += spacing, "wh");
-            }
-
+            gv.DrawText("FORT: " + pc.fortitude + ", Acid: " + pc.damageTypeResistanceTotalAcid + "%" + ", Cold: " + pc.damageTypeResistanceTotalCold + "%" + ", Normal: " + pc.damageTypeResistanceTotalNormal + "%", tabX2, locY, "wh");
+            gv.DrawText("REF:  " + pc.reflex + ", Electricity: " + pc.damageTypeResistanceTotalElectricity + "%" + ", Fire: " + pc.damageTypeResistanceTotalFire + "%", tabX2, locY += spacing, "wh");
+            gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY += spacing, "wh");
+            
             //DRAW LEVEL UP BUTTON
             if (mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
             {
@@ -637,7 +633,7 @@ namespace IceBlink2mini
             //4. Draw TextBox with info from abvoe about attack and damage
             //Description
             string textToSpan2 = "";
-            textToSpan2 = "<u>Current Attack and Damage</u>" + "<BR>";
+            textToSpan2 = "<u>Current Attack & Damage</u>" + "<BR>";
             textToSpan2 += "Number of attacks: " + numAtt + "<BR>";
             textToSpan2 += "Attack bonus: " + attackMod + "<BR>";
             textToSpan2 += "Damage: " + numberOfDiceRolled + "d" + typeOfDieRolled + "+" + damModifier + "<BR>";
@@ -649,7 +645,7 @@ namespace IceBlink2mini
             yLoc = startSlotsY - 2 * pH;
             width = pW * 80;
             height = pH * 50;
-            DrawTextLayout(attackAndDamageInfo, textToSpan2, xLoc, yLoc, width, height);
+            DrawTextLayout(attackAndDamageInfo, textToSpan2, tabX0, yLoc, width, height);
 
         }
         public void DrawTextLayout(IbbHtmlTextBox tb, string text, int xLoc, int yLoc, int width, int height)
