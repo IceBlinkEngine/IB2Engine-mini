@@ -16,9 +16,9 @@ namespace IceBlink2mini
 	    private IbbButton btnLoadSavedGame = null;
 	    private IbbButton btnPlayerGuide = null;
 	    private IbbButton btnBeginnerGuide = null;
-	    private IbbButton btnAbout = null;	
-	
-	    public ScreenTitle(Module m, GameView g)
+	    private IbbButton btnAbout = null;        
+
+        public ScreenTitle(Module m, GameView g)
 	    {
 		    mod = m;
 		    gv = g;
@@ -88,7 +88,7 @@ namespace IceBlink2mini
 
 	    //TITLE SCREEN  
         public void redrawTitle()
-        {            
+        {                        
     	    //DRAW TITLE SCREEN
             float dstHeight = ((float)gv.screenWidth / (float)gv.cc.title.PixelSize.Width) * (float)gv.cc.title.PixelSize.Height;
             //do narration with image setup    	
@@ -102,6 +102,10 @@ namespace IceBlink2mini
             gv.DrawText("v" + mod.moduleVersion, xLoc, (7 * gv.squareSize) + (pH * 4), "wh");
             
             drawTitleControls();
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.onDrawLogBox();
+            }
         }
         public void drawTitleControls()
 	    {    	
@@ -162,6 +166,7 @@ namespace IceBlink2mini
 			    else if (btnPlayerGuide.getImpact(x, y))
 			    {
                     gv.PlaySound("btn_click");
+                    gv.showMessageBox = true;
 				    gv.cc.tutorialPlayersGuide();
 			    }
 			    else if (btnBeginnerGuide.getImpact(x, y))

@@ -92,6 +92,8 @@ namespace IceBlink2mini
         public int triggerPropIndex = 0;
 
         public IB2HtmlLogBox log;
+        public IBminiMessageBox messageBox;
+        public bool showMessageBox = false;
         public CommonCode cc;
         public Module mod;
         public ScriptFunctions sf;
@@ -193,11 +195,11 @@ namespace IceBlink2mini
             //this.WindowState = FormWindowState.Maximized;
             //this.Width = Screen.PrimaryScreen.Bounds.Width;
             //this.Height = Screen.PrimaryScreen.Bounds.Height;
-            
+            this.MinimumSize = new Size(100, 100);
             //for testing other screen sizes, manually enter a resolution here
-            //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792
-            this.Width = 1280;
-            this.Height = 720;
+            //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792, 912x528, 456x264
+            this.Width = 912;
+            this.Height = 528;
 
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
@@ -269,7 +271,16 @@ namespace IceBlink2mini
             cc.addLogText("yellow", "");
             cc.addLogText("red", "Welcome to IceBlink 2");
             cc.addLogText("fuchsia", "You can scroll this message log box, use mouse wheel or scroll bar");
-            
+
+            //setup messageBox defaults
+            messageBox = new IBminiMessageBox(this);
+            messageBox.currentLocX = 500;
+            messageBox.currentLocY = 100;
+            messageBox.numberOfLinesToShow = 40;
+            messageBox.tbWidth = 900;
+            messageBox.Width = 900;
+            messageBox.Height = 900;
+            messageBox.tbHeight = 900;
             //setupMusicPlayers();
             
             if (fixedModule.Equals("")) //this is the IceBlink Engine app
@@ -1015,6 +1026,7 @@ namespace IceBlink2mini
             float x = 0;
             foreach (char c in text)
             {
+                if (c == '\r') { continue; }
                 DrawD2DBitmap(bm, charList[c], new SharpDX.RectangleF(xLoc + x, yLoc + oYshift, fontWidth, fontHeight), 0.0f, false, 1.0f, 0, 0, 0, 0, true);
                 x += fontWidth + fontCharSpacing;
             }
@@ -1525,7 +1537,11 @@ namespace IceBlink2mini
         //INPUT STUFF
         private void GameView_MouseWheel(object sender, MouseEventArgs e)
         {
-            if ((screenType.Equals("main")) || (screenType.Equals("combat")))
+            if (showMessageBox)
+            {
+                messageBox.onMouseWheel(sender, e);
+            }
+            else if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
                 log.onMouseWheel(sender, e);
             }

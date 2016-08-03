@@ -137,6 +137,7 @@
     <Compile Include="IBMessageBox.designer.cs" />
     <Compile Include="IBminiFormattedLine.cs" />
     <Compile Include="IBminiFormattedWord.cs" />
+    <Compile Include="IBminiMessageBox.cs" />
     <Compile Include="IBminiTextBox.cs" />
     <Compile Include="IbRect.cs" />
     <Compile Include="IbRectF.cs" />

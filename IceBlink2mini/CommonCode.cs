@@ -150,7 +150,7 @@ namespace IceBlink2mini
             string nameMinusJson = filename.Replace(".json", "");
             foreach (Player p in gv.mod.companionPlayerList)
             {
-                if (p.name.Equals(filename))
+                if (p.name.Equals(nameMinusJson))
                 {
                     return p;
                 }
@@ -837,6 +837,7 @@ namespace IceBlink2mini
                 using (StreamReader file = File.OpenText(GetModulePath() + "\\" + folderAndFilename))
                 {
                     JsonSerializer serializer = new JsonSerializer();
+                    //toReturn = (Module)JsonConvert.DeserializeObject("", typeof(Module));
                     toReturn = (Module)serializer.Deserialize(file, typeof(Module));
                 }
             }
@@ -1276,7 +1277,11 @@ namespace IceBlink2mini
         }
         public void tutorialPlayersGuide()
         {
-            gv.sf.MessageBoxHtml(this.stringPlayersGuide);
+            //gv.sf.MessageBoxHtml(this.stringPlayersGuide);
+            //assign text to messagebox
+            gv.messageBox.logLinesList.Clear();
+            gv.messageBox.AddHtmlTextToLog(this.stringPlayersGuide);
+            gv.messageBox.currentTopLineIndex = 0;
         }
         public void tutorialBeginnersGuide()
         {
