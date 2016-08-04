@@ -824,21 +824,104 @@ namespace IceBlink2mini
             Module toReturn = null;
             if (fullPath)
             {
+                //used for loading up the launcher screen only
                 // deserialize JSON directly from a file
-                using (StreamReader file = File.OpenText(folderAndFilename))
+                /*using (StreamReader file = File.OpenText(folderAndFilename))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     toReturn = (Module)serializer.Deserialize(file, typeof(Module));
+                }*/
+                //new method
+                using (StreamReader sr = File.OpenText(folderAndFilename))
+                {
+                    string s = "";
+                    s = sr.ReadLine();
+                    if (!s.Equals("MODULE"))
+                    {
+                        MessageBox.Show("module file did not have 'MODULE' on first line, aborting...");
+                        return null;
+                    }
+                    //Read in the module file line
+                    for (int i = 0; i < 99; i++)
+                    {
+                        s = sr.ReadLine();
+                        if ((s == null) || (s.Equals("AREAS")))
+                        {
+                            break;
+                        }
+                        toReturn = (Module)JsonConvert.DeserializeObject(s, typeof(Module));
+                    }                    
                 }
             }
             else
             {
+                //used for opening the entire module files
                 // deserialize JSON directly from a file
-                using (StreamReader file = File.OpenText(GetModulePath() + "\\" + folderAndFilename))
+                /*using (StreamReader file = File.OpenText(GetModulePath() + "\\" + folderAndFilename))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     //toReturn = (Module)JsonConvert.DeserializeObject("", typeof(Module));
                     toReturn = (Module)serializer.Deserialize(file, typeof(Module));
+                }*/
+                //new method
+                using (StreamReader sr = File.OpenText(GetModulePath() + "\\" + folderAndFilename))
+                {
+                    string s = "";
+                    s = sr.ReadLine();
+                    if (!s.Equals("MODULE"))
+                    {
+                        MessageBox.Show("module file did not have 'MODULE' on first line, aborting...");
+                        return null;
+                    }
+                    //Read in the module file line
+                    for (int i = 0; i < 99; i++)
+                    {
+                        s = sr.ReadLine();
+                        if ((s == null) || (s.Equals("AREAS")))
+                        {
+                            break;
+                        }
+                        toReturn = (Module)JsonConvert.DeserializeObject(s, typeof(Module));
+                    }
+                    //Read in the areas
+                    toReturn.moduleAreasObjects.Clear();
+                    Area ar;
+                    for (int i = 0; i < 9999; i++)
+                    {
+                        s = sr.ReadLine();
+                        if ((s == null) || (s.Equals("ENCOUNTERS")))
+                        {
+                            break;
+                        }
+                        ar = (Area)JsonConvert.DeserializeObject(s, typeof(Area));
+                        toReturn.moduleAreasObjects.Add(ar);
+                    }
+                    //Read in the encounters
+                    toReturn.moduleEncountersList.Clear();
+                    Encounter enc;
+                    for (int i = 0; i < 9999; i++)
+                    {
+                        s = sr.ReadLine();
+                        if ((s == null) || (s.Equals("CONVOS")))
+                        {
+                            break;
+                        }
+                        enc = (Encounter)JsonConvert.DeserializeObject(s, typeof(Encounter));
+                        toReturn.moduleEncountersList.Add(enc);
+                    }
+                    //Read in the areas
+                    toReturn.moduleConvoList.Clear();
+                    Convo cnv;
+                    for (int i = 0; i < 9999; i++)
+                    {
+                        s = sr.ReadLine();
+                        if ((s == null) || (s.Equals("IMAGES")) || (s.Equals("END")))
+                        {
+                            break;
+                        }
+                        cnv = (Convo)JsonConvert.DeserializeObject(s, typeof(Convo));
+                        toReturn.moduleConvoList.Add(cnv);
+                    }
                 }
             }
             return toReturn;

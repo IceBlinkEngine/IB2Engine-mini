@@ -15,8 +15,8 @@ namespace IceBlink2mini
         public bool Narration = false;
         public bool PartyChat = false;
         public bool SpeakToMainPcOnly = false;
-        public String NpcPortraitBitmap = "";
-        public String DefaultNpcName = "";
+        public string NpcPortraitBitmap = "";
+        public string DefaultNpcName = "";
         public List<ContentNode> subNodes = new List<ContentNode>();
 
         public Convo()

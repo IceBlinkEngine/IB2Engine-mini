@@ -46,9 +46,7 @@ namespace IceBlink2mini
         public List<Shop> moduleShopsList = new List<Shop>();
 
         //[JsonIgnore]
-        public List<Item> moduleItemsList = new List<Item>();
-        //[JsonIgnore]
-        public List<Encounter> moduleEncountersList = new List<Encounter>();        
+        public List<Item> moduleItemsList = new List<Item>();            
         //[JsonIgnore]
         public List<Creature> moduleCreaturesList = new List<Creature>();
         //[JsonIgnore]
@@ -62,13 +60,17 @@ namespace IceBlink2mini
         //[JsonIgnore]
         public List<Trait> moduleTraitsList = new List<Trait>();
         //[JsonIgnore]
-        public List<Effect> moduleEffectsList = new List<Effect>();
-        //[JsonIgnore]
-        public List<Convo> moduleConvoList = new List<Convo>();
+        public List<Effect> moduleEffectsList = new List<Effect>();       
         //[JsonIgnore]
         public List<IBScript> moduleIBScriptList = new List<IBScript>();
 
+        [JsonIgnore]
         public List<Area> moduleAreasObjects = new List<Area>();
+        [JsonIgnore]
+        public List<Encounter> moduleEncountersList = new List<Encounter>();        
+        [JsonIgnore]
+        public List<Convo> moduleConvoList = new List<Convo>();
+
         public List<GlobalInt> moduleGlobalInts = new List<GlobalInt>();
         public List<GlobalString> moduleGlobalStrings = new List<GlobalString>();
         public List<ConvoSavedValues> moduleConvoSavedValuesList = new List<ConvoSavedValues>();
