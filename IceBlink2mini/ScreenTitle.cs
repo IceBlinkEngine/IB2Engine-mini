@@ -121,9 +121,13 @@ namespace IceBlink2mini
 		    btnLoadSavedGame.glowOn = false;
 		    btnPlayerGuide.glowOn = false;
 		    btnBeginnerGuide.glowOn = false;				
-		    btnAbout.glowOn = false;	
-		
-		    switch (eventType)
+		    btnAbout.glowOn = false;
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.btnReturn.glowOn = false;
+            }
+
+            switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseUp:
                 int x = (int)e.X;
@@ -134,78 +138,100 @@ namespace IceBlink2mini
 			    btnAbout.glowOn = false;
 			    btnPlayerGuide.glowOn = false;
 			    btnBeginnerGuide.glowOn = false;
-			
-			    if (btnNewGame.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    if (gv.mod.mustUsePreMadePC)
-				    {
-					    //no spell selection offered
-					    gv.cc.tutorialMessageMainMap();
-			    	    gv.screenType = "main";
-			    	    gv.cc.doUpdate();
-				    }
-				    else
-				    {
-					    gv.screenType = "partyBuild";
-					    gv.screenPartyBuild.loadPlayerList();
-				    }
-			    }
-			    else if (btnLoadSavedGame.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    if (gv.cc.slot5.Equals(""))
-				    {
-					    //Toast.makeText(gv.gameContext, "Still Loading Data... try again in a second", Toast.LENGTH_SHORT).show();
-				    }
-				    else
-				    {
-					    gv.cc.doLoadSaveGameDialog();
-				    }
-			    }
-			    else if (btnPlayerGuide.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-                    gv.showMessageBox = true;
-				    gv.cc.tutorialPlayersGuide();
-			    }
-			    else if (btnBeginnerGuide.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    gv.cc.tutorialBeginnersGuide();
-			    }
-			    else if (btnAbout.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    gv.cc.doAboutDialog();
-			    }						
+                if (gv.showMessageBox)
+                {
+                    gv.messageBox.btnReturn.glowOn = false;
+                }
+
+                if (gv.showMessageBox)
+                {
+                    if (gv.messageBox.btnReturn.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        gv.showMessageBox = false;
+                    }
+                }
+                else
+                {
+                    if (btnNewGame.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        if (gv.mod.mustUsePreMadePC)
+                        {
+                            //no spell selection offered
+                            gv.cc.tutorialMessageMainMap();
+                            gv.screenType = "main";
+                            gv.cc.doUpdate();
+                        }
+                        else
+                        {
+                            gv.screenType = "partyBuild";
+                            gv.screenPartyBuild.loadPlayerList();
+                        }
+                    }
+                    else if (btnLoadSavedGame.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        if (gv.cc.slot5.Equals(""))
+                        {
+                            //Toast.makeText(gv.gameContext, "Still Loading Data... try again in a second", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            gv.cc.doLoadSaveGameDialog();
+                        }
+                    }
+                    else if (btnPlayerGuide.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        gv.showMessageBox = true;
+                        gv.cc.tutorialPlayersGuide();
+                    }
+                    else if (btnBeginnerGuide.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        gv.cc.tutorialBeginnersGuide();
+                    }
+                    else if (btnAbout.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        gv.cc.doAboutDialog();
+                    }
+                }					
 			    break;
 
             case MouseEventType.EventType.MouseDown:
             case MouseEventType.EventType.MouseMove:
                 x = (int)e.X;
                 y = (int)e.Y;
-				
-			    if (btnNewGame.getImpact(x, y))
-			    {
-                    btnNewGame.glowOn = true;
-			    }
-			    else if (btnLoadSavedGame.getImpact(x, y))
-			    {
-				    btnLoadSavedGame.glowOn = true;
-			    }
-			    else if (btnAbout.getImpact(x, y))
-			    {
-				    btnAbout.glowOn = true;
-			    }
-			    else if (btnPlayerGuide.getImpact(x, y))
-			    {
-				    btnPlayerGuide.glowOn = true;
-			    }
-			    else if (btnBeginnerGuide.getImpact(x, y))
-			    {
-				    btnBeginnerGuide.glowOn = true;	
-			    }
+
+                if (gv.showMessageBox)
+                {
+                    gv.messageBox.btnReturn.glowOn = true;
+                }
+                else
+                {
+                    if (btnNewGame.getImpact(x, y))
+                    {
+                        btnNewGame.glowOn = true;
+                    }
+                    else if (btnLoadSavedGame.getImpact(x, y))
+                    {
+                        btnLoadSavedGame.glowOn = true;
+                    }
+                    else if (btnAbout.getImpact(x, y))
+                    {
+                        btnAbout.glowOn = true;
+                    }
+                    else if (btnPlayerGuide.getImpact(x, y))
+                    {
+                        btnPlayerGuide.glowOn = true;
+                    }
+                    else if (btnBeginnerGuide.getImpact(x, y))
+                    {
+                        btnBeginnerGuide.glowOn = true;
+                    }
+                }
 			    break;		
 		    }
 	    }

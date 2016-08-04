@@ -198,8 +198,8 @@ namespace IceBlink2mini
             this.MinimumSize = new Size(100, 100);
             //for testing other screen sizes, manually enter a resolution here
             //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792, 912x528, 456x264
-            this.Width = 912;
-            this.Height = 528;
+            this.Width = 1920;
+            this.Height = 1080;
 
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
@@ -276,11 +276,12 @@ namespace IceBlink2mini
             messageBox = new IBminiMessageBox(this);
             messageBox.currentLocX = 500;
             messageBox.currentLocY = 100;
-            messageBox.numberOfLinesToShow = 40;
+            messageBox.numberOfLinesToShow = 36;
             messageBox.tbWidth = 900;
             messageBox.Width = 900;
             messageBox.Height = 900;
             messageBox.tbHeight = 900;
+            messageBox.setupIBminiMessageBox();
             //setupMusicPlayers();
             
             if (fixedModule.Equals("")) //this is the IceBlink Engine app

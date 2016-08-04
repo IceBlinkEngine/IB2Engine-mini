@@ -27,7 +27,7 @@ namespace IceBlink2mini
         public int tbXloc = 10;
         public int tbYloc = 10;
         public float fontHeightToWidthRatio = 1.0f;
-        private IbbButton btnReturn = null;        
+        public IbbButton btnReturn = null;        
 
         public IBminiMessageBox()
         {
@@ -36,12 +36,11 @@ namespace IceBlink2mini
 
         public IBminiMessageBox(GameView g)
         {
-            gv = g;
+            gv = g;            
         }
 
-        public void setupIBminiMessageBox(GameView g)
+        public void setupIBminiMessageBox()
         {
-            gv = g;
             setControlsStart();
         }
 
@@ -55,10 +54,10 @@ namespace IceBlink2mini
                 btnReturn.Img = gv.cc.LoadBitmap("btn_large");
                 btnReturn.Glow = gv.cc.LoadBitmap("btn_large_glow");
                 btnReturn.Text = "Return";
-                btnReturn.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-                btnReturn.Y = (1 * gv.squareSize) + (2 * pH);
                 btnReturn.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnReturn.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+                btnReturn.X = (int)(currentLocX * gv.screenDensity) + (int)((Width * gv.screenDensity) / 2) - (int)((gv.ibbwidthL * gv.screenDensity) / 2);
+                btnReturn.Y = (int)(currentLocY * gv.screenDensity) + (int)(Height * gv.screenDensity) - (int)(gv.ibbheight * gv.screenDensity);                
             }            
         }
 
@@ -128,6 +127,7 @@ namespace IceBlink2mini
                 xLoc = 0;
                 yLoc += gv.fontHeight + gv.fontLineSpacing;
             }
+            btnReturn.Draw();
         }
 
         public void scrollToEnd()
