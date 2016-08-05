@@ -16,12 +16,12 @@ namespace IceBlink2mini
         public List<string> tagStack = new List<string>();
         public List<IBminiFormattedLine> logLinesList = new List<IBminiFormattedLine>();
         public int currentTopLineIndex = 0;
-        public int numberOfLinesToShow = 17;
+        public int numberOfLinesToShow = 43;
         public float xLoc = 0;
         public int startY = 0;
         public int moveDeltaY = 0;
-        public int tbHeight = 200;
-        public int tbWidth = 300;
+        public int tbHeight = 600;
+        public int tbWidth = 400;
         public int tbXloc = 10;
         public int tbYloc = 10;
         public float fontHeightToWidthRatio = 1.0f;

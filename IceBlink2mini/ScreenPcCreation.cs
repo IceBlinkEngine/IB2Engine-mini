@@ -55,7 +55,7 @@ namespace IceBlink2mini
             description = new IBminiTextBox(gv);
             description.tbXloc = 0 * gv.squareSize + gv.oXshift;
             description.tbYloc = 3 * gv.squareSize + gv.oYshift;
-            description.tbWidth = 6 * gv.squareSize;
+            description.tbWidth = 8 * gv.squareSize;
             description.tbHeight = 6 * gv.squareSize;
             description.showBoxBorder = false;
         }
@@ -478,6 +478,10 @@ namespace IceBlink2mini
             btnAbort.Draw();
             btnPlayerGuideOnPcCreation.Draw();
             btnBeginnerGuideOnPcCreation.Draw();
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.onDrawLogBox();
+            }
         }
         public void onTouchPcCreation(MouseEventArgs e, MouseEventType.EventType eventType)
         {
@@ -487,6 +491,10 @@ namespace IceBlink2mini
             gv.cc.btnHelp.glowOn = false;
             btnPlayerGuideOnPcCreation.glowOn = false;
             btnBeginnerGuideOnPcCreation.glowOn = false;
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.btnReturn.glowOn = false;
+            }
 
             switch (eventType)
             {
@@ -494,6 +502,15 @@ namespace IceBlink2mini
                 case MouseEventType.EventType.MouseMove:
                     int x = (int)e.X;
                     int y = (int)e.Y;
+
+                    if (gv.showMessageBox)
+                    {
+                        if (gv.messageBox.btnReturn.getImpact(x, y))
+                        {
+                            gv.messageBox.btnReturn.glowOn = true;
+                        }
+                    }
+
                     if (btnRollStats.getImpact(x, y))
                     {
                         btnRollStats.glowOn = true;
@@ -530,6 +547,20 @@ namespace IceBlink2mini
                     gv.cc.btnHelp.glowOn = false;
                     btnPlayerGuideOnPcCreation.glowOn = false;
                     btnBeginnerGuideOnPcCreation.glowOn = false;
+
+                    if (gv.showMessageBox)
+                    {
+                        gv.messageBox.btnReturn.glowOn = false;
+                    }
+                    if (gv.showMessageBox)
+                    {
+                        if (gv.messageBox.btnReturn.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            gv.showMessageBox = false;
+                            return;
+                        }
+                    }
 
                     if (btnName.getImpact(x, y))
                     {
@@ -662,16 +693,19 @@ namespace IceBlink2mini
                     else if (gv.cc.btnHelp.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
+                        gv.showMessageBox = true;
                         gv.cc.tutorialPcCreation();
                     }
                     else if (btnPlayerGuideOnPcCreation.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
+                        gv.showMessageBox = true;
                         gv.cc.tutorialPlayersGuide();
                     }
                     else if (btnBeginnerGuideOnPcCreation.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
+                        gv.showMessageBox = true;
                         gv.cc.tutorialBeginnersGuide();
                     }
                     break;

@@ -33,7 +33,7 @@ namespace IceBlink2mini
 		    gv = g;
 		    setControlsStart();
 		    pc = new Player();
-		    stringMessageTraitLevelUp = gv.cc.loadTextToString("data/MessageTraitLevelUp.txt");
+		    stringMessageTraitLevelUp = gv.cc.loadTextToString("MessageTraitLevelUp.txt");
 	    }
 	
 	    public void resetPC(bool info_only, Player p)
@@ -256,21 +256,38 @@ namespace IceBlink2mini
                 btnHelp.Draw();
                 btnExit.Draw();
                 btnSelect.Draw();
-            }            
+            }
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.onDrawLogBox();
+            }
         }
         public void onTouchTraitLevelUp(MouseEventArgs e, MouseEventType.EventType eventType, bool inPcCreation)
 	    {
 		    btnHelp.glowOn = false;
 		    btnExit.glowOn = false;
 		    btnSelect.glowOn = false;
-		
-		    switch (eventType)
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.btnReturn.glowOn = false;
+            }
+
+            switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
 		    case MouseEventType.EventType.MouseMove:
 			    int x = (int) e.X;
 			    int y = (int) e.Y;
-			    if (btnHelp.getImpact(x, y))
+
+                if (gv.showMessageBox)
+                {
+                    if (gv.messageBox.btnReturn.getImpact(x, y))
+                    {
+                        gv.messageBox.btnReturn.glowOn = true;
+                    }
+                }
+
+                if (btnHelp.getImpact(x, y))
 			    {
 				    btnHelp.glowOn = true;
 			    }
@@ -291,8 +308,22 @@ namespace IceBlink2mini
 			    btnHelp.glowOn = false;
 			    btnExit.glowOn = false;
 			    btnSelect.glowOn = false;
-			
-			    for (int j = 0; j < slotsPerPage; j++)
+
+                if (gv.showMessageBox)
+                {
+                    gv.messageBox.btnReturn.glowOn = false;
+                }
+                if (gv.showMessageBox)
+                {
+                    if (gv.messageBox.btnReturn.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        gv.showMessageBox = false;
+                        return;
+                    }
+                }
+
+                for (int j = 0; j < slotsPerPage; j++)
 			    {
 				    if (btnTraitSlots[j].getImpact(x, y))
 				    {

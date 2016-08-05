@@ -37,7 +37,7 @@ namespace IceBlink2mini
 		    mod = m;
 		    gv = g;
 		    setControlsStart();
-		    stringMessageShop = gv.cc.loadTextToString("data/MessageShop.txt");
+		    stringMessageShop = gv.cc.loadTextToString("MessageShop.txt");
 	    }    
 	
         public void setControlsStart()
@@ -376,6 +376,10 @@ namespace IceBlink2mini
 				
 		    btnHelp.Draw();		
 		    btnReturn.Draw();
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.onDrawLogBox();
+            }
         }
 	
         public string isUseableBy(Item it)
@@ -441,15 +445,28 @@ namespace IceBlink2mini
 		    btnHelp.glowOn = false;
 		    btnReturn.glowOn = false;
 		    btnShopLeft.glowOn = false;
-		    btnShopRight.glowOn = false;	
-		
-		    switch (eventType)
+		    btnShopRight.glowOn = false;
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.btnReturn.glowOn = false;
+            }
+
+            switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
 		    case MouseEventType.EventType.MouseMove:
 			    int x = (int) e.X;
 			    int y = (int) e.Y;
-			    if (btnInventoryLeft.getImpact(x, y))
+
+                if (gv.showMessageBox)
+                {
+                    if (gv.messageBox.btnReturn.getImpact(x, y))
+                    {
+                        gv.messageBox.btnReturn.glowOn = true;
+                    }
+                }
+
+                if (btnInventoryLeft.getImpact(x, y))
 			    {
 				    btnInventoryLeft.glowOn = true;
 			    }
@@ -484,9 +501,23 @@ namespace IceBlink2mini
 			    btnHelp.glowOn = false;
 			    btnReturn.glowOn = false;
 			    btnShopLeft.glowOn = false;
-			    btnShopRight.glowOn = false;	
-			
-			    for (int j = 0; j < 10; j++)
+			    btnShopRight.glowOn = false;
+
+                if (gv.showMessageBox)
+                {
+                    gv.messageBox.btnReturn.glowOn = false;
+                }
+                if (gv.showMessageBox)
+                {
+                    if (gv.messageBox.btnReturn.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        gv.showMessageBox = false;
+                        return;
+                    }
+                }
+
+                for (int j = 0; j < 10; j++)
 			    {
 				    if (btnInventorySlot[j].getImpact(x, y))
 				    {

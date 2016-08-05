@@ -159,6 +159,7 @@ namespace IceBlink2mini
                         if (gv.mod.mustUsePreMadePC)
                         {
                             //no spell selection offered
+                            gv.showMessageBox = true;
                             gv.cc.tutorialMessageMainMap();
                             gv.screenType = "main";
                             gv.cc.doUpdate();
@@ -190,11 +191,13 @@ namespace IceBlink2mini
                     else if (btnBeginnerGuide.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
+                        gv.showMessageBox = true;
                         gv.cc.tutorialBeginnersGuide();
                     }
                     else if (btnAbout.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
+                        gv.showMessageBox = true;
                         gv.cc.doAboutDialog();
                     }
                 }					
@@ -207,7 +210,10 @@ namespace IceBlink2mini
 
                 if (gv.showMessageBox)
                 {
-                    gv.messageBox.btnReturn.glowOn = true;
+                    if (gv.messageBox.btnReturn.getImpact(x, y))
+                    {
+                        gv.messageBox.btnReturn.glowOn = true;
+                    }
                 }
                 else
                 {

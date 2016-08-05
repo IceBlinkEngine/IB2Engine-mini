@@ -30,7 +30,7 @@ namespace IceBlink2mini
 		    mod = m;
 		    gv = g;
 		    setControlsStart();
-		    stringMessagePartyRoster = gv.cc.loadTextToString("data/MessagePartyRoster.txt");
+		    stringMessagePartyRoster = gv.cc.loadTextToString("MessagePartyRoster.txt");
 	    }    
 	    public void refreshPlayerTokens()
 	    {
@@ -292,22 +292,38 @@ namespace IceBlink2mini
                 gv.DrawText("WIS: " + pc.wisdom, tabX, locY += spacing, "wh");
                 gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing, "wh");
 		    }
-       }
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.onDrawLogBox();
+            }
+        }
         public void onTouchPartyRoster(MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
 		    btnDown.glowOn = false;
 		    btnUp.glowOn = false;
 		    btnHelp.glowOn = false;
 		    btnReturn.glowOn = false;
-		
-		    switch (eventType)
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.btnReturn.glowOn = false;
+            }
+
+            switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
 		    case MouseEventType.EventType.MouseMove:
 			    int x = (int) e.X;
 			    int y = (int) e.Y;
 
-			    if (btnDown.getImpact(x, y))
+                if (gv.showMessageBox)
+                {
+                    if (gv.messageBox.btnReturn.getImpact(x, y))
+                    {
+                        gv.messageBox.btnReturn.glowOn = true;
+                    }
+                }
+
+                if (btnDown.getImpact(x, y))
 			    {
 				    btnDown.glowOn = true;
 			    }
@@ -333,8 +349,22 @@ namespace IceBlink2mini
 			    btnUp.glowOn = false;
 			    btnHelp.glowOn = false;
 			    btnReturn.glowOn = false;
-			
-			    if (btnUp.getImpact(x, y))
+
+                if (gv.showMessageBox)
+                {
+                    gv.messageBox.btnReturn.glowOn = false;
+                }
+                if (gv.showMessageBox)
+                {
+                    if (gv.messageBox.btnReturn.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        gv.showMessageBox = false;
+                        return;
+                    }
+                }
+
+                if (btnUp.getImpact(x, y))
 			    {
 				    //add selected PC to partyList and remove from pcList
 				    if ((mod.partyRosterList.Count > 0) && (mod.playerList.Count < mod.MaxPartySize))

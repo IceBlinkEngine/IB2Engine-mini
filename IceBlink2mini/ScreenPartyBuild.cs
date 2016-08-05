@@ -37,7 +37,7 @@ namespace IceBlink2mini
             mod = m;
             gv = g;
             setControlsStart();
-            stringMessagePartyBuild = gv.cc.loadTextToString("data/MessagePartyBuild.txt");
+            stringMessagePartyBuild = gv.cc.loadTextToString("MessagePartyBuild.txt");
             //create a list of character .json files from saves/modulefoldername/characters and the default PC
             //loadPlayerList();
         }
@@ -381,6 +381,10 @@ namespace IceBlink2mini
                     gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, tabX - 3 * gv.squareSize, locY += spacing, "wh");
                 }                
             }
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.onDrawLogBox();
+            }
         }
         public void onTouchPartyBuild(MouseEventArgs e, MouseEventType.EventType eventType)
         {
@@ -391,6 +395,10 @@ namespace IceBlink2mini
             btnCreate.glowOn = false;
             btnHelp.glowOn = false;
             btnReturn.glowOn = false;
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.btnReturn.glowOn = false;
+            }
 
             switch (eventType)
             {
@@ -398,6 +406,14 @@ namespace IceBlink2mini
                 case MouseEventType.EventType.MouseMove:
                     int x = (int)e.X;
                     int y = (int)e.Y;
+
+                    if (gv.showMessageBox)
+                    {
+                        if (gv.messageBox.btnReturn.getImpact(x, y))
+                        {
+                            gv.messageBox.btnReturn.glowOn = true;
+                        }
+                    }
 
                     if (btnAdd.getImpact(x, y))
                     {
@@ -445,6 +461,20 @@ namespace IceBlink2mini
                     btnCreate.glowOn = false;
                     btnHelp.glowOn = false;
                     btnReturn.glowOn = false;
+
+                    if (gv.showMessageBox)
+                    {
+                        gv.messageBox.btnReturn.glowOn = false;
+                    }
+                    if (gv.showMessageBox)
+                    {
+                        if (gv.messageBox.btnReturn.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            gv.showMessageBox = false;
+                            return;
+                        }
+                    }
 
                     if (btnAdd.getImpact(x, y))
                     {
@@ -525,6 +555,7 @@ namespace IceBlink2mini
                             gv.mod.PlayerLocationX = gv.mod.startingPlayerPositionX;
                             gv.mod.PlayerLocationY = gv.mod.startingPlayerPositionY;
                             mod.playerList[0].mainPc = true;
+                            gv.showMessageBox = true;
                             gv.cc.tutorialMessageMainMap();
                             gv.screenType = "main";
                             gv.cc.doUpdate();

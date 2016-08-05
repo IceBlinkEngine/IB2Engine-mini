@@ -280,6 +280,10 @@ namespace IceBlink2mini
             {
                 btnAction2.Draw();
             }
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.onDrawLogBox();
+            }
         }
         public string isUseableBy(Item it)
         {
@@ -304,6 +308,10 @@ namespace IceBlink2mini
 		    btnInfo.glowOn = false;
 		    btnAction.glowOn = false;
             btnExit.glowOn = false;
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.btnReturn.glowOn = false;
+            }
             if ((itemSelectorType.Equals("container")) || (itemSelectorType.Equals("equip")))
             {
                 btnAction2.glowOn = false;
@@ -315,7 +323,16 @@ namespace IceBlink2mini
 		    case MouseEventType.EventType.MouseMove:
 			    int x = (int) e.X;
 			    int y = (int) e.Y;
-			    if (btnInventoryLeft.getImpact(x, y))
+
+                if (gv.showMessageBox)
+                {
+                    if (gv.messageBox.btnReturn.getImpact(x, y))
+                    {
+                        gv.messageBox.btnReturn.glowOn = true;
+                    }
+                }
+
+                if (btnInventoryLeft.getImpact(x, y))
 			    {
 				    btnInventoryLeft.glowOn = true;
 			    }
@@ -350,6 +367,21 @@ namespace IceBlink2mini
 			    btnInfo.glowOn = false;
 			    btnAction.glowOn = false;
                 btnExit.glowOn = false;
+
+                if (gv.showMessageBox)
+                {
+                    gv.messageBox.btnReturn.glowOn = false;
+                }
+                if (gv.showMessageBox)
+                {
+                    if (gv.messageBox.btnReturn.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        gv.showMessageBox = false;
+                        return;
+                    }
+                }
+
                 if ((itemSelectorType.Equals("container")) || (itemSelectorType.Equals("equip")))
                 {
                     btnAction2.glowOn = false;

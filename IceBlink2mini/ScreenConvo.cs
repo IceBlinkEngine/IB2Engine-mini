@@ -128,7 +128,7 @@ namespace IceBlink2mini
             int pH = (int)((float)gv.screenHeight / 100.0f);
             int startX = gv.squareSize * 3 + (pW * 3);
             int startY = pH * 4;
-            int width = gv.screenWidth - startX - (pW * 30);
+            int width = gv.screenWidth - startX - (pW * 10);
 		
 		    if (currentConvo.Narration)
             {

@@ -1356,15 +1356,11 @@ namespace IceBlink2mini
         }
         public void tutorialPcCreation()
         {
-            gv.sf.MessageBoxHtml(this.stringPcCreation);
+            gv.sf.MessageBoxHtml(this.stringPcCreation);            
         }
         public void tutorialPlayersGuide()
         {
-            //gv.sf.MessageBoxHtml(this.stringPlayersGuide);
-            //assign text to messagebox
-            gv.messageBox.logLinesList.Clear();
-            gv.messageBox.AddHtmlTextToLog(this.stringPlayersGuide);
-            gv.messageBox.currentTopLineIndex = 0;
+            gv.sf.MessageBoxHtml(this.stringPlayersGuide);
         }
         public void tutorialBeginnersGuide()
         {
@@ -3975,7 +3971,6 @@ namespace IceBlink2mini
             IBminiFormattedWord newWord = new IBminiFormattedWord();
             IBminiFormattedLine newLine = new IBminiFormattedLine();
             List<IBminiFormattedLine> logLinesList = new List<IBminiFormattedLine>();
-            //int lineHeight = 0;
             float xLoc = 0;
 
             char previousChar = ' ';
@@ -4004,36 +3999,11 @@ namespace IceBlink2mini
 
                     if (newWord.text != "")
                     {
-                        //newWord.fontStyle = GetFontStyle(tagStack);
-                        //newWord.fontWeight = GetFontWeight(tagStack);
-                        //newWord.underlined = GetIsUnderlined(tagStack);
-                        //newWord.fontSize = GetFontSizeInPixels(tagStack);
                         newWord.color = GetColor(tagStack, true);
-                        /*if (gv.textFormat != null)
-                        {
-                            gv.textFormat.Dispose();
-                            gv.textFormat = null;
-                        }
-
-                        if (gv.textLayout != null)
-                        {
-                            gv.textLayout.Dispose();
-                            gv.textLayout = null;
-                        }*/
-                        //gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, newWord.fontWeight, newWord.fontStyle, SharpDX.DirectWrite.FontStretch.Normal, newWord.fontSize) { TextAlignment = SharpDX.DirectWrite.TextAlignment.Leading, ParagraphAlignment = SharpDX.DirectWrite.ParagraphAlignment.Near };
-                        //gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
-                        //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
-                        //float height = gv.textLayout.Metrics.Height;
-                        //float wordWidth = gv.textLayout.Metrics.WidthIncludingTrailingWhitespace * 1.2f;
-                        //if (height > lineHeight) { lineHeight = (int)height; }
-                        //int wordWidth = (int)(frm.gCanvas.MeasureString(newWord.word, font)).Width;
-                        int wordWidth = newWord.text.Length * (gv.fontWidth + gv.fontCharSpacing);
-                        float modifiedWidth = 0;
-                        modifiedWidth = width;
-                        if (xLoc + wordWidth > modifiedWidth) //word wrap
+                        int wordWidth = (newWord.text.Length + 1) * (gv.fontWidth + gv.fontCharSpacing);
+                        if (xLoc + wordWidth > (width) - (gv.fontWidth * 2)) //word wrap
                         {
                             //end last line and add it to the log
-                            //newLine.lineHeight = lineHeight;
                             logLinesList.Add(newLine);
                             //start a new line and add this word
                             newLine = new IBminiFormattedLine();
@@ -4045,7 +4015,6 @@ namespace IceBlink2mini
                             newLine.wordsList.Add(newWord);
                         }
                         //instead of drawing, just add to line list 
-                        //DrawString(g, word, font, brush, xLoc, yLoc);
                         xLoc += wordWidth;
                         newWord = new IBminiFormattedWord();
                     }
@@ -4080,17 +4049,11 @@ namespace IceBlink2mini
                         //check for line break
                         if ((tag.ToLower() == "br") || (tag == "BR"))
                         {
-                            //newWord.fontStyle = GetFontStyle(tagStack);
-                            //newWord.fontWeight = GetFontWeight(tagStack);
-                            //newWord.underlined = GetIsUnderlined(tagStack);
-                            //newWord.fontSize = GetFontSizeInPixels(tagStack);
                             newWord.color = GetColor(tagStack, true);
                             //end last line and add it to the log
-                            //newLine.lineHeight = lineHeight;
                             logLinesList.Add(newLine);
                             //start a new line and add this word
                             newLine = new IBminiFormattedLine();
-                            //newLine.wordsList.Add(newWord);
                             xLoc = 0;
                         }
                         //else if <>, add this tag to the stack
@@ -4111,37 +4074,11 @@ namespace IceBlink2mini
                     }
                     else //hit a space so end word
                     {
-                        //newWord.fontStyle = GetFontStyle(tagStack);
-                        //newWord.fontWeight = GetFontWeight(tagStack);
-                        //newWord.underlined = GetIsUnderlined(tagStack);
-                        //newWord.fontSize = GetFontSizeInPixels(tagStack);
                         newWord.color = GetColor(tagStack, true);
-                        /*if (gv.textFormat != null)
-                        {
-                            gv.textFormat.Dispose();
-                            gv.textFormat = null;
-                        }
-
-                        if (gv.textLayout != null)
-                        {
-                            gv.textLayout.Dispose();
-                            gv.textLayout = null;
-                        }*/
-                        //gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, newWord.fontWeight, newWord.fontStyle, SharpDX.DirectWrite.FontStretch.Normal, newWord.fontSize) { TextAlignment = SharpDX.DirectWrite.TextAlignment.Leading, ParagraphAlignment = SharpDX.DirectWrite.ParagraphAlignment.Near };
-                        //gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
-                        //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
-                        //float adjustedWordDimensionsForScreenDensity = (100f / gv.squareSize);
-                        //float adjustedWordWidthForScreenDensity = (1920f / gv.Width);
-                        //float adjustedWordHeightForScreenDensity = (1080f / gv.Height);
-
-                        //float wordWidth = (gv.textLayout.Metrics.WidthIncludingTrailingWhitespace) * adjustedWordWidthForScreenDensity;
-                        //float height = gv.textLayout.Metrics.Height * adjustedWordHeightForScreenDensity;
-                        //if (height > lineHeight) { lineHeight = (int)height; }
-                        float wordWidth = newWord.text.Length * (gv.fontWidth + gv.fontCharSpacing);
-                        if (xLoc + wordWidth > width) //word wrap
+                        int wordWidth = (newWord.text.Length + 1) * (gv.fontWidth + gv.fontCharSpacing);
+                        if (xLoc + wordWidth > (width) - (gv.fontWidth * 2)) //word wrap
                         {
                             //end last line and add it to the log
-                            //newLine.lineHeight = lineHeight;
                             logLinesList.Add(newLine);
                             //start a new line and add this word
                             newLine = new IBminiFormattedLine();
@@ -4153,7 +4090,6 @@ namespace IceBlink2mini
                             newLine.wordsList.Add(newWord);
                         }
                         //instead of drawing, just add to line list 
-                        //DrawString(g, word, font, brush, xLoc, yLoc);
                         xLoc += wordWidth;
                         newWord = new IBminiFormattedWord();
                     }

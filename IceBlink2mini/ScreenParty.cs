@@ -646,7 +646,10 @@ namespace IceBlink2mini
             width = pW * 80;
             height = pH * 50;
             DrawTextLayout(attackAndDamageInfo, textToSpan2, tabX0, yLoc, width, height);
-
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.onDrawLogBox();
+            }
         }
         public void DrawTextLayout(IbbHtmlTextBox tb, string text, int xLoc, int yLoc, int width, int height)
         {
@@ -669,6 +672,10 @@ namespace IceBlink2mini
             btnTraits.glowOn = false;
             btnEffects.glowOn = false;
             btnOthers.glowOn = false;
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.btnReturn.glowOn = false;
+            }
 
             //int eventAction = event.getAction();
             switch (eventType)
@@ -677,6 +684,14 @@ namespace IceBlink2mini
                 case MouseEventType.EventType.MouseMove:
                     int x = (int)e.X;
                     int y = (int)e.Y;
+
+                    if (gv.showMessageBox)
+                    {
+                        if (gv.messageBox.btnReturn.getImpact(x, y))
+                        {
+                            gv.messageBox.btnReturn.glowOn = true;
+                        }
+                    }
 
                     if (btnLevelUp.getImpact(x, y))
                     {
@@ -729,6 +744,20 @@ namespace IceBlink2mini
                     btnTraits.glowOn = false;
                     btnEffects.glowOn = false;
                     btnOthers.glowOn = false;
+
+                    if (gv.showMessageBox)
+                    {
+                        gv.messageBox.btnReturn.glowOn = false;
+                    }
+                    if (gv.showMessageBox)
+                    {
+                        if (gv.messageBox.btnReturn.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            gv.showMessageBox = false;
+                            return;
+                        }
+                    }
 
                     Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
 

@@ -258,7 +258,11 @@ namespace IceBlink2mini
                 drawMainMapClockText();
             }
             drawUiLayout();
-            drawMiniMap();            
+            drawMiniMap();
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.onDrawLogBox();
+            }
         }        
         public void drawWorldMap()
         {
@@ -1022,12 +1026,24 @@ namespace IceBlink2mini
         
         public void onTouchMain(MouseEventArgs e, MouseEventType.EventType eventType)
         {
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.btnReturn.glowOn = false;
+            }
             switch (eventType)
             {
                 case MouseEventType.EventType.MouseDown:
                 case MouseEventType.EventType.MouseMove:
                     int x = (int)e.X;
                     int y = (int)e.Y;
+
+                    if (gv.showMessageBox)
+                    {
+                        if (gv.messageBox.btnReturn.getImpact(x, y))
+                        {
+                            gv.messageBox.btnReturn.glowOn = true;
+                        }
+                    }
 
                     //NEW SYSTEM
                     mainUiLayout.setHover(x, y);
@@ -1061,6 +1077,20 @@ namespace IceBlink2mini
                     int gridY = (int)e.Y / gv.squareSize;
                     int actualx = mod.PlayerLocationX + (gridX - gv.playerOffsetX);
                     int actualy = mod.PlayerLocationY + (gridY - gv.playerOffsetY);
+
+                    if (gv.showMessageBox)
+                    {
+                        gv.messageBox.btnReturn.glowOn = false;
+                    }
+                    if (gv.showMessageBox)
+                    {
+                        if (gv.messageBox.btnReturn.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            gv.showMessageBox = false;
+                            return;
+                        }
+                    }
 
                     //NEW SYSTEM
                     string rtn = mainUiLayout.getImpact(x, y);

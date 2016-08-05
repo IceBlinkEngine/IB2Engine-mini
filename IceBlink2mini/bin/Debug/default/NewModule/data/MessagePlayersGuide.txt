@@ -1,6 +1,6 @@
-<big><b>PLAYER'S GUIDE</b></big><br>
+<yl>PLAYER'S GUIDE</yl>
 <br>
-<u><b>Table of Contents</b></u><br>
+<gn>Table of Contents</gn>
 1. General Information<br>
 2. Class Information<br>
 3. XP Tables<br>
@@ -8,7 +8,7 @@
 5. Items Allowed by Class<br>
 6. Spells by Class<br>
 <br>
-<b><u>1. GENERAL INFORMATION</u></b><br>
+<gn>1. GENERAL INFORMATION</gn><br>
 <br>
 a) Spell points (SP) may regenerate slowly on their own if the module author allows. Potions can also be used to replenish SP.<br>
 <br>
@@ -24,7 +24,7 @@ f) The story plays out differently depending on who and how many are in your par
 <br>
 g) Tapping on the main map may reveal information about different items, props, NPCs, etc.<br>
 <br>
-<b><u>2. CLASS INFORMATION</u></b><br>
+<gn>2. CLASS INFORMATION</gn><br>
 <br>
 <u>FIGHTER</u><br>
 Fighters excel in melee combat. They gain the Cleave trait at level two which allows them to make another melee attack on a near by target upon killing their first target in that same round. At level four, they gain a second melee attack per round on one target.<br>
@@ -41,7 +41,7 @@ Thieves are average in melee combat, but they have unique skills for finding and
 <u>WIZARD</u><br>
 Wizards are weak in melee combat, but they have powerful spells that more than make up for their lack of melee combat skills.<br>
 <br>
-<b><u>3. XP TABLES</u></b><br>
+<gn>3. XP TABLES</gn><br>
 <br>
 <u>FIGHTER</u><br>
 <tt><u>LVL___XP</u><br>
@@ -109,7 +109,7 @@ Wizards are weak in melee combat, but they have powerful spells that more than m
 10.20000<br>
 <br></tt>
 <br>
-<b><u>4. BAB TABLE</u></b><br>
+<gn>4. BAB TABLE</gn><br>
 <br>
 <tt><small><u>Class____1_2_3_4_5</u><br>
 Fighter..1 2 3 4 5<br>
@@ -119,7 +119,7 @@ Thief....0 1 2 3 3<br>
 Wizard...0 1 1 2 2</small></tt><br>
 <br>
 <br>
-<b><u>5. ITEMS ALLOWED</u></b><br>
+<gn>5. ITEMS ALLOWED</gn><br>
 <br>
 <u>FIGHTER</u><br>
 most all weapons<br>
@@ -147,7 +147,7 @@ dagger<br>
 sling<br>
 robes<br>
 <br>
-<b><u>6. SPELLS</u></b><br>
+<gn>6. SPELLS</gn><br>
 <small>(#) level at which spell is available</small><br>
 <br>
 <u>CLERIC</u><br>

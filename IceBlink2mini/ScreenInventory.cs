@@ -264,6 +264,10 @@ namespace IceBlink2mini
 		    btnHelp.Draw();	
 		    btnInfo.Draw();	
 		    btnReturn.Draw();
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.onDrawLogBox();
+            }
         }
         public string isUseableBy(Item it)
         {
@@ -288,15 +292,28 @@ namespace IceBlink2mini
 		    btnHelp.glowOn = false;
 		    btnInfo.glowOn = false;
 		    btnReturn.glowOn = false;
-		
-		    //int eventAction = event.getAction();
-		    switch (eventType)
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.btnReturn.glowOn = false;
+            }
+
+            //int eventAction = event.getAction();
+            switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
 		    case MouseEventType.EventType.MouseMove:
 			    int x = (int) e.X;
 			    int y = (int) e.Y;
-			    if (btnInventoryLeft.getImpact(x, y))
+
+                if (gv.showMessageBox)
+                {
+                    if (gv.messageBox.btnReturn.getImpact(x, y))
+                    {
+                        gv.messageBox.btnReturn.glowOn = true;
+                    }
+                }
+
+                if (btnInventoryLeft.getImpact(x, y))
 			    {
 				    btnInventoryLeft.glowOn = true;
 			    }
@@ -327,8 +344,22 @@ namespace IceBlink2mini
 			    btnHelp.glowOn = false;
 			    btnInfo.glowOn = false;
 			    btnReturn.glowOn = false;
-			
-			    for (int j = 0; j < slotsPerPage; j++)
+
+                if (gv.showMessageBox)
+                {
+                    gv.messageBox.btnReturn.glowOn = false;
+                }
+                if (gv.showMessageBox)
+                {
+                    if (gv.messageBox.btnReturn.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        gv.showMessageBox = false;
+                        return;
+                    }
+                }
+
+                for (int j = 0; j < slotsPerPage; j++)
 			    {
 				    if (btnInventorySlot[j].getImpact(x, y))
 				    {

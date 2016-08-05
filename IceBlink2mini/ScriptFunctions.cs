@@ -105,6 +105,11 @@ namespace IceBlink2mini
 
         public void MessageBoxHtml(string message)
         {
+            gv.messageBox.logLinesList.Clear();
+            gv.messageBox.AddHtmlTextToLog(message);
+            gv.messageBox.currentTopLineIndex = 0;
+            gv.showMessageBox = true;
+
             //<b> Bold
             //<i> Italics
             //<u> Underline
@@ -112,7 +117,7 @@ namespace IceBlink2mini
             //<small> Small
             //<font> Font face and color
             //<br> Linefeed
-            try
+            /*try
             {
                 using (IBHtmlMessageBox hmb = new IBHtmlMessageBox(gv, message))
                 {
@@ -130,7 +135,7 @@ namespace IceBlink2mini
             catch (Exception ex)
             {
                 gv.errorLog(ex.ToString());
-            }
+            }*/
         }
 
         /// <summary>

@@ -125,7 +125,7 @@ namespace IceBlink2mini
         {
             if ((mod.showTutorialCombat) || (helpCall))
             {
-                gv.sf.MessageBoxHtml(
+                string s =
                         "<big><b>COMBAT</b></big><br><br>" +
 
                         "<b>1. Player's Turn:</b> Each player takes a turn. The current player will be highlighted with a" +
@@ -154,8 +154,12 @@ namespace IceBlink2mini
                         " may use an item from this screen during combat.<br><br>" +
 
                         "<small><b>Note:</b> Also, check out the 'Player's Guide' in the settings menu (the rusty gear looking button)</small>"
-                        );
+                        ;
+                gv.messageBox.logLinesList.Clear();
+                gv.messageBox.AddHtmlTextToLog(s);
+                gv.messageBox.currentTopLineIndex = 0;
                 mod.showTutorialCombat = false;
+                gv.showMessageBox = true;
             }
         }
         public void doAnimationController()
@@ -235,7 +239,8 @@ namespace IceBlink2mini
                 encounterXP += crtr.cr_XP;
             }
             pf = new PathFinderEncounters(mod);
-            tutorialMessageCombat(false);
+            //tutorialMessageCombat(false);            
+            gv.cc.tutorialMessageCombat(false);
             //IBScript Setup Combat Hook (run only once)
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnSetupCombatIBScript, gv.mod.currentEncounter.OnSetupCombatIBScriptParms);
             //IBScript Start Combat Round Hook
@@ -1987,6 +1992,10 @@ namespace IceBlink2mini
             drawSPText();
             drawFloatyTextList();
             drawUiLayout();
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.onDrawLogBox();
+            }
         }
         public void drawUiLayout()
         {
@@ -2905,12 +2914,24 @@ namespace IceBlink2mini
         #region Mouse Input
         public void onTouchCombat(MouseEventArgs e, MouseEventType.EventType eventType)
         {
+            if (gv.showMessageBox)
+            {
+                gv.messageBox.btnReturn.glowOn = false;
+            }
             switch (eventType)
             {
                 case MouseEventType.EventType.MouseDown:
                 case MouseEventType.EventType.MouseMove:
                     int x = (int)e.X;
                     int y = (int)e.Y;
+
+                    if (gv.showMessageBox)
+                    {
+                        if (gv.messageBox.btnReturn.getImpact(x, y))
+                        {
+                            gv.messageBox.btnReturn.glowOn = true;
+                        }
+                    }
 
                     //NEW SYSTEM
                     combatUiLayout.setHover(x, y);
@@ -2964,6 +2985,20 @@ namespace IceBlink2mini
                 case MouseEventType.EventType.MouseUp:
                     x = (int)e.X;
                     y = (int)e.Y;
+
+                    if (gv.showMessageBox)
+                    {
+                        gv.messageBox.btnReturn.glowOn = false;
+                    }
+                    if (gv.showMessageBox)
+                    {
+                        if (gv.messageBox.btnReturn.getImpact(x, y))
+                        {
+                            gv.PlaySound("btn_click");
+                            gv.showMessageBox = false;
+                            return;
+                        }
+                    }
 
                     Player pc = mod.playerList[currentPlayerIndex];
 
@@ -3073,8 +3108,9 @@ namespace IceBlink2mini
                         }
                     }
                     if (rtn.Equals("tglHelp"))
-                    {
-                        tutorialMessageCombat(true);
+                    {                        
+                        //tutorialMessageCombat(true);
+                        gv.cc.tutorialMessageCombat(true);
                     }
                     if ((rtn.Equals("tglKill")) && (mod.debugMode))
                     {

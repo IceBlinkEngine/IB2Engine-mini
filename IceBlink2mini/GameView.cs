@@ -1028,6 +1028,7 @@ namespace IceBlink2mini
             foreach (char c in text)
             {
                 if (c == '\r') { continue; }
+                if (c == '\n') { continue; }
                 DrawD2DBitmap(bm, charList[c], new SharpDX.RectangleF(xLoc + x, yLoc + oYshift, fontWidth, fontHeight), 0.0f, false, 1.0f, 0, 0, 0, 0, true);
                 x += fontWidth + fontCharSpacing;
             }

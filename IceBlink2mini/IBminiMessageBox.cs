@@ -160,7 +160,7 @@ namespace IceBlink2mini
         }
         private bool isMouseWithinTextBox(MouseEventArgs e)
         {
-            if ((e.X > (int)(tbXloc * gv.screenDensity)) && (e.X < (int)(tbWidth * gv.screenDensity) + (int)(tbXloc * gv.screenDensity)) && (e.Y > (int)(tbYloc * gv.screenDensity)) && (e.Y < (int)(tbHeight * gv.screenDensity) + (int)(tbYloc * gv.screenDensity)))
+            if ((e.X > (int)(currentLocX * gv.screenDensity)) && (e.X < (int)(tbWidth * gv.screenDensity) + (int)(currentLocX * gv.screenDensity)) && (e.Y > (int)(currentLocY * gv.screenDensity)) && (e.Y < (int)(tbHeight * gv.screenDensity) + (int)(currentLocY * gv.screenDensity)))
             {
                 return true;
             }
