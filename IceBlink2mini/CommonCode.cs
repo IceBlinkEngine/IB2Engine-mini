@@ -183,13 +183,24 @@ namespace IceBlink2mini
         }
         public void QuickSave()
         {
-            string filename = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\quicksave.json";
+            try
+            {
+                //QuickSave();
+                SaveSaveGame("quicksave.json");
+            }
+            catch (Exception ex)
+            {
+                gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                gv.errorLog(ex.ToString());
+            }
+
+            /*string filename = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\quicksave.json";
             MakeDirectoryIfDoesntExist(filename);
             string json = JsonConvert.SerializeObject(gv.mod, Newtonsoft.Json.Formatting.Indented);
             using (StreamWriter sw = new StreamWriter(filename))
             {
                 sw.Write(json.ToString());
-            }
+            }*/
         }
         public void SaveGame(string filename)
         {
@@ -229,7 +240,8 @@ namespace IceBlink2mini
                 {
                     try
                     {
-                        QuickSave();
+                        //QuickSave();
+                        SaveSaveGame("quicksave.json");
                     }
                     catch (Exception ex)
                     {
@@ -244,8 +256,8 @@ namespace IceBlink2mini
                     slot1 = gv.mod.saveName;
                     try
                     {
-                        SaveGame("slot1.json");
-                        SaveGameInfo("slot1info.json");
+                        SaveSaveGame("slot1.json");
+                        //SaveGameInfo("slot1info.json");
                     }
                     catch (Exception ex)
                     {
@@ -260,8 +272,8 @@ namespace IceBlink2mini
                     slot2 = gv.mod.saveName;
                     try
                     {
-                        SaveGame("slot2.json");
-                        SaveGameInfo("slot2info.json");
+                        SaveSaveGame("slot2.json");
+                        //SaveGameInfo("slot2info.json");
                     }
                     catch (Exception ex)
                     {
@@ -276,8 +288,8 @@ namespace IceBlink2mini
                     slot3 = gv.mod.saveName;
                     try
                     {
-                        SaveGame("slot3.json");
-                        SaveGameInfo("slot3info.json");
+                        SaveSaveGame("slot3.json");
+                        //SaveGameInfo("slot3info.json");
                     }
                     catch (Exception ex)
                     {
@@ -292,8 +304,8 @@ namespace IceBlink2mini
                     slot4 = gv.mod.saveName;
                     try
                     {
-                        SaveGame("slot4.json");
-                        SaveGameInfo("slot4info.json");
+                        SaveSaveGame("slot4.json");
+                        //SaveGameInfo("slot4info.json");
                     }
                     catch (Exception ex)
                     {
@@ -308,8 +320,8 @@ namespace IceBlink2mini
                     slot5 = gv.mod.saveName;
                     try
                     {
-                        SaveGame("slot5.json");
-                        SaveGameInfo("slot5info.json");
+                        SaveSaveGame("slot5.json");
+                        //SaveGameInfo("slot5info.json");
                     }
                     catch (Exception ex)
                     {
@@ -331,7 +343,7 @@ namespace IceBlink2mini
 
                 if (itSel.selectedIndex == 0)
                 {
-                    bool result = LoadSave("autosave.json");
+                    bool result = LoadSaveGame("autosave.json");
                     if (result)
                     {
                         gv.screenType = "main";
@@ -344,7 +356,7 @@ namespace IceBlink2mini
                 }
                 else if (itSel.selectedIndex == 1)
                 {
-                    bool result = LoadSave("quicksave.json");
+                    bool result = LoadSaveGame("quicksave.json");
                     if (result)
                     {
                         gv.screenType = "main";
@@ -357,7 +369,7 @@ namespace IceBlink2mini
                 }
                 else if (itSel.selectedIndex == 2)
                 {
-                    bool result = LoadSave("slot1.json");
+                    bool result = LoadSaveGame("slot1.json");
                     if (result)
                     {
                         gv.screenType = "main";
@@ -370,7 +382,7 @@ namespace IceBlink2mini
                 }
                 else if (itSel.selectedIndex == 3)
                 {
-                    bool result = LoadSave("slot2.json");
+                    bool result = LoadSaveGame("slot2.json");
                     if (result)
                     {
                         gv.screenType = "main";
@@ -383,7 +395,7 @@ namespace IceBlink2mini
                 }
                 else if (itSel.selectedIndex == 4)
                 {
-                    bool result = LoadSave("slot3.json");
+                    bool result = LoadSaveGame("slot3.json");
                     if (result)
                     {
                         gv.screenType = "main";
@@ -396,7 +408,7 @@ namespace IceBlink2mini
                 }
                 else if (itSel.selectedIndex == 5)
                 {
-                    bool result = LoadSave("slot4.json");
+                    bool result = LoadSaveGame("slot4.json");
                     if (result)
                     {
                         gv.screenType = "main";
@@ -409,7 +421,7 @@ namespace IceBlink2mini
                 }
                 else if (itSel.selectedIndex == 6)
                 {
-                    bool result = LoadSave("slot5.json");
+                    bool result = LoadSaveGame("slot5.json");
                     if (result)
                     {
                         gv.screenType = "main";
@@ -422,15 +434,15 @@ namespace IceBlink2mini
                 }
             }
         }
-        public ModuleInfo LoadModuleInfo(string filename)
+        public SaveGame LoadModuleInfo(string filename)
         {
-            ModuleInfo m = new ModuleInfo();
+            SaveGame m = new SaveGame();
             try
             {
                 using (StreamReader file = File.OpenText(gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\" + filename))
                 {
                     JsonSerializer serializer = new JsonSerializer();
-                    m = (ModuleInfo)serializer.Deserialize(file, typeof(ModuleInfo));
+                    m = (SaveGame)serializer.Deserialize(file, typeof(SaveGame));
                 }
             }
             catch { }
@@ -438,12 +450,413 @@ namespace IceBlink2mini
         }
         public void LoadSaveListItems()
         {
-            slot1 = LoadModuleInfo("slot1info.json").saveName;
-            slot2 = LoadModuleInfo("slot2info.json").saveName;
-            slot3 = LoadModuleInfo("slot3info.json").saveName;
-            slot4 = LoadModuleInfo("slot4info.json").saveName;
-            slot5 = LoadModuleInfo("slot5info.json").saveName;
+            slot1 = LoadModuleInfo("slot1.json").saveName;
+            slot2 = LoadModuleInfo("slot2.json").saveName;
+            slot3 = LoadModuleInfo("slot3.json").saveName;
+            slot4 = LoadModuleInfo("slot4.json").saveName;
+            slot5 = LoadModuleInfo("slot5.json").saveName;
         }
+
+        //SAVE SAVEGAME
+        public void SaveSaveGame(string filename)
+        {
+            SaveGame saveMod = new SaveGame();
+
+            saveMod.saveName = gv.mod.saveName;
+            saveMod.playerList = new List<Player>();
+            foreach (Player pc in gv.mod.playerList)
+            {
+                saveMod.playerList.Add(pc.DeepCopy());
+            }
+            saveMod.partyRosterList = new List<Player>();
+            foreach (Player pc in gv.mod.partyRosterList)
+            {
+                saveMod.partyRosterList.Add(pc.DeepCopy());
+            }
+            saveMod.partyJournalQuests.Clear();
+            foreach (JournalQuest jq in gv.mod.partyJournalQuests)
+            {
+                JournalQuest savJQ = jq.DeepCopy();
+                saveMod.partyJournalQuests.Add(savJQ);                
+            }
+            saveMod.partyInventoryRefsList.Clear();
+            foreach (ItemRefs s in gv.mod.partyInventoryRefsList)
+            {
+                saveMod.partyInventoryRefsList.Add(s.DeepCopy());
+            }
+            saveMod.moduleShopsList.Clear();
+            foreach (Shop shp in gv.mod.moduleShopsList)
+            {
+                saveMod.moduleShopsList.Add(shp.DeepCopy());
+            }
+            saveMod.moduleAreasObjects.Clear();
+            foreach (Area ar in gv.mod.moduleAreasObjects)
+            {
+                AreaSave sar = new AreaSave();
+                sar.Filename = ar.Filename;
+                sar.Visible.Clear();
+                foreach (int vis in ar.Visible)
+                {
+                    sar.Visible.Add(vis);
+                }
+                sar.Props.Clear();
+                foreach (Prop prp in ar.Props)
+                {
+                    PropSave sprp = new PropSave();
+                    sprp.PropTag = prp.PropTag;
+                    sprp.LocationX = prp.LocationX;
+                    sprp.LocationY = prp.LocationY;
+                    sprp.lastLocationX = prp.lastLocationX;
+                    sprp.lastLocationY = prp.lastLocationY;
+                    sprp.PropFacingLeft = prp.PropFacingLeft;
+                    sprp.isShown = prp.isShown;
+                    sprp.isActive = prp.isActive;
+                    sprp.isMover = prp.isMover;
+                    sprp.isChaser = prp.isChaser;
+                    sar.Props.Add(sprp);
+                }
+                sar.InitialAreaPropTagsList.Clear();
+                foreach (string prp in ar.InitialAreaPropTagsList)
+                {                    
+                    sar.InitialAreaPropTagsList.Add(prp);
+                }
+                sar.Triggers.Clear();
+                foreach (Trigger tr in ar.Triggers)
+                {
+                    TriggerSave str = new TriggerSave();
+                    str.TriggerTag = tr.TriggerTag;
+                    str.Enabled = tr.Enabled;
+                    str.EnabledEvent1 = tr.EnabledEvent1;
+                    str.EnabledEvent2 = tr.EnabledEvent2;
+                    str.EnabledEvent3 = tr.EnabledEvent3;
+                    sar.Triggers.Add(str);
+                }
+                saveMod.moduleAreasObjects.Add(sar);
+            }
+            saveMod.currentAreaFilename = gv.mod.currentArea.Filename;
+            saveMod.moduleContainersList.Clear();
+            foreach (Container cnt in gv.mod.moduleContainersList)
+            {
+                saveMod.moduleContainersList.Add(cnt.DeepCopy());
+            }
+            saveMod.moduleConvoSavedValuesList.Clear();
+            foreach (ConvoSavedValues csv in gv.mod.moduleConvoSavedValuesList)
+            {
+                saveMod.moduleConvoSavedValuesList.Add(csv.DeepCopy());
+            }
+            saveMod.moduleEncountersCompletedList.Clear();
+            foreach (Encounter enc in gv.mod.moduleEncountersList)
+            {
+                EncounterSave senc = new EncounterSave();
+                senc.encounterName = enc.encounterName;
+                if (enc.encounterCreatureRefsList.Count <= 0)
+                {
+                    senc.completed = true;
+                }
+                else
+                {
+                    senc.completed = false;
+                }
+            }
+            saveMod.moduleGlobalInts.Clear();
+            foreach (GlobalInt g in gv.mod.moduleGlobalInts)
+            {
+                saveMod.moduleGlobalInts.Add(g.DeepCopy());
+            }
+            saveMod.moduleGlobalStrings.Clear();
+            foreach (GlobalString g in gv.mod.moduleGlobalStrings)
+            {
+                saveMod.moduleGlobalStrings.Add(g.DeepCopy());
+            }
+            saveMod.partyGold = gv.mod.partyGold;
+            saveMod.WorldTime = gv.mod.WorldTime;
+            saveMod.PlayerLocationY = gv.mod.PlayerLocationY;
+            saveMod.PlayerLocationX = gv.mod.PlayerLocationX;
+            saveMod.PlayerLastLocationY = gv.mod.PlayerLastLocationY;
+            saveMod.PlayerLastLocationX = gv.mod.PlayerLastLocationX;
+            saveMod.selectedPartyLeader = gv.mod.selectedPartyLeader;
+            saveMod.showTutorialCombat = gv.mod.showTutorialCombat;
+            saveMod.showTutorialInventory = gv.mod.showTutorialInventory;
+            saveMod.showTutorialParty = gv.mod.showTutorialParty;
+            saveMod.showTutorialCombat = gv.mod.showTutorialCombat;
+            saveMod.showTutorialInventory = gv.mod.showTutorialInventory;
+            saveMod.showTutorialParty = gv.mod.showTutorialParty;
+
+            //SAVE THE FILE
+            string filepath = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\" + filename;
+            MakeDirectoryIfDoesntExist(filepath);
+            string json = JsonConvert.SerializeObject(saveMod, Newtonsoft.Json.Formatting.Indented);
+            using (StreamWriter sw = new StreamWriter(filepath))
+            {
+                sw.Write(json.ToString());
+            }
+        }
+        //LOAD SAVEGAME
+        public bool LoadSaveGame(string filename)
+        {
+            //  load a new module (actually already have a new module at this point from launch screen		
+            //  load the saved game module
+            SaveGame saveMod = null;
+            // deserialize JSON directly from a file
+            using (StreamReader file = File.OpenText(gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\" + filename))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                saveMod = (SaveGame)serializer.Deserialize(file, typeof(SaveGame));
+            }
+            if (saveMod == null) { return false; }
+            //  replace parts of new module with parts of saved game module
+            //
+            // U = update from save file	 
+            //
+            //U  "saveName": "Drin, Level:1, XP:150, WorldTime:24", (use all save)
+            gv.mod.saveName = saveMod.saveName;
+            //U  "playerList": [], (use all save)  Update PCs later further down
+            gv.mod.playerList = new List<Player>();
+            foreach (Player pc in saveMod.playerList)
+            {
+                gv.mod.playerList.Add(pc.DeepCopy());
+            }
+            setMainPc();
+            //U  "partyRosterList": [], (use all save)  Update PCs later further down
+            gv.mod.partyRosterList = new List<Player>();
+            foreach (Player pc in saveMod.partyRosterList)
+            {
+                gv.mod.partyRosterList.Add(pc.DeepCopy());
+            }
+            //U  "partyJournalQuests": [], (use tags from save to get all from new)
+            gv.mod.partyJournalQuests.Clear();
+            foreach (JournalQuest jq in saveMod.partyJournalQuests)
+            {
+                foreach (JournalEntry je in jq.Entries)
+                {
+                    gv.sf.AddJournalEntryNoMessages(jq.Tag, je.Tag);
+                }
+            }
+            //U  "partyInventoryTagList": [], (use all save) update Items later on down
+            gv.mod.partyInventoryRefsList.Clear();
+            foreach (ItemRefs s in saveMod.partyInventoryRefsList)
+            {
+                gv.mod.partyInventoryRefsList.Add(s.DeepCopy());
+            }
+            //U  "moduleShopsList": [], (have an original shop items tags list and the current tags list to see what to add or delete from the save tags list)
+            this.updateShops(saveMod);
+            //U  "moduleAreasObjects": [],
+            //                (triggers: use save trigger "enabled" value to update new)
+            //                (tiles: use save "visible" to update new)
+            //                (props: have an original props tags list and the current tags list to see what to add or delete from the save tags list)		               
+            this.updateAreas(saveMod);
+            //
+            //U  "currentArea": {},
+            gv.mod.setCurrentArea(saveMod.currentAreaFilename, gv);
+            //U  "moduleContainersList": [], (have an original containers items tags list and the current tags list to see what to add or delete from the save tags list)
+            this.updateContainers(saveMod);
+            //U  "moduleConvoSavedValuesList": [], (use all save)
+            gv.mod.moduleConvoSavedValuesList.Clear();
+            foreach (ConvoSavedValues csv in saveMod.moduleConvoSavedValuesList)
+            {
+                gv.mod.moduleConvoSavedValuesList.Add(csv.DeepCopy());
+            }
+            //U  "moduleEncountersList": [], (use new except delete those completed already in save)
+            foreach (EncounterSave enc in saveMod.moduleEncountersCompletedList)
+            {
+                if (enc.completed)
+                {
+                    //if the encounter was completed in the saveMod then clear all creatures in the newMod
+                    Encounter e = gv.mod.getEncounter(enc.encounterName);
+                    e.encounterCreatureList.Clear();
+                    e.encounterCreatureRefsList.Clear();
+                }
+            }
+            //U  "moduleGlobalInts": [], (use all save)
+            gv.mod.moduleGlobalInts.Clear();
+            foreach (GlobalInt g in saveMod.moduleGlobalInts)
+            {
+                gv.mod.moduleGlobalInts.Add(g.DeepCopy());
+            }
+            //U  "moduleGlobalStrings": [], (use all save)
+            gv.mod.moduleGlobalStrings.Clear();
+            foreach (GlobalString g in saveMod.moduleGlobalStrings)
+            {
+                gv.mod.moduleGlobalStrings.Add(g.DeepCopy());
+            }
+            //U  "partyGold": 70, (use all save)
+            gv.mod.partyGold = saveMod.partyGold;
+            //U  "WorldTime": 24, (use all save)
+            gv.mod.WorldTime = saveMod.WorldTime;
+            //U  "PlayerLocationY": 2, (use all save)
+            gv.mod.PlayerLocationY = saveMod.PlayerLocationY;
+            //U  "PlayerLocationX": 1, (use all save)
+            gv.mod.PlayerLocationX = saveMod.PlayerLocationX;
+            //U  "PlayerLastLocationY": 1, (use all save)
+            gv.mod.PlayerLastLocationY = saveMod.PlayerLastLocationY;
+            //U  "PlayerLastLocationX": 2, (use all save)
+            gv.mod.PlayerLastLocationX = saveMod.PlayerLastLocationX;
+            //U  "selectedPartyLeader": 0, (use all save)
+            gv.mod.selectedPartyLeader = saveMod.selectedPartyLeader;
+            //U  "showTutorialCombat": true, (use all save)
+            gv.mod.showTutorialCombat = saveMod.showTutorialCombat;
+            //U  "showTutorialInventory": true, (use all save)
+            gv.mod.showTutorialInventory = saveMod.showTutorialInventory;
+            //U  "showTutorialParty": true, (use all save)
+            gv.mod.showTutorialParty = saveMod.showTutorialParty;
+            
+            gv.initializeSounds();
+
+            gv.mod.partyTokenFilename = "prp_party";
+            gv.mod.partyTokenBitmap = this.LoadBitmap(gv.mod.partyTokenFilename);
+
+            this.updatePlayers();
+            this.updatePartyRosterPlayers();
+
+            gv.createScreens();
+            gv.screenMainMap.resetMiniMapBitmap();
+            return true;
+        }
+        public void updateShops(SaveGame saveMod)
+        {
+            foreach (Shop saveShp in saveMod.moduleShopsList)
+            {
+                Shop updatedShop = gv.mod.getShopByTag(saveShp.shopTag);
+                if (updatedShop != null)
+                {
+                    //this shop in the save also exists in the newMod so clear it out and add everything in the save
+                    updatedShop.shopItemRefs.Clear();
+                    foreach (ItemRefs it in saveShp.shopItemRefs)
+                    {
+                        Item newItem = gv.mod.getItemByResRef(it.resref);
+                        if (newItem != null)
+                        {
+                            updatedShop.shopItemRefs.Add(it.DeepCopy());
+                        }
+                    }
+                    //compare lists and add items that are new
+                    foreach (ItemRefs itemRef in updatedShop.initialShopItemRefs)
+                    {
+                        if (!saveShp.containsInitialItemWithResRef(itemRef.resref))
+                        {
+                            //item is not in the saved game initial container item list so add it to the container
+                            Item newItem = gv.mod.getItemByResRef(itemRef.resref);
+                            if (newItem != null)
+                            {
+                                updatedShop.shopItemRefs.Add(itemRef.DeepCopy());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public void updateAreas(SaveGame saveMod)
+        {
+            foreach (Area ar in gv.mod.moduleAreasObjects)
+            {
+                foreach (AreaSave sar in saveMod.moduleAreasObjects)
+                {
+                    if (sar.Filename.Equals(ar.Filename)) //sar is saved game, ar is new game from toolset version
+                    {
+                        //tiles
+                        for (int index = 0; index < ar.Visible.Count; index++)
+                        {
+                            ar.Visible[index] = sar.Visible[index];
+                        }
+
+                        //props
+                        //start at the end of the newMod prop list and work up
+                        //if the prop tag is found in the save game, update it
+                        //else if not found in saved game, but exists in the 
+                        //saved game initial list (the toolset version of the prop list), remove prop
+                        //else leave it alone
+                        for (int index = ar.Props.Count - 1; index >= 0; index--)
+                        {
+                            Prop prp = ar.Props[index];
+                            bool foundOne = false;
+                            foreach (PropSave sprp in sar.Props) //sprp is the saved game prop
+                            {
+                                if (prp.PropTag.Equals(sprp.PropTag))
+                                {
+                                    foundOne = true; //the prop tag exists in the saved game
+                                    //replace the one in the toolset with the one from the saved game
+                                    prp.LocationX = sprp.LocationX;
+                                    prp.LocationY = sprp.LocationY;
+                                    prp.lastLocationX = sprp.lastLocationX;
+                                    prp.lastLocationY = sprp.lastLocationY;
+                                    prp.PropFacingLeft = sprp.PropFacingLeft;
+                                    prp.isShown = sprp.isShown;
+                                    prp.isActive = sprp.isActive;
+                                    prp.isMover = sprp.isMover;
+                                    prp.isChaser = sprp.isChaser;
+                                    break;
+                                }
+                            }
+                            if (!foundOne) //didn't find the prop tag in the saved game
+                            {
+                                if (sar.InitialAreaPropTagsList.Contains(prp.PropTag))
+                                {
+                                    //was once on the map, but was deleted so remove from the newMod prop list
+                                    ar.Props.RemoveAt(index);
+                                }
+                                else
+                                {
+                                    //is new to the mod so leave it alone, don't remove from the prop list
+                                }
+                            }
+                        }
+                        //triggers
+                        foreach (Trigger tr in ar.Triggers)
+                        {
+                            foreach (TriggerSave str in sar.Triggers)
+                            {
+                                if (tr.TriggerTag.Equals(str.TriggerTag))
+                                {
+                                    tr.Enabled = str.Enabled;
+                                    tr.EnabledEvent1 = str.EnabledEvent1;
+                                    tr.EnabledEvent2 = str.EnabledEvent2;
+                                    tr.EnabledEvent3 = str.EnabledEvent3;
+                                    //may want to copy the trigger's squares list from the save game if builders can modify the list with scripts
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public void updateContainers(SaveGame saveMod)
+        {
+            foreach (Container saveCnt in saveMod.moduleContainersList)
+            {
+                //fill container with items that are still in the saved game 
+                Container updatedCont = gv.mod.getContainerByTag(saveCnt.containerTag);
+                if (updatedCont != null)
+                {
+                    //this container in the save also exists in the newMod so clear it out and add everything in the save
+                    updatedCont.containerItemRefs.Clear();
+                    foreach (ItemRefs it in saveCnt.containerItemRefs)
+                    {
+                        //check to see if item resref in save game container still exists in toolset
+                        Item newItem = gv.mod.getItemByResRef(it.resref);
+                        if (newItem != null)
+                        {
+                            updatedCont.containerItemRefs.Add(it.DeepCopy());
+                        }
+                    }
+                    //compare lists and add items that are new
+                    foreach (ItemRefs itemRef in updatedCont.initialContainerItemRefs)
+                    {
+                        //check to see if item in toolset does not exist in save initial list so it is new and add it
+                        if (!saveCnt.containsInitialItemWithResRef(itemRef.resref))
+                        {
+                            //item is not in the saved game initial container item list so add it to the container
+                            //check to see if item resref in save game container still exists in toolset
+                            Item newItem = gv.mod.getItemByResRef(itemRef.resref);
+                            if (newItem != null)
+                            {
+                                updatedCont.containerItemRefs.Add(itemRef.DeepCopy());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 
         public bool LoadSave(string filename)
         {

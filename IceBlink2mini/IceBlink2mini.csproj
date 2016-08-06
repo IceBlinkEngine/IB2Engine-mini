@@ -178,6 +178,7 @@
     <Compile Include="ResourceFontFileEnumerator.cs" />
     <Compile Include="ResourceFontFileStream.cs" />
     <Compile Include="ResourceFontLoader.cs" />
+    <Compile Include="SaveGame.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="ScreenCastSelector.cs" />
     <Compile Include="ScreenCombat.cs" />
