@@ -29,27 +29,27 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBForm));
-            this.pnlTop = new IceBlink2mini.IBPanel();
-            this.pnlTitle = new IceBlink2mini.IBPanel();
+            //this.pnlTop = new IceBlink2mini.IBPanel();
+            //this.pnlTitle = new IceBlink2mini.IBPanel();
             this.iceBlinkButtonResize1 = new IceBlink2mini.IceBlinkButtonResize();
             this.iceBlinkButtonClose1 = new IceBlink2mini.IceBlinkButtonClose();
-            this.pnlTop.SuspendLayout();
-            this.pnlTitle.SuspendLayout();
+            //this.pnlTop.SuspendLayout();
+            //this.pnlTitle.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlTop
             // 
-            this.pnlTop.BackColor = System.Drawing.Color.Transparent;
+            /*this.pnlTop.BackColor = System.Drawing.Color.Transparent;
             this.pnlTop.Controls.Add(this.pnlTitle);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(359, 24);
-            this.pnlTop.TabIndex = 2;
+            this.pnlTop.TabIndex = 2;*/
             // 
             // pnlTitle
             // 
-            this.pnlTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            /*this.pnlTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlTitle.BackColor = System.Drawing.Color.Transparent;
             //this.pnlTitle.BackgroundImage = global::IceBlink2mini.Properties.Resources.gb_lrg_header;
@@ -64,7 +64,7 @@
             this.pnlTitle.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlTitle_Paint);
             this.pnlTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlTitle_MouseDown);
             this.pnlTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlTitle_MouseMove);
-            this.pnlTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlTitle_MouseUp);
+            this.pnlTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlTitle_MouseUp);*/
             // 
             // iceBlinkButtonResize1
             // 
@@ -115,22 +115,22 @@
             this.ClientSize = new System.Drawing.Size(160, 90);
             this.MinimumSize = new System.Drawing.Size(480, 270);
             this.ControlBox = false;
-            this.Controls.Add(this.pnlTop);
+            //this.Controls.Add(this.pnlTop);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IBForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.pnlTop.ResumeLayout(false);
-            this.pnlTitle.ResumeLayout(false);
+            //this.pnlTop.ResumeLayout(false);
+            //this.pnlTitle.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private IBPanel pnlTop;
-        private IBPanel pnlTitle;
+        //private IBPanel pnlTop;
+        //private IBPanel pnlTitle;
         private IceBlink2mini.IceBlinkButtonResize iceBlinkButtonResize1;
         private IceBlink2mini.IceBlinkButtonClose iceBlinkButtonClose1;
     }

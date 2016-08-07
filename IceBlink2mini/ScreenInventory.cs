@@ -22,6 +22,7 @@ namespace IceBlink2mini
 	    private IbbButton btnInfo = null;
 	    private IbbButton btnReturn = null;
 	    private IbbHtmlTextBox description;
+        public bool inCombat = false;
 	
 	    public ScreenInventory(Module m, GameView g)
 	    {
@@ -369,14 +370,14 @@ namespace IceBlink2mini
 						    {
                                 if (isSelectedItemSlotInPartyInventoryRange())
                                 {
-                                    doItemAction(true);
+                                    doItemActionSetup(true);
                                 }
 						    }
 						    else
 						    {
                                 if (isSelectedItemSlotInPartyInventoryRange())
                                 {
-                                    doItemAction(false);
+                                    doItemActionSetup(false);
                                 }
 						    }
 					    }
@@ -452,22 +453,31 @@ namespace IceBlink2mini
 		    btnReturn = null;
 	    }
 	
-	    public void doItemAction(bool inCombat)
-	    {
+        public void doItemActionSetup(bool inCombat)
+        {
+            this.inCombat = inCombat;
             List<string> actionList = new List<string> { "Use Item", "Drop Item", "View Item Description" };
+            gv.itemListSelector.setupIBminiItemListSelector(gv, actionList, "Item Action", "inventoryitemaction");
+            gv.itemListSelector.showIBminiItemListSelector = true;
 
-            using (ItemListSelector itSel = new ItemListSelector(gv, actionList, "Item Action"))
-            {
-                itSel.IceBlinkButtonClose.Enabled = true;
-                itSel.IceBlinkButtonClose.Visible = true;
-                itSel.setupAll(gv);
-                var ret = itSel.ShowDialog();
+        }
+        public void doItemAction(int selectedIndex)
+	    {
+            //List<string> actionList = new List<string> { "Use Item", "Drop Item", "View Item Description" };
+
+            //using (ItemListSelector itSel = new ItemListSelector(gv, actionList, "Item Action"))
+            //{
+                //itSel.IceBlinkButtonClose.Enabled = true;
+                //itSel.IceBlinkButtonClose.Visible = true;
+                //itSel.setupAll(gv);
+                //var ret = itSel.ShowDialog();
                 ItemRefs itRef = GetCurrentlySelectedItemRefs();
 	            Item it = mod.getItemByResRefForInfo(itRef.resref);
-                if ((itSel.selectedIndex == 0) && ( (!it.onUseItem.Equals("none")) || (!it.onUseItemIBScript.Equals("none")) || (!it.onUseItemCastSpellTag.Equals("none")) ) )
-                {                    
+                if ((selectedIndex == 0) && ( (!it.onUseItem.Equals("none")) || (!it.onUseItemIBScript.Equals("none")) || (!it.onUseItemCastSpellTag.Equals("none")) ) )
+                {
+                    doSelectPcUseItemSetup();
 	            	// selected to USE ITEM
-	            	List<string> pcNames = new List<string>();
+	            	/*List<string> pcNames = new List<string>();
 	                pcNames.Add("cancel");
 	                if (inCombat)
 	                {
@@ -541,11 +551,12 @@ namespace IceBlink2mini
                                 gv.errorLog(ex.ToString());
 		                    } 
                         }
-                    }
+                    }*/
                 }	                
-	            else if (itSel.selectedIndex == 1) // selected to DROP ITEM
-	            {	                		
-	            	DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to drop this item forever?", enumMessageButton.YesNo);
+	            else if (selectedIndex == 1) // selected to DROP ITEM
+	            {
+                    doDropForeverSetup();           		
+	            	/*DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to drop this item forever?", enumMessageButton.YesNo);
                     if (dlg == DialogResult.Yes)
                     {
                         //drop item
@@ -559,15 +570,118 @@ namespace IceBlink2mini
 	    	            {
 	    	                gv.sf.MessageBoxHtml("You can't drop this item.");
 	    	            }
-                    }
+                    }*/
 	            }
-	            else if (itSel.selectedIndex == 2) // selected to VIEW ITEM
+	            else if (selectedIndex == 2) // selected to VIEW ITEM
 	            {
 	            	gv.sf.ShowFullDescription(it);
 	            }                                
-            }
+            //}
             resetInventory();
 	    }
+        public void doDropForeverSetup()
+        {
+            List<string> actionList = new List<string> { "Drop Forever", "Keep Item" };
+            gv.itemListSelector.setupIBminiItemListSelector(gv, actionList, "Do you wish to drop this item forever?", "inventorydropforever");
+            gv.itemListSelector.showIBminiItemListSelector = true;
+        }
+        public void doDropForever(int selectedIndex)
+        {
+            if (selectedIndex == 0)
+            {
+                //drop item
+                ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                Item it = mod.getItemByResRef(itRef.resref);
+                if (!it.plotItem)
+                {
+                    gv.sf.RemoveItemFromInventory(itRef, 1);
+                }
+                else
+                {
+                    gv.sf.MessageBoxHtml("You can't drop this item.");
+                }
+                resetInventory();
+            }
+        }
+        public void doSelectPcUseItemSetup()
+        {
+            // selected to USE ITEM
+            List<string> pcNames = new List<string>();
+            pcNames.Add("cancel");
+            if (inCombat)
+            {
+                Player pc = mod.playerList[gv.screenCombat.currentPlayerIndex];
+                pcNames.Add(pc.name);
+            }
+            else
+            {
+                foreach (Player pc in mod.playerList)
+                {
+                    pcNames.Add(pc.name);
+                }
+            }
+            gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, "Selected PC to Use Item", "inventoryselectpcuseitem");
+            gv.itemListSelector.showIBminiItemListSelector = true;
+        }
+        public void doSelectPcUseItem(int selectedIndex)
+        {
+            if (selectedIndex > 0)
+            {
+                try
+                {
+                    ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                    Item it = mod.getItemByResRefForInfo(itRef.resref);
+                    if (inCombat)
+                    {
+                        //check to see if use IBScript first
+                        if (!it.onUseItem.Equals("none"))
+                        {
+                            Player pc = mod.playerList[gv.screenCombat.currentPlayerIndex];
+                            doItemInventoryScriptBasedOnFilename(pc);
+                            gv.screenCombat.currentCombatMode = "move";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                        else if (!it.onUseItemIBScript.Equals("none"))
+                        {
+                            doItemInventoryIBScript(gv.screenCombat.currentPlayerIndex);
+                            gv.screenCombat.currentCombatMode = "move";
+                            gv.screenType = "combat";
+                            gv.screenCombat.endPcTurn(false);
+                        }
+                        else if (!it.onUseItemCastSpellTag.Equals("none"))
+                        {
+                            doItemInventoryCastSpellCombat(gv.screenCombat.currentPlayerIndex);
+                            gv.screenCombat.currentCombatMode = "cast";
+                            gv.screenType = "combat";
+                        }
+                    }
+                    else
+                    {
+                        //check to see if use IBScript first
+                        if (!it.onUseItem.Equals("none"))
+                        {
+                            Player pc = mod.playerList[selectedIndex - 1];
+                            doItemInventoryScriptBasedOnFilename(pc);
+                        }
+                        else if (!it.onUseItemIBScript.Equals("none"))
+                        {
+                            doItemInventoryIBScript(selectedIndex - 1);
+                        }
+                        else if (!it.onUseItemCastSpellTag.Equals("none"))
+                        {
+                            doItemInventoryCastSpell(selectedIndex - 1);
+                        }
+                    }
+                    resetInventory();
+                }
+                catch (Exception ex)
+                {
+                    gv.errorLog(ex.ToString());
+                }
+            }
+        }
+
 	    public void doItemInventoryScriptBasedOnFilename(Player pc)
         {
     	    if (isSelectedItemSlotInPartyInventoryRange())
@@ -617,7 +731,7 @@ namespace IceBlink2mini
                 Spell sp = mod.getSpellByTag(it.onUseItemCastSpellTag);
                 Player pc = mod.playerList[pcIndex];
                 gv.mod.indexOfPCtoLastUseItem = pcIndex;
-                gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, pc);
+                gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, pc, true);
                 if (it.destroyItemAfterOnUseItemCastSpell)
                 {
                     gv.sf.RemoveItemFromInventory(itRef, 1);

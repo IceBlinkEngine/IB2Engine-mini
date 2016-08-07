@@ -94,6 +94,7 @@ namespace IceBlink2mini
         public IB2HtmlLogBox log;
         public IBminiMessageBox messageBox;
         public bool showMessageBox = false;
+        public IBminiItemListSelector itemListSelector;
         public CommonCode cc;
         public Module mod;
         public ScriptFunctions sf;
@@ -198,8 +199,8 @@ namespace IceBlink2mini
             this.MinimumSize = new Size(100, 100);
             //for testing other screen sizes, manually enter a resolution here
             //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792, 912x528, 456x264
-            this.Width = 1920;
-            this.Height = 1080;
+            this.Width = 912;
+            this.Height = 528;
 
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
@@ -268,6 +269,7 @@ namespace IceBlink2mini
             cc.addLogText("yellow", "squareSize: " + squareSize);
             cc.addLogText("yellow", "sqrW: " + sqrW);
             cc.addLogText("yellow", "sqrH: " + sqrH);
+            cc.addLogText("yellow", "fontWidth: " + fontWidth);
             cc.addLogText("yellow", "");
             cc.addLogText("red", "Welcome to IceBlink 2");
             cc.addLogText("fuchsia", "You can scroll this message log box, use mouse wheel or scroll bar");
@@ -282,7 +284,13 @@ namespace IceBlink2mini
             messageBox.Height = 900;
             messageBox.tbHeight = 900;
             messageBox.setupIBminiMessageBox();
-            //setupMusicPlayers();
+            
+            //setup itemListSelector defaults
+            itemListSelector = new IBminiItemListSelector();
+            itemListSelector.currentLocX = 500;
+            itemListSelector.currentLocY = 100;
+            itemListSelector.Width = 900;
+            itemListSelector.Height = 900;
             
             if (fixedModule.Equals("")) //this is the IceBlink Engine app
             {
@@ -372,7 +380,7 @@ namespace IceBlink2mini
 	    {
 		    //mod = new Module();
 		    mod = cc.LoadModule(mod.moduleName + ".mod", false);
-            mod.useUIBackground = true; //TODO comment out after testing
+            //mod.useUIBackground = true; //TODO comment out after testing
             //reset fonts
             ResetGDIFont();
             ResetDirect2DFont();
@@ -1433,6 +1441,10 @@ namespace IceBlink2mini
                 }
                 DrawText("FPS:" + fps.ToString(), 5, screenHeight - txtH - 5 - oYshift, "wh");
             }
+            if (itemListSelector.showIBminiItemListSelector)
+            {
+                itemListSelector.drawItemListSelection();
+            }
 
             EndDraw(); //uncomment this for DIRECT2D ADDITIONS
         }
@@ -1581,6 +1593,12 @@ namespace IceBlink2mini
         {
             try 
             {
+                //do only itemListSelector if visible
+                if (itemListSelector.showIBminiItemListSelector)
+                {
+                    itemListSelector.onTouchItemListSelection(e, eventType);
+                    return;
+                }
                 if (touchEnabled)
                 {
                     if (screenType.Equals("main"))
@@ -1691,6 +1709,20 @@ namespace IceBlink2mini
         {
             try
             {
+                if (keyData == Keys.Escape)
+                {
+                    if (showMessageBox)
+                    {
+                        showMessageBox = false;
+                        return;
+                    }
+                    if (itemListSelector.showIBminiItemListSelector)
+                    {
+                        itemListSelector.showIBminiItemListSelector = false;
+                        return;
+                    }
+                    doVerifyClosingSetup();                    
+                }
                 if (touchEnabled)
                 {
                     if (keyData == Keys.H)
@@ -1725,9 +1757,12 @@ namespace IceBlink2mini
         }
 
         //ON FORM CLOSING
+        FormClosingEventArgs evnt;
         private void GameView_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult dlg = IBMessageBox.Show(this, "Are you sure you wish to exit?", enumMessageButton.YesNo);
+            //evnt = e;
+            //doVerifyClosingSetup();
+            /*DialogResult dlg = IBMessageBox.Show(this, "Are you sure you wish to exit?", enumMessageButton.YesNo);
             if (dlg == DialogResult.Yes)
             {
                 e.Cancel = false;
@@ -1735,6 +1770,23 @@ namespace IceBlink2mini
             if (dlg == DialogResult.No)
             {
                 e.Cancel = true;
+            }*/
+        }
+        public void doVerifyClosingSetup()
+        {
+            List<string> actionList = new List<string> { "Yes, Exit", "No, Keep Playing" };
+            itemListSelector.setupIBminiItemListSelector(this, actionList, "Are you sure you wish to exit?", "verifyclosing");
+            itemListSelector.showIBminiItemListSelector = true;
+        }
+        public void doVerifyClosing(int selectedIndex)
+        {
+            if (selectedIndex == 0)
+            {
+                this.Close();
+            }
+            if (selectedIndex == 1)
+            {
+                //keep playing
             }
         }
         private void GameView_FormClosed(object sender, FormClosedEventArgs e)

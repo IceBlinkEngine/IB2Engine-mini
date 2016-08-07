@@ -22,7 +22,7 @@ namespace IceBlink2mini
         //this class is handled differently than Android version
         public GameView gv;
 
-        public float weatherSoundMultiplier = 2.7f;
+        //public float weatherSoundMultiplier = 2.7f;
         public bool blockSecondPropTriggersCall = false;
         public List<FloatyText> floatyTextList = new List<FloatyText>();
         public int floatyTextCounter = 0;
@@ -54,7 +54,7 @@ namespace IceBlink2mini
 
         public int partyScreenPcIndex = 0;
         public int partyItemSlotIndex = 0;
-        public string currentMusic = "";
+        //public string currentMusic = "";
         public string slotA = "Autosave";
         public string slot0 = "Quicksave";
         public string slot1 = "";
@@ -126,9 +126,9 @@ namespace IceBlink2mini
         public string stringMessageMainMap = "";
 
         public bool doOnEnterAreaUpdate = false;
-        public bool recursiveCall = false;
-        int fallBackSquareX = 0;
-        int fallBackSquareY = 0;
+        //public bool recursiveCall = false;
+        //int fallBackSquareX = 0;
+        //int fallBackSquareY = 0;
 
         public CommonCode(GameView g)
         {
@@ -163,15 +163,15 @@ namespace IceBlink2mini
             }
             return toReturn;
         }
-        public void LoadCurrentConvo(string filename)
+        /*public void LoadCurrentConvo(string filename)
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\dialog\\" + filename + ".json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.screenConvo.currentConvo = (Convo)serializer.Deserialize(file, typeof(Convo));
             }
-        }
-        public void AutoSave()
+        }*/
+        /*public void AutoSave()
         {
             string filename = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\autosave.json";
             MakeDirectoryIfDoesntExist(filename);
@@ -180,7 +180,7 @@ namespace IceBlink2mini
             {
                 sw.Write(json.ToString());
             }
-        }
+        }*/
         public void QuickSave()
         {
             try
@@ -202,7 +202,7 @@ namespace IceBlink2mini
                 sw.Write(json.ToString());
             }*/
         }
-        public void SaveGame(string filename)
+        /*public void SaveGame(string filename)
         {
             string filepath = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\" + filename;
             MakeDirectoryIfDoesntExist(filepath);
@@ -211,8 +211,8 @@ namespace IceBlink2mini
             {
                 sw.Write(json.ToString());
             }
-        }
-        public void SaveGameInfo(string filename)
+        }*/
+        /*public void SaveGameInfo(string filename)
         {
             ModuleInfo newModInfo = new ModuleInfo();
             newModInfo.saveName = gv.mod.saveName;
@@ -224,8 +224,8 @@ namespace IceBlink2mini
             {
                 sw.Write(json.ToString());
             }
-        }
-        public void doSavesDialog()
+        }*/
+        /*public void doSavesDialog()
         {
             List<string> saveList = new List<string> { slot0, slot1, slot2, slot3, slot4, slot5 };
 
@@ -330,109 +330,209 @@ namespace IceBlink2mini
                     }
                 }
             }
-        }
-        public void doLoadSaveGameDialog()
+        }*/
+        public void doSavesDialog(int selectedIndex)
         {
-            List<string> saveList = new List<string> { slotA, slot0, slot1, slot2, slot3, slot4, slot5 };
-
-            using (ItemListSelector itSel = new ItemListSelector(gv, saveList, "Choose a Saved Game to Load."))
+            if (selectedIndex == 0)
             {
-                itSel.IceBlinkButtonClose.Visible = true;
-                itSel.IceBlinkButtonClose.Enabled = true;
-                itSel.ShowDialog();
-
-                if (itSel.selectedIndex == 0)
+                try
                 {
-                    bool result = LoadSaveGame("autosave.json");
-                    if (result)
-                    {
-                        gv.screenType = "main";
-                        doUpdate();
-                    }
-                    else
-                    {
-                        //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-                    }
+                    //QuickSave();
+                    SaveSaveGame("quicksave.json");
                 }
-                else if (itSel.selectedIndex == 1)
+                catch (Exception ex)
                 {
-                    bool result = LoadSaveGame("quicksave.json");
-                    if (result)
-                    {
-                        gv.screenType = "main";
-                        doUpdate();
-                    }
-                    else
-                    {
-                        //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else if (itSel.selectedIndex == 2)
-                {
-                    bool result = LoadSaveGame("slot1.json");
-                    if (result)
-                    {
-                        gv.screenType = "main";
-                        doUpdate();
-                    }
-                    else
-                    {
-                        //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else if (itSel.selectedIndex == 3)
-                {
-                    bool result = LoadSaveGame("slot2.json");
-                    if (result)
-                    {
-                        gv.screenType = "main";
-                        doUpdate();
-                    }
-                    else
-                    {
-                        //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else if (itSel.selectedIndex == 4)
-                {
-                    bool result = LoadSaveGame("slot3.json");
-                    if (result)
-                    {
-                        gv.screenType = "main";
-                        doUpdate();
-                    }
-                    else
-                    {
-                        //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else if (itSel.selectedIndex == 5)
-                {
-                    bool result = LoadSaveGame("slot4.json");
-                    if (result)
-                    {
-                        gv.screenType = "main";
-                        doUpdate();
-                    }
-                    else
-                    {
-                        //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else if (itSel.selectedIndex == 6)
-                {
-                    bool result = LoadSaveGame("slot5.json");
-                    if (result)
-                    {
-                        gv.screenType = "main";
-                        doUpdate();
-                    }
-                    else
-                    {
-                        //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-                    }
+                    gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                    gv.errorLog(ex.ToString());
                 }
             }
+            else if (selectedIndex == 1)
+            {
+                Player pc = gv.mod.playerList[0];
+                gv.mod.saveName = pc.name + ", Level:" + pc.classLevel + ", XP:" + pc.XP + ", WorldTime:" + gv.mod.WorldTime;
+                slot1 = gv.mod.saveName;
+                try
+                {
+                    SaveSaveGame("slot1.json");
+                    //SaveGameInfo("slot1info.json");
+                }
+                catch (Exception ex)
+                {
+                    gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                    gv.errorLog(ex.ToString());
+                }
+            }
+            else if (selectedIndex == 2)
+            {
+                Player pc = gv.mod.playerList[0];
+                gv.mod.saveName = pc.name + ", Level:" + pc.classLevel + ", XP:" + pc.XP + ", WorldTime:" + gv.mod.WorldTime;
+                slot2 = gv.mod.saveName;
+                try
+                {
+                    SaveSaveGame("slot2.json");
+                    //SaveGameInfo("slot2info.json");
+                }
+                catch (Exception ex)
+                {
+                    gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                    gv.errorLog(ex.ToString());
+                }
+            }
+            else if (selectedIndex == 3)
+            {
+                Player pc = gv.mod.playerList[0];
+                gv.mod.saveName = pc.name + ", Level:" + pc.classLevel + ", XP:" + pc.XP + ", WorldTime:" + gv.mod.WorldTime;
+                slot3 = gv.mod.saveName;
+                try
+                {
+                    SaveSaveGame("slot3.json");
+                    //SaveGameInfo("slot3info.json");
+                }
+                catch (Exception ex)
+                {
+                    gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                    gv.errorLog(ex.ToString());
+                }
+            }
+            else if (selectedIndex == 4)
+            {
+                Player pc = gv.mod.playerList[0];
+                gv.mod.saveName = pc.name + ", Level:" + pc.classLevel + ", XP:" + pc.XP + ", WorldTime:" + gv.mod.WorldTime;
+                slot4 = gv.mod.saveName;
+                try
+                {
+                    SaveSaveGame("slot4.json");
+                    //SaveGameInfo("slot4info.json");
+                }
+                catch (Exception ex)
+                {
+                    gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                    gv.errorLog(ex.ToString());
+                }
+            }
+            else if (selectedIndex == 5)
+            {
+                Player pc = gv.mod.playerList[0];
+                gv.mod.saveName = pc.name + ", Level:" + pc.classLevel + ", XP:" + pc.XP + ", WorldTime:" + gv.mod.WorldTime;
+                slot5 = gv.mod.saveName;
+                try
+                {
+                    SaveSaveGame("slot5.json");
+                    //SaveGameInfo("slot5info.json");
+                }
+                catch (Exception ex)
+                {
+                    gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                    gv.errorLog(ex.ToString());
+                }
+            }
+            
+        }
+        public void doSavesSetupDialog()
+        {
+            List<string> saveList = new List<string> { slot0, slot1, slot2, slot3, slot4, slot5 };
+            gv.itemListSelector.setupIBminiItemListSelector(gv, saveList, "Choose a slot to save game.", "savegame");
+            gv.itemListSelector.showIBminiItemListSelector = true;
+        }
+        public void doLoadSaveGameDialog(int selectedIndex)
+        {
+            if (selectedIndex == 0)
+            {
+                bool result = LoadSaveGame("autosave.json");
+                if (result)
+                {
+                    gv.screenType = "main";
+                    doUpdate();
+                }
+                else
+                {
+                    //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else if (selectedIndex == 1)
+            {
+                bool result = LoadSaveGame("quicksave.json");
+                if (result)
+                {
+                    gv.screenType = "main";
+                    doUpdate();
+                }
+                else
+                {
+                    //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else if (selectedIndex == 2)
+            {
+                bool result = LoadSaveGame("slot1.json");
+                if (result)
+                {
+                    gv.screenType = "main";
+                    doUpdate();
+                }
+                else
+                {
+                    //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else if (selectedIndex == 3)
+            {
+                bool result = LoadSaveGame("slot2.json");
+                if (result)
+                {
+                    gv.screenType = "main";
+                    doUpdate();
+                }
+                else
+                {
+                    //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else if (selectedIndex == 4)
+            {
+                bool result = LoadSaveGame("slot3.json");
+                if (result)
+                {
+                    gv.screenType = "main";
+                    doUpdate();
+                }
+                else
+                {
+                    //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else if (selectedIndex == 5)
+            {
+                bool result = LoadSaveGame("slot4.json");
+                if (result)
+                {
+                    gv.screenType = "main";
+                    doUpdate();
+                }
+                else
+                {
+                    //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else if (selectedIndex == 6)
+            {
+                bool result = LoadSaveGame("slot5.json");
+                if (result)
+                {
+                    gv.screenType = "main";
+                    doUpdate();
+                }
+                else
+                {
+                    //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
+                }
+            }            
+        }
+        public void doLoadSaveGameSetupDialog()
+        {
+            List<string> saveList = new List<string> { slotA, slot0, slot1, slot2, slot3, slot4, slot5 };
+            gv.itemListSelector.setupIBminiItemListSelector(gv, saveList, "Choose a Saved Game to Load.", "loadsavegame");
+            gv.itemListSelector.showIBminiItemListSelector = true;
         }
         public SaveGame LoadModuleInfo(string filename)
         {
@@ -856,9 +956,8 @@ namespace IceBlink2mini
                 }
             }
         }
-
-
-        public bool LoadSave(string filename)
+        
+        /*public bool LoadSave(string filename)
         {
             //  load a new module (actually already have a new module at this point from launch screen		
             //  load the saved game module
@@ -958,15 +1057,6 @@ namespace IceBlink2mini
             //U  "com_showGrid": false, (use all save)
             gv.mod.com_showGrid = saveMod.com_showGrid;
             gv.mod.map_showGrid = saveMod.map_showGrid;
-            /*gv.mod.sendProgressReport = saveMod.sendProgressReport;
-            if (saveMod.uniqueSessionIdNumberTag.Equals(""))
-            {
-                gv.mod.uniqueSessionIdNumberTag = gv.sf.RandInt(1000000) + "";
-            }
-            else
-            {
-                gv.mod.uniqueSessionIdNumberTag = saveMod.uniqueSessionIdNumberTag;
-            }*/
             //U  "allowAutosave": true, (use all save)
             gv.mod.allowAutosave = saveMod.allowAutosave;
             //U  "WorldTime": 24, (use all save)
@@ -1035,8 +1125,8 @@ namespace IceBlink2mini
             gv.createScreens();
             gv.screenMainMap.resetMiniMapBitmap();
             return true;
-        }
-        public Module LoadSaveGameModule(string filename)
+        }*/
+        /*public Module LoadSaveGameModule(string filename)
         {
             Module toReturn = null;
 
@@ -1047,8 +1137,8 @@ namespace IceBlink2mini
                 toReturn = (Module)serializer.Deserialize(file, typeof(Module));
             }
             return toReturn;
-        }
-        public void updateContainers(Module saveMod)
+        }*/
+        /*public void updateContainers(Module saveMod)
         {
             foreach (Container saveCnt in saveMod.moduleContainersList)
             {
@@ -1084,8 +1174,8 @@ namespace IceBlink2mini
                     }
                 }
             }
-        }
-        public void updateShops(Module saveMod)
+        }*/
+        /*public void updateShops(Module saveMod)
         {
             foreach (Shop saveShp in saveMod.moduleShopsList)
             {
@@ -1117,8 +1207,8 @@ namespace IceBlink2mini
                     }
                 }
             }
-        }
-        public void updateAreas(Module saveMod)
+        }*/
+        /*public void updateAreas(Module saveMod)
         {
             foreach (Area ar in gv.mod.moduleAreasObjects)
             {
@@ -1185,7 +1275,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-        }
+        }*/
         public void updatePlayers()
         {
             //load player Bitmap, race, class, known spells, equipped items
@@ -1339,95 +1429,94 @@ namespace IceBlink2mini
             }
             return toReturn;
         }
-        public void LoadRaces()
+        /*public void LoadRaces()
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\races.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleRacesList = (List<Race>)serializer.Deserialize(file, typeof(List<Race>));
             }
-        }
-        public void LoadPlayerClasses()
+        }*/
+        /*public void LoadPlayerClasses()
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\playerClasses.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.modulePlayerClassList = (List<PlayerClass>)serializer.Deserialize(file, typeof(List<PlayerClass>));
             }
-        }
-        public void LoadItems()
+        }*/
+        /*public void LoadItems()
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\items.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleItemsList = (List<Item>)serializer.Deserialize(file, typeof(List<Item>));
             }
-        }
-        public void LoadContainers()
+        }*/
+        /*public void LoadContainers()
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\containers.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleContainersList = (List<Container>)serializer.Deserialize(file, typeof(List<Container>));
             }
-        }
-        public void LoadShops()
+        }*/
+        /*public void LoadShops()
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\shops.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleShopsList = (List<Shop>)serializer.Deserialize(file, typeof(List<Shop>));
             }
-        }
-        public void LoadJournal()
+        }*/
+        /*public void LoadJournal()
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\journal.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleJournal = (List<JournalQuest>)serializer.Deserialize(file, typeof(List<JournalQuest>));
             }
-        }
-        public void LoadEffects()
+        }*/
+        /*public void LoadEffects()
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\effects.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleEffectsList = (List<Effect>)serializer.Deserialize(file, typeof(List<Effect>));
             }
-        }
-        public void LoadSpells()
+        }*/
+        /*public void LoadSpells()
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\spells.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleSpellsList = (List<Spell>)serializer.Deserialize(file, typeof(List<Spell>));
             }
-        }
-        public void LoadTraits()
+        }*/
+        /*public void LoadTraits()
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\traits.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleTraitsList = (List<Trait>)serializer.Deserialize(file, typeof(List<Trait>));
             }
-        }
-                
-        public void LoadCreatures()
+        }*/                
+        /*public void LoadCreatures()
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\creatures.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleCreaturesList = (List<Creature>)serializer.Deserialize(file, typeof(List<Creature>));
             }
-        }
-        public void LoadEncounters()
+        }*/
+        /*public void LoadEncounters()
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\encounters.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.mod.moduleEncountersList = (List<Encounter>)serializer.Deserialize(file, typeof(List<Encounter>));
             }
-        }
+        }*/
 
         public string GetModulePath()
         {
@@ -1779,88 +1868,10 @@ namespace IceBlink2mini
         {
             gv.sf.MessageBoxHtml(this.stringBeginnersGuide);
         }
-
-        public void addLogText(string color, string text)
+        public void doAboutDialog()
         {
-            if (color.Equals("red"))
-            {
-                gv.log.AddHtmlTextToLog("<rd>" + text + "</rd>");
-            }
-            else if (color.Equals("lime"))
-            {
-                gv.log.AddHtmlTextToLog("<gn>" + text + "</gn>");
-            }
-            else if (color.Equals("yellow"))
-            {
-                gv.log.AddHtmlTextToLog("<yl>" + text + "</yl>");
-            }
-            else if (color.Equals("teal"))
-            {
-                gv.log.AddHtmlTextToLog("<bu>" + text + "</bu>");
-            }
-            else if (color.Equals("blue"))
-            {
-                gv.log.AddHtmlTextToLog("<bu>" + text + "</bu>");
-            }
-            else if (color.Equals("fuchsia"))
-            {
-                gv.log.AddHtmlTextToLog("<ma>" + text + "</ma>");
-            }
-            else
-            {
-                gv.log.AddHtmlTextToLog("<wh>" + text + "</wh>");
-            }
-            /*
-            <?xml version="1.0" encoding="utf-8"?>
-            <resources>
-             <color name="white">#FFFFFF</color>
-             <color name="yellow">#FFFF00</color>
-             <color name="fuchsia">#FF00FF</color>
-             <color name="red">#FF0000</color>
-             <color name="silver">#C0C0C0</color>
-             <color name="gray">#808080</color>
-             <color name="olive">#808000</color>
-             <color name="purple">#800080</color>
-             <color name="maroon">#800000</color>
-             <color name="aqua">#00FFFF</color>
-             <color name="lime">#00FF00</color>
-             <color name="teal">#008080</color>
-             <color name="green">#008000</color>
-             <color name="blue">#0000FF</color>
-             <color name="navy">#000080</color>
-             <color name="black">#000000</color>
-            </resources>
-            */
+            gv.sf.MessageBoxHtml(gv.mod.moduleCredits);
         }
-        public void addLogText(string text)
-        {
-            gv.log.AddHtmlTextToLog(text);		
-        }
-        public void addFloatyText(Coordinate coorInSquares, string value)
-        {
-            int txtH = (int)gv.drawFontRegHeight;
-            int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
-            int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
-            Coordinate coor = new Coordinate(x, y);
-            floatyTextList.Add(new FloatyText(coor, value));
-        }
-        public void addFloatyText(Coordinate coorInSquares, string value, string color)
-        {
-            int txtH = (int)gv.drawFontRegHeight;
-            int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
-            int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
-            Coordinate coor = new Coordinate(x, y);
-            floatyTextList.Add(new FloatyText(coor, value, color));
-        }
-        public void addFloatyText(Coordinate coorInSquares, string value, int shiftUp)
-        {
-            int txtH = (int)gv.drawFontRegHeight;
-            int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
-            int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2) - shiftUp;
-            Coordinate coor = new Coordinate(x, y);
-            floatyTextList.Add(new FloatyText(coor, value));
-        }
-
         public void doSettingsDialogs()
         {
             /*TODO
@@ -2034,23 +2045,85 @@ namespace IceBlink2mini
             */
         }
 
-        public void doAboutDialog()
+        public void addLogText(string color, string text)
         {
-            gv.sf.MessageBoxHtml(gv.mod.moduleCredits);
-        }
-
-        public void SwitchToNextAvailablePartyLeader()
-        {
-            int idx = 0;
-            foreach (Player pc in gv.mod.playerList)
+            if (color.Equals("red"))
             {
-                if (!pc.isDead())
-                {
-                    gv.mod.selectedPartyLeader = idx;
-                    return;
-                }
-                idx++;
+                gv.log.AddHtmlTextToLog("<rd>" + text + "</rd>");
             }
+            else if (color.Equals("lime"))
+            {
+                gv.log.AddHtmlTextToLog("<gn>" + text + "</gn>");
+            }
+            else if (color.Equals("yellow"))
+            {
+                gv.log.AddHtmlTextToLog("<yl>" + text + "</yl>");
+            }
+            else if (color.Equals("teal"))
+            {
+                gv.log.AddHtmlTextToLog("<bu>" + text + "</bu>");
+            }
+            else if (color.Equals("blue"))
+            {
+                gv.log.AddHtmlTextToLog("<bu>" + text + "</bu>");
+            }
+            else if (color.Equals("fuchsia"))
+            {
+                gv.log.AddHtmlTextToLog("<ma>" + text + "</ma>");
+            }
+            else
+            {
+                gv.log.AddHtmlTextToLog("<wh>" + text + "</wh>");
+            }
+            /*
+            <?xml version="1.0" encoding="utf-8"?>
+            <resources>
+             <color name="white">#FFFFFF</color>
+             <color name="yellow">#FFFF00</color>
+             <color name="fuchsia">#FF00FF</color>
+             <color name="red">#FF0000</color>
+             <color name="silver">#C0C0C0</color>
+             <color name="gray">#808080</color>
+             <color name="olive">#808000</color>
+             <color name="purple">#800080</color>
+             <color name="maroon">#800000</color>
+             <color name="aqua">#00FFFF</color>
+             <color name="lime">#00FF00</color>
+             <color name="teal">#008080</color>
+             <color name="green">#008000</color>
+             <color name="blue">#0000FF</color>
+             <color name="navy">#000080</color>
+             <color name="black">#000000</color>
+            </resources>
+            */
+        }
+        public void addLogText(string text)
+        {
+            gv.log.AddHtmlTextToLog(text);		
+        }
+        public void addFloatyText(Coordinate coorInSquares, string value)
+        {
+            int txtH = (int)gv.drawFontRegHeight;
+            int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
+            int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
+            Coordinate coor = new Coordinate(x, y);
+            floatyTextList.Add(new FloatyText(coor, value));
+        }
+        public void addFloatyText(Coordinate coorInSquares, string value, string color)
+        {
+            int txtH = (int)gv.drawFontRegHeight;
+            int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
+            int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
+            Coordinate coor = new Coordinate(x, y);
+            floatyTextList.Add(new FloatyText(coor, value, color));
+        }
+        public void addFloatyText(Coordinate coorInSquares, string value, int shiftUp)
+        {
+            int txtH = (int)gv.drawFontRegHeight;
+            int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
+            int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2) - shiftUp;
+            Coordinate coor = new Coordinate(x, y);
+            floatyTextList.Add(new FloatyText(coor, value));
         }
 
         public void doUpdate()
@@ -2080,7 +2153,7 @@ namespace IceBlink2mini
                 IBMessageBox.Show(gv, "Everybody is unconscious and bleeding - your party has been defeated!");
                 return;
             }
-                        
+
             //CLEAN UP START SCREENS IF DONE WITH THEM
             if (gv.screenLauncher != null)
             {
@@ -2099,10 +2172,10 @@ namespace IceBlink2mini
             applyEffects();
             //do Prop heartbeat
             doPropHeartBeat();
-            
+
             //script hook for full screen effects on channels 1 to 4 (also called in doTransitionBasedOnAreaLocation)
             //doChannelScripts();
-            
+
             blockSecondPropTriggersCall = false;
             //do Conversation and/or Encounter if on Prop (check before props move)
             gv.triggerPropIndex = 0;
@@ -2126,7 +2199,19 @@ namespace IceBlink2mini
             //check for levelup available and switch button image
             checkLevelUpAvailable(); //move this to on update and use a plus overlay in top left            
         }
-                
+        public void SwitchToNextAvailablePartyLeader()
+        {
+            int idx = 0;
+            foreach (Player pc in gv.mod.playerList)
+            {
+                if (!pc.isDead())
+                {
+                    gv.mod.selectedPartyLeader = idx;
+                    return;
+                }
+                idx++;
+            }
+        }
         public void checkLevelUpAvailable()
         {            
             if (gv.mod.playerList.Count > 0)
@@ -2160,7 +2245,6 @@ namespace IceBlink2mini
                 else { gv.cc.ptrPc5.levelUpOn = false; }
             }
         }
-                
         public void doPropHeartBeat()
         {
             foreach (Prop prp in gv.mod.currentArea.Props)
@@ -2171,7 +2255,6 @@ namespace IceBlink2mini
                 gv.sf.ThisProp = null;
             }
         }
-        
         public void doPropMoves()
         {
             //foreach (Prop propObject in gv.mod.currentArea.Props)
@@ -3250,7 +3333,6 @@ namespace IceBlink2mini
                 }
             }            
         }
-
         public void applyEffects()
         {
             try
@@ -3581,7 +3663,6 @@ namespace IceBlink2mini
                 }
             }
         }
-
         public void doContainerBasedOnTag(string tag)
         {
 
@@ -3628,13 +3709,13 @@ namespace IceBlink2mini
                 gv.sf.MessageBox("failed to open conversation with tag: " + tag);
             }*/
         }
-        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target)
+        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat)
         {
             gv.sf.AoeTargetsList.Clear();
 
             if (!spell.spellEffectTag.Equals("none"))
             {
-                gv.sf.spGeneric(spell, source, target);
+                gv.sf.spGeneric(spell, source, target, outsideCombat);
             }
 
             //WIZARD SPELLS
@@ -3774,7 +3855,6 @@ namespace IceBlink2mini
                 gv.errorLog(ex.ToString());
             }
         }
-                
         public void doTransitionBasedOnAreaLocation(string areaFilename, int x, int y)
         {
             try
@@ -3794,7 +3874,6 @@ namespace IceBlink2mini
                 gv.errorLog(ex.ToString());
             }            
         }
-                
         public void doItemScriptBasedOnUseItem(Player pc, ItemRefs itRef, bool destroyItemAfterUse)
         {
             Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
@@ -3826,14 +3905,14 @@ namespace IceBlink2mini
         }
 
         //TESTING STUFF
-        public void createSpritesForTesting()
+        /*public void createSpritesForTesting()
         {
             for (int i = 0; i < 100; i++)
             {
                 Sprite spr = new Sprite(gv, "hit_symbol", gv.sf.RandInt(1000), gv.sf.RandInt(1000), (float)(gv.sf.RandInt(100) + 1) / 1000f, (float)(gv.sf.RandInt(100) + 1) / 1000f, 0, (float)(gv.sf.RandInt(100) + 1) / 10000f, 1.0f, gv.sf.RandInt(10000) + 3000, false, 100);
                 gv.screenMainMap.spriteList.Add(spr);
             }            
-        }
+        }*/
         
         //MISC FUNCTIONS
         public int getDistance(Coordinate start, Coordinate end)
@@ -3969,7 +4048,7 @@ namespace IceBlink2mini
             }
             return txt;
         }
-        public float MeasureString(string text, SharpDX.DirectWrite.FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float fontHeight)
+        /*public float MeasureString(string text, SharpDX.DirectWrite.FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float fontHeight)
         {
             // Measure string width.
             SharpDX.DirectWrite.TextFormat tf = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, fw, fs, SharpDX.DirectWrite.FontStretch.Normal, fontHeight) { TextAlignment = SharpDX.DirectWrite.TextAlignment.Leading, ParagraphAlignment = SharpDX.DirectWrite.ParagraphAlignment.Near };
@@ -3986,8 +4065,8 @@ namespace IceBlink2mini
                 tl = null;
             }
             return returnWidth;
-        }
-        public CoordinateF MeasureStringSize(string text, SharpDX.DirectWrite.FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float fontHeight)
+        }*/
+        /*public CoordinateF MeasureStringSize(string text, SharpDX.DirectWrite.FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float fontHeight)
         {
             // Measure string width.
             SharpDX.DirectWrite.TextFormat tf = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, fw, fs, SharpDX.DirectWrite.FontStretch.Normal, fontHeight) { TextAlignment = SharpDX.DirectWrite.TextAlignment.Leading, ParagraphAlignment = SharpDX.DirectWrite.ParagraphAlignment.Near };
@@ -4004,7 +4083,7 @@ namespace IceBlink2mini
                 tl = null;
             }
             return returnSize;
-        }
+        }*/
         public void MakeDirectoryIfDoesntExist(string filenameAndFullPath)
         {
             System.IO.FileInfo file = new System.IO.FileInfo(filenameAndFullPath);
@@ -4179,7 +4258,7 @@ namespace IceBlink2mini
                 return new SharpDX.Direct2D1.Bitmap(gv.renderTarget2D, size, tempStream, stride, bitmapProperties);
             }
         }
-        public List<FormattedLine> ProcessHtmlString(string text, int width, List<string> tagStack)
+        /*public List<FormattedLine> ProcessHtmlString(string text, int width, List<string> tagStack)
         {
             bool tagMode = false;
             string tag = "";
@@ -4376,7 +4455,7 @@ namespace IceBlink2mini
             }
             tagStack.Clear();
             return logLinesList;
-        }
+        }*/
         public List<IBminiFormattedLine> ProcessHtmlString(string text, int width, List<string> tagStack, bool IBmini)
         {
             bool tagMode = false;
@@ -4412,7 +4491,7 @@ namespace IceBlink2mini
 
                     if (newWord.text != "")
                     {
-                        newWord.color = GetColor(tagStack, true);
+                        newWord.color = GetColor(tagStack);
                         int wordWidth = (newWord.text.Length + 1) * (gv.fontWidth + gv.fontCharSpacing);
                         if (xLoc + wordWidth > (width) - (gv.fontWidth * 2)) //word wrap
                         {
@@ -4462,7 +4541,7 @@ namespace IceBlink2mini
                         //check for line break
                         if ((tag.ToLower() == "br") || (tag == "BR"))
                         {
-                            newWord.color = GetColor(tagStack, true);
+                            newWord.color = GetColor(tagStack);
                             //end last line and add it to the log
                             logLinesList.Add(newLine);
                             //start a new line and add this word
@@ -4487,7 +4566,7 @@ namespace IceBlink2mini
                     }
                     else //hit a space so end word
                     {
-                        newWord.color = GetColor(tagStack, true);
+                        newWord.color = GetColor(tagStack);
                         int wordWidth = (newWord.text.Length + 1) * (gv.fontWidth + gv.fontCharSpacing);
                         if (xLoc + wordWidth > (width) - (gv.fontWidth * 2)) //word wrap
                         {
@@ -4516,7 +4595,7 @@ namespace IceBlink2mini
             tagStack.Clear();
             return logLinesList;
         }
-        private string GetColor(List<string> tagStack, bool ibmini)
+        private string GetColor(List<string> tagStack)
         {
             //will end up using the last color on the stack
             string clr = "wh";
@@ -4553,7 +4632,7 @@ namespace IceBlink2mini
             }
             return clr;
         }
-        private SharpDX.Color GetColor(List<string> tagStack)
+        /*private SharpDX.Color GetColor(List<string> tagStack)
         {
             //will end up using the last color on the stack
             SharpDX.Color clr = SharpDX.Color.White;
@@ -4597,8 +4676,8 @@ namespace IceBlink2mini
                 }
             }
             return clr;
-        }
-        private SharpDX.DirectWrite.FontStyle GetFontStyle(List<string> tagStack)
+        }*/
+        /*private SharpDX.DirectWrite.FontStyle GetFontStyle(List<string> tagStack)
         {
             SharpDX.DirectWrite.FontStyle style = SharpDX.DirectWrite.FontStyle.Normal;
             foreach (string s in tagStack)
@@ -4609,8 +4688,8 @@ namespace IceBlink2mini
                 }
             }
             return style;
-        }
-        private SharpDX.DirectWrite.FontWeight GetFontWeight(List<string> tagStack)
+        }*/
+        /*private SharpDX.DirectWrite.FontWeight GetFontWeight(List<string> tagStack)
         {
             SharpDX.DirectWrite.FontWeight style = SharpDX.DirectWrite.FontWeight.Normal;
             foreach (string s in tagStack)
@@ -4621,8 +4700,8 @@ namespace IceBlink2mini
                 }
             }
             return style;
-        }
-        private bool GetIsUnderlined(List<string> tagStack)
+        }*/
+        /*private bool GetIsUnderlined(List<string> tagStack)
         {
             bool isUnderlined = false;
             foreach (string s in tagStack)
@@ -4633,8 +4712,8 @@ namespace IceBlink2mini
                 }
             }
             return isUnderlined;
-        }
-        private float GetFontSizeInPixels(List<string> tagStack)
+        }*/
+        /*private float GetFontSizeInPixels(List<string> tagStack)
         {
             float fSize = gv.drawFontRegHeight * (float)gv.squareSize / 100.0f;
             foreach (string s in tagStack)
@@ -4649,6 +4728,6 @@ namespace IceBlink2mini
                 }
             }
             return fSize;
-        }
+        }*/
     }
 }

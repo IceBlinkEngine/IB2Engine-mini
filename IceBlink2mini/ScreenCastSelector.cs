@@ -431,7 +431,7 @@ namespace IceBlink2mini
 			        			    try
 			                        {
 			        				    Player target = mod.playerList[0];
-		            				    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target);
+		            				    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, true);
                                         gv.screenType = "main";
 		        					    doCleanUp();
 			        				    return;
@@ -442,7 +442,10 @@ namespace IceBlink2mini
 			                        }        	                            	        	                        
 			            	    }
 
-                                using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.spellLabelSingular + " Target"))
+                                gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, mod.spellLabelSingular + " Target", "castselectorspelltarget");
+                                gv.itemListSelector.showIBminiItemListSelector = true;
+
+                                /*using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.spellLabelSingular + " Target"))
                                 {
                                     pcSel.ShowDialog();                                                                        
                                     Player pc = getCastingPlayer();
@@ -465,7 +468,7 @@ namespace IceBlink2mini
 				                	{
 				                		//do nothing
 				                	}                                   
-                                }
+                                }*/
 						    }
 						    else
 						    {
@@ -476,6 +479,29 @@ namespace IceBlink2mini
 			    }
 		    }            
 	    }
+        public void doSpellTarget(int selectedIndex)
+        {
+            Player pc = getCastingPlayer();
+            if (selectedIndex > 0)
+            {
+                try
+                {
+                    Player target = mod.playerList[selectedIndex - 1];
+                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat);
+                    gv.screenType = "main";
+                    doCleanUp();
+                }
+                catch (Exception ex)
+                {
+                    IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                    gv.errorLog(ex.ToString());
+                }
+            }
+            else if (selectedIndex == 0) // selected "cancel"
+            {
+                //do nothing
+            }
+        }
     
         public Spell GetCurrentlySelectedSpell()
 	    {

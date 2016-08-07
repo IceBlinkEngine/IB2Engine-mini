@@ -91,12 +91,6 @@
     <Compile Include="EventObjEditorReturnObject.cs" />
     <Compile Include="FloatyText.cs" />
     <Compile Include="FloatyTextByPixel.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormattedLine.cs" />
     <Compile Include="FormattedLineGDI.cs" />
     <Compile Include="FormattedWord.cs" />
@@ -137,6 +131,7 @@
     <Compile Include="IBMessageBox.designer.cs" />
     <Compile Include="IBminiFormattedLine.cs" />
     <Compile Include="IBminiFormattedWord.cs" />
+    <Compile Include="IBminiItemListSelector.cs" />
     <Compile Include="IBminiMessageBox.cs" />
     <Compile Include="IBminiTextBox.cs" />
     <Compile Include="IbRect.cs" />

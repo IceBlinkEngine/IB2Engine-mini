@@ -194,9 +194,11 @@ namespace IceBlink2mini
     	    int tabX = pW * 50;
     	    int tabX2 = pW * 70;
     	    int leftStartY = 5 * gv.squareSize + (pH * 6);
-    	    
+
             //Draw screen title name
-		    int textWidth = (int)gv.cc.MeasureString("Current Party Members [" + mod.MaxPartySize + " Maximum]", SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
+            string strg = "Current Party Members [" + mod.MaxPartySize + " Maximum]";
+            int textWidth = strg.Length * (gv.fontWidth + gv.fontCharSpacing);
+            //int textWidth = (int)gv.cc.MeasureString("Current Party Members [" + mod.MaxPartySize + " Maximum]", SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
             int ulX = (gv.screenWidth / 2) - (textWidth / 2);
 		    gv.DrawText("Current Party Members [" + mod.MaxPartySize + " Maximum]", ulX, pH * 3, "gy");
 		    		    
@@ -216,7 +218,9 @@ namespace IceBlink2mini
 		    }
 
             //Draw screen title name
-            textWidth = (int)gv.cc.MeasureString("Party Roster [Players in Reserve]", SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
+            strg = "Party Roster [Players in Reserve]";
+            textWidth = strg.Length * (gv.fontWidth + gv.fontCharSpacing);
+            //textWidth = (int)gv.cc.MeasureString("Party Roster [Players in Reserve]", SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
             ulX = (gv.screenWidth / 2) - (textWidth / 2);
 		    gv.DrawText("Party Roster [Players in Reserve]", ulX, 3 * gv.squareSize + (pH * 0), "gy");
 

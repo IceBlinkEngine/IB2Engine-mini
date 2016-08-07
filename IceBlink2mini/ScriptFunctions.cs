@@ -5927,13 +5927,21 @@ namespace IceBlink2mini
             }
         }
 
-        public void spGeneric(Spell thisSpell, object src, object trg)
+        public void spGeneric(Spell thisSpell, object src, object trg, bool outsideCombat)
         {            
             //set squares list
             CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
-            CreateAoeTargetsList(src, trg);
+            if (outsideCombat)
+            {
+                AoeTargetsList.Clear();
+                AoeTargetsList.Add(trg);
+            }
+            else
+            {
+                CreateAoeTargetsList(src, trg);
+            }
 
             Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
 

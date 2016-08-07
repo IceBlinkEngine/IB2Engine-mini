@@ -121,7 +121,7 @@ namespace IceBlink2mini
         }
         private void loadHeaderImage(GameView gv)
         {
-            try
+            /*try
             {
                 if (gv.mod != null)
                 {
@@ -139,7 +139,7 @@ namespace IceBlink2mini
                     this.pnlTitle.BackgroundImage = (Image)new Bitmap(gv.mainDirectory + "\\default\\NewModule\\ui\\btn_lrg_header.png");
                 }
             }
-            catch { }
+            catch { }*/
         }
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -234,7 +234,7 @@ namespace IceBlink2mini
         }
         public void DrawTitleTextShadowOutline(PaintEventArgs e, int x, int y, string text, int aShad, int aText, FontFamily font, float fontPointSize, Color textColor, Color shadowColor)
         {
-            try
+            /*try
             {
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
                 e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -264,7 +264,7 @@ namespace IceBlink2mini
             catch (Exception ex)
             {
                 MessageBox.Show("draw text on button not working: " + ex.ToString());
-            }
+            }*/
         }
     }
 

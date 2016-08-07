@@ -179,7 +179,7 @@ namespace IceBlink2mini
                         }
                         else
                         {
-                            gv.cc.doLoadSaveGameDialog();
+                            gv.cc.doLoadSaveGameSetupDialog();
                         }
                     }
                     else if (btnPlayerGuide.getImpact(x, y))

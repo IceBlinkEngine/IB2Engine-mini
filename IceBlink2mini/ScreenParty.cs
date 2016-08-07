@@ -932,7 +932,7 @@ namespace IceBlink2mini
                             }
                             else
                             {
-                                doLevelUp();
+                                doLevelUpSetup();
                             }
                         }
                     }
@@ -1175,21 +1175,27 @@ namespace IceBlink2mini
                 gv.screenItemSelector.resetItemSelector(allowedItems, "equip", "party");
             }
         }
-        public void doLevelUp()
+        public void doLevelUpSetup()
         {
             List<string> actionList = new List<string> { "Cancel", "LEVEL UP" };
+            gv.itemListSelector.setupIBminiItemListSelector(gv, actionList, "Level Up Action", "partyscreenlevelup");
+            gv.itemListSelector.showIBminiItemListSelector = true;
+        }
+        public void doLevelUp(int selectedIndex)
+        {
+            //List<string> actionList = new List<string> { "Cancel", "LEVEL UP" };
 
-            using (ItemListSelector itSel = new ItemListSelector(gv, actionList, "Level Up Action"))
-            {
-                itSel.IceBlinkButtonClose.Enabled = true;
-                itSel.IceBlinkButtonClose.Visible = true;
-                itSel.setupAll(gv);
-                var ret = itSel.ShowDialog();
-                if (itSel.selectedIndex == 0) // selected to Cancel
+            //using (ItemListSelector itSel = new ItemListSelector(gv, actionList, "Level Up Action"))
+            //{
+                //itSel.IceBlinkButtonClose.Enabled = true;
+                //itSel.IceBlinkButtonClose.Visible = true;
+                //itSel.setupAll(gv);
+                //var ret = itSel.ShowDialog();
+                if (selectedIndex == 0) // selected to Cancel
                 {
                     //do nothing
                 }
-                else if (itSel.selectedIndex == 1) // selected to LEVEL UP
+                else if (selectedIndex == 1) // selected to LEVEL UP
                 {
                     Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
                     //LEVEL UP ALL STATS AND UPDATE STATS
@@ -1240,7 +1246,7 @@ namespace IceBlink2mini
                         doLevelUpSummary();
                     }
                 }
-            }
+            //}
         }
         public void doLevelUpSummary()
         {

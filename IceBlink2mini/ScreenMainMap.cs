@@ -88,6 +88,7 @@ namespace IceBlink2mini
                         gv.cc.addLogText("yellow", "squareSize: " + gv.squareSize);
                         gv.cc.addLogText("yellow", "sqrW: " + sqrW);
                         gv.cc.addLogText("yellow", "sqrH: " + sqrH);
+                        gv.cc.addLogText("yellow", "fontWidth: " + gv.fontWidth);
                         gv.cc.addLogText("yellow", "");
                         gv.cc.addLogText("red", "Welcome to " + mod.moduleLabelName);
                         gv.cc.addLogText("fuchsia", "You can scroll this message log box, use mouse wheel");
@@ -1422,7 +1423,8 @@ namespace IceBlink2mini
                     {
                         if (mod.allowSave)
                         {
-                            gv.cc.doSavesDialog();
+                            //gv.cc.doSavesDialog();
+                            gv.cc.doSavesSetupDialog();
                         }
                     }
                     else if (rtn.Equals("btnWait"))
@@ -1431,8 +1433,8 @@ namespace IceBlink2mini
                     }
                     else if (rtn.Equals("btnCastOnMainMap"))
                     {
-
-                        List<string> pcNames = new List<string>();
+                        doCastSelectorSetup();
+                        /*List<string> pcNames = new List<string>();
                         List<int> pcIndex = new List<int>();
                         pcNames.Add("cancel");
 
@@ -1489,7 +1491,7 @@ namespace IceBlink2mini
                             {
                                 //do nothing
                             }
-                        }
+                        }*/
                     }
                     else if (rtn.Equals("btnToggleArrows"))
                     {
@@ -1513,6 +1515,78 @@ namespace IceBlink2mini
                     break;
             }
         }
+        public void doCastSelectorSetup()
+        {
+            List<int> pcIndex = new List<int>();
+            //If only one PC, do not show select PC dialog...just go to cast selector
+            if (pcIndex.Count == 1)
+            {
+                try
+                {
+                    gv.screenCastSelector.castingPlayerIndex = pcIndex[0];
+                    gv.screenCombat.spellSelectorIndex = 0;
+                    gv.screenType = "mainMapCast";
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    //print error
+                    IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                    gv.errorLog(ex.ToString());
+                    return;
+                }
+            }
+
+            List<string> pcNames = new List<string>();            
+            pcNames.Add("cancel");
+
+            int cnt = 0;
+            foreach (Player p in mod.playerList)
+            {
+                if (hasMainMapTypeSpell(p))
+                {
+                    pcNames.Add(p.name);
+                    pcIndex.Add(cnt);
+                }
+                cnt++;
+            }
+            
+            gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, "Select Caster", "mainmapselectcaster");
+            gv.itemListSelector.showIBminiItemListSelector = true;
+        }
+        public void doCastSelector(int selectedIndex)
+        {
+            if (selectedIndex > 0)
+            {
+                List<int> pcIndex = new List<int>();
+                int cnt = 0;
+                foreach (Player p in mod.playerList)
+                {
+                    if (hasMainMapTypeSpell(p))
+                    {
+                        pcIndex.Add(cnt);
+                    }
+                    cnt++;
+                }
+                try
+                {
+                    gv.screenCastSelector.castingPlayerIndex = pcIndex[selectedIndex - 1]; // pcIndex.get(item - 1);
+                    gv.screenCombat.spellSelectorIndex = 0;
+                    gv.screenType = "mainMapCast";
+                }
+                catch (Exception ex)
+                {
+                    IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                    gv.errorLog(ex.ToString());
+                    //print error
+                }
+            }
+            else if (selectedIndex == 0) // selected "cancel"
+            {
+                //do nothing
+            }
+        }
+
         public void onKeyUp(Keys keyData)
         {
             if ((moveDelay()) && (finishedMove))
@@ -1586,7 +1660,8 @@ namespace IceBlink2mini
             }
             else if (keyData == Keys.C)
             {
-                List<string> pcNames = new List<string>();
+                doCastSelectorSetup();
+                /*List<string> pcNames = new List<string>();
                 List<int> pcIndex = new List<int>();
                 pcNames.Add("cancel");
 
@@ -1643,7 +1718,7 @@ namespace IceBlink2mini
                     {
                         //do nothing
                     }
-                }
+                }*/
             }
             else if (keyData == Keys.X)
             {

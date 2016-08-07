@@ -101,19 +101,19 @@ namespace IceBlink2mini
 
             if ((htmlText.EndsWith("<br>")) || (htmlText.EndsWith("<BR>")))
             {
-                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText, tbWidth - btn_up.PixelSize.Width, tagStack);
+                /*List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText, tbWidth - btn_up.PixelSize.Width, tagStack);
                 foreach (FormattedLine fl in linesList)
                 {
                     logLinesList.Add(fl);
-                }
+                }*/
             }
             else
             {
-                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText + "<br>", tbWidth - btn_up.PixelSize.Width, tagStack);
+                /*List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText + "<br>", tbWidth - btn_up.PixelSize.Width, tagStack);
                 foreach (FormattedLine fl in linesList)
                 {
                     logLinesList.Add(fl);
-                }
+                }*/
             }
             /*if ((htmlText.EndsWith("<br>")) || (htmlText.EndsWith("<BR>")))
             {

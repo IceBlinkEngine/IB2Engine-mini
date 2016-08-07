@@ -825,7 +825,7 @@ namespace IceBlink2mini
         {
             Spell sp = gv.mod.getSpellByTag(tag);
             if (sp == null) { return; }
-            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, trg);
+            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, trg, false);
         }
         public void endPcTurn(bool endStealthMode)
         {
@@ -1263,7 +1263,7 @@ namespace IceBlink2mini
                 newSeq.AnimationSeq.Add(newGroup);
                 launchProjectile(filename, startX, startY, endX, endY, newGroup);
                 //gv.PlaySound(gv.sf.SpellToCast.spellEndSound);
-                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.sf.SpellToCast, crt, gv.sf.CombatTarget);
+                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.sf.SpellToCast, crt, gv.sf.CombatTarget, false);
                 //add ending projectile animation
                 newGroup = new AnimationStackGroup();
                 animationSeqStack[0].AnimationSeq.Add(newGroup);
@@ -1725,7 +1725,7 @@ namespace IceBlink2mini
         {
             Spell sp = gv.mod.getSpellByTag(crt.onScoringHitCastSpellTag);
             if (sp == null) { return; }
-            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, crt, pc);
+            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, crt, pc, false);
         }
         public bool checkEndEncounter()
         {
@@ -3752,7 +3752,7 @@ namespace IceBlink2mini
                 launchProjectile(filename, startX, startY, endX, endY, newGroup);
                 //gv.PlaySound(gv.cc.currentSelectedSpell.spellEndSound);
                 object target = getCastTarget(pc);
-                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target);
+                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, false);
                 //add ending projectile animation
                 newGroup = new AnimationStackGroup();
                 animationSeqStack[0].AnimationSeq.Add(newGroup);
