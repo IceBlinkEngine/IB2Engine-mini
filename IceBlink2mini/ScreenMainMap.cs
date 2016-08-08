@@ -35,7 +35,7 @@ namespace IceBlink2mini
         {
             mod = m;
             gv = g;
-            mapStartLocXinPixels = 3 * gv.squareSize + (gv.squareSize / 4) + gv.oXshift;
+            mapStartLocXinPixels = 4 * gv.squareSize + gv.oXshift;
             loadMainUILayout();          
         }
         public void loadMainUILayout()
@@ -109,7 +109,7 @@ namespace IceBlink2mini
             mainUiLayout.Update(elapsed);
 
             //handle RealTime Timer events if module uses this system
-            if (mod.useRealTimeTimer)
+            /*if (mod.useRealTimeTimer)
             {
                 gv.realTimeTimerMilliSecondsEllapsed += elapsed;
                 if (gv.realTimeTimerMilliSecondsEllapsed >= mod.realTimeTimerLengthInMilliSeconds)
@@ -117,7 +117,7 @@ namespace IceBlink2mini
                     gv.cc.doUpdate();
                     gv.realTimeTimerMilliSecondsEllapsed = 0;
                 }
-            }
+            }*/
 
             #region PROP AMBIENT SPRITES
             foreach (Sprite spr in spriteList)
@@ -754,7 +754,7 @@ namespace IceBlink2mini
         }
         public void drawMainMapFloatyText()
         {
-            int txtH = (int)gv.drawFontRegHeight;
+            int txtH = (int)gv.fontHeight;
 
             for (int x = 0; x <= 2; x++)
             {
@@ -836,7 +836,7 @@ namespace IceBlink2mini
                 sMinute = "0" + minute;
             }
 
-            int txtH = (int)gv.drawFontRegHeight;            
+            int txtH = (int)gv.fontHeight;            
             for (int x = 0; x <= 2; x++)
             {
                 for (int y = 0; y <= 2; y++)
@@ -908,7 +908,7 @@ namespace IceBlink2mini
         {
             if (floatyTextPool.Count > 0)
             {
-                int txtH = (int)gv.drawFontRegHeight;
+                int txtH = (int)gv.fontHeight;
                 //int pH = (int)((float)gv.screenHeight / 200.0f);
 
                 foreach (FloatyText ft in floatyTextPool)
@@ -1052,7 +1052,7 @@ namespace IceBlink2mini
                     //Draw Floaty Text On Mouse Over Prop
                     int gridx = (int)e.X / gv.squareSize;
                     int gridy = (int)e.Y / gv.squareSize;
-                    int actualX = mod.PlayerLocationX + (gridx - gv.playerOffsetX) - (mapStartLocXinPixels / gv.squareSize) - 1;
+                    int actualX = mod.PlayerLocationX + (gridx - gv.playerOffsetX) - (mapStartLocXinPixels / gv.squareSize);
                     int actualY = mod.PlayerLocationY + (gridy - gv.playerOffsetY);
                     gv.cc.floatyText = "";
                     if (IsTouchInMapWindow(gridx, gridy))

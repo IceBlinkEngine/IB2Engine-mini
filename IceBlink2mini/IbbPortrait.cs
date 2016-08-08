@@ -116,7 +116,7 @@ namespace IceBlink2mini
                 gv.DrawBitmap(gv.cc.ui_portrait_frame, srcFrame, dstFrame);
             }
 
-            float thisFontHeight = gv.drawFontRegHeight;
+            /*float thisFontHeight = gv.drawFontRegHeight;
             if (scaler > 1.05f)
             {
                 thisFontHeight = gv.drawFontLargeHeight;
@@ -124,7 +124,7 @@ namespace IceBlink2mini
             else if (scaler < 0.95f)
             {
                 thisFontHeight = gv.drawFontSmallHeight;
-            }
+            }*/
             
             //DRAW HP/HPmax
             // Measure string.

@@ -376,10 +376,6 @@ namespace IceBlink2mini
                 gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing, "wh");
                 gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing, "wh");
                 gv.DrawText("CHA:  " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing, "wh");
-                if (mod.useLuck == true)
-                {
-                    gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, tabX - 3 * gv.squareSize, locY += spacing, "wh");
-                }                
             }
             if (gv.showMessageBox)
             {

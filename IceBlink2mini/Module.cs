@@ -29,13 +29,13 @@ namespace IceBlink2mini
         public bool debugMode = false;
         public float diagonalMoveCost = 1.5f;
         public bool allowSave = true;
-        public bool useLuck = false;
+        //public bool useLuck = false;
         public bool hideRoster = false;
         public bool use3d6 = false;
         public bool useUIBackground = true;
-        public string fontName = "Metamorphous";
-        public string fontFilename = "Metamorphous-Regular.ttf";
-        public float fontD2DScaleMultiplier = 1.0f;
+        //public string fontName = "Metamorphous";
+        //public string fontFilename = "Metamorphous-Regular.ttf";
+        //public float fontD2DScaleMultiplier = 1.0f;
         public int logNumberOfLines = 20;
         public string spellLabelSingular = "Spell";
         public string spellLabelPlural = "Spells";
@@ -130,8 +130,8 @@ namespace IceBlink2mini
         public string OnHeartBeatIBScriptParms = "";
         public bool showInteractionState = false;
         public bool avoidInteraction = false;
-        public bool useRealTimeTimer = false;
-        public int realTimeTimerLengthInMilliSeconds = 1500;
+        //public bool useRealTimeTimer = false;
+        //public int realTimeTimerLengthInMilliSeconds = 1500;
         public int attackFromBehindToHitModifier = 2;
         public int attackFromBehindDamageModifier = 0;        
         [JsonIgnore]

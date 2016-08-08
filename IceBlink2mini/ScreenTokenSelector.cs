@@ -223,7 +223,7 @@ namespace IceBlink2mini
 		
     	    int locY = 0;
     	    int locX = pW * 4;
-    	    int textH = (int)gv.drawFontRegHeight;
+    	    int textH = (int)gv.fontHeight;
             int spacing = textH;
             int tabX = pW * 4;
     	    int tabX2 = 5 * gv.squareSize + pW * 2;

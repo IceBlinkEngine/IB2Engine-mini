@@ -9,23 +9,23 @@ using System.IO;
 //using System.Text;
 using System.Windows.Forms;
 //using System.Runtime.InteropServices;
-using System.Drawing.Text;
+//using System.Drawing.Text;
 using System.Media;
 using SharpDX.DXGI;
 using SharpDX.Direct3D11;
 using SharpDX.Direct2D1;
-using SharpDX.DirectWrite;
+//using SharpDX.DirectWrite;
 using SharpDX.Direct3D;
 using SharpDX;
-using FontFamily = System.Drawing.FontFamily;
-using Font = System.Drawing.Font;
-using Message = System.Windows.Forms.Message;
-using Color = System.Drawing.Color;
-//using Point = System.Drawing.Point;
-using RectangleF = System.Drawing.RectangleF;
-using Rectangle = System.Drawing.Rectangle;
-using System.Diagnostics;
 using SharpDX.Windows;
+//using FontFamily = System.Drawing.FontFamily;
+//using Font = System.Drawing.Font;
+using Message = System.Windows.Forms.Message;
+//using Color = System.Drawing.Color;
+//using Point = System.Drawing.Point;
+//using RectangleF = System.Drawing.RectangleF;
+//using Rectangle = System.Drawing.Rectangle;
+using System.Diagnostics;
 
 namespace IceBlink2mini
 {
@@ -35,7 +35,7 @@ namespace IceBlink2mini
         public float screenDensity;
         public int screenWidth;
         public int screenHeight;
-        public int squareSizeInPixels = 95;
+        public int squareSizeInPixels = 96;
         public int squareSize; //in dp (squareSizeInPixels * screenDensity)
         public int pS; // = squareSize / 10 ... used for small UI and text location adjustments based on squaresize
         public int squaresInWidth = 19;
@@ -47,7 +47,6 @@ namespace IceBlink2mini
         public int ibpheight = 170;
         public int playerOffset = 5;
         public int playerOffsetX = 5;
-        //changed playerOffsetY from 4 to 5 in order to show map full screen (i.e. underneath UI, too)
         public int playerOffsetY = 5;
         public int oXshift = 0;
         public int oYshift = 0;
@@ -57,8 +56,7 @@ namespace IceBlink2mini
         public int fontWidth = 8;
         public int fontCharSpacing = 1;
         public int fontLineSpacing = 2;
-
-        public Graphics gCanvas;
+        //public Graphics gCanvas;
 
         //DIRECT2D STUFF
         public SharpDX.Direct3D11.Device _device;
@@ -69,24 +67,24 @@ namespace IceBlink2mini
         public SharpDX.DirectWrite.Factory factoryDWrite;
         public RenderTarget renderTarget2D;
         public SolidColorBrush sceneColorBrush;
-        public ResourceFontLoader CurrentResourceFontLoader;
-        public SharpDX.DirectWrite.FontCollection CurrentFontCollection;
-        public string FontFamilyName;
-        public TextFormat textFormat;
-        public TextLayout textLayout;
+        //public ResourceFontLoader CurrentResourceFontLoader;
+        //public SharpDX.DirectWrite.FontCollection CurrentFontCollection;
+        //public string FontFamilyName;
+        //public TextFormat textFormat;
+        //public TextLayout textLayout;
 
         public string versionNum = "v1.00";
         public string fixedModule = "";
-        public PrivateFontCollection myFonts; //CREATE A FONT COLLECTION
-        public FontFamily family;
-        public Font drawFontReg;
-        public Font drawFontLarge;
-        public Font drawFontSmall;
-        public float drawFontRegHeight;
-        public float drawFontLargeHeight;
-        public float drawFontSmallHeight;
+        //public PrivateFontCollection myFonts; //CREATE A FONT COLLECTION
+        //public FontFamily family;
+        //public Font drawFontReg;
+        //public Font drawFontLarge;
+        //public Font drawFontSmall;
+        //public float drawFontRegHeight;
+        //public float drawFontLargeHeight;
+        //public float drawFontSmallHeight;
         public Dictionary<char, SharpDX.RectangleF> charList = new Dictionary<char, SharpDX.RectangleF>();
-        public SolidBrush drawBrush = new SolidBrush(Color.White);
+        //public SolidBrush drawBrush = new SolidBrush(Color.White);
         public string screenType = "splash"; //launcher, title, moreGames, main, party, inventory, combatInventory, shop, journal, combat, combatCast, convo
         public AnimationState animationState = AnimationState.None;
         public int triggerIndex = 0;
@@ -120,20 +118,20 @@ namespace IceBlink2mini
         public ScreenPartyBuild screenPartyBuild;
         public ScreenPartyRoster screenPartyRoster;
         public bool touchEnabled = true;
-        public WMPLib.WindowsMediaPlayer areaMusic;
-        public WMPLib.WindowsMediaPlayer areaSounds;
-        public WMPLib.WindowsMediaPlayer weatherSounds1;
-        public WMPLib.WindowsMediaPlayer weatherSounds2;
-        public WMPLib.WindowsMediaPlayer weatherSounds3;
+        //public WMPLib.WindowsMediaPlayer areaMusic;
+        //public WMPLib.WindowsMediaPlayer areaSounds;
+        //public WMPLib.WindowsMediaPlayer weatherSounds1;
+        //public WMPLib.WindowsMediaPlayer weatherSounds2;
+        //public WMPLib.WindowsMediaPlayer weatherSounds3;
        
         public SoundPlayer soundPlayer = new SoundPlayer();
         public Dictionary<string, Stream> oSoundStreams = new Dictionary<string, Stream>();
         public System.Media.SoundPlayer playerButtonEnter = new System.Media.SoundPlayer();
         public System.Media.SoundPlayer playerButtonClick = new System.Media.SoundPlayer();
        
-        public string currentMainMusic = "";
-        public string currentAmbientMusic = "";
-        public string currentCombatMusic = "";
+        //public string currentMainMusic = "";
+        //public string currentAmbientMusic = "";
+        //public string currentCombatMusic = "";
 
         //timers
         public Timer gameTimer = new Timer();
@@ -146,26 +144,26 @@ namespace IceBlink2mini
         public Timer animationTimer = new Timer();
         //public Timer floatyTextTimer = new Timer();
         //public Timer floatyTextMainMapTimer = new Timer();
-        public Timer areaMusicTimer = new Timer();
-        public Timer areaSoundsTimer = new Timer();
-        public Timer weatherSounds1Timer = new Timer();
-        public Timer weatherSounds2Timer = new Timer();
-        public Timer weatherSounds3Timer = new Timer();
+        //public Timer areaMusicTimer = new Timer();
+        //public Timer areaSoundsTimer = new Timer();
+        //public Timer weatherSounds1Timer = new Timer();
+        //public Timer weatherSounds2Timer = new Timer();
+        //public Timer weatherSounds3Timer = new Timer();
         
-        public float floatPixMovedPerTick = 4f;
-        public int realTimeTimerMilliSecondsEllapsed = 0;
-        public int smoothMoveTimerLengthInMilliSeconds = 16;
-        public int fullScreenEffectTimerMilliSecondsElapsedRain = 0;
-        public int fullScreenEffectTimerMilliSecondsElapsedSnow = 0;
-        public int fullScreenEffectTimerMilliSecondsElapsedSandstorm = 0;
-        public int fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
-        public string rainType = "";
-        public string cloudType = "";
-        public string fogType = "";
-        public string snowType = "";
-        public string sandstormType = "";
-        public int smoothMoveCounter = 0;
-        public bool useLargeLayout = true;
+        //public float floatPixMovedPerTick = 4f;
+        //public int realTimeTimerMilliSecondsEllapsed = 0;
+        //public int smoothMoveTimerLengthInMilliSeconds = 16;
+        //public int fullScreenEffectTimerMilliSecondsElapsedRain = 0;
+        //public int fullScreenEffectTimerMilliSecondsElapsedSnow = 0;
+        //public int fullScreenEffectTimerMilliSecondsElapsedSandstorm = 0;
+        //public int fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
+        //public string rainType = "";
+        //public string cloudType = "";
+        //public string fogType = "";
+        //public string snowType = "";
+        //public string sandstormType = "";
+        //public int smoothMoveCounter = 0;
+        //public bool useLargeLayout = true;
                 
         public GameView()
         {
@@ -203,10 +201,10 @@ namespace IceBlink2mini
             this.Width = 912;
             this.Height = 528;
 
-            screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
-            screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
-            float sqrW = (float)screenWidth / (squaresInWidth + 2f/10f); // 2f/10f
-            float sqrH = (float)screenHeight / (squaresInHeight + 3f/10f); // 3f/10f
+            screenWidth = this.Width;
+            screenHeight = this.Height;
+            float sqrW = (float)screenWidth / (float)(squaresInWidth); // 2f/10f
+            float sqrH = (float)screenHeight / (float)(squaresInHeight); // 3f/10f
             if (sqrW > sqrH)
             {
                 squareSize = (int)(sqrH);
@@ -215,9 +213,9 @@ namespace IceBlink2mini
             {
                 squareSize = (int)(sqrW);
             }
-            if ((squareSize >= 99) && (squareSize < 105))
+            if ((squareSize >= 94) && (squareSize < 100))
             {
-                squareSize = 100;
+                squareSize = 96;
             }
             screenDensity = (float)squareSize / (float)squareSizeInPixels;
             oXshift = (screenWidth - (squareSize * squaresInWidth)) / 2;
@@ -228,8 +226,8 @@ namespace IceBlink2mini
             InitializeRenderer(); //uncomment this for DIRECT2D ADDITIONS
 
             //CREATES A FONTFAMILY
-            ResetGDIFont();
-            ResetDirect2DFont();
+            //ResetGDIFont();
+            //ResetDirect2DFont();
             fillCharList();
 
             fontWidth = (int)(16 * screenDensity);
@@ -383,8 +381,8 @@ namespace IceBlink2mini
 		    mod = cc.LoadModule(mod.moduleName + ".mod", false);
             //mod.useUIBackground = true; //TODO comment out after testing
             //reset fonts
-            ResetGDIFont();
-            ResetDirect2DFont();
+            //ResetGDIFont();
+            //ResetDirect2DFont();
             //reset log number of lines based on the value from the Module's mod file
             log.numberOfLinesToShow = mod.logNumberOfLines;            
                         
@@ -436,7 +434,7 @@ namespace IceBlink2mini
             cc.setPanelsStart();
 		    cc.setControlsStart();
             cc.setPortraitsStart();
-		    cc.setToggleButtonsStart();
+		    //cc.setToggleButtonsStart();
             //TODO log.ResetLogBoxUiBitmaps();
 
 		    createScreens();
@@ -454,7 +452,7 @@ namespace IceBlink2mini
 		    cc.stringMessageMainMap = cc.loadTextToString("MessageMainMap.txt");
 	    }
 
-        public void ResetGDIFont()
+        /*public void ResetGDIFont()
         {
             if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts\\" + mod.fontFilename))
             {
@@ -471,15 +469,15 @@ namespace IceBlink2mini
             drawFontLargeHeight = 32.0f * multiplr * mod.fontD2DScaleMultiplier;
             drawFontRegHeight = 26.0f * multiplr * mod.fontD2DScaleMultiplier;
             drawFontSmallHeight = 20.0f * multiplr * mod.fontD2DScaleMultiplier;
-        }
-        private FontFamily LoadFontFamily(string fileName, out PrivateFontCollection _myFonts)
+        }*/
+        /*private FontFamily LoadFontFamily(string fileName, out PrivateFontCollection _myFonts)
         {
             //IN MEMORY _myFonts point to the myFonts created in the load event.
             _myFonts = new PrivateFontCollection();//here is where we assing memory space to myFonts 
             _myFonts.AddFontFile(fileName);//we add the full path of the ttf file
             return _myFonts.Families[0];//returns the family object as usual.
-        }
-        private void ResetDirect2DFont()
+        }*/
+        /*private void ResetDirect2DFont()
         {
             string folderPath = "";
             if (Directory.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts"))
@@ -493,7 +491,7 @@ namespace IceBlink2mini
             CurrentResourceFontLoader = new ResourceFontLoader(factoryDWrite, folderPath);
             CurrentFontCollection = new SharpDX.DirectWrite.FontCollection(factoryDWrite, CurrentResourceFontLoader, CurrentResourceFontLoader.Key);
             FontFamilyName = mod.fontName;
-        }
+        }*/
         private void fillCharList()
         {
             charList.Add('A', new SharpDX.RectangleF(fontWidth * 0, fontHeight * 0, fontWidth, fontHeight));
@@ -1432,7 +1430,7 @@ namespace IceBlink2mini
             }
             if (mod.debugMode)
             {
-                int txtH = (int)drawFontRegHeight;
+                int txtH = (int)fontHeight;
                 for (int x = -2; x <= 2; x++)
                 {
                     for (int y = -2; y <= 2; y++)

@@ -105,7 +105,7 @@ namespace IceBlink2mini
 		
     	    int locY = pH * 5;
             int locX = 4 * gv.squareSize;
-            int spacing = (int)gv.drawFontRegHeight + pH;
+            int spacing = (int)gv.fontHeight + pH;
             int leftStartY = pH * 4;
     	    int tabStartY = pH * 40;
     	

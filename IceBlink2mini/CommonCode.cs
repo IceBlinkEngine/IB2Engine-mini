@@ -44,7 +44,7 @@ namespace IceBlink2mini
         public IbbButton ctrlDownRightArrow = null;
         public IbbButton btnInventory = null;
         public IbbButton btnHelp = null;
-        public IbbToggleButton tglSound = null;
+        //public IbbToggleButton tglSound = null;
         public IbbPortrait ptrPc0 = null;
         public IbbPortrait ptrPc1 = null;
         public IbbPortrait ptrPc2 = null;
@@ -1537,7 +1537,7 @@ namespace IceBlink2mini
             ctrlDownRightArrow = null;
             btnInventory = null;
             btnHelp = null;
-            tglSound = null;
+            //tglSound = null;
         }        
         public void setPanelsStart()
         {
@@ -1598,10 +1598,10 @@ namespace IceBlink2mini
             int pH = (int)((float)gv.screenHeight / 100.0f);
             int padW = gv.squareSize / 6;
             int hotkeyShift = 0;
-            if (gv.useLargeLayout)
+            /*if (gv.useLargeLayout)
             {
                 hotkeyShift = 1;
-            }
+            }*/
 
             if (ctrlUpArrow == null)
             {
@@ -1736,13 +1736,13 @@ namespace IceBlink2mini
             int tabY2 = gv.cc.pnlPortraits.LocY + 2 * gv.squareSize + gv.squareSize / 2;
             int tabY3 = gv.cc.pnlPortraits.LocY + 4 * gv.squareSize + gv.squareSize / 2;
                         
-            if (!gv.useLargeLayout)
+            /*if (!gv.useLargeLayout)
             {
                 scale = 0.75f;
                 tabY1 = gv.cc.pnlPortraits.LocY + 0 * gv.squareSize + gv.squareSize / 2;
                 tabY2 = gv.cc.pnlPortraits.LocY + 2 * gv.squareSize;
                 tabY3 = gv.cc.pnlPortraits.LocY + 3 * gv.squareSize + gv.squareSize / 2;
-            }
+            }*/
             int ptrHeight = (int)(gv.ibpheight * gv.screenDensity * scale);
             int ptrWidth = (int)(gv.ibpwidth * gv.screenDensity * scale);
 
@@ -1813,7 +1813,7 @@ namespace IceBlink2mini
                 ptrPc5.Width = ptrWidth;
             }
         }
-        public void setToggleButtonsStart()
+        /*public void setToggleButtonsStart()
         {
             if (tglSound == null)
             {
@@ -1825,7 +1825,7 @@ namespace IceBlink2mini
                 tglSound.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglSound.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
             }
-        }
+        }*/
 
         //TUTORIAL MESSAGES
         public void tutorialMessageMainMap()
@@ -2103,7 +2103,7 @@ namespace IceBlink2mini
         }
         public void addFloatyText(Coordinate coorInSquares, string value)
         {
-            int txtH = (int)gv.drawFontRegHeight;
+            int txtH = (int)gv.fontHeight;
             int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
             Coordinate coor = new Coordinate(x, y);
@@ -2111,7 +2111,7 @@ namespace IceBlink2mini
         }
         public void addFloatyText(Coordinate coorInSquares, string value, string color)
         {
-            int txtH = (int)gv.drawFontRegHeight;
+            int txtH = (int)gv.fontHeight;
             int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
             Coordinate coor = new Coordinate(x, y);
@@ -2119,7 +2119,7 @@ namespace IceBlink2mini
         }
         public void addFloatyText(Coordinate coorInSquares, string value, int shiftUp)
         {
-            int txtH = (int)gv.drawFontRegHeight;
+            int txtH = (int)gv.fontHeight;
             int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2) - shiftUp;
             Coordinate coor = new Coordinate(x, y);
@@ -2129,11 +2129,11 @@ namespace IceBlink2mini
         public void doUpdate()
         {
             //reset the timer interval, important for synching with party move
-            if (gv.mod.useRealTimeTimer == true)
+            /*if (gv.mod.useRealTimeTimer == true)
             {
                 //gv.realTimeTimer.Stop();
                 //gv.realTimeTimer.Start();
-            }
+            }*/
 
             //in case whole party is unconscious and bleeding, end the game (outside combat here)
             bool endGame = true;
@@ -3405,10 +3405,10 @@ namespace IceBlink2mini
                     bool doNotTriggerProp = false;
                     if ((prp.isMover == false) || ((prp.MoverType == "Post") && (prp.isChaser == false)))
                     {
-                        if (gv.realTimeTimerMilliSecondsEllapsed >= gv.mod.realTimeTimerLengthInMilliSeconds)
+                        /*if (gv.realTimeTimerMilliSecondsEllapsed >= gv.mod.realTimeTimerLengthInMilliSeconds)
                         {
                             doNotTriggerProp = true;
-                        }
+                        }*/
                     }
                                         
                     if ((prp.LocationX == gv.mod.PlayerLocationX) && (prp.LocationY == gv.mod.PlayerLocationY) && (prp.isActive) && (doNotTriggerProp == false))
@@ -3486,8 +3486,8 @@ namespace IceBlink2mini
         }
         public void doTrigger()
         {
-            if (gv.realTimeTimerMilliSecondsEllapsed < gv.mod.realTimeTimerLengthInMilliSeconds)
-            {
+            //if (gv.realTimeTimerMilliSecondsEllapsed < gv.mod.realTimeTimerLengthInMilliSeconds)
+            //{
                 try
                 {
                     Trigger trig = gv.mod.currentArea.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
@@ -3661,7 +3661,7 @@ namespace IceBlink2mini
                         gv.errorLog(ex.ToString());
                     }
                 }
-            }
+            //}
         }
         public void doContainerBasedOnTag(string tag)
         {

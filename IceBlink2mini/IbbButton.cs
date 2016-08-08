@@ -116,7 +116,7 @@ namespace IceBlink2mini
                 gv.DrawBitmap(this.Img3, src3, dst);
             }
 
-            float thisFontHeight = gv.drawFontRegHeight;
+            /*float thisFontHeight = gv.drawFontRegHeight;
             if (scaler > 1.05f)
             {
                 thisFontHeight = gv.drawFontLargeHeight;
@@ -124,7 +124,7 @@ namespace IceBlink2mini
             else if (scaler < 0.95f)
             {
                 thisFontHeight = gv.drawFontSmallHeight;
-            }
+            }*/
 
             // DRAW TEXT
             /*float stringSize = gv.cc.MeasureString(Text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);

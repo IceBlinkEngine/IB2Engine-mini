@@ -793,7 +793,7 @@ namespace IceBlink2mini
                 }
 
                 //Draw floaty text showing damage above Creature
-                int txtH = (int)gv.drawFontRegHeight;
+                int txtH = (int)gv.fontHeight;
                 int shiftUp = 0 - (attackNumber * txtH);
                 gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damage + "", shiftUp);
 
@@ -1492,7 +1492,7 @@ namespace IceBlink2mini
                 }
 
                 //Draw floaty text showing damage above PC
-                int txtH = (int)gv.drawFontRegHeight;
+                int txtH = (int)gv.fontHeight;
                 int shiftUp = 0 - (attackNumber * txtH);
                 gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damage + "", shiftUp);
 
@@ -2342,7 +2342,7 @@ namespace IceBlink2mini
                 if (showMoveOrder)
                 {
                     int mo = pc.moveOrder + 1;
-                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), "wh");
+                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.fontHeight, mo.ToString(), "wh");
                 }
                 
             }
@@ -2421,7 +2421,7 @@ namespace IceBlink2mini
                 if (showMoveOrder)
                 {
                     int mo = crt.moveOrder + 1;
-                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), "wh");
+                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - (int)gv.fontHeight, mo.ToString(), "wh");
                 }
             }
         }
@@ -2539,7 +2539,7 @@ namespace IceBlink2mini
         }
         public void drawFloatyText()
         {
-            int txtH = (int)gv.drawFontRegHeight;
+            int txtH = (int)gv.fontHeight;
 
             for (int x = -2; x <= 2; x++)
             {
@@ -2574,7 +2574,7 @@ namespace IceBlink2mini
         {
             if ((showSP) && (!animationsOn))
             {
-                int txtH = (int)gv.drawFontRegHeight;
+                int txtH = (int)gv.fontHeight;
                 foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                 {
                     drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) + txtH, "sp: " + crt.sp, "yl");
@@ -2589,7 +2589,7 @@ namespace IceBlink2mini
         }
         public void drawText(int xLoc, int yLoc, string text, string colr)
         {
-            int txtH = (int)gv.drawFontRegHeight;
+            int txtH = (int)gv.fontHeight;
 
             for (int x = -2; x <= 2; x++)
             {
@@ -2604,7 +2604,7 @@ namespace IceBlink2mini
         {
             if (floatyTextOn)
             {
-                int txtH = (int)gv.drawFontRegHeight;
+                int txtH = (int)gv.fontHeight;
 
                 foreach (FloatyText ft in gv.cc.floatyTextList)
                 {

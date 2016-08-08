@@ -397,22 +397,13 @@ namespace IceBlink2mini
             if (mod.ArmorClassAscending) { actext = pc.AC; }
             else { actext = 20 - pc.AC; }
             
-            if (mod.use3d6 && mod.useLuck)
+            if (!mod.use3d6)
             {
-                gv.DrawText("Rolling: 3d6, Luck is high for those who need it", locX + pW, locY += (spacing), "wh");
+                gv.DrawText("Rolling: 2d6 + 6", locX + pW, locY += (spacing), "wh");
             }
-            else if (mod.use3d6 && !mod.useLuck)
+            else if (mod.use3d6)
             {
                 gv.DrawText("Rolling: 3d6", locX + pW, locY += (spacing), "wh");
-            }
-            else if (!mod.use3d6 && mod.useLuck)
-            {
-                gv.DrawText("Rolling: 6 + d12, Luck is high for those who need it", locX + pW, locY += (spacing), "wh");
-            }
-            else if (!mod.use3d6 && !mod.useLuck)
-            {
-                gv.DrawText("Rolling: 6 + d12", locX + pW, locY += (spacing), "wh");
-
             }
             gv.DrawText("STR: " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength + " (" + ((pc.strength - 10) / 2) + ")", locX + pW, locY += (spacing * 2), "wh");
             gv.DrawText("AC: " + actext + ",  BAB: " + pc.baseAttBonus, tabX2, locY2 += (spacing * 3), "wh");
@@ -427,10 +418,6 @@ namespace IceBlink2mini
             gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing, "wh");
             gv.DrawText("WIS: " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", locX + pW, locY += spacing, "wh");
             gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", locX + pW, locY += spacing, "wh");
-            if (mod.useLuck)
-            {
-                gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, locX + pW, locY += spacing, "wh");
-            }
 
             //Description
             int yLoc = 3 * gv.squareSize + (gv.squareSize / 4);
