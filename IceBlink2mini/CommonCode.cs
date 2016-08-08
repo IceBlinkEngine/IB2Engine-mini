@@ -2150,7 +2150,7 @@ namespace IceBlink2mini
             {
                 gv.resetGame();
                 gv.screenType = "title";
-                IBMessageBox.Show(gv, "Everybody is unconscious and bleeding - your party has been defeated!");
+                gv.sf.MessageBoxHtml("Everybody is unconscious and bleeding - your party has been defeated!");
                 return;
             }
 

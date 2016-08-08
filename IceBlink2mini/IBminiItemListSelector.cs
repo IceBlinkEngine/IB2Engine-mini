@@ -151,6 +151,14 @@ namespace IceBlink2mini
                             {
                                 gv.screenInventory.doDropForever(selectedIndex);
                             }
+                            else if (currentSender.Equals("shopinventoryaction"))
+                            {
+                                gv.screenShop.doShopInventoryActions(selectedIndex);
+                            }
+                            else if (currentSender.Equals("shopshopaction"))
+                            {
+                                gv.screenShop.doShopShopActions(selectedIndex);
+                            }
                             else if (currentSender.Equals("verifyclosing"))
                             {
                                 gv.doVerifyClosing(selectedIndex);

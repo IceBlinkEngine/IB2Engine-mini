@@ -1052,7 +1052,7 @@ namespace IceBlink2mini
                     //Draw Floaty Text On Mouse Over Prop
                     int gridx = (int)e.X / gv.squareSize;
                     int gridy = (int)e.Y / gv.squareSize;
-                    int actualX = mod.PlayerLocationX + (gridx - gv.playerOffsetX);
+                    int actualX = mod.PlayerLocationX + (gridx - gv.playerOffsetX) - (mapStartLocXinPixels / gv.squareSize) - 1;
                     int actualY = mod.PlayerLocationY + (gridy - gv.playerOffsetY);
                     gv.cc.floatyText = "";
                     if (IsTouchInMapWindow(gridx, gridy))
@@ -1064,7 +1064,8 @@ namespace IceBlink2mini
                                 if (!p.MouseOverText.Equals("none"))
                                 {
                                     gv.cc.floatyText = p.MouseOverText;
-                                    gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
+                                    int halfWidth = (p.MouseOverText.Length * (gv.fontWidth + gv.fontCharSpacing)) / 2;
+                                    gv.cc.floatyTextLoc = new Coordinate((gridx * gv.squareSize) - mapStartLocXinPixels - halfWidth, gridy * gv.squareSize);
                                 }
                             }
                         }
@@ -1531,7 +1532,7 @@ namespace IceBlink2mini
                 catch (Exception ex)
                 {
                     //print error
-                    IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                    gv.sf.MessageBoxHtml("error with Pc Selector screen: " + ex.ToString());
                     gv.errorLog(ex.ToString());
                     return;
                 }
@@ -1576,7 +1577,7 @@ namespace IceBlink2mini
                 }
                 catch (Exception ex)
                 {
-                    IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                    gv.sf.MessageBoxHtml("error with Pc Selector screen: " + ex.ToString());
                     gv.errorLog(ex.ToString());
                     //print error
                 }

@@ -113,22 +113,6 @@
     <Compile Include="IbbPanel.cs" />
     <Compile Include="IbbPortrait.cs" />
     <Compile Include="IbbToggleButton.cs" />
-    <Compile Include="IBForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IBForm.designer.cs" />
-    <Compile Include="IBFormGDI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IBFormGDI.designer.cs" />
-    <Compile Include="IBHtmlMessageBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IBHtmlMessageBox.Designer.cs" />
-    <Compile Include="IBMessageBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IBMessageBox.designer.cs" />
     <Compile Include="IBminiFormattedLine.cs" />
     <Compile Include="IBminiFormattedWord.cs" />
     <Compile Include="IBminiItemListSelector.cs" />
@@ -138,20 +122,7 @@
     <Compile Include="IbRectF.cs" />
     <Compile Include="IBScript.cs" />
     <Compile Include="IBScriptEngine.cs" />
-    <Compile Include="IceBlinkButtonClose.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="IceBlinkButtonMedium.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="IceBlinkButtonResize.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Item.cs" />
-    <Compile Include="ItemListSelector.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ItemListSelector.Designer.cs" />
     <Compile Include="ItemRefs.cs" />
     <Compile Include="JournalEntry.cs" />
     <Compile Include="JournalQuest.cs" />
@@ -210,11 +181,6 @@
     <Compile Include="Trigger.cs" />
     <Compile Include="WayPoint.cs" />
     <EmbeddedResource Include="GameView.resx" />
-    <EmbeddedResource Include="IBForm.resx" />
-    <EmbeddedResource Include="IBFormGDI.resx" />
-    <EmbeddedResource Include="IBHtmlMessageBox.resx" />
-    <EmbeddedResource Include="IBMessageBox.resx" />
-    <EmbeddedResource Include="ItemListSelector.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

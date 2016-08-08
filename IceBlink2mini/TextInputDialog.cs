@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace IceBlink2mini
 {
-    public partial class TextInputDialog : IBFormGDI
+    public partial class TextInputDialog : Form
     {
         GameView gv;
         public string HeaderText = "";
@@ -17,20 +17,11 @@ namespace IceBlink2mini
 
         public TextInputDialog(GameView g, string headertxt)
         {
-            InitializeComponent();
-            this.IceBlinkButtonClose.setupAll(g);
-            this.IceBlinkButtonResize.setupAll(g);
-            this.IceBlinkButtonClose.Visible = false;
-            this.IceBlinkButtonClose.Enabled = false;
-            this.IceBlinkButtonResize.Visible = false;
-            this.IceBlinkButtonResize.Enabled = false;
+            InitializeComponent();            
             gv = g;
             btnReturn.Text = "RETURN";
-            btnReturn.Font = gv.drawFontReg;
             HeaderText = headertxt;
-            this.label1.Font = gv.drawFontReg;
             this.label1.Text = headertxt;
-            txtInput.Font = gv.drawFontReg;
         }
                         
         private void btn_Click(object sender, EventArgs e)

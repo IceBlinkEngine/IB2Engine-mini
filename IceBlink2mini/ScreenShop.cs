@@ -274,7 +274,7 @@ namespace IceBlink2mini
 	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
 	            }
                 
-                description.tbXloc = 12 * gv.squareSize;
+                description.tbXloc = 13 * gv.squareSize;
                 description.tbYloc = 2 * gv.squareSize;
                 description.tbWidth = pW * 40;
                 description.tbHeight = pH * 50;
@@ -365,7 +365,7 @@ namespace IceBlink2mini
 	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
 	            }
                 
-                description.tbXloc = 12 * gv.squareSize;
+                description.tbXloc = 13 * gv.squareSize;
                 description.tbYloc = 6 * gv.squareSize;
                 description.tbWidth = pW * 40;
                 description.tbHeight = pH * 50;
@@ -523,7 +523,7 @@ namespace IceBlink2mini
 				    {
 					    if (inventorySlotIndex == j)
 					    {
-						    doInventoryActions();
+						    doShopInventoryActionsSetup();
 					    }
 					    inventorySlotIndex = j;
 				    }
@@ -534,7 +534,7 @@ namespace IceBlink2mini
 				    {
 					    if (shopSlotIndex == j)
 					    {
-						    doShopActions();
+						    doShopShopActionsSetup();
 					    }
 					    shopSlotIndex = j;
 				    }
@@ -582,13 +582,19 @@ namespace IceBlink2mini
 			    break;		
 		    }
 	    }
-	
-	    public void doInventoryActions()
+
+        public void doShopInventoryActionsSetup()
+        {
+            List<string> actionList = new List<string> { "Yes, Sell Item", "No, Keep Item" };
+            gv.itemListSelector.setupIBminiItemListSelector(gv, actionList, "Do you wish to sell this item?", "shopinventoryaction");
+            gv.itemListSelector.showIBminiItemListSelector = true;
+        }
+        public void doShopInventoryActions(int selectedIndex)
 	    {
 		    if ((inventorySlotIndex + (inventoryPageIndex * 10)) < mod.partyInventoryRefsList.Count)
 		    {
-                DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to sell this item?", enumMessageButton.YesNo);
-                if (dlg == DialogResult.Yes)
+                //DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to sell this item?", enumMessageButton.YesNo);
+                if (selectedIndex == 0)
                 {
                     //sell item
                     ItemRefs itr = mod.partyInventoryRefsList[inventorySlotIndex + (inventoryPageIndex * 10)];
@@ -623,14 +629,20 @@ namespace IceBlink2mini
                         }
                     }
                 }
-                if (dlg == DialogResult.No)
+                if (selectedIndex == 1)
                 {
                     //do nothing
                 }
 		    }
 	    }
-	
-	    public void doShopActions()
+
+        public void doShopShopActionsSetup()
+        {
+            List<string> actionList = new List<string> { "Yes, Buy Item", "No, Don't Buy Item" };
+            gv.itemListSelector.setupIBminiItemListSelector(gv, actionList, "Do you wish to buy this item?", "shopshopaction");
+            gv.itemListSelector.showIBminiItemListSelector = true;
+        }
+        public void doShopShopActions(int selectedIndex)
 	    {
 		    if ((shopSlotIndex + (shopPageIndex * 10)) < currentShop.shopItemRefs.Count)
 		    {
@@ -644,8 +656,8 @@ namespace IceBlink2mini
                         return;
                     }
                 }
-                DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to buy this item?", enumMessageButton.YesNo);
-                if (dlg == DialogResult.Yes)
+                //DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to buy this item?", enumMessageButton.YesNo);
+                if (selectedIndex == 0)
                 {
                     //buy item
                     ItemRefs itr = currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)];
@@ -672,7 +684,7 @@ namespace IceBlink2mini
                         }
                     }
                 }
-                if (dlg == DialogResult.No)
+                if (selectedIndex == 1)
                 {
                     //do nothing
                 }

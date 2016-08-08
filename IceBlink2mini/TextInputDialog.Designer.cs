@@ -69,6 +69,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInput.BackColor = System.Drawing.Color.Black;
             this.txtInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtInput.ForeColor = System.Drawing.Color.White;
             this.txtInput.Location = new System.Drawing.Point(15, 105);
             this.txtInput.Name = "txtInput";
@@ -79,6 +80,12 @@
             // 
             // TextInputDialog
             // 
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForeColor = System.Drawing.Color.White;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
@@ -93,7 +100,6 @@
             this.Controls.SetChildIndex(this.txtInput, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

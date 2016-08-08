@@ -493,7 +493,7 @@ namespace IceBlink2mini
                 }
                 catch (Exception ex)
                 {
-                    IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                    gv.sf.MessageBoxHtml("error with Pc Selector screen: " + ex.ToString());
                     gv.errorLog(ex.ToString());
                 }
             }

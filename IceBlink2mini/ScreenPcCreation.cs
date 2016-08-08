@@ -726,8 +726,6 @@ namespace IceBlink2mini
         {
             using (TextInputDialog itSel = new TextInputDialog(gv, "Choose a unique Name for this PC."))
             {
-                itSel.IceBlinkButtonClose.Visible = true;
-                itSel.IceBlinkButtonClose.Enabled = true;
                 itSel.textInput = "Type unique Name Here";
 
                 var ret = itSel.ShowDialog();

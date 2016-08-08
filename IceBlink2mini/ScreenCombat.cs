@@ -566,7 +566,7 @@ namespace IceBlink2mini
             }
             catch (Exception ex)
             {
-                IBMessageBox.Show(gv, ex.ToString());
+                gv.sf.MessageBoxHtml(ex.ToString());
                 gv.errorLog(ex.ToString());
             }
             checkEndEncounter();

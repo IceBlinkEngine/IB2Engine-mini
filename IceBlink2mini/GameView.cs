@@ -25,10 +25,11 @@ using Color = System.Drawing.Color;
 using RectangleF = System.Drawing.RectangleF;
 using Rectangle = System.Drawing.Rectangle;
 using System.Diagnostics;
+using SharpDX.Windows;
 
 namespace IceBlink2mini
 {
-    public partial class GameView : IBForm
+    public partial class GameView : RenderForm
     {
         //this class is handled differently than Android version
         public float screenDensity;
@@ -177,8 +178,8 @@ namespace IceBlink2mini
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseWheel);
             mainDirectory = Directory.GetCurrentDirectory();
 
-            this.IceBlinkButtonClose.setupAll(this);
-            this.IceBlinkButtonResize.setupAll(this);
+            //this.IceBlinkButtonClose.setupAll(this);
+            //this.IceBlinkButtonResize.setupAll(this);
             try
             {
                 playerButtonClick.SoundLocation = mainDirectory + "\\default\\NewModule\\sounds\\btn_click.wav";
