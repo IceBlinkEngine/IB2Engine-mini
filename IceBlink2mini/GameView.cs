@@ -1444,7 +1444,6 @@ namespace IceBlink2mini
             {
                 itemListSelector.drawItemListSelection();
             }
-
             EndDraw(); //uncomment this for DIRECT2D ADDITIONS
         }
         private void RenderCallback()
@@ -1548,6 +1547,9 @@ namespace IceBlink2mini
         }
 
         //INPUT STUFF
+        public bool formMoveable = false;
+        public System.Drawing.Point currentPosition;
+        public System.Drawing.Point startPosition;
         private void GameView_MouseWheel(object sender, MouseEventArgs e)
         {
             if (showMessageBox)
@@ -1562,6 +1564,14 @@ namespace IceBlink2mini
         }
         private void GameView_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Y < 15)
+            {
+                Cursor.Current = Cursors.NoMove2D;
+                formMoveable = true;
+                startPosition.X = e.X;
+                startPosition.Y = e.Y;
+                return;
+            }
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
                 //TODO log.onMouseDown(sender, e);
@@ -1570,6 +1580,8 @@ namespace IceBlink2mini
         }
         private void GameView_MouseUp(object sender, MouseEventArgs e)
         {
+            formMoveable = false;
+            Cursor.Current = Cursors.Default;
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
                 //TODO log.onMouseUp(sender, e);
@@ -1578,6 +1590,21 @@ namespace IceBlink2mini
         }
         private void GameView_MouseMove(object sender, MouseEventArgs e)
         {
+            if ((e.Y < 15) || (formMoveable))
+            {
+                Cursor.Current = Cursors.NoMove2D;
+            }
+            if (formMoveable)
+            {
+                System.Drawing.Point newPosition = this.Location;
+                currentPosition.X = e.X;
+                currentPosition.Y = e.Y;
+                newPosition.X = newPosition.X - (startPosition.X - currentPosition.X); // .Offset(mouseOffset.X, mouseOffset.Y);                
+                newPosition.Y = newPosition.Y - (startPosition.Y - currentPosition.Y);
+                this.Location = newPosition;
+                return;
+            }
+
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
                 //TODO log.onMouseMove(sender, e);
@@ -1756,11 +1783,8 @@ namespace IceBlink2mini
         }
 
         //ON FORM CLOSING
-        FormClosingEventArgs evnt;
         private void GameView_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //evnt = e;
-            //doVerifyClosingSetup();
             /*DialogResult dlg = IBMessageBox.Show(this, "Are you sure you wish to exit?", enumMessageButton.YesNo);
             if (dlg == DialogResult.Yes)
             {
