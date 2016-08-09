@@ -78,10 +78,10 @@ namespace IceBlink2mini
             IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Width), (int)((float)this.Height));
 
             IbRect srcGlow = new IbRect(0, 0, this.Glow.PixelSize.Width, this.Glow.PixelSize.Height);
-            IbRect dstGlow = new IbRect(this.X - (int)(7 * gv.screenDensity), 
-                                        this.Y - (int)(7 * gv.screenDensity), 
-                                        (int)((float)this.Width) + (int)(15 * gv.screenDensity), 
-                                        (int)((float)this.Height) + (int)(15 * gv.screenDensity));
+            IbRect dstGlow = new IbRect(this.X - (int)(2 * gv.screenDensity), 
+                                        this.Y - (int)(2 * gv.screenDensity), 
+                                        (int)((float)this.Width) + (int)(4 * gv.screenDensity), 
+                                        (int)((float)this.Height) + (int)(4 * gv.screenDensity));
 
             //draw glow first if on
             if ((this.glowOn) && (this.Glow != null))

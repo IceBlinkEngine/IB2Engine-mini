@@ -64,7 +64,7 @@ namespace IceBlink2mini
                 btnPortrait = new IbbPortrait(gv, 1.0f);
                 btnPortrait.ImgBG = gv.cc.LoadBitmap("item_slot");
                 btnPortrait.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                btnPortrait.X = 2 * gv.squareSize - (pW * 2);
+                btnPortrait.X = 1 * gv.squareSize - (pW * 0);
                 btnPortrait.Y = 1 * gv.squareSize + pH * 2;
                 btnPortrait.Height = (int)(gv.ibpheight * gv.screenDensity);
                 btnPortrait.Width = (int)(gv.ibpwidth * gv.screenDensity);
@@ -75,7 +75,7 @@ namespace IceBlink2mini
                 btnToken.Img = gv.cc.LoadBitmap("item_slot");
                 //btnToken.Img2 = gv.cc.LoadBitmap(pc.tokenFilename);
                 btnToken.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                btnToken.X = 2 * gv.squareSize - (pW * 2);
+                btnToken.X = 1 * gv.squareSize - (pW * 0);
                 btnToken.Y = 3 * gv.squareSize + pH * 2;
                 btnToken.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnToken.Width = (int)(gv.ibbwidthR * gv.screenDensity);

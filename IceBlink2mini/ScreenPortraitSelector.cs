@@ -195,8 +195,8 @@ namespace IceBlink2mini
 				    btnNew.Y = 6 * gv.squareSize + (padW * 2);
 			    }
 
-                btnNew.Height = (int)(170 * gv.screenDensity);
-                btnNew.Width = (int)(110 * gv.screenDensity);	
+                btnNew.Height = (int)(gv.ibpheight * gv.screenDensity);
+                btnNew.Width = (int)(gv.ibpwidth * gv.screenDensity);	
 			
 			    btnPortraitSlot.Add(btnNew);
 		    }			

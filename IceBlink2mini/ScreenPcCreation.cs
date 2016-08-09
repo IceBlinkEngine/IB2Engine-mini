@@ -255,8 +255,8 @@ namespace IceBlink2mini
                 btnPortrait.Glow = gv.cc.LoadBitmap("btn_small_glow");
                 btnPortrait.X = 10 * gv.squareSize;
                 btnPortrait.Y = 1 * gv.squareSize + pH * 2;
-                btnPortrait.Height = (int)(pc.portrait.PixelSize.Height * gv.screenDensity);
-                btnPortrait.Width = (int)(pc.portrait.PixelSize.Width * gv.screenDensity);
+                btnPortrait.Height = (int)(gv.ibpheight * gv.screenDensity);
+                btnPortrait.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
             if (btnToken == null)
             {

@@ -108,14 +108,14 @@ namespace IceBlink2mini
                 //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
                 //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
 
-                IbRect src = new IbRect(0, 0, Width, Height);
+                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Height);
                 IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
 
-                IbRect srcGlow = new IbRect(0, 0, Width, Height);
-                IbRect dstGlow = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(7 * gv.screenDensity),
-                                            (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity) - (int)(7 * gv.screenDensity),
-                                            (int)((float)Width * gv.screenDensity) + (int)(15 * gv.screenDensity),
-                                            (int)((float)Height * gv.screenDensity) + (int)(15 * gv.screenDensity));
+                IbRect srcGlow = new IbRect(0, 0, gv.cc.GetFromBitmapList(GlowFilename).PixelSize.Width, gv.cc.GetFromBitmapList(GlowFilename).PixelSize.Height);
+                IbRect dstGlow = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(2 * gv.screenDensity),
+                                            (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity) - (int)(2 * gv.screenDensity),
+                                            (int)((float)Width * gv.screenDensity) + (int)(4 * gv.screenDensity),
+                                            (int)((float)Height * gv.screenDensity) + (int)(4 * gv.screenDensity));
 
                 //draw glow first if on
                 if (glowOn)

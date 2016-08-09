@@ -79,8 +79,8 @@ namespace IceBlink2mini
                 {
                     if (pnl.tag.Equals("logPanel"))
                     {
-                        float sqrW = (float)gv.screenWidth / (gv.squaresInWidth + 2f / 10f);
-                        float sqrH = (float)gv.screenHeight / (gv.squaresInHeight + 3f / 10f);
+                        float sqrW = (float)gv.screenWidth / (gv.squaresInWidth);
+                        float sqrH = (float)gv.screenHeight / (gv.squaresInHeight);
                         gv.log = pnl.logList[0];
                         gv.cc.addLogText("red", "screenDensity: " + gv.screenDensity);
                         gv.cc.addLogText("fuchsia", "screenWidth: " + gv.screenWidth);

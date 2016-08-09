@@ -71,20 +71,20 @@ namespace IceBlink2mini
             {
                 src3 = new IbRect(0, 0, this.ImgLU.PixelSize.Width, this.ImgLU.PixelSize.Height);
             }
-            IbRect dstBG = new IbRect(this.X - (int)(3 * gv.screenDensity),
-                                        this.Y - (int)(3 * gv.screenDensity),
-                                        (int)((float)this.Width) + (int)(6 * gv.screenDensity),
-                                        (int)((float)this.Height) + (int)(6 * gv.screenDensity));
+            IbRect dstBG = new IbRect(this.X - (int)(1 * gv.screenDensity),
+                                        this.Y - (int)(1 * gv.screenDensity),
+                                        (int)((float)this.Width) + (int)(2 * gv.screenDensity),
+                                        (int)((float)this.Height) + (int)(2 * gv.screenDensity));
             IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Width), (int)((float)this.Height));
             if (this.ImgLU != null)
             {
                 dstLU = new IbRect(this.X, this.Y, this.ImgLU.PixelSize.Width, this.ImgLU.PixelSize.Height);
             }
             IbRect srcGlow = new IbRect(0, 0, this.Glow.PixelSize.Width, this.Glow.PixelSize.Height);
-            IbRect dstGlow = new IbRect(this.X - (int)(7 * gv.screenDensity), 
-                                        this.Y - (int)(7 * gv.screenDensity), 
-                                        (int)((float)this.Width) + (int)(15 * gv.screenDensity), 
-                                        (int)((float)this.Height) + (int)(15 * gv.screenDensity));
+            IbRect dstGlow = new IbRect(this.X - (int)(2 * gv.screenDensity), 
+                                        this.Y - (int)(2 * gv.screenDensity), 
+                                        (int)((float)this.Width) + (int)(4 * gv.screenDensity), 
+                                        (int)((float)this.Height) + (int)(4 * gv.screenDensity));
 
             gv.DrawBitmap(this.ImgBG, src, dstBG);
 
@@ -109,10 +109,10 @@ namespace IceBlink2mini
             if (gv.mod.useUIBackground)
             {
                 IbRect srcFrame = new IbRect(0, 0, gv.cc.ui_portrait_frame.PixelSize.Width, gv.cc.ui_portrait_frame.PixelSize.Height);
-                IbRect dstFrame = new IbRect(this.X - (int)(5 * gv.screenDensity),
-                                        this.Y - (int)(5 * gv.screenDensity),
-                                        (int)((float)this.Width) + (int)(10 * gv.screenDensity),
-                                        (int)((float)this.Height) + (int)(10 * gv.screenDensity));
+                IbRect dstFrame = new IbRect(this.X - (int)(1 * gv.screenDensity),
+                                        this.Y - (int)(1 * gv.screenDensity),
+                                        (int)((float)this.Width) + (int)(2 * gv.screenDensity),
+                                        (int)((float)this.Height) + (int)(2 * gv.screenDensity));
                 gv.DrawBitmap(gv.cc.ui_portrait_frame, srcFrame, dstFrame);
             }
 

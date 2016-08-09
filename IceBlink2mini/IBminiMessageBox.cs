@@ -63,7 +63,7 @@ namespace IceBlink2mini
 
         public void DrawString(string text, float x, float y, string fontColor)
         {
-            if ((y > -2) && (y <= tbHeight - gv.fontHeight))
+            if ((y > -2) && (y <= (tbHeight * gv.screenDensity) - gv.fontHeight))
             {
                 gv.DrawText(text, x + tbXloc + gv.pS, y, fontColor);
             }

@@ -91,7 +91,7 @@ namespace IceBlink2mini
 		    int sX = gv.squareSize * 1;
 		    int sY = pH * 4;
             IbRect src = new IbRect(0, 0, convoBitmap.PixelSize.Width, convoBitmap.PixelSize.Height);
-            IbRect dst = new IbRect(sX, sY, (int)(convoBitmap.PixelSize.Width * 2 * gv.screenDensity), (int)(convoBitmap.PixelSize.Height * 2 * gv.screenDensity));
+            IbRect dst = new IbRect(sX, sY, (int)(gv.ibpwidth * 2 * gv.screenDensity), (int)(gv.ibpheight * 2 * gv.screenDensity));
 
             if (convoBitmap.PixelSize.Width == convoBitmap.PixelSize.Height)
             {
@@ -114,10 +114,10 @@ namespace IceBlink2mini
                 if ((gv.mod.useUIBackground) && (!currentConvo.Narration))
                 {
                     IbRect srcFrame = new IbRect(0, 0, gv.cc.ui_portrait_frame.PixelSize.Width, gv.cc.ui_portrait_frame.PixelSize.Height);
-                    IbRect dstFrame = new IbRect(dst.Left - (int)(10 * gv.screenDensity),
-                                            dst.Top - (int)(10 * gv.screenDensity),
-                                            (int)((float)dst.Width) + (int)(20 * gv.screenDensity),
-                                            (int)((float)dst.Height) + (int)(20 * gv.screenDensity));
+                    IbRect dstFrame = new IbRect(dst.Left - (int)(2 * gv.screenDensity),
+                                            dst.Top - (int)(2 * gv.screenDensity),
+                                            (int)((float)dst.Width) + (int)(4 * gv.screenDensity),
+                                            (int)((float)dst.Height) + (int)(4 * gv.screenDensity));
                     gv.DrawBitmap(gv.cc.ui_portrait_frame, srcFrame, dstFrame);
                 }
             }

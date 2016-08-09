@@ -35,16 +35,16 @@ namespace IceBlink2mini
         public float screenDensity;
         public int screenWidth;
         public int screenHeight;
-        public int squareSizeInPixels = 96;
+        public int squareSizeInPixels = 24;
         public int squareSize; //in dp (squareSizeInPixels * screenDensity)
         public int pS; // = squareSize / 10 ... used for small UI and text location adjustments based on squaresize
         public int squaresInWidth = 19;
         public int squaresInHeight = 11;
-        public int ibbwidthL = 340;
-        public int ibbwidthR = 100;
-        public int ibbheight = 100;
-        public int ibpwidth = 110;
-        public int ibpheight = 170;
+        public int ibbwidthL = 85;
+        public int ibbwidthR = 25;
+        public int ibbheight = 25;
+        public int ibpwidth = 27;
+        public int ibpheight = 42;
         public int playerOffset = 5;
         public int playerOffsetX = 5;
         public int playerOffsetY = 5;
@@ -230,8 +230,8 @@ namespace IceBlink2mini
             //ResetDirect2DFont();
             fillCharList();
 
-            fontWidth = (int)(16 * screenDensity);
-            fontHeight = (int)(16 * screenDensity);
+            fontWidth = (int)(4 * screenDensity);
+            fontHeight = (int)(4 * screenDensity);
             fontCharSpacing = fontWidth / 8;
             fontLineSpacing = fontHeight / 4;
 
@@ -242,6 +242,13 @@ namespace IceBlink2mini
                 fontHeight = 8;
                 fontCharSpacing = 1;
                 fontLineSpacing = 2;
+            }
+            else if ((squareSize >= 64) && (squareSize < 80)) //72x72
+            {
+                fontWidth = 12;
+                fontHeight = 12;
+                fontCharSpacing = 1;
+                fontLineSpacing = 3;
             }
             else if ((squareSize >= 84) && (squareSize < 108)) //96x96
             {
@@ -261,7 +268,7 @@ namespace IceBlink2mini
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
 
             log = new IB2HtmlLogBox(this);
-            log.numberOfLinesToShow = 20;
+            log.numberOfLinesToShow = 40;
             cc.addLogText("red", "screenDensity: " + screenDensity);
             cc.addLogText("fuchsia", "screenWidth: " + screenWidth);
             cc.addLogText("lime", "screenHeight: " + screenHeight);
@@ -275,21 +282,21 @@ namespace IceBlink2mini
 
             //setup messageBox defaults
             messageBox = new IBminiMessageBox(this);
-            messageBox.currentLocX = 500;
-            messageBox.currentLocY = 100;
+            messageBox.currentLocX = 150;
+            messageBox.currentLocY = 25;
             messageBox.numberOfLinesToShow = 36;
-            messageBox.tbWidth = 900;
-            messageBox.Width = 900;
-            messageBox.Height = 900;
-            messageBox.tbHeight = 900;
+            messageBox.tbWidth = 150;
+            messageBox.Width = 150;
+            messageBox.Height = 195;
+            messageBox.tbHeight = 195;
             messageBox.setupIBminiMessageBox();
             
             //setup itemListSelector defaults
             itemListSelector = new IBminiItemListSelector();
-            itemListSelector.currentLocX = 500;
-            itemListSelector.currentLocY = 100;
-            itemListSelector.Width = 900;
-            itemListSelector.Height = 900;
+            itemListSelector.currentLocX = 150;
+            itemListSelector.currentLocY = 25;
+            itemListSelector.Width = 150;
+            itemListSelector.Height = 195;
             
             if (fixedModule.Equals("")) //this is the IceBlink Engine app
             {
@@ -1541,7 +1548,7 @@ namespace IceBlink2mini
             }
             else
             {
-                renderTarget2D.DrawBitmap(bitmap, trg, opac, BitmapInterpolationMode.Linear, src);
+                renderTarget2D.DrawBitmap(bitmap, trg, opac, BitmapInterpolationMode.NearestNeighbor, src);
             }            
             renderTarget2D.Transform = Matrix3x2.Identity;
         }
