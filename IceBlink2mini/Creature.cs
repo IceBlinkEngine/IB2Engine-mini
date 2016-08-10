@@ -17,7 +17,7 @@ namespace IceBlink2mini
     {
 	    public string cr_tokenFilename = "blank.png";
         [JsonIgnore]
-	    public Bitmap token;
+	    //public Bitmap token;
         //public float roamDistanceX = 0;
         //public float roamDistanceY = 0;
         //public float straightLineDistanceX = 0;

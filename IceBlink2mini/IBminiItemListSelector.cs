@@ -44,8 +44,8 @@ namespace IceBlink2mini
             for (int y = 0; y < itemList.Count; y++)
             {
                 IbbButton btnNew = new IbbButton(gv, 1.0f);
-                btnNew.Img = gv.cc.LoadBitmap("btn_large");
-                btnNew.Glow = gv.cc.LoadBitmap("btn_large_glow");
+                btnNew.Img = "btn_large";
+                btnNew.Glow = "btn_large_glow";
                 btnNew.X = (int)(currentLocX * gv.screenDensity) + padW;
                 btnNew.Y = (int)(currentLocY * gv.screenDensity) + ((y + 1) * gv.squareSize) + (y * padW);
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);

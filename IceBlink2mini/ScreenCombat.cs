@@ -208,8 +208,8 @@ namespace IceBlink2mini
                         {
                             Creature copy = c.DeepCopy();
                             copy.tag = crf.creatureTag;
-                            gv.cc.DisposeOfBitmap(ref copy.token);
-                            copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
+                            //gv.cc.DisposeOfBitmap(ref copy.token);
+                            //copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
                             copy.combatLocX = crf.creatureStartLocationX;
                             copy.combatLocY = crf.creatureStartLocationY;
                             mod.currentEncounter.encounterCreatureList.Add(copy);
@@ -308,36 +308,36 @@ namespace IceBlink2mini
                 if (pc.moveOrder == currentMoveOrderIndex)
                 {
                     //highlight the portrait of the pc whose current turn it is
-                    gv.cc.ptrPc0.glowOn = false;
-                    gv.cc.ptrPc1.glowOn = false;
-                    gv.cc.ptrPc2.glowOn = false;
-                    gv.cc.ptrPc3.glowOn = false;
-                    gv.cc.ptrPc4.glowOn = false;
-                    gv.cc.ptrPc5.glowOn = false;
+                    //gv.cc.ptrPc0.glowOn = false;
+                    //gv.cc.ptrPc1.glowOn = false;
+                    //gv.cc.ptrPc2.glowOn = false;
+                    //gv.cc.ptrPc3.glowOn = false;
+                    //gv.cc.ptrPc4.glowOn = false;
+                    //gv.cc.ptrPc5.glowOn = false;
 
                     if (idx == 0)
                     {
-                        gv.cc.ptrPc0.glowOn = true;
+                        //gv.cc.ptrPc0.glowOn = true;
                     }
                     if (idx == 1)
                     {
-                        gv.cc.ptrPc1.glowOn = true;
+                        //gv.cc.ptrPc1.glowOn = true;
                     }
                     if (idx == 2)
                     {
-                        gv.cc.ptrPc2.glowOn = true;
+                        //gv.cc.ptrPc2.glowOn = true;
                     }
                     if (idx == 3)
                     {
-                        gv.cc.ptrPc3.glowOn = true;
+                        //gv.cc.ptrPc3.glowOn = true;
                     }
                     if (idx == 4)
                     {
-                        gv.cc.ptrPc4.glowOn = true;
+                        //gv.cc.ptrPc4.glowOn = true;
                     }
                     if (idx == 5)
                     {
-                        gv.cc.ptrPc5.glowOn = true;
+                        //gv.cc.ptrPc5.glowOn = true;
                     }
 
                     //write the pc's name to log whsoe turn it is
@@ -2206,27 +2206,30 @@ namespace IceBlink2mini
             }
             #endregion    
             #region Draw Layer3
-            for (int x = minX; x < maxX; x++)
+            if (mod.currentEncounter.Layer3Filename.Count > 0)
             {
-                for (int y = minY; y < maxY; y++)
+                for (int x = minX; x < maxX; x++)
                 {
-                    string tile = mod.currentEncounter.Layer3Filename[y * mod.currentEncounter.MapSizeX + x];
-                    IbRect srcLyr = new IbRect(x, y, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
-
-                    if (srcLyr != null)
+                    for (int y = minY; y < maxY; y++)
                     {
-                        int shiftY = srcLyr.Top / gv.squareSizeInPixels;
-                        int shiftX = srcLyr.Left / gv.squareSizeInPixels;
-                        int tlX = ((x + shiftX) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
-                        int tlY = (y + shiftY) * gv.squareSize;
-                        float scalerX = srcLyr.Width / 100;
-                        float scalerY = srcLyr.Height / 100;
-                        int brX = (int)(gv.squareSize * scalerX);
-                        int brY = (int)(gv.squareSize * scalerY);
-                        IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
-                        bool mirror = false;
-                        if (mod.currentEncounter.Layer3Mirror[y * mod.currentEncounter.MapSizeX + x] == 1) { mirror = true; }
-                        gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, mod.currentEncounter.Layer3Rotate[y * mod.currentEncounter.MapSizeX + x], mirror);
+                        string tile = mod.currentEncounter.Layer3Filename[y * mod.currentEncounter.MapSizeX + x];
+                        IbRect srcLyr = new IbRect(x, y, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
+
+                        if (srcLyr != null)
+                        {
+                            int shiftY = srcLyr.Top / gv.squareSizeInPixels;
+                            int shiftX = srcLyr.Left / gv.squareSizeInPixels;
+                            int tlX = ((x + shiftX) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
+                            int tlY = (y + shiftY) * gv.squareSize;
+                            float scalerX = srcLyr.Width / 100;
+                            float scalerY = srcLyr.Height / 100;
+                            int brX = (int)(gv.squareSize * scalerX);
+                            int brY = (int)(gv.squareSize * scalerY);
+                            IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
+                            bool mirror = false;
+                            if (mod.currentEncounter.Layer3Mirror[y * mod.currentEncounter.MapSizeX + x] == 1) { mirror = true; }
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, mod.currentEncounter.Layer3Rotate[y * mod.currentEncounter.MapSizeX + x], mirror);
+                        }
                     }
                 }
             }
@@ -2326,15 +2329,15 @@ namespace IceBlink2mini
             foreach (Player pc in mod.playerList)
             {
                 
-                src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                src = new IbRect(0, 0, gv.cc.GetFromBitmapList(pc.tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(pc.tokenFilename).PixelSize.Width);
                 //check if drawing animation of player
                 if ((playerToAnimate != null) && (playerToAnimate == pc))
                 {
-                    src = new IbRect(0, pc.token.PixelSize.Width, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                    src = new IbRect(0, gv.cc.GetFromBitmapList(pc.tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(pc.tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(pc.tokenFilename).PixelSize.Width);
                 }
                 dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
-                gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft);
-                src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst, !pc.combatFacingLeft);
+                src = new IbRect(0, 0, gv.cc.GetFromBitmapList(pc.tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(pc.tokenFilename).PixelSize.Width);
                 foreach (Effect ef in pc.effectsList)
                 {
                     Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
@@ -2414,17 +2417,17 @@ namespace IceBlink2mini
             }
             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
             {
-                IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width);
                 if ((creatureToAnimate != null) && (creatureToAnimate == crt))
                 {
-                    src = new IbRect(0, crt.token.PixelSize.Width, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                    src = new IbRect(0, gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width);
                 }
                 IbRect dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize);
-                if (crt.token.PixelSize.Width > 100)
+                if (gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width > 100)
                 {
                     dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
                 }
-                gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(crt.cr_tokenFilename), src, dst, !crt.combatFacingLeft);
                 foreach (Effect ef in crt.cr_effectsList)
                 {
                     Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);

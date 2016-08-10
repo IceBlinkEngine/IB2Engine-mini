@@ -341,33 +341,36 @@ namespace IceBlink2mini
             }
             #endregion
             #region Draw Layer 3
-            for (int x = mod.PlayerLocationX - gv.playerOffset; x <= mod.PlayerLocationX + gv.playerOffset; x++)
+            if (mod.currentArea.Layer3Filename.Count > 0)
             {
-                for (int y = mod.PlayerLocationY - gv.playerOffset; y <= mod.PlayerLocationY + gv.playerOffset; y++)
+                for (int x = mod.PlayerLocationX - gv.playerOffset; x <= mod.PlayerLocationX + gv.playerOffset; x++)
                 {
-                    //check if valid map location
-                    if (x < 0) { continue; }
-                    if (y < 0) { continue; }
-                    if (x > this.mod.currentArea.MapSizeX - 1) { continue; }
-                    if (y > this.mod.currentArea.MapSizeY - 1) { continue; }
-
-                    string tile = mod.currentArea.Layer3Filename[y * mod.currentArea.MapSizeX + x];
-                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                    float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / 100;
-                    float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / 100;
-                    int brX = (int)(gv.squareSize * scalerX);
-                    int brY = (int)(gv.squareSize * scalerY);
-
-                    try
+                    for (int y = mod.PlayerLocationY - gv.playerOffset; y <= mod.PlayerLocationY + gv.playerOffset; y++)
                     {
-                        IbRect src = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
-                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                        bool mirror = false;
-                        if (mod.currentArea.Layer3Mirror[y * mod.currentArea.MapSizeX + x] == 1) { mirror = true; }
-                        gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), src, dst, mod.currentArea.Layer3Rotate[y * mod.currentArea.MapSizeX + x], mirror);
+                        //check if valid map location
+                        if (x < 0) { continue; }
+                        if (y < 0) { continue; }
+                        if (x > this.mod.currentArea.MapSizeX - 1) { continue; }
+                        if (y > this.mod.currentArea.MapSizeY - 1) { continue; }
+
+                        string tile = mod.currentArea.Layer3Filename[y * mod.currentArea.MapSizeX + x];
+                        int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                        int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
+                        float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / 100;
+                        float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / 100;
+                        int brX = (int)(gv.squareSize * scalerX);
+                        int brY = (int)(gv.squareSize * scalerY);
+
+                        try
+                        {
+                            IbRect src = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
+                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                            bool mirror = false;
+                            if (mod.currentArea.Layer3Mirror[y * mod.currentArea.MapSizeX + x] == 1) { mirror = true; }
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), src, dst, mod.currentArea.Layer3Rotate[y * mod.currentArea.MapSizeX + x], mirror);
+                        }
+                        catch { }
                     }
-                    catch { }
                 }
             }
             #endregion
@@ -384,14 +387,14 @@ namespace IceBlink2mini
                         //prop X - playerX
                         int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
                         int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
-                        int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
-                        int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        int dstW = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        int dstH = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                         int dstXshift = (dstW - gv.squareSize) / 2;
                         int dstYshift = (dstH - gv.squareSize) / 2;
-                        IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                        IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width, gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width);
                         IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
                                                 
-                        gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft);
+                        gv.DrawBitmap(gv.cc.GetFromBitmapList(p.ImageFileName), src, dst, !p.PropFacingLeft);
 
                         if (mod.showInteractionState == true)
                         {
@@ -438,13 +441,13 @@ namespace IceBlink2mini
                         //prop X - playerX
                         int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
                         int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
-                        int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
-                        int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        int dstW = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        int dstH = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                         int dstXshift = (dstW - gv.squareSize) / 2;
                         int dstYshift = (dstH - gv.squareSize) / 2;
-                        IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                        IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width, gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width);
                         IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
-                        gv.DrawBitmap(p.token, src, dst);
+                        gv.DrawBitmap(gv.cc.GetFromBitmapList(p.ImageFileName), src, dst);
 
                         if (mod.showInteractionState)
                         {
@@ -542,11 +545,11 @@ namespace IceBlink2mini
             int x = gv.playerOffsetX * gv.squareSize;
             int y = gv.playerOffsetY * gv.squareSize;
             int shift = gv.squareSize / 3;
-            IbRect src = new IbRect(0, 0, mod.playerList[mod.selectedPartyLeader].token.PixelSize.Width, mod.playerList[mod.selectedPartyLeader].token.PixelSize.Width);
+            IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(mod.playerList[mod.selectedPartyLeader].tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(mod.playerList[mod.selectedPartyLeader].tokenFilename).PixelSize.Width);
             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
             if (mod.showPartyToken)
             {
-                gv.DrawBitmap(mod.partyTokenBitmap, src, dst, !mod.playerList[0].combatFacingLeft);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(mod.partyTokenFilename), src, dst, !mod.playerList[0].combatFacingLeft);
             }
             else
             {
@@ -566,12 +569,12 @@ namespace IceBlink2mini
                         if ((i == 0) && (i != mod.selectedPartyLeader))
                         {
                             dst = new IbRect(x + gv.oXshift + shift + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft);
+                            gv.DrawBitmap(gv.cc.GetFromBitmapList(mod.playerList[i].tokenFilename), src, dst, !mod.playerList[i].combatFacingLeft);
                         }
                         if ((i == 1) && (i != mod.selectedPartyLeader))
                         {
                             dst = new IbRect(x + gv.oXshift - shift + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft);
+                            gv.DrawBitmap(gv.cc.GetFromBitmapList(mod.playerList[i].tokenFilename), src, dst, !mod.playerList[i].combatFacingLeft);
                         }
                         if ((i == 2) && (i != mod.selectedPartyLeader))
                         {
@@ -587,7 +590,7 @@ namespace IceBlink2mini
                             {
                                 dst = new IbRect(x + gv.oXshift + (shift * 175 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft);
+                            gv.DrawBitmap(gv.cc.GetFromBitmapList(mod.playerList[i].tokenFilename), src, dst, !mod.playerList[i].combatFacingLeft);
                         }
                         if ((i == 3) && (i != mod.selectedPartyLeader))
                         {
@@ -607,7 +610,7 @@ namespace IceBlink2mini
                             {
                                 dst = new IbRect(x + gv.oXshift - (shift * 175 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft);
+                            gv.DrawBitmap(gv.cc.GetFromBitmapList(mod.playerList[i].tokenFilename), src, dst, !mod.playerList[i].combatFacingLeft);
                         }
                         if ((i == 4) && (i != mod.selectedPartyLeader))
                         {
@@ -631,7 +634,7 @@ namespace IceBlink2mini
                             {
                                 dst = new IbRect(x + gv.oXshift + (shift * 250 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft);
+                            gv.DrawBitmap(gv.cc.GetFromBitmapList(mod.playerList[i].tokenFilename), src, dst, !mod.playerList[i].combatFacingLeft);
                         }
 
                         if ((i == 5) && (i != mod.selectedPartyLeader))
@@ -660,7 +663,7 @@ namespace IceBlink2mini
                             {
                                 dst = new IbRect(x + gv.oXshift - (shift * 250 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft);
+                            gv.DrawBitmap(gv.cc.GetFromBitmapList(mod.playerList[i].tokenFilename), src, dst, !mod.playerList[i].combatFacingLeft);
                         }
                     }
                     
@@ -742,7 +745,7 @@ namespace IceBlink2mini
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
                 }                
-                gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(mod.playerList[mod.selectedPartyLeader].tokenFilename), src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft);
                 shift = storeShift;
             }
         }

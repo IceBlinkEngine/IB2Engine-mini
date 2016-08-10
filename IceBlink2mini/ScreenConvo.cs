@@ -26,7 +26,7 @@ namespace IceBlink2mini
 	    public int originalSelectedPartyLeader = 0;
 	    public int parentIdNum = 0;    
         public Bitmap convoBitmap;
-        public Bitmap convoPlusBitmap;
+        //public Bitmap convoPlusBitmap;
         private bool doActions = true;
         public List<int> nodeIndexList = new List<int>();
         //private IbbHtmlTextBox htmltext;
@@ -51,8 +51,8 @@ namespace IceBlink2mini
 		    for (int x = 0; x < 6; x++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
-			    btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
-			    btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
+			    btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnNew.X = ((x+5) * gv.squareSize) + (padW * (x+1)) + gv.oXshift;
 			    btnNew.Y = 9 * gv.squareSize + (pH * 2);
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -352,8 +352,8 @@ namespace IceBlink2mini
 		    {
 			    if (cntPCs < mod.playerList.Count)
 			    {
-                    gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);						
+                    //gv.cc.DisposeOfBitmap(ref btn.Img2);
+                    btn.Img2 = mod.playerList[cntPCs].tokenFilename;						
 			    }
 			    cntPCs++;
 		    }
@@ -619,8 +619,8 @@ namespace IceBlink2mini
                     else //new options available so show bubble plus marker
                     {
                         btnPartyIndex[PcIndx].btnNotificationOn = true;
-                        gv.cc.DisposeOfBitmap(ref btnPartyIndex[PcIndx].Img3);
-                        btnPartyIndex[PcIndx].Img3 = gv.cc.LoadBitmap("convoplus");
+                        //gv.cc.DisposeOfBitmap(ref btnPartyIndex[PcIndx].Img3);
+                        btnPartyIndex[PcIndx].Img3 = "convoplus";
                     }
                 }
                 PcIndx++;

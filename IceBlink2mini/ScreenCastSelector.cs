@@ -44,8 +44,8 @@ namespace IceBlink2mini
 		    {
 			    btnSelect = new IbbButton(gv, 0.8f);	
 			    btnSelect.Text = "CAST SELECTED " + mod.spellLabelSingular.ToUpper();
-			    btnSelect.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
-			    btnSelect.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+			    btnSelect.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+			    btnSelect.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnSelect.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
 			    btnSelect.Y = 9 * gv.squareSize + pH * 2;
                 btnSelect.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -55,8 +55,8 @@ namespace IceBlink2mini
 		    {
 			    btnHelp = new IbbButton(gv, 0.8f);	
 			    btnHelp.Text = "HELP";
-			    btnHelp.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnHelp.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnHelp.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+			    btnHelp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnHelp.X = 5 * gv.squareSize + padW * 1 + gv.oXshift;
 			    btnHelp.Y = 9 * gv.squareSize + pH * 2;
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -66,8 +66,8 @@ namespace IceBlink2mini
 		    {
 			    btnExit = new IbbButton(gv, 0.8f);	
 			    btnExit.Text = "EXIT";
-			    btnExit.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnExit.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnExit.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+			    btnExit.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnExit.X = (15 * gv.squareSize) - padW * 1 + gv.oXshift;
 			    btnExit.Y = 9 * gv.squareSize + pH * 2;
                 btnExit.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -76,9 +76,9 @@ namespace IceBlink2mini
 		    for (int y = 0; y < slotsPerPage; y++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
-			    btnNew.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-                btnNew.ImgOff = gv.cc.LoadBitmap("btn_small_off");
-                btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnNew.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnNew.ImgOff = "btn_small_off";
+                btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			
 			    int x = y % 5;
 			    int yy = y / 5;
@@ -105,20 +105,20 @@ namespace IceBlink2mini
                     SpellAllowed sa = pc.playerClass.spellsAllowed[cntSlot];
                     Spell sp = mod.getSpellByTag(sa.tag);
 
-                    btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
-                    btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                    btn.Img2 = sp.spellImage;
+                    btn.Img2Off = sp.spellImage + "_off";
 
                     if (pc.knownSpellsTags.Contains(sp.tag))
                     {
                         if (isInCombat) //all spells can be used in combat
                         {
-                            //btn.Img = gv.cc.LoadBitmap("btn_small");
+                            //btn.Img = "btn_small";
                             btn.btnState = buttonState.Normal;
                         }
                         //not in combat so check if spell can be used on adventure maps
                         else if ((sp.useableInSituation.Equals("Always")) || (sp.useableInSituation.Equals("OutOfCombat")))
                         {
-                            //btn.Img = gv.cc.LoadBitmap("btn_small");
+                            //btn.Img = "btn_small";
                             btn.btnState = buttonState.Normal;
                             //btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
                         }

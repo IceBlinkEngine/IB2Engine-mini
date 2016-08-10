@@ -120,9 +120,9 @@ namespace IceBlink2mini
             if (btnTokensLeft == null)
 		    {
 			    btnTokensLeft = new IbbButton(gv, 1.0f);
-			    btnTokensLeft.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnTokensLeft.Img2 = gv.cc.LoadBitmap("ctrl_left_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
-			    btnTokensLeft.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnTokensLeft.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+			    btnTokensLeft.Img2 = "ctrl_left_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
+			    btnTokensLeft.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnTokensLeft.X = 8 * gv.squareSize;
 			    btnTokensLeft.Y = (1 * gv.squareSize) - (pH * 2);
                 btnTokensLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -131,8 +131,8 @@ namespace IceBlink2mini
 		    if (btnPageIndex == null)
 		    {
 			    btnPageIndex = new IbbButton(gv, 1.0f);
-			    btnPageIndex.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
-			    btnPageIndex.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnPageIndex.Img = "btn_small_off"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
+			    btnPageIndex.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnPageIndex.Text = "1/10";
 			    btnPageIndex.X = 9 * gv.squareSize;
 			    btnPageIndex.Y = (1 * gv.squareSize) - (pH * 2);
@@ -142,9 +142,9 @@ namespace IceBlink2mini
 		    if (btnTokensRight == null)
 		    {
 			    btnTokensRight = new IbbButton(gv, 1.0f);
-			    btnTokensRight.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnTokensRight.Img2 = gv.cc.LoadBitmap("ctrl_right_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
-			    btnTokensRight.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnTokensRight.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+			    btnTokensRight.Img2 = "ctrl_right_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
+			    btnTokensRight.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnTokensRight.X = 10 * gv.squareSize;
 			    btnTokensRight.Y = (1 * gv.squareSize) - (pH * 2);
                 btnTokensRight.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -155,8 +155,8 @@ namespace IceBlink2mini
 		    {
 			    btnAction = new IbbButton(gv, 1.0f);
                 btnAction.Text = "USE SELECTED";
-                btnAction.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
-			    btnAction.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnAction.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+			    btnAction.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnAction.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f) - (gv.squareSize * 4);
 			    btnAction.Y = 9 * gv.squareSize + pH * 2;
                 btnAction.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -166,8 +166,8 @@ namespace IceBlink2mini
             {
                 btnExit = new IbbButton(gv, 1.0f);
                 btnExit.Text = "EXIT";
-                btnExit.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
-                btnExit.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnExit.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnExit.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnExit.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
                 btnExit.Y = 9 * gv.squareSize + pH * 2;
                 btnExit.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -176,10 +176,10 @@ namespace IceBlink2mini
 		    for (int y = 0; y < slotsPerPage; y++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);
-                gv.cc.DisposeOfBitmap(ref btnNew.Img);
-                btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
-                gv.cc.DisposeOfBitmap(ref btnNew.Glow);
-                btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                //gv.cc.DisposeOfBitmap(ref btnNew.Img);
+                btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
+                //gv.cc.DisposeOfBitmap(ref btnNew.Glow);
+                btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			
 			    if (y < 5)
 			    {
@@ -247,8 +247,8 @@ namespace IceBlink2mini
 			    else {btn.glowOn = false;}
 			    if ((cntSlot + (tknPageIndex * slotsPerPage)) < playerTokenList.Count)
 			    {
-                    gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = gv.cc.LoadBitmap(playerTokenList[cntSlot + (tknPageIndex * slotsPerPage)]);
+                    //gv.cc.DisposeOfBitmap(ref btn.Img2);
+                    btn.Img2 = playerTokenList[cntSlot + (tknPageIndex * slotsPerPage)];
 			    }
 			    else
 			    {

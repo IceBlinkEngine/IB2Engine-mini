@@ -12,10 +12,10 @@ namespace IceBlink2mini
     public class IbbPortrait
     {
         //this class is handled differently than Android version
-        public Bitmap ImgBG = null;
-        public Bitmap Img = null;
-        public Bitmap ImgLU = null; //used for level up icon
-        public Bitmap Glow = null;
+        public string ImgBG = null;
+        public string Img = null;
+        public string ImgLU = null; //used for level up icon
+        public string Glow = null;
         public bool glowOn = false;
         public bool levelUpOn = false;
         public string TextHP = "";
@@ -58,18 +58,18 @@ namespace IceBlink2mini
             int pW = (int)((float)gv.screenHeight / 200.0f);
             float fSize = (float)(gv.squareSize / 4) * scaler;
 
-            IbRect src = new IbRect(0, 0, this.ImgBG.PixelSize.Width, this.ImgBG.PixelSize.Height);
+            IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgBG).PixelSize.Width, gv.cc.GetFromBitmapList(ImgBG).PixelSize.Height);
             IbRect src2 = new IbRect(0, 0, 0, 0);
             IbRect src3 = new IbRect(0, 0, 0, 0);
             IbRect dstLU = new IbRect(0, 0, 0, 0);
 
             if (this.Img != null)
             {
-                src2 = new IbRect(0, 0, this.Img.PixelSize.Width, this.Img.PixelSize.Height);
+                src2 = new IbRect(0, 0, gv.cc.GetFromBitmapList(Img).PixelSize.Width, gv.cc.GetFromBitmapList(Img).PixelSize.Height);
             }
             if (this.ImgLU != null)
             {
-                src3 = new IbRect(0, 0, this.ImgLU.PixelSize.Width, this.ImgLU.PixelSize.Height);
+                src3 = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgLU).PixelSize.Width, gv.cc.GetFromBitmapList(ImgLU).PixelSize.Height);
             }
             IbRect dstBG = new IbRect(this.X - (int)(1 * gv.screenDensity),
                                         this.Y - (int)(1 * gv.screenDensity),
@@ -78,31 +78,31 @@ namespace IceBlink2mini
             IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Width), (int)((float)this.Height));
             if (this.ImgLU != null)
             {
-                dstLU = new IbRect(this.X, this.Y, this.ImgLU.PixelSize.Width, this.ImgLU.PixelSize.Height);
+                dstLU = new IbRect(this.X, this.Y, gv.cc.GetFromBitmapList(ImgLU).PixelSize.Width, gv.cc.GetFromBitmapList(ImgLU).PixelSize.Height);
             }
-            IbRect srcGlow = new IbRect(0, 0, this.Glow.PixelSize.Width, this.Glow.PixelSize.Height);
+            IbRect srcGlow = new IbRect(0, 0, gv.cc.GetFromBitmapList(Glow).PixelSize.Width, gv.cc.GetFromBitmapList(Glow).PixelSize.Height);
             IbRect dstGlow = new IbRect(this.X - (int)(2 * gv.screenDensity), 
                                         this.Y - (int)(2 * gv.screenDensity), 
                                         (int)((float)this.Width) + (int)(4 * gv.screenDensity), 
                                         (int)((float)this.Height) + (int)(4 * gv.screenDensity));
 
-            gv.DrawBitmap(this.ImgBG, src, dstBG);
+            gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgBG), src, dstBG);
 
             if ((this.glowOn) && (this.Glow != null))
             {
-                gv.DrawBitmap(this.Glow, srcGlow, dstGlow);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(Glow), srcGlow, dstGlow);
             }
             
             if (this.Img != null)
             {
-                gv.DrawBitmap(this.Img, src2, dst);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(Img), src2, dst);
             }            
             
             if (this.ImgLU != null)
             {
                 if (levelUpOn)
                 {
-                    gv.DrawBitmap(this.ImgLU, src3, dstLU);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgLU), src3, dstLU);
                 }                
             }
 

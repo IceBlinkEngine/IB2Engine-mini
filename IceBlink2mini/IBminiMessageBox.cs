@@ -51,8 +51,8 @@ namespace IceBlink2mini
             if (btnReturn == null)
             {
                 btnReturn = new IbbButton(gv, 1.0f);
-                btnReturn.Img = gv.cc.LoadBitmap("btn_large");
-                btnReturn.Glow = gv.cc.LoadBitmap("btn_large_glow");
+                btnReturn.Img = "btn_large";
+                btnReturn.Glow = "btn_large_glow";
                 btnReturn.Text = "Return";
                 btnReturn.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnReturn.Width = (int)(gv.ibbwidthL * gv.screenDensity);

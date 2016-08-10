@@ -52,9 +52,9 @@ namespace IceBlink2mini
 		    if (btnInventoryLeft == null)
 		    {
 			    btnInventoryLeft = new IbbButton(gv, 1.0f);
-			    btnInventoryLeft.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnInventoryLeft.Img2 = gv.cc.LoadBitmap("ctrl_left_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
-			    btnInventoryLeft.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnInventoryLeft.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+			    btnInventoryLeft.Img2 = "ctrl_left_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
+			    btnInventoryLeft.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnInventoryLeft.X = 7 * gv.squareSize;
 			    btnInventoryLeft.Y = (5 * gv.squareSize) - (pH * 2);
                 btnInventoryLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -63,8 +63,8 @@ namespace IceBlink2mini
 		    if (btnPageIndex == null)
 		    {
 			    btnPageIndex = new IbbButton(gv, 1.0f);
-			    btnPageIndex.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
-			    btnPageIndex.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnPageIndex.Img = "btn_small_off"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
+			    btnPageIndex.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnPageIndex.Text = "1/10";
 			    btnPageIndex.X = 8 * gv.squareSize;
 			    btnPageIndex.Y = (5 * gv.squareSize) - (pH * 2);
@@ -74,9 +74,9 @@ namespace IceBlink2mini
 		    if (btnInventoryRight == null)
 		    {
 			    btnInventoryRight = new IbbButton(gv, 1.0f);
-			    btnInventoryRight.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnInventoryRight.Img2 = gv.cc.LoadBitmap("ctrl_right_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
-			    btnInventoryRight.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnInventoryRight.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+			    btnInventoryRight.Img2 = "ctrl_right_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
+			    btnInventoryRight.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnInventoryRight.X = 9 * gv.squareSize;
 			    btnInventoryRight.Y = (5 * gv.squareSize) - (pH * 2);
                 btnInventoryRight.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -85,9 +85,9 @@ namespace IceBlink2mini
 		    if (btnShopLeft == null)
 		    {
 			    btnShopLeft = new IbbButton(gv, 1.0f);
-			    btnShopLeft.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnShopLeft.Img2 = gv.cc.LoadBitmap("ctrl_left_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
-			    btnShopLeft.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnShopLeft.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+			    btnShopLeft.Img2 = "ctrl_left_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
+			    btnShopLeft.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnShopLeft.X = 7 * gv.squareSize;
 			    btnShopLeft.Y = (1 * gv.squareSize) - (pH * 2);
                 btnShopLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -96,8 +96,8 @@ namespace IceBlink2mini
 		    if (btnShopPageIndex == null)
 		    {
 			    btnShopPageIndex = new IbbButton(gv, 1.0f);
-			    btnShopPageIndex.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
-			    btnShopPageIndex.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnShopPageIndex.Img = "btn_small_off"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
+			    btnShopPageIndex.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnShopPageIndex.Text = "1/10";
 			    btnShopPageIndex.X = 8 * gv.squareSize;
 			    btnShopPageIndex.Y = (1 * gv.squareSize) - (pH * 2);
@@ -107,9 +107,9 @@ namespace IceBlink2mini
 		    if (btnShopRight == null)
 		    {
 			    btnShopRight = new IbbButton(gv, 1.0f);
-			    btnShopRight.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnShopRight.Img2 = gv.cc.LoadBitmap("ctrl_right_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
-			    btnShopRight.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnShopRight.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+			    btnShopRight.Img2 = "ctrl_right_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
+			    btnShopRight.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnShopRight.X = 9 * gv.squareSize;
 			    btnShopRight.Y = (1 * gv.squareSize) - (pH * 2);
                 btnShopRight.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -119,8 +119,8 @@ namespace IceBlink2mini
 		    {
 			    btnReturn = new IbbButton(gv, 1.2f);	
 			    btnReturn.Text = "EXIT SHOP";
-			    btnReturn.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
-			    btnReturn.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+			    btnReturn.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+			    btnReturn.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnReturn.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
 			    btnReturn.Y = 9 * gv.squareSize + pH * 2;
                 btnReturn.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -130,8 +130,8 @@ namespace IceBlink2mini
 		    {
 			    btnHelp = new IbbButton(gv, 0.8f);	
 			    btnHelp.Text = "HELP";
-			    btnHelp.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnHelp.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnHelp.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+			    btnHelp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnHelp.X = 0 * gv.squareSize + padW * 1 + gv.oXshift;
 			    btnHelp.Y = 9 * gv.squareSize + pH * 2;
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -140,8 +140,8 @@ namespace IceBlink2mini
 		    for (int j = 0; j < 10; j++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
-			    btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
-			    btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
+			    btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    if (j < 5)
 			    {
 				    btnNew.X = ((j+2+4) * gv.squareSize) + (padW * (j+1)) + gv.oXshift;
@@ -160,8 +160,8 @@ namespace IceBlink2mini
 		    for (int j = 0; j < 10; j++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
-			    btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
-			    btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
+			    btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    if (j < 5)
 			    {
 				    btnNew.X = ((j+2+4) * gv.squareSize) + (padW * (j+1)) + gv.oXshift;
@@ -214,8 +214,8 @@ namespace IceBlink2mini
 			    {
 				    ItemRefs itrs = currentShop.shopItemRefs[cntSlot + (shopPageIndex * 10)];
 				    Item it = mod.getItemByResRefForInfo(itrs.resref);
-                    gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = gv.cc.LoadBitmap(it.itemImage);	
+                    //gv.cc.DisposeOfBitmap(ref btn.Img2);
+                    btn.Img2 = it.itemImage;	
 				    if (itrs.quantity < it.groupSizeForSellingStackableItems)
     			    {
     				    //less than the stack size for selling
@@ -306,8 +306,8 @@ namespace IceBlink2mini
 			    {
 				    ItemRefs itr = mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * 10)];
 				    Item it = mod.getItemByResRefForInfo(itr.resref);
-                    gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = gv.cc.LoadBitmap(it.itemImage);	
+                    //gv.cc.DisposeOfBitmap(ref btn.Img2);
+                    btn.Img2 = it.itemImage;	
 				    if (itr.quantity < it.groupSizeForSellingStackableItems)
     			    {
     				    //less than the stack size for selling

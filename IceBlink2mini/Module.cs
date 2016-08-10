@@ -89,8 +89,8 @@ namespace IceBlink2mini
         public int partyGold = 0;
         public bool showPartyToken = false;
         public string partyTokenFilename = "prp_party";
-        [JsonIgnore]
-        public Bitmap partyTokenBitmap;
+        //[JsonIgnore]
+        //public Bitmap partyTokenBitmap;
         public List<Player> playerList = new List<Player>();
         public List<Player> partyRosterList = new List<Player>();
         public List<Player> companionPlayerList = new List<Player>();
@@ -134,12 +134,12 @@ namespace IceBlink2mini
         //public int realTimeTimerLengthInMilliSeconds = 1500;
         public int attackFromBehindToHitModifier = 2;
         public int attackFromBehindDamageModifier = 0;        
-        [JsonIgnore]
-        public List<Bitmap> loadedTileBitmaps = new List<Bitmap>();
-        public List<string> loadedTileBitmapsNames = new List<string>();
-        [JsonIgnore]
-        public List<System.Drawing.Bitmap> loadedMinimapTileBitmaps = new List<System.Drawing.Bitmap>();
-        public List<string> loadedMinimapTileBitmapsNames = new List<string>();
+        //[JsonIgnore]
+        //public List<Bitmap> loadedTileBitmaps = new List<Bitmap>();
+        //public List<string> loadedTileBitmapsNames = new List<string>();
+        //[JsonIgnore]
+        //public List<System.Drawing.Bitmap> loadedMinimapTileBitmaps = new List<System.Drawing.Bitmap>();
+        //public List<string> loadedMinimapTileBitmapsNames = new List<string>();
         public bool doConvo = true;
         public int noTriggerLocX = -1;
         public int noTriggerLocY = -1;
@@ -185,11 +185,11 @@ namespace IceBlink2mini
                         //gv.cc.DisposeOfBitmap(ref gv.cc.bmpMap);
                         //gv.cc.bmpMap = gv.cc.LoadBitmap(this.currentArea.ImageFileName);
                         //TODO gv.cc.LoadTileBitmapList();
-                        foreach (Prop p in this.currentArea.Props)
-                        {
-                            gv.cc.DisposeOfBitmap(ref p.token);
-                            p.token = gv.cc.LoadBitmap(p.ImageFileName);
-                        }
+                        //foreach (Prop p in this.currentArea.Props)
+                        //{
+                            //gv.cc.DisposeOfBitmap(ref p.token);
+                            //p.token = gv.cc.LoadBitmap(p.ImageFileName);
+                        //}
                     }
                 }
             }

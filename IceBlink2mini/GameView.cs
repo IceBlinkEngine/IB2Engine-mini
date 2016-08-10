@@ -438,9 +438,9 @@ namespace IceBlink2mini
             }
         
 		    cc.nullOutControls();
-            cc.setPanelsStart();
+            //cc.setPanelsStart();
 		    cc.setControlsStart();
-            cc.setPortraitsStart();
+            //cc.setPortraitsStart();
 		    //cc.setToggleButtonsStart();
             //TODO log.ResetLogBoxUiBitmaps();
 

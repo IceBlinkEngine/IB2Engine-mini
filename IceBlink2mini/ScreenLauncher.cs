@@ -70,9 +70,9 @@ namespace IceBlink2mini
 		    if (btnLeft == null)
 		    {
 			    btnLeft = new IbbButton(gv, 1.0f);
-			    btnLeft.Img = gv.cc.LoadBitmap("btn_small");
-			    btnLeft.Img2 = gv.cc.LoadBitmap("ctrl_left_arrow");
-			    btnLeft.Glow = gv.cc.LoadBitmap("btn_small_glow");
+			    btnLeft.Img = "btn_small";
+			    btnLeft.Img2 = "ctrl_left_arrow";
+			    btnLeft.Glow = "btn_small_glow";
 			    btnLeft.X = smallLeftX;
                 btnLeft.Y = (5 * gv.squareSize) - (pH * 2);
                 btnLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -81,8 +81,8 @@ namespace IceBlink2mini
 		    if (btnModuleName == null)
 		    {
 			    btnModuleName = new IbbButton(gv, 1.0f);
-			    btnModuleName.Img = gv.cc.LoadBitmap("btn_large");
-			    btnModuleName.Glow = gv.cc.LoadBitmap("btn_large_glow");
+			    btnModuleName.Img = "btn_large";
+			    btnModuleName.Glow = "btn_large_glow";
 			    btnModuleName.Text = "";
                 btnModuleName.X = wideX;
 			    btnModuleName.Y = (5 * gv.squareSize) - (pH * 2);
@@ -92,9 +92,9 @@ namespace IceBlink2mini
 		    if (btnRight == null)
 		    {
 			    btnRight = new IbbButton(gv, 1.0f);
-			    btnRight.Img = gv.cc.LoadBitmap("btn_small");
-			    btnRight.Img2 = gv.cc.LoadBitmap("ctrl_right_arrow");
-			    btnRight.Glow = gv.cc.LoadBitmap("btn_small_glow");
+			    btnRight.Img = "btn_small";
+			    btnRight.Img2 = "ctrl_right_arrow";
+			    btnRight.Glow = "btn_small_glow";
 			    btnRight.X = smallRightX;
 			    btnRight.Y = (5 * gv.squareSize) - (pH * 2);
                 btnRight.Height = (int)(gv.ibbheight * gv.screenDensity);

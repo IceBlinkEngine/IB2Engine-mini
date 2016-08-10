@@ -4,21 +4,21 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Bitmap = SharpDX.Direct2D1.Bitmap;
-using Color = SharpDX.Color;
+//using Bitmap = SharpDX.Direct2D1.Bitmap;
+//using Color = SharpDX.Color;
 
 namespace IceBlink2mini
 {
     public class IbbButton
     {
         //this class is handled differently than Android version
-        public Bitmap Img = null;    //this is the normal button and color intensity
-        public Bitmap ImgOff = null; //this is usually a grayed out button
-        public Bitmap ImgOn = null;  //useful for buttons that are toggled on like "Move"
-        public Bitmap Img2 = null;   //usually used for an image on top of default button like arrows or inventory backpack image
-        public Bitmap Img2Off = null;   //usually used for turned off image on top of default button like spell not available
-        public Bitmap Img3 = null;   //typically used for convo plus notification icon
-        public Bitmap Glow = null;   //typically the green border highlight when hoover over or press button
+        public string Img = null;    //this is the normal button and color intensity
+        public string ImgOff = null; //this is usually a grayed out button
+        public string ImgOn = null;  //useful for buttons that are toggled on like "Move"
+        public string Img2 = null;   //usually used for an image on top of default button like arrows or inventory backpack image
+        public string Img2Off = null;   //usually used for turned off image on top of default button like spell not available
+        public string Img3 = null;   //typically used for convo plus notification icon
+        public string Glow = null;   //typically the green border highlight when hoover over or press button
         public buttonState btnState = buttonState.Normal;
         public bool btnNotificationOn = true; //used to determine whether Img3 is shown or not
         public bool glowOn = false;
@@ -63,21 +63,21 @@ namespace IceBlink2mini
             int pW = (int)((float)gv.screenHeight / 200.0f);
             float fSize = (float)(gv.squareSize / 4) * scaler;
 
-            IbRect src = new IbRect(0, 0, this.Img.PixelSize.Width, this.Img.PixelSize.Height);
-            IbRect src2 = new IbRect(0, 0, this.Img.PixelSize.Width, this.Img.PixelSize.Height);
-            IbRect src3 = new IbRect(0, 0, this.Img.PixelSize.Width, this.Img.PixelSize.Height);
+            IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(Img).PixelSize.Width, gv.cc.GetFromBitmapList(Img).PixelSize.Height);
+            IbRect src2 = new IbRect(0, 0, gv.cc.GetFromBitmapList(Img).PixelSize.Width, gv.cc.GetFromBitmapList(Img).PixelSize.Height);
+            IbRect src3 = new IbRect(0, 0, gv.cc.GetFromBitmapList(Img).PixelSize.Width, gv.cc.GetFromBitmapList(Img).PixelSize.Height);
 
             if (this.Img2 != null)
             {
-                src2 = new IbRect(0, 0, this.Img2.PixelSize.Width, this.Img2.PixelSize.Width);
+                src2 = new IbRect(0, 0, gv.cc.GetFromBitmapList(Img2).PixelSize.Width, gv.cc.GetFromBitmapList(Img2).PixelSize.Width);
             }
             if (this.Img3 != null)
             {
-                src3 = new IbRect(0, 0, this.Img3.PixelSize.Width, this.Img3.PixelSize.Width);
+                src3 = new IbRect(0, 0, gv.cc.GetFromBitmapList(Img3).PixelSize.Width, gv.cc.GetFromBitmapList(Img3).PixelSize.Width);
             }
             IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Width), (int)((float)this.Height));
 
-            IbRect srcGlow = new IbRect(0, 0, this.Glow.PixelSize.Width, this.Glow.PixelSize.Height);
+            IbRect srcGlow = new IbRect(0, 0, gv.cc.GetFromBitmapList(Glow).PixelSize.Width, gv.cc.GetFromBitmapList(Glow).PixelSize.Height);
             IbRect dstGlow = new IbRect(this.X - (int)(2 * gv.screenDensity), 
                                         this.Y - (int)(2 * gv.screenDensity), 
                                         (int)((float)this.Width) + (int)(4 * gv.screenDensity), 
@@ -86,34 +86,34 @@ namespace IceBlink2mini
             //draw glow first if on
             if ((this.glowOn) && (this.Glow != null))
             {
-                gv.DrawBitmap(this.Glow, srcGlow, dstGlow);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(Glow), srcGlow, dstGlow);
             }
             //draw the proper button State
             if ((this.btnState == buttonState.On) && (this.ImgOn != null))
             {
-                gv.DrawBitmap(this.ImgOn, src, dst);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOn), src, dst);
             }
             else if ((this.btnState == buttonState.Off) && (this.ImgOff != null))
             {
-                gv.DrawBitmap(this.ImgOff, src, dst);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOff), src, dst);
             }
             else
             {
-                gv.DrawBitmap(this.Img, src, dst);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(Img), src, dst);
             }
             //draw the standard overlay image if has one
             if ((this.btnState == buttonState.Off) && (this.Img2Off != null))
             {
-                gv.DrawBitmap(this.Img2Off, src2, dst);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2Off), src2, dst);
             }
             else if (this.Img2 != null)
             {
-                gv.DrawBitmap(this.Img2, src2, dst);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2), src2, dst);
             }
             //draw the notification image if turned on (like a level up or additional convo nodes image)
             if ((this.btnNotificationOn) && (this.Img3 != null))
             {
-                gv.DrawBitmap(this.Img3, src3, dst);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(Img3), src3, dst);
             }
 
             /*float thisFontHeight = gv.drawFontRegHeight;

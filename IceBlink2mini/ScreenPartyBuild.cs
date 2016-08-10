@@ -48,8 +48,8 @@ namespace IceBlink2mini
             {
                 if (cntPCs < mod.playerList.Count)
                 {
-                    gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);
+                    //gv.cc.DisposeOfBitmap(ref btn.Img2);
+                    btn.Img2 = mod.playerList[cntPCs].tokenFilename;
                 }
                 else
                 {
@@ -84,8 +84,8 @@ namespace IceBlink2mini
             try
             {
                 Player newPc = LoadPlayer(filename); //ex: filename = "ezzbel.json"
-                newPc.token = gv.cc.LoadBitmap(newPc.tokenFilename);
-                newPc.portrait = gv.cc.LoadBitmap(newPc.portraitFilename);
+                //newPc.token = gv.cc.LoadBitmap(newPc.tokenFilename);
+                //newPc.portrait = gv.cc.LoadBitmap(newPc.portraitFilename);
                 newPc.playerClass = mod.getPlayerClass(newPc.classTag);
                 newPc.race = mod.getRace(newPc.raceTag);
                 //check to see if already in party before adding
@@ -134,8 +134,8 @@ namespace IceBlink2mini
             for (int x = 0; x < mod.numberOfPlayerMadePcsAllowed; x++)
             {
                 IbbButton btnNew = new IbbButton(gv, 1.0f);
-                btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
-                btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
+                btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
                 btnNew.X = ((x + 5) * gv.squareSize) + (padW * (x + 1)) + gv.oXshift;
                 btnNew.Y = (gv.squareSize / 2) + (pH * 2);
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -147,8 +147,8 @@ namespace IceBlink2mini
             if (btnAdd == null)
             {
                 btnAdd = new IbbButton(gv, 1.0f);
-                btnAdd.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
-                btnAdd.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnAdd.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnAdd.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnAdd.Text = "Add Character";
                 btnAdd.X = center - (int)(gv.ibbwidthL * gv.screenDensity) - pW * 1;
                 btnAdd.Y = 2 * gv.squareSize + pH;
@@ -158,8 +158,8 @@ namespace IceBlink2mini
             if (btnRemove == null)
             {
                 btnRemove = new IbbButton(gv, 1.0f);
-                btnRemove.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
-                btnRemove.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnRemove.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnRemove.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnRemove.Text = "Remove Character";
                 btnRemove.X = center + pW * 1;
                 btnRemove.Y = 2 * gv.squareSize + pH;
@@ -170,9 +170,9 @@ namespace IceBlink2mini
             if (btnLeft == null)
             {
                 btnLeft = new IbbButton(gv, 1.0f);
-                btnLeft.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-                btnLeft.Img2 = gv.cc.LoadBitmap("ctrl_left_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
-                btnLeft.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnLeft.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnLeft.Img2 = "ctrl_left_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
+                btnLeft.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
                 btnLeft.X = center - gv.squareSize * 2;
                 btnLeft.Y = (3 * gv.squareSize) + (pH * 2);
                 btnLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -181,8 +181,8 @@ namespace IceBlink2mini
             if (btnPcListIndex == null)
             {
                 btnPcListIndex = new IbbButton(gv, 1.0f);
-                btnPcListIndex.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
-                btnPcListIndex.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnPcListIndex.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
+                btnPcListIndex.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
                 btnPcListIndex.Text = "";
                 btnPcListIndex.X = center - gv.squareSize / 2;
                 btnPcListIndex.Y = (3 * gv.squareSize) + (pH * 2);
@@ -192,9 +192,9 @@ namespace IceBlink2mini
             if (btnRight == null)
             {
                 btnRight = new IbbButton(gv, 1.0f);
-                btnRight.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-                btnRight.Img2 = gv.cc.LoadBitmap("ctrl_right_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
-                btnRight.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnRight.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnRight.Img2 = "ctrl_right_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
+                btnRight.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
                 btnRight.X = center + gv.squareSize * 1;
                 btnRight.Y = (3 * gv.squareSize) + (pH * 2);
                 btnRight.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -204,8 +204,8 @@ namespace IceBlink2mini
             {
                 btnCreate = new IbbButton(gv, 1.0f);
                 btnCreate.Text = "CREATE CHARACTER";
-                btnCreate.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
-                btnCreate.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnCreate.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnCreate.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnCreate.X = center - (int)((gv.ibbwidthL / 2) * gv.screenDensity);
                 btnCreate.Y = 4 * gv.squareSize + (pH * 3);
                 btnCreate.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -216,8 +216,8 @@ namespace IceBlink2mini
             {
                 btnHelp = new IbbButton(gv, 0.8f);
                 btnHelp.Text = "HELP";
-                btnHelp.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-                btnHelp.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnHelp.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnHelp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
                 btnHelp.X = 2 * gv.squareSize + padW * 1 + gv.oXshift;
                 //btnHelp.X = pW * 2;
                 btnHelp.Y = 9 * gv.squareSize + (pH * 2);
@@ -228,8 +228,8 @@ namespace IceBlink2mini
             {
                 btnReturn = new IbbButton(gv, 1.0f);
                 btnReturn.Text = "START GAME";
-                btnReturn.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
-                btnReturn.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnReturn.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnReturn.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnReturn.X = center - (int)((gv.ibbwidthL / 2) * gv.screenDensity);
                 btnReturn.Y = 9 * gv.squareSize + (pH * 2);
                 btnReturn.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -310,8 +310,8 @@ namespace IceBlink2mini
 
             if (pcList.Count > 0)
             {
-                gv.cc.DisposeOfBitmap(ref btnPcListIndex.Img2);
-                btnPcListIndex.Img2 = gv.cc.LoadBitmap(pcList[pcIndex].tokenFilename);
+                //gv.cc.DisposeOfBitmap(ref btnPcListIndex.Img2);
+                btnPcListIndex.Img2 = pcList[pcIndex].tokenFilename;
             }
             else
             {
@@ -479,8 +479,8 @@ namespace IceBlink2mini
                         if ((pcList.Count > 0) && (mod.playerList.Count < mod.numberOfPlayerMadePcsAllowed))
                         {
                             Player copyPC = pcList[pcIndex].DeepCopy();
-                            copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
-                            copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
+                            //copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                            //copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
                             copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
                             copyPC.race = mod.getRace(copyPC.raceTag);
                             mod.playerList.Add(copyPC);
@@ -494,8 +494,8 @@ namespace IceBlink2mini
                         if (mod.playerList.Count > 0)
                         {
                             Player copyPC = mod.playerList[partyScreenPcIndex].DeepCopy();
-                            copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
-                            copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
+                            //copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                            //copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
                             copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
                             copyPC.race = mod.getRace(copyPC.raceTag);
                             pcList.Add(copyPC);

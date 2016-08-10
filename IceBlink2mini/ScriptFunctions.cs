@@ -952,8 +952,8 @@ namespace IceBlink2mini
                             //prp2.lastLocationY = prp.LocationY;
                             prp2.LocationX = Convert.ToInt32(p3);
                             prp2.LocationY = Convert.ToInt32(p4);
-                            gv.cc.DisposeOfBitmap(ref prp2.token);
-                            prp2.token = gv.cc.LoadBitmap(prp.ImageFileName);
+                            //gv.cc.DisposeOfBitmap(ref prp2.token);
+                            //prp2.token = gv.cc.LoadBitmap(prp.ImageFileName);
                            
                             for (int i2 = 0; i2 < gv.mod.moduleAreasObjects.Count; i2++)
                             {
@@ -998,8 +998,8 @@ namespace IceBlink2mini
                                 //fetch the data for our creature by making a blueprint(object) copy
                                 Creature copy = c.DeepCopy();
                                 //crucial for loading the creature token
-                                gv.cc.DisposeOfBitmap(ref copy.token);
-                                copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
+                                //gv.cc.DisposeOfBitmap(ref copy.token);
+                                //copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
                                 
                                 //Automaically create a unique tag
                                 gv.sf.SetGlobalInt("summonCounter", "++");
@@ -2226,8 +2226,8 @@ namespace IceBlink2mini
             try
             {
                 Player newPc = gv.cc.LoadPlayer(filename); //ex: filename = "ezzbel.json"
-                newPc.token = gv.cc.LoadBitmap(newPc.tokenFilename);
-                newPc.portrait = gv.cc.LoadBitmap(newPc.portraitFilename);
+                //newPc.token = gv.cc.LoadBitmap(newPc.tokenFilename);
+                //newPc.portrait = gv.cc.LoadBitmap(newPc.portraitFilename);
                 newPc.playerClass = mod.getPlayerClass(newPc.classTag);
                 newPc.race = mod.getRace(newPc.raceTag);
                 //check to see if already in party before adding
@@ -2349,7 +2349,7 @@ namespace IceBlink2mini
                 if (mod.playerList.Count > 0)
                 {
                     Player copyPC = pc.DeepCopy();
-                    copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                    //copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
                     copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
                     copyPC.race = mod.getRace(copyPC.raceTag);
                     mod.partyRosterList.Add(copyPC);
@@ -2418,7 +2418,7 @@ namespace IceBlink2mini
                 if ((mod.partyRosterList.Count > 0) && (mod.playerList.Count < mod.MaxPartySize))
                 {
                     Player copyPC = pc.DeepCopy();
-                    copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                    //copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
                     copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
                     copyPC.race = mod.getRace(copyPC.raceTag);
                     mod.playerList.Add(copyPC);
@@ -2582,8 +2582,8 @@ namespace IceBlink2mini
                 {
                     gv.mod.partyTokenFilename = filename;
                 }
-                gv.cc.DisposeOfBitmap(ref gv.mod.partyTokenBitmap);
-                gv.mod.partyTokenBitmap = gv.cc.LoadBitmap(gv.mod.partyTokenFilename);
+                //gv.cc.DisposeOfBitmap(ref gv.mod.partyTokenBitmap);
+                //gv.mod.partyTokenBitmap = gv.cc.LoadBitmap(gv.mod.partyTokenFilename);
                 if (!mod.playerList[0].combatFacingLeft)
                 {
 //TODO                    mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);

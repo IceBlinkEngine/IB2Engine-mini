@@ -20,8 +20,8 @@ namespace IceBlink2mini
     {
 	    public string name = "none"; //item name  
         public string itemImage = "blank";
-        [JsonIgnore]
-	    public Bitmap token;
+        //[JsonIgnore]
+	    //public Bitmap token;
         public string ArmorWeightType = "Light"; //Light, Medium, Heavy 
         public string tag = "none"; //item unique tag name    
         public string resref = "none"; //item unique tag name    

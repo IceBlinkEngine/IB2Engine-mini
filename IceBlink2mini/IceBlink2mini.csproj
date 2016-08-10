@@ -103,7 +103,6 @@
     <Compile Include="IB2UILayout.cs" />
     <Compile Include="IbbButton.cs" />
     <Compile Include="IbbHtmlTextBox.cs" />
-    <Compile Include="IbbPanel.cs" />
     <Compile Include="IbbPortrait.cs" />
     <Compile Include="IBminiFormattedLine.cs" />
     <Compile Include="IBminiFormattedWord.cs" />

@@ -37,8 +37,8 @@ namespace IceBlink2mini
             {
                 btnReturn = new IbbButton(gv, 1.0f);
                 btnReturn.Text = "RETURN SELECTED";
-                btnReturn.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
-                btnReturn.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnReturn.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnReturn.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnReturn.X = (gv.screenWidth / 2) - (int)(170.0f * gv.screenDensity / 2.0f);
                 btnReturn.Y = 10 * gv.squareSize + pH * 2;
                 btnReturn.Height = (int)(50 * gv.screenDensity);
@@ -48,8 +48,8 @@ namespace IceBlink2mini
             for (int x = 0; x < 6; x++)
             {
                 IbbButton btnNew = new IbbButton(gv, 1.0f);
-                btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
-                btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
+                btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
                 btnNew.X = ((x) * gv.squareSize) + (padW * (x + 1)) + gv.oXshift;
                 btnNew.Y = pH * 2;
                 btnNew.Height = (int)(50 * gv.screenDensity);
