@@ -2204,7 +2204,33 @@ namespace IceBlink2mini
                     }
                 }
             }
-            #endregion            
+            #endregion    
+            #region Draw Layer3
+            for (int x = minX; x < maxX; x++)
+            {
+                for (int y = minY; y < maxY; y++)
+                {
+                    string tile = mod.currentEncounter.Layer3Filename[y * mod.currentEncounter.MapSizeX + x];
+                    IbRect srcLyr = new IbRect(x, y, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
+
+                    if (srcLyr != null)
+                    {
+                        int shiftY = srcLyr.Top / gv.squareSizeInPixels;
+                        int shiftX = srcLyr.Left / gv.squareSizeInPixels;
+                        int tlX = ((x + shiftX) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
+                        int tlY = (y + shiftY) * gv.squareSize;
+                        float scalerX = srcLyr.Width / 100;
+                        float scalerY = srcLyr.Height / 100;
+                        int brX = (int)(gv.squareSize * scalerX);
+                        int brY = (int)(gv.squareSize * scalerY);
+                        IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
+                        bool mirror = false;
+                        if (mod.currentEncounter.Layer3Mirror[y * mod.currentEncounter.MapSizeX + x] == 1) { mirror = true; }
+                        gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, mod.currentEncounter.Layer3Rotate[y * mod.currentEncounter.MapSizeX + x], mirror);
+                    }
+                }
+            }
+            #endregion        
             #region Draw Grid
             //I brought the pix width and height of source back to normal
             if (mod.com_showGrid)

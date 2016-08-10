@@ -340,6 +340,37 @@ namespace IceBlink2mini
                 }
             }
             #endregion
+            #region Draw Layer 3
+            for (int x = mod.PlayerLocationX - gv.playerOffset; x <= mod.PlayerLocationX + gv.playerOffset; x++)
+            {
+                for (int y = mod.PlayerLocationY - gv.playerOffset; y <= mod.PlayerLocationY + gv.playerOffset; y++)
+                {
+                    //check if valid map location
+                    if (x < 0) { continue; }
+                    if (y < 0) { continue; }
+                    if (x > this.mod.currentArea.MapSizeX - 1) { continue; }
+                    if (y > this.mod.currentArea.MapSizeY - 1) { continue; }
+
+                    string tile = mod.currentArea.Layer3Filename[y * mod.currentArea.MapSizeX + x];
+                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
+                    float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / 100;
+                    float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / 100;
+                    int brX = (int)(gv.squareSize * scalerX);
+                    int brY = (int)(gv.squareSize * scalerY);
+
+                    try
+                    {
+                        IbRect src = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
+                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                        bool mirror = false;
+                        if (mod.currentArea.Layer3Mirror[y * mod.currentArea.MapSizeX + x] == 1) { mirror = true; }
+                        gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), src, dst, mod.currentArea.Layer3Rotate[y * mod.currentArea.MapSizeX + x], mirror);
+                    }
+                    catch { }
+                }
+            }
+            #endregion
         }
         public void drawProps()
         {

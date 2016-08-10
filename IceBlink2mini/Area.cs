@@ -46,6 +46,9 @@ namespace IceBlink2mini
         public List<string> Layer2Filename = new List<string>();
         public List<int> Layer2Rotate = new List<int>();
         public List<int> Layer2Mirror = new List<int>();
+        public List<string> Layer3Filename = new List<string>();
+        public List<int> Layer3Rotate = new List<int>();
+        public List<int> Layer3Mirror = new List<int>();
         public List<int> Walkable = new List<int>();
         public List<int> LoSBlocked = new List<int>();
         public List<int> Visible = new List<int>();
