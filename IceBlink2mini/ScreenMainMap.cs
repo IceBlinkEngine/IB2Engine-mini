@@ -292,8 +292,8 @@ namespace IceBlink2mini
                     string tile = mod.currentArea.Layer1Filename[y * mod.currentArea.MapSizeX + x];
                     int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
                     int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                    float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / 100;
-                    float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / 100;
+                    float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / gv.tileSizeInPixels;
+                    float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / gv.tileSizeInPixels;
                     int brX = (int)(gv.squareSize * scalerX);
                     int brY = (int)(gv.squareSize * scalerY);
 
@@ -323,8 +323,8 @@ namespace IceBlink2mini
                     string tile = mod.currentArea.Layer2Filename[y * mod.currentArea.MapSizeX + x];
                     int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
                     int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                    float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / 100;
-                    float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / 100;
+                    float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / gv.tileSizeInPixels;
+                    float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / gv.tileSizeInPixels;
                     int brX = (int)(gv.squareSize * scalerX);
                     int brY = (int)(gv.squareSize * scalerY);
 
@@ -356,8 +356,8 @@ namespace IceBlink2mini
                         string tile = mod.currentArea.Layer3Filename[y * mod.currentArea.MapSizeX + x];
                         int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
                         int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                        float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / 100;
-                        float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / 100;
+                        float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / gv.tileSizeInPixels;
+                        float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / gv.tileSizeInPixels;
                         int brX = (int)(gv.squareSize * scalerX);
                         int brY = (int)(gv.squareSize * scalerY);
 

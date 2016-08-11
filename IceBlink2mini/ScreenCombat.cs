@@ -2167,8 +2167,8 @@ namespace IceBlink2mini
                         int shiftX = srcLyr.Left / gv.squareSizeInPixels;
                         int tlX = ((x + shiftX) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
                         int tlY = (y + shiftY) * gv.squareSize;
-                        float scalerX = srcLyr.Width / 100;
-                        float scalerY = srcLyr.Height / 100;
+                        float scalerX = srcLyr.Width / gv.tileSizeInPixels;
+                        float scalerY = srcLyr.Height / gv.tileSizeInPixels;
                         int brX = (int)(gv.squareSize * scalerX);
                         int brY = (int)(gv.squareSize * scalerY);
                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
@@ -2193,8 +2193,8 @@ namespace IceBlink2mini
                         int shiftX = srcLyr.Left / gv.squareSizeInPixels;
                         int tlX = ((x + shiftX) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
                         int tlY = (y + shiftY) * gv.squareSize;
-                        float scalerX = srcLyr.Width / 100;
-                        float scalerY = srcLyr.Height / 100;
+                        float scalerX = srcLyr.Width / gv.tileSizeInPixels;
+                        float scalerY = srcLyr.Height / gv.tileSizeInPixels;
                         int brX = (int)(gv.squareSize * scalerX);
                         int brY = (int)(gv.squareSize * scalerY);
                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
@@ -2221,8 +2221,8 @@ namespace IceBlink2mini
                             int shiftX = srcLyr.Left / gv.squareSizeInPixels;
                             int tlX = ((x + shiftX) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
                             int tlY = (y + shiftY) * gv.squareSize;
-                            float scalerX = srcLyr.Width / 100;
-                            float scalerY = srcLyr.Height / 100;
+                            float scalerX = srcLyr.Width / gv.tileSizeInPixels;
+                            float scalerY = srcLyr.Height / gv.tileSizeInPixels;
                             int brX = (int)(gv.squareSize * scalerX);
                             int brY = (int)(gv.squareSize * scalerY);
                             IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
