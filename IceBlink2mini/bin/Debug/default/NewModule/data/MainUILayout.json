@@ -26,7 +26,7 @@
     },
     {
       "tag": "portraitPanel",
-      "backgroundImageFilename": "ui_bg_portraits",
+      "backgroundImageFilename": "ui_bg_log",
       "shownLocX": 360,
       "shownLocY": 0,
       "hiddenLocX": 456,

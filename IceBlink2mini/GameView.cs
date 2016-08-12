@@ -595,6 +595,7 @@ namespace IceBlink2mini
             charList.Add(']', new SharpDX.RectangleF(fontWidth * 2, fontHeight * 8, fontWidth, fontHeight));
             charList.Add('/', new SharpDX.RectangleF(fontWidth * 3, fontHeight * 8, fontWidth, fontHeight));
             charList.Add(':', new SharpDX.RectangleF(fontWidth * 4, fontHeight * 8, fontWidth, fontHeight));
+            charList.Add('|', new SharpDX.RectangleF(fontWidth * 4, fontHeight * 8, fontWidth, fontHeight));
             charList.Add(';', new SharpDX.RectangleF(fontWidth * 5, fontHeight * 8, fontWidth, fontHeight));
             charList.Add('<', new SharpDX.RectangleF(fontWidth * 6, fontHeight * 8, fontWidth, fontHeight));
             charList.Add('>', new SharpDX.RectangleF(fontWidth * 7, fontHeight * 8, fontWidth, fontHeight));
