@@ -63,7 +63,7 @@ namespace IceBlink2mini
         public string slot4 = "";
         public string slot5 = "";
 
-        public Bitmap title;
+        //public Bitmap title;
         //public Bitmap bmpMap;
         public Bitmap walkPass;
         public Bitmap btnIni;
@@ -1328,13 +1328,6 @@ namespace IceBlink2mini
             if (fullPath)
             {
                 //used for loading up the launcher screen only
-                // deserialize JSON directly from a file
-                /*using (StreamReader file = File.OpenText(folderAndFilename))
-                {
-                    JsonSerializer serializer = new JsonSerializer();
-                    toReturn = (Module)serializer.Deserialize(file, typeof(Module));
-                }*/
-                //new method
                 using (StreamReader sr = File.OpenText(folderAndFilename))
                 {
                     string s = "";
@@ -1353,20 +1346,34 @@ namespace IceBlink2mini
                             break;
                         }
                         toReturn = (Module)JsonConvert.DeserializeObject(s, typeof(Module));
-                    }                    
+                    }
+                    for (int i = 0; i < 9999; i++)
+                    {
+                        s = sr.ReadLine();
+                        if ((s == null) || (s.Equals("IMAGES")) || (s.Equals("END")))
+                        {
+                            break;
+                        }
+                    }
+                    //Read in the images
+                    gv.bsc.listImages.Clear();
+                    ImageData imd;
+                    for (int i = 0; i < 9999; i++)
+                    {
+                        s = sr.ReadLine();
+                        if ((s == null) || (s.Equals("END")))
+                        {
+                            break;
+                        }
+                        imd = (ImageData)JsonConvert.DeserializeObject(s, typeof(ImageData));
+                        commonBitmapList.Clear();
+                        commonBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
+                    }
                 }
             }
             else
             {
                 //used for opening the entire module files
-                // deserialize JSON directly from a file
-                /*using (StreamReader file = File.OpenText(GetModulePath() + "\\" + folderAndFilename))
-                {
-                    JsonSerializer serializer = new JsonSerializer();
-                    //toReturn = (Module)JsonConvert.DeserializeObject("", typeof(Module));
-                    toReturn = (Module)serializer.Deserialize(file, typeof(Module));
-                }*/
-                //new method
                 using (StreamReader sr = File.OpenText(GetModulePath() + "\\" + folderAndFilename))
                 {
                     string s = "";
@@ -1424,6 +1431,20 @@ namespace IceBlink2mini
                         }
                         cnv = (Convo)JsonConvert.DeserializeObject(s, typeof(Convo));
                         toReturn.moduleConvoList.Add(cnv);
+                    }
+                    //Read in the images
+                    gv.bsc.listImages.Clear();
+                    ImageData imd;
+                    for (int i = 0; i < 9999; i++)
+                    {
+                        s = sr.ReadLine();
+                        if ((s == null) || (s.Equals("END")))
+                        {
+                            break;
+                        }
+                        imd = (ImageData)JsonConvert.DeserializeObject(s, typeof(ImageData));
+                        commonBitmapList.Clear();
+                        commonBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
                     }
                 }
             }

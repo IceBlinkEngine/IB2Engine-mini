@@ -53,7 +53,8 @@ namespace IceBlink2mini
                         gv.sf.MessageBox("returned a null module");
                     }
                     moduleList.Add(mod);
-                    titleList.Add(gv.cc.LoadBitmap("title", mod));
+                    //titleList.Add(gv.cc.LoadBitmap("title", mod));
+                    titleList.Add(gv.cc.GetFromBitmapList("title"));
                 }
             }
         }

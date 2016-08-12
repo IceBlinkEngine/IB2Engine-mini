@@ -303,6 +303,67 @@
       "logList": []
     },
     {
+						"tag": "TogglePanel",
+						"backgroundImageFilename": "ui_bg_toggles",
+						"shownLocX": 96,
+						"shownLocY": 234,
+						"hiddenLocX": 96,
+						"hiddenLocY": 264,
+						"hidingXIncrement": 0,
+						"hidingYIncrement": 3,
+						"Width": 264,
+						"Height": 30,
+						"buttonList": [],
+      "toggleList": [
+        {
+											"tag": "tglInteractionState",
+											"ImgOnFilename": "tgl_state_on",
+											"ImgOffFilename": "tgl_state_off",
+											"toggleOn": true,
+											"X": 3,
+											"Y": 3,
+											"Width": 24,
+											"Height": 24,
+											"show": true
+        },
+        {
+											"tag": "tglAvoidConversation",
+											"ImgOnFilename": "tgl_avoidConvo_on",
+											"ImgOffFilename": "tgl_avoidConvo_off",
+											"toggleOn": false,
+											"X": 30,
+											"Y": 3,
+											"Width": 24,
+											"Height": 24,
+											"show": true
+        },
+        {
+											"tag": "tglClock",
+											"ImgOnFilename": "tgl_clock_on",
+											"ImgOffFilename": "tgl_clock_off",
+											"toggleOn": true,
+											"X": 57,
+											"Y": 3,
+											"Width": 24,
+											"Height": 24,
+											"show": true
+        },
+        {
+											"tag": "tglSound",
+											"ImgOnFilename": "tgl_sound_on",
+											"ImgOffFilename": "tgl_sound_off",
+											"toggleOn": false,
+											"X": 84,
+											"Y": 3,
+											"Width": 24,
+											"Height": 24,
+											"show": true
+        }        
+      ],
+      "portraitList": [],
+				  "logList": []
+    },
+    {
 						"tag": "arrowPanel",
 						"backgroundImageFilename": "ui_bg_arrows",
 						"shownLocX": 360,

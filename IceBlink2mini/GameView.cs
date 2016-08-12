@@ -90,6 +90,7 @@ namespace IceBlink2mini
         public AnimationState animationState = AnimationState.None;
         public int triggerIndex = 0;
         public int triggerPropIndex = 0;
+        public BitmapStringConversion bsc;
 
         public IB2HtmlLogBox log;
         public IBminiMessageBox messageBox;
@@ -172,7 +173,7 @@ namespace IceBlink2mini
 
             cc = new CommonCode(this);
             mod = new Module();
-
+            bsc = new BitmapStringConversion();
             
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseWheel);
             mainDirectory = Directory.GetCurrentDirectory();
@@ -399,7 +400,7 @@ namespace IceBlink2mini
 		    mod.setCurrentArea(mod.startingArea, this);
 		    mod.PlayerLocationX = mod.startingPlayerPositionX;
 		    mod.PlayerLocationY = mod.startingPlayerPositionY;
-		    cc.title = cc.LoadBitmap("title");
+		    //cc.title = cc.LoadBitmap("title");
             LoadStandardImages();
 		    //cc.LoadRaces();
 		    //cc.LoadPlayerClasses();

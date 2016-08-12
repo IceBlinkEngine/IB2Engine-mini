@@ -74,6 +74,7 @@
     <Compile Include="Area.cs" />
     <Compile Include="AreaOfEffectShape.cs" />
     <Compile Include="BarkString.cs" />
+    <Compile Include="BitmapStringConversion.cs" />
     <Compile Include="buttonState.cs" />
     <Compile Include="CommonCode.cs" />
     <Compile Include="Condition.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="IbRect.cs" />
     <Compile Include="IBScript.cs" />
     <Compile Include="IBScriptEngine.cs" />
+    <Compile Include="ImageData.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemRefs.cs" />
     <Compile Include="JournalEntry.cs" />

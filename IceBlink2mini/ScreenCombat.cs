@@ -20,6 +20,7 @@ namespace IceBlink2mini
         public bool showSP = false;
         public bool showMoveOrder = false;
         public bool showArrows = true;
+        public bool showTogglePanel = false;
 
         //COMBAT STUFF
         //public bool adjustCamToRangedCreature = false;
@@ -2141,22 +2142,11 @@ namespace IceBlink2mini
             combatUiLayout.Draw();
         }
         public void drawCombatMap()
-        {
-            //row = y
-            //col = x
-            int minX = (gv.playerOffsetX + 1);
-            if (minX < 0) { minX = 0; }
-            int minY = (gv.playerOffsetY + 1);
-            if (minY < 0) { minY = 0; }
-            int maxX = gv.playerOffsetX + gv.playerOffsetX + 1;
-            if (maxX > this.mod.currentEncounter.MapSizeX) { maxX = this.mod.currentEncounter.MapSizeX; }
-            int maxY = gv.playerOffsetY + gv.playerOffsetY + 2;
-            if (maxY > this.mod.currentEncounter.MapSizeY) { maxY = this.mod.currentEncounter.MapSizeY; }
-
+        {            
             #region Draw Layer1
-            for (int x = minX; x < maxX; x++)
+            for (int x = 0; x < this.mod.currentEncounter.MapSizeX; x++)
             {
-                for (int y = minY; y < maxY; y++)
+                for (int y = 0; y < this.mod.currentEncounter.MapSizeY; y++)
                 {
                     string tile = mod.currentEncounter.Layer1Filename[y * mod.currentEncounter.MapSizeX + x];
                     IbRect srcLyr = new IbRect(x, y, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
@@ -2180,9 +2170,9 @@ namespace IceBlink2mini
             }
             #endregion
             #region Draw Layer2
-            for (int x = minX; x < maxX; x++)
+            for (int x = 0; x < this.mod.currentEncounter.MapSizeX; x++)
             {
-                for (int y = minY; y < maxY; y++)
+                for (int y = 0; y < this.mod.currentEncounter.MapSizeY; y++)
                 {
                     string tile = mod.currentEncounter.Layer2Filename[y * mod.currentEncounter.MapSizeX + x];
                     IbRect srcLyr = new IbRect(x, y, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
@@ -2208,9 +2198,9 @@ namespace IceBlink2mini
             #region Draw Layer3
             if (mod.currentEncounter.Layer3Filename.Count > 0)
             {
-                for (int x = minX; x < maxX; x++)
+                for (int x = 0; x < this.mod.currentEncounter.MapSizeX; x++)
                 {
-                    for (int y = minY; y < maxY; y++)
+                    for (int y = 0; y < this.mod.currentEncounter.MapSizeY; y++)
                     {
                         string tile = mod.currentEncounter.Layer3Filename[y * mod.currentEncounter.MapSizeX + x];
                         IbRect srcLyr = new IbRect(x, y, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
@@ -2816,6 +2806,10 @@ namespace IceBlink2mini
                             {
                                 continue;
                             }
+                            if ((pnl.tag.Equals("TogglePanel")) && (!showTogglePanel)) //don't show toggles
+                            {
+                                continue;
+                            }
                             pnl.showing = true;
                         }
                         else
@@ -3347,6 +3341,26 @@ namespace IceBlink2mini
                             {
                                 //hides down
                                 showArrows = !showArrows;
+                                if (pnl.currentLocY > pnl.shownLocY)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    pnl.hiding = true;
+                                }
+                            }
+                        }
+                    }
+                    else if (rtn.Equals("btnMoveCounter"))
+                    {
+                        //gv.cc.doSettingsDialogs();
+                        foreach (IB2Panel pnl in combatUiLayout.panelList)
+                        {
+                            if (pnl.tag.Equals("TogglePanel"))
+                            {
+                                showTogglePanel = !showTogglePanel;
+                                //hides down
                                 if (pnl.currentLocY > pnl.shownLocY)
                                 {
                                     pnl.showing = true;

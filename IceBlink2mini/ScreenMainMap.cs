@@ -21,6 +21,7 @@ namespace IceBlink2mini
         public bool showClock = false;
         public bool showFullParty = false;
         public bool showArrows = true;
+        public bool showTogglePanel = false;
         public bool hideClock = false;
         public List<FloatyText> floatyTextPool = new List<FloatyText>();
         public List<FloatyTextByPixel> floatyTextByPixelPool = new List<FloatyTextByPixel>();
@@ -187,8 +188,8 @@ namespace IceBlink2mini
                         {
                             string tile = mod.currentArea.Layer1Filename[y * mod.currentArea.MapSizeX + x];
                             Rectangle src = new Rectangle(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
-                            float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / 100;
-                            float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / 100;
+                            float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / gv.tileSizeInPixels;
+                            float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / gv.tileSizeInPixels;
                             int brX = (int)(minimapSquareSizeInPixels * scalerX);
                             int brY = (int)(minimapSquareSizeInPixels * scalerY);
                             Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
@@ -203,8 +204,24 @@ namespace IceBlink2mini
                         {
                             string tile = mod.currentArea.Layer2Filename[y * mod.currentArea.MapSizeX + x];
                             Rectangle src = new Rectangle(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
-                            float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / 100;
-                            float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / 100;
+                            float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / gv.tileSizeInPixels;
+                            float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / gv.tileSizeInPixels;
+                            int brX = (int)(minimapSquareSizeInPixels * scalerX);
+                            int brY = (int)(minimapSquareSizeInPixels * scalerY);
+                            Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
+                            device.DrawImage(gv.cc.GetFromTileGDIBitmapList(tile), dst, src, GraphicsUnit.Pixel);
+                        }
+                    }
+                    #endregion
+                    #region Draw Layer 3
+                    for (int x = 0; x < mod.currentArea.MapSizeX; x++)
+                    {
+                        for (int y = 0; y < mod.currentArea.MapSizeY; y++)
+                        {
+                            string tile = mod.currentArea.Layer3Filename[y * mod.currentArea.MapSizeX + x];
+                            Rectangle src = new Rectangle(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
+                            float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / gv.tileSizeInPixels;
+                            float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / gv.tileSizeInPixels;
                             int brX = (int)(minimapSquareSizeInPixels * scalerX);
                             int brY = (int)(minimapSquareSizeInPixels * scalerY);
                             Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
@@ -1452,7 +1469,23 @@ namespace IceBlink2mini
                     }
                     else if (rtn.Equals("btnSettings"))
                     {
-                        gv.cc.doSettingsDialogs();
+                        //gv.cc.doSettingsDialogs();
+                        foreach (IB2Panel pnl in mainUiLayout.panelList)
+                        {
+                            if (pnl.tag.Equals("TogglePanel"))
+                            {
+                                showTogglePanel = !showTogglePanel;
+                                //hides down
+                                if (pnl.currentLocY > pnl.shownLocY)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    pnl.hiding = true;
+                                }
+                            }
+                        }
                     }
                     else if (rtn.Equals("btnSave"))
                     {
@@ -1797,6 +1830,10 @@ namespace IceBlink2mini
                         if (pnl.currentLocY > pnl.shownLocY)
                         {
                             if ((pnl.tag.Equals("arrowPanel")) && (!showArrows)) //don't show arrows
+                            {
+                                continue;
+                            }
+                            if ((pnl.tag.Equals("TogglePanel")) && (!showTogglePanel)) //don't show toggles
                             {
                                 continue;
                             }
