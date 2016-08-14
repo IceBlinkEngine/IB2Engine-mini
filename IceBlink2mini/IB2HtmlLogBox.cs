@@ -45,7 +45,7 @@ namespace IceBlink2mini
         {
             if ((y > -2) && (y <= (tbHeight * gv.screenDensity) - gv.fontHeight))
             {
-                gv.DrawText(text, x + tbXloc + gv.pS, y, fontColor);                
+                gv.DrawText(text, x + tbXloc + gv.pS + gv.oXshift, y, fontColor);                
             }
         }
 

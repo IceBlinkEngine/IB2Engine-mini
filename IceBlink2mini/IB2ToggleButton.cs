@@ -60,7 +60,7 @@ namespace IceBlink2mini
             {
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Height);
                 IbRect dst = new IbRect(0, 0, 0, 0);
-                dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) + gv.oXshift, (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
                 
                 if (toggleOn)
                 {

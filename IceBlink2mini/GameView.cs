@@ -199,9 +199,9 @@ namespace IceBlink2mini
             //this.Height = Screen.PrimaryScreen.Bounds.Height;
             this.MinimumSize = new Size(100, 100);
             //for testing other screen sizes, manually enter a resolution here
-            //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792, 912x528, 456x264
-            this.Width = 912;
-            this.Height = 528;
+            //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792, 912x528, 456x264, 960x540
+            this.Width = 1920;
+            this.Height = 1080;
 
             screenWidth = this.Width;
             screenHeight = this.Height;

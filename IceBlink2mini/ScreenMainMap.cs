@@ -36,7 +36,7 @@ namespace IceBlink2mini
         {
             mod = m;
             gv = g;
-            mapStartLocXinPixels = 4 * gv.squareSize + gv.oXshift;
+            mapStartLocXinPixels = 4 * gv.squareSize;
             loadMainUILayout();          
         }
         public void loadMainUILayout()
@@ -1098,11 +1098,11 @@ namespace IceBlink2mini
                     }
 
                     //NEW SYSTEM
-                    mainUiLayout.setHover(x, y);
+                    mainUiLayout.setHover(x - gv.oXshift, y - gv.oYshift);
 
                     //Draw Floaty Text On Mouse Over Prop
-                    int gridx = (int)e.X / gv.squareSize;
-                    int gridy = (int)e.Y / gv.squareSize;
+                    int gridx = (int)(e.X - gv.oXshift) / gv.squareSize;
+                    int gridy = (int)(e.Y - gv.oYshift) / gv.squareSize;
                     int actualX = mod.PlayerLocationX + (gridx - gv.playerOffsetX) - (mapStartLocXinPixels / gv.squareSize);
                     int actualY = mod.PlayerLocationY + (gridy - gv.playerOffsetY);
                     gv.cc.floatyText = "";
@@ -1116,7 +1116,7 @@ namespace IceBlink2mini
                                 {
                                     gv.cc.floatyText = p.MouseOverText;
                                     int halfWidth = (p.MouseOverText.Length * (gv.fontWidth + gv.fontCharSpacing)) / 2;
-                                    gv.cc.floatyTextLoc = new Coordinate((gridx * gv.squareSize) - mapStartLocXinPixels - halfWidth, gridy * gv.squareSize);
+                                    gv.cc.floatyTextLoc = new Coordinate((gridx * gv.squareSize) - mapStartLocXinPixels - halfWidth + gv.oXshift, gridy * gv.squareSize);
                                 }
                             }
                         }
@@ -1128,7 +1128,7 @@ namespace IceBlink2mini
                     y = (int)e.Y;
                     int gridX = (int)e.X / gv.squareSize;
                     int gridY = (int)e.Y / gv.squareSize;
-                    int actualx = mod.PlayerLocationX + (gridX - gv.playerOffsetX);
+                    int actualx = mod.PlayerLocationX + (gridX - gv.playerOffsetX - (mapStartLocXinPixels / gv.squareSize));
                     int actualy = mod.PlayerLocationY + (gridY - gv.playerOffsetY);
 
                     if (gv.showMessageBox)
@@ -1146,7 +1146,7 @@ namespace IceBlink2mini
                     }
 
                     //NEW SYSTEM
-                    string rtn = mainUiLayout.getImpact(x, y);
+                    string rtn = mainUiLayout.getImpact(x - gv.oXshift, y - gv.oYshift);
 
                     //check to see if toggle or button is using IBScript and do script
                     IB2Button btnScript = mainUiLayout.GetButtonByTag(rtn);

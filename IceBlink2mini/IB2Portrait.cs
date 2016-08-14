@@ -102,14 +102,14 @@ namespace IceBlink2mini
 
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height);
                 IbRect srcBG = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgBGFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ImgBGFilename).PixelSize.Height);
-                IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
-                IbRect dstBG = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(1 * gv.screenDensity),
+                IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) + gv.oXshift, (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                IbRect dstBG = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(1 * gv.screenDensity) + gv.oXshift,
                                             (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity) - (int)(1 * gv.screenDensity),
                                             (int)((float)Width * gv.screenDensity) + (int)(2 * gv.screenDensity),
                                             (int)((float)Height * gv.screenDensity) + (int)(2 * gv.screenDensity));
 
                 IbRect srcGlow = new IbRect(0, 0, gv.cc.GetFromBitmapList(GlowFilename).PixelSize.Width, gv.cc.GetFromBitmapList(GlowFilename).PixelSize.Height);
-                IbRect dstGlow = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(2 * gv.screenDensity),
+                IbRect dstGlow = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(2 * gv.screenDensity) + gv.oXshift,
                                             (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity) - (int)(2 * gv.screenDensity),
                                             (int)((float)Width * gv.screenDensity) + (int)(4 * gv.screenDensity),
                                             (int)((float)Height * gv.screenDensity) + (int)(4 * gv.screenDensity));
@@ -137,7 +137,7 @@ namespace IceBlink2mini
                 if (gv.mod.useUIBackground)
                 {
                     IbRect srcFrame = new IbRect(0, 0, gv.cc.ui_portrait_frame.PixelSize.Width, gv.cc.ui_portrait_frame.PixelSize.Height);
-                    IbRect dstFrame = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(1 * gv.screenDensity),
+                    IbRect dstFrame = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(1 * gv.screenDensity) + gv.oXshift,
                                             (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity) - (int)(1 * gv.screenDensity),
                                             (int)((float)Width * gv.screenDensity) + (int)(2 * gv.screenDensity),
                                             (int)((float)Height * gv.screenDensity) + (int)(2 * gv.screenDensity));
@@ -186,12 +186,12 @@ namespace IceBlink2mini
                 {
                     for (int y = 0; y <= 2; y++)
                     {
-                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x + gv.oXshift);
                         int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
                         gv.DrawText(TextHP, xLoc, yLoc, "bk");
                     }
                 }
-                int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
+                int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + gv.oXshift);
                 int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
                 gv.DrawText(TextHP, xLoc1, yLoc1, "gn");
 
@@ -227,12 +227,12 @@ namespace IceBlink2mini
                 {
                     for (int y = 0; y <= 2; y++)
                     {
-                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x + gv.oXshift);
                         int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
                         gv.DrawText(TextSP, xLoc, yLoc, "bk");
                     }
                 }
-                xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
+                xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + gv.oXshift);
                 yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
                 gv.DrawText(TextSP, xLoc1, yLoc1, "yl");
             }

@@ -2361,7 +2361,7 @@ namespace IceBlink2mini
                 if (showMoveOrder)
                 {
                     int mo = pc.moveOrder + 1;
-                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.fontHeight, mo.ToString(), "wh");
+                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - gv.fontHeight - gv.fontLineSpacing, mo.ToString(), "wh");
                 }
                 
             }
@@ -2440,7 +2440,7 @@ namespace IceBlink2mini
                 if (showMoveOrder)
                 {
                     int mo = crt.moveOrder + 1;
-                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - (int)gv.fontHeight, mo.ToString(), "wh");
+                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - gv.fontHeight - gv.fontLineSpacing, mo.ToString(), "wh");
                 }
             }
         }
@@ -2593,7 +2593,7 @@ namespace IceBlink2mini
         {
             if ((showSP) && (!animationsOn))
             {
-                int txtH = (int)gv.fontHeight;
+                int txtH = gv.fontHeight + gv.fontLineSpacing;
                 foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                 {
                     drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) + txtH, "sp: " + crt.sp, "yl");
@@ -2610,9 +2610,9 @@ namespace IceBlink2mini
         {
             int txtH = (int)gv.fontHeight;
 
-            for (int x = -2; x <= 2; x++)
+            for (int x = 0; x <= 2; x++)
             {
-                for (int y = -2; y <= 2; y++)
+                for (int y = 0; y <= 2; y++)
                 {
                     gv.DrawText(text, xLoc + x, yLoc + txtH + y, "bk");
                 }
@@ -2960,45 +2960,48 @@ namespace IceBlink2mini
                     combatUiLayout.setHover(x, y);
 
                     int gridx = (int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize;
-                    int gridy = (int)(e.Y - (gv.squareSize / 2)) / gv.squareSize;
+                    int gridy = (int)(e.Y - gv.oYshift) / gv.squareSize;
 
                     #region FloatyText
-                    gv.cc.floatyText = "";
-                    gv.cc.floatyText2 = "";
-                    gv.cc.floatyText3 = "";
-                    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                    if (IsInCombatWindow(e.X, e.Y))
                     {
-                        if ((crt.combatLocX == gridx) && (crt.combatLocY == gridy))
+                        gv.cc.floatyText = "";
+                        gv.cc.floatyText2 = "";
+                        gv.cc.floatyText3 = "";
+                        foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                         {
-                            gv.cc.floatyText = crt.name;
-                            gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
-                            gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
-                            gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                            if ((crt.combatLocX == gridx) && (crt.combatLocY == gridy))
+                            {
+                                gv.cc.floatyText = crt.name;
+                                gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
+                                gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                            }
                         }
-                    }
-                    foreach (Player pc1 in mod.playerList)
-                    {
-                        if ((pc1.combatLocX == gridx) && (pc1.combatLocY == gridy))
+                        foreach (Player pc1 in mod.playerList)
                         {
-                            string am = "";
-                            ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc1.AmmoRefs.resref);
-                            if (itr != null)
+                            if ((pc1.combatLocX == gridx) && (pc1.combatLocY == gridy))
                             {
-                                am = itr.quantity + "";
-                            }
-                            else
-                            {
-                                am = "";
-                            }
+                                string am = "";
+                                ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc1.AmmoRefs.resref);
+                                if (itr != null)
+                                {
+                                    am = itr.quantity + "";
+                                }
+                                else
+                                {
+                                    am = "";
+                                }
 
-                            gv.cc.floatyText = pc1.name;
-                            int actext = 0;
-                            if (mod.ArmorClassAscending) { actext = pc1.AC; }
-                            else { actext = 20 - pc1.AC; }
-                            gv.cc.floatyText2 = "AC:" + actext + " " + pc1.charStatus;
-                            gv.cc.floatyText3 = "Ammo: " + am;
-                            gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(pc1.combatLocX), getPixelLocY(pc1.combatLocY));
+                                gv.cc.floatyText = pc1.name;
+                                int actext = 0;
+                                if (mod.ArmorClassAscending) { actext = pc1.AC; }
+                                else { actext = 20 - pc1.AC; }
+                                gv.cc.floatyText2 = "AC:" + actext + " " + pc1.charStatus;
+                                gv.cc.floatyText3 = "Ammo: " + am;
+                                gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(pc1.combatLocX), getPixelLocY(pc1.combatLocY));
 
+                            }
                         }
                     }
                     #endregion
@@ -3145,7 +3148,7 @@ namespace IceBlink2mini
 
                     #region TOUCH ON MAP AREA
                     gridx = ((int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize);
-                    gridy = ((int)(e.Y - (gv.squareSize / 2)) / gv.squareSize);
+                    gridy = ((int)(e.Y - gv.oYshift) / gv.squareSize);
 
                     gv.cc.floatyText = "";
                     gv.cc.floatyText2 = "";
@@ -3171,7 +3174,7 @@ namespace IceBlink2mini
                     #endregion
 
                     #region BUTTONS
-                    if ((rtn.Equals("ctrlUpArrow")) || ((gridx == pc.combatLocX) && (gridy == pc.combatLocY - 1)))
+                    if ((rtn.Equals("ctrlUpArrow")) || ((gridx == pc.combatLocX) && (gridy == pc.combatLocY - 1) && (IsInCombatWindow(e.X,e.Y))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3182,7 +3185,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(8);
                         }
                     }
-                    else if ((rtn.Equals("ctrlDownArrow")) || ((gridx == pc.combatLocX) && (gridy == pc.combatLocY + 1)))
+                    else if ((rtn.Equals("ctrlDownArrow")) || ((gridx == pc.combatLocX) && (gridy == pc.combatLocY + 1) && (IsInCombatWindow(e.X, e.Y))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3193,7 +3196,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(2);
                         }
                     }
-                    else if ((rtn.Equals("ctrlLeftArrow")) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY)))
+                    else if ((rtn.Equals("ctrlLeftArrow")) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY) && (IsInCombatWindow(e.X, e.Y))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3204,7 +3207,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(4);
                         }
                     }
-                    else if ((rtn.Equals("ctrlRightArrow")) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY)))
+                    else if ((rtn.Equals("ctrlRightArrow")) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY) && (IsInCombatWindow(e.X, e.Y))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3215,7 +3218,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(6);
                         }
                     }
-                    else if ((rtn.Equals("ctrlUpRightArrow")) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY - 1)))
+                    else if ((rtn.Equals("ctrlUpRightArrow")) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY - 1) && (IsInCombatWindow(e.X, e.Y))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3226,7 +3229,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(9);
                         }
                     }
-                    else if ((rtn.Equals("ctrlDownRightArrow")) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY + 1)))
+                    else if ((rtn.Equals("ctrlDownRightArrow")) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY + 1) && (IsInCombatWindow(e.X, e.Y))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3237,7 +3240,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(3);
                         }
                     }
-                    else if ((rtn.Equals("ctrlUpLeftArrow")) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY - 1)))
+                    else if ((rtn.Equals("ctrlUpLeftArrow")) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY - 1) && (IsInCombatWindow(e.X, e.Y))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3248,7 +3251,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(7);
                         }
                     }
-                    else if ((rtn.Equals("ctrlDownLeftArrow")) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY + 1)))
+                    else if ((rtn.Equals("ctrlDownLeftArrow")) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY + 1) && (IsInCombatWindow(e.X, e.Y))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3352,7 +3355,7 @@ namespace IceBlink2mini
                             }
                         }
                     }
-                    else if (rtn.Equals("btnMoveCounter"))
+                    else if (rtn.Equals("btnSettings"))
                     {
                         //gv.cc.doSettingsDialogs();
                         foreach (IB2Panel pnl in combatUiLayout.panelList)
@@ -3378,7 +3381,19 @@ namespace IceBlink2mini
         }
 
         #endregion
-
+        public bool IsInCombatWindow(int mouseX, int mouseY)
+        {
+            //all coordinates in screen location pixels
+            int top = gv.oYshift;
+            int bottom = gv.oYshift + (gv.squareSize * 11);
+            int left = gv.oXshift + mapStartLocXinPixels;
+            int right = gv.oXshift + mapStartLocXinPixels + (gv.squareSize * 11);
+            if ((mouseX >= left) && (mouseX <= right) && (mouseY >= top) && (mouseY <= bottom))
+            {
+                return true;
+            }
+            return false;
+        }
         public void doUpdate(Player pc)
         {
             //CalculateUpperLeft();
