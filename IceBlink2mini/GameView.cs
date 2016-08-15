@@ -199,9 +199,9 @@ namespace IceBlink2mini
             //this.Height = Screen.PrimaryScreen.Bounds.Height;
             this.MinimumSize = new Size(100, 100);
             //for testing other screen sizes, manually enter a resolution here
-            //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792, 912x528, 456x264, 960x540
-            this.Width = 1920;
-            this.Height = 1080;
+            //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792, 912x528, 456x264, 960x540,
+            this.Width = 960;
+            this.Height = 540;
 
             screenWidth = this.Width;
             screenHeight = this.Height;
@@ -215,9 +215,17 @@ namespace IceBlink2mini
             {
                 squareSize = (int)(sqrW);
             }
-            if ((squareSize >= 94) && (squareSize < 100))
+            if ((squareSize >= 96) && (squareSize < 102))
             {
                 squareSize = 96;
+            }
+            else if ((squareSize >= 72) && (squareSize < 76))
+            {
+                squareSize = 72;
+            }
+            else if ((squareSize >= 48) && (squareSize < 52))
+            {
+                squareSize = 48;
             }
             screenDensity = (float)squareSize / (float)squareSizeInPixels;
             oXshift = (screenWidth - (squareSize * squaresInWidth)) / 2;

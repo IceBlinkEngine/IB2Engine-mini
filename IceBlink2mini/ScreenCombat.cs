@@ -2957,7 +2957,7 @@ namespace IceBlink2mini
                     }
 
                     //NEW SYSTEM
-                    combatUiLayout.setHover(x, y);
+                    combatUiLayout.setHover(x - gv.oXshift, y - gv.oYshift);
 
                     int gridx = (int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize;
                     int gridy = (int)(e.Y - gv.oYshift) / gv.squareSize;
@@ -3029,7 +3029,7 @@ namespace IceBlink2mini
                     Player pc = mod.playerList[currentPlayerIndex];
 
                     //NEW SYSTEM
-                    string rtn = combatUiLayout.getImpact(x, y);
+                    string rtn = combatUiLayout.getImpact(x - gv.oXshift, y - gv.oYshift);
                     //gv.cc.addLogText("lime", "mouse down: " + rtn);
 
                     #region Toggles
