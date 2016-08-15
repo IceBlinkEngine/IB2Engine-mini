@@ -1238,7 +1238,7 @@ namespace IceBlink2mini
             float xscl = 1f + (((float)Xscale * 2 * screenDensity) / squareSize);
             float yscl = 1f + (((float)Yscale * 2 * screenDensity) / squareSize);
 
-            Vector2 center = new Vector2(target.Left + (target.Width / 2), target.Top + (target.Height / 2));
+            Vector2 center = new Vector2((target.Left + oXshift) + (target.Width / 2), (target.Top + oYshift) + (target.Height / 2));
             renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(mir * xscl, yscl), center, angleInRadians, new Vector2(xshf, yshf));
             SharpDX.RectangleF trg = new SharpDX.RectangleF(target.Left + oXshift, target.Top + oYshift, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
