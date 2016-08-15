@@ -43,9 +43,8 @@
             this.MinimumSize = new System.Drawing.Size(965, 570);
             this.Name = "GameView";
             this.Text = "IceBlink 2";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameView_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameView_FormClosed);
-            this.Load += new System.EventHandler(this.GameView_Load);
+            //this.Load += new System.EventHandler(this.GameView_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseMove);

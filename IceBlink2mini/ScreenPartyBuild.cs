@@ -136,7 +136,7 @@ namespace IceBlink2mini
                 IbbButton btnNew = new IbbButton(gv, 1.0f);
                 btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
                 btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnNew.X = ((x + 5) * gv.squareSize) + (padW * (x + 1)) + gv.oXshift;
+                btnNew.X = ((x + 5) * gv.squareSize) + (padW * (x + 1));
                 btnNew.Y = (gv.squareSize / 2) + (pH * 2);
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -218,7 +218,7 @@ namespace IceBlink2mini
                 btnHelp.Text = "HELP";
                 btnHelp.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnHelp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnHelp.X = 2 * gv.squareSize + padW * 1 + gv.oXshift;
+                btnHelp.X = 2 * gv.squareSize + padW * 1;
                 //btnHelp.X = pW * 2;
                 btnHelp.Y = 9 * gv.squareSize + (pH * 2);
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -266,7 +266,7 @@ namespace IceBlink2mini
             int pH = (int)((float)gv.screenHeight / 100.0f);
             int padH = gv.squareSize / 6;
             int locY = 0;
-            int locX = 2 * gv.squareSize + gv.oXshift;
+            int locX = 2 * gv.squareSize;
             int spacing = (int)gv.fontHeight + gv.fontLineSpacing;
             int tabX = pW * 47;
             int tabX2 = pW * 55;
@@ -382,7 +382,7 @@ namespace IceBlink2mini
                 gv.messageBox.onDrawLogBox();
             }
         }
-        public void onTouchPartyBuild(MouseEventArgs e, MouseEventType.EventType eventType)
+        public void onTouchPartyBuild(int eX, int eY, MouseEventArgs e, MouseEventType.EventType eventType)
         {
             btnAdd.glowOn = false;
             btnRemove.glowOn = false;
@@ -400,8 +400,8 @@ namespace IceBlink2mini
             {
                 case MouseEventType.EventType.MouseDown:
                 case MouseEventType.EventType.MouseMove:
-                    int x = (int)e.X;
-                    int y = (int)e.Y;
+                    int x = (int)eX;
+                    int y = (int)eY;
 
                     if (gv.showMessageBox)
                     {
@@ -446,8 +446,8 @@ namespace IceBlink2mini
                     break;
 
                 case MouseEventType.EventType.MouseUp:
-                    x = (int)e.X;
-                    y = (int)e.Y;
+                    x = (int)eX;
+                    y = (int)eY;
 
                     btnAdd.glowOn = false;
                     btnRemove.glowOn = false;

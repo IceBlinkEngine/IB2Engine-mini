@@ -91,7 +91,7 @@ namespace IceBlink2mini
 			    btnHelp.Text = "HELP";
 			    btnHelp.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnHelp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnHelp.X = 0 * gv.squareSize + padW * 1 + gv.oXshift;
+			    btnHelp.X = 0 * gv.squareSize + padW * 1;
 			    btnHelp.Y = 9 * gv.squareSize + pH * 2;
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
@@ -102,7 +102,7 @@ namespace IceBlink2mini
 			    btnInfo.Text = "INFO";
 			    btnInfo.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnInfo.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnInfo.X = (15 * gv.squareSize) - padW * 1 + gv.oXshift;
+			    btnInfo.X = (15 * gv.squareSize) - padW * 1;
 			    btnInfo.Y = 9 * gv.squareSize + pH * 2;
                 btnInfo.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInfo.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
@@ -115,22 +115,22 @@ namespace IceBlink2mini
 			
 			    if (y < 5)
 			    {
-				    btnNew.X = ((y+2+4) * gv.squareSize) + (padW * (y+1)) + gv.oXshift;
+				    btnNew.X = ((y+2+4) * gv.squareSize) + (padW * (y+1));
 				    btnNew.Y = 2 * gv.squareSize;
 			    }
 			    else if ((y >=5 ) && (y < 10))
 			    {
-				    btnNew.X = ((y-5+2+4) * gv.squareSize) + (padW * ((y-5)+1)) + gv.oXshift;
+				    btnNew.X = ((y-5+2+4) * gv.squareSize) + (padW * ((y-5)+1));
 				    btnNew.Y = 3 * gv.squareSize + padW;
 			    }
 			    else if ((y >=10 ) && (y < 15))
 			    {
-				    btnNew.X = ((y-10+2+4) * gv.squareSize) + (padW * ((y-10)+1)) + gv.oXshift;
+				    btnNew.X = ((y-10+2+4) * gv.squareSize) + (padW * ((y-10)+1));
 				    btnNew.Y = 4 * gv.squareSize + (padW * 2);
 			    }
 			    else
 			    {
-				    btnNew.X = ((y-15+2+4) * gv.squareSize) + (padW * ((y-15)+1)) + gv.oXshift;
+				    btnNew.X = ((y-15+2+4) * gv.squareSize) + (padW * ((y-15)+1));
 				    btnNew.Y = 5 * gv.squareSize + (padW * 3);
 			    }
 
@@ -254,7 +254,7 @@ namespace IceBlink2mini
 	        	    textToSpan += "Tap 'INFO' for Full Description<BR>";
 	            }
                 
-                description.tbXloc = (11 * gv.squareSize) + (pW * 5) + gv.oXshift;
+                description.tbXloc = (11 * gv.squareSize) + (pW * 5);
                 description.tbYloc = 2 * gv.squareSize;
                 description.tbWidth = pW * 80;
                 description.tbHeight = pH * 50;
@@ -286,7 +286,7 @@ namespace IceBlink2mini
     	    }
     	    return strg;
         }
-	    public void onTouchInventory(MouseEventArgs e, MouseEventType.EventType eventType, bool inCombat)
+	    public void onTouchInventory(int eX, int eY, MouseEventArgs e, MouseEventType.EventType eventType, bool inCombat)
 	    {
 		    btnInventoryLeft.glowOn = false;
 		    btnInventoryRight.glowOn = false;
@@ -303,8 +303,8 @@ namespace IceBlink2mini
 		    {
 		    case MouseEventType.EventType.MouseDown:
 		    case MouseEventType.EventType.MouseMove:
-			    int x = (int) e.X;
-			    int y = (int) e.Y;
+			    int x = (int) eX;
+			    int y = (int) eY;
 
                 if (gv.showMessageBox)
                 {
@@ -337,8 +337,8 @@ namespace IceBlink2mini
 			    break;
 			
 		    case MouseEventType.EventType.MouseUp:
-			    x = (int) e.X;
-			    y = (int) e.Y;
+			    x = (int) eX;
+			    y = (int) eY;
 			
 			    btnInventoryLeft.glowOn = false;
 			    btnInventoryRight.glowOn = false;

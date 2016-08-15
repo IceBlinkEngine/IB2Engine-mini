@@ -1,30 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.ComponentModel;
-//using System.Data;
 using System.Drawing;
-//using System.Drawing.Drawing2D;
 using System.IO;
-//using System.Linq;
-//using System.Text;
 using System.Windows.Forms;
-//using System.Runtime.InteropServices;
-//using System.Drawing.Text;
 using System.Media;
 using SharpDX.DXGI;
 using SharpDX.Direct3D11;
 using SharpDX.Direct2D1;
-//using SharpDX.DirectWrite;
 using SharpDX.Direct3D;
 using SharpDX;
 using SharpDX.Windows;
-//using FontFamily = System.Drawing.FontFamily;
-//using Font = System.Drawing.Font;
 using Message = System.Windows.Forms.Message;
-//using Color = System.Drawing.Color;
-//using Point = System.Drawing.Point;
-//using RectangleF = System.Drawing.RectangleF;
-//using Rectangle = System.Drawing.Rectangle;
 using System.Diagnostics;
 
 namespace IceBlink2mini
@@ -57,7 +43,6 @@ namespace IceBlink2mini
         public int fontWidth = 8;
         public int fontCharSpacing = 1;
         public int fontLineSpacing = 2;
-        //public Graphics gCanvas;
 
         //DIRECT2D STUFF
         public SharpDX.Direct3D11.Device _device;
@@ -68,24 +53,9 @@ namespace IceBlink2mini
         public SharpDX.DirectWrite.Factory factoryDWrite;
         public RenderTarget renderTarget2D;
         public SolidColorBrush sceneColorBrush;
-        //public ResourceFontLoader CurrentResourceFontLoader;
-        //public SharpDX.DirectWrite.FontCollection CurrentFontCollection;
-        //public string FontFamilyName;
-        //public TextFormat textFormat;
-        //public TextLayout textLayout;
-
         public string versionNum = "v1.00";
         public string fixedModule = "";
-        //public PrivateFontCollection myFonts; //CREATE A FONT COLLECTION
-        //public FontFamily family;
-        //public Font drawFontReg;
-        //public Font drawFontLarge;
-        //public Font drawFontSmall;
-        //public float drawFontRegHeight;
-        //public float drawFontLargeHeight;
-        //public float drawFontSmallHeight;
         public Dictionary<char, SharpDX.RectangleF> charList = new Dictionary<char, SharpDX.RectangleF>();
-        //public SolidBrush drawBrush = new SolidBrush(Color.White);
         public string screenType = "splash"; //launcher, title, moreGames, main, party, inventory, combatInventory, shop, journal, combat, combatCast, convo
         public AnimationState animationState = AnimationState.None;
         public int triggerIndex = 0;
@@ -120,53 +90,20 @@ namespace IceBlink2mini
         public ScreenPartyBuild screenPartyBuild;
         public ScreenPartyRoster screenPartyRoster;
         public bool touchEnabled = true;
-        //public WMPLib.WindowsMediaPlayer areaMusic;
-        //public WMPLib.WindowsMediaPlayer areaSounds;
-        //public WMPLib.WindowsMediaPlayer weatherSounds1;
-        //public WMPLib.WindowsMediaPlayer weatherSounds2;
-        //public WMPLib.WindowsMediaPlayer weatherSounds3;
-       
+        
         public SoundPlayer soundPlayer = new SoundPlayer();
         public Dictionary<string, Stream> oSoundStreams = new Dictionary<string, Stream>();
         public System.Media.SoundPlayer playerButtonEnter = new System.Media.SoundPlayer();
         public System.Media.SoundPlayer playerButtonClick = new System.Media.SoundPlayer();
        
-        //public string currentMainMusic = "";
-        //public string currentAmbientMusic = "";
-        //public string currentCombatMusic = "";
-
-        //timers
         public Timer gameTimer = new Timer();
         public Stopwatch gameTimerStopwatch = new Stopwatch();
         public long previousTime = 0;
         public bool stillProcessingGameLoop = false;
         public float fps = 0;
         public int reportFPScount = 0;
-
         public Timer animationTimer = new Timer();
-        //public Timer floatyTextTimer = new Timer();
-        //public Timer floatyTextMainMapTimer = new Timer();
-        //public Timer areaMusicTimer = new Timer();
-        //public Timer areaSoundsTimer = new Timer();
-        //public Timer weatherSounds1Timer = new Timer();
-        //public Timer weatherSounds2Timer = new Timer();
-        //public Timer weatherSounds3Timer = new Timer();
-        
-        //public float floatPixMovedPerTick = 4f;
-        //public int realTimeTimerMilliSecondsEllapsed = 0;
-        //public int smoothMoveTimerLengthInMilliSeconds = 16;
-        //public int fullScreenEffectTimerMilliSecondsElapsedRain = 0;
-        //public int fullScreenEffectTimerMilliSecondsElapsedSnow = 0;
-        //public int fullScreenEffectTimerMilliSecondsElapsedSandstorm = 0;
-        //public int fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
-        //public string rainType = "";
-        //public string cloudType = "";
-        //public string fogType = "";
-        //public string snowType = "";
-        //public string sandstormType = "";
-        //public int smoothMoveCounter = 0;
-        //public bool useLargeLayout = true;
-                
+
         public GameView()
         {
             InitializeComponent();
@@ -178,8 +115,6 @@ namespace IceBlink2mini
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseWheel);
             mainDirectory = Directory.GetCurrentDirectory();
 
-            //this.IceBlinkButtonClose.setupAll(this);
-            //this.IceBlinkButtonResize.setupAll(this);
             try
             {
                 playerButtonClick.SoundLocation = mainDirectory + "\\default\\NewModule\\sounds\\btn_click.wav";
@@ -236,8 +171,6 @@ namespace IceBlink2mini
             InitializeRenderer(); //uncomment this for DIRECT2D ADDITIONS
 
             //CREATES A FONTFAMILY
-            //ResetGDIFont();
-            //ResetDirect2DFont();
             fillCharList();
 
             fontWidth = (int)(4 * screenDensity);
@@ -469,46 +402,6 @@ namespace IceBlink2mini
 		    cc.stringMessageMainMap = cc.loadTextToString("MessageMainMap.txt");
 	    }
 
-        /*public void ResetGDIFont()
-        {
-            if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts\\" + mod.fontFilename))
-            {
-                family = LoadFontFamily(mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts\\" + mod.fontFilename, out myFonts);
-            }
-            else
-            {
-                family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Metamorphous-Regular.ttf", out myFonts);
-            }
-            float multiplr = (float)squareSize / 100.0f;
-            drawFontLarge = new Font(family, 24.0f * multiplr);
-            drawFontReg = new Font(family, 20.0f * multiplr);
-            drawFontSmall = new Font(family, 16.0f * multiplr);
-            drawFontLargeHeight = 32.0f * multiplr * mod.fontD2DScaleMultiplier;
-            drawFontRegHeight = 26.0f * multiplr * mod.fontD2DScaleMultiplier;
-            drawFontSmallHeight = 20.0f * multiplr * mod.fontD2DScaleMultiplier;
-        }*/
-        /*private FontFamily LoadFontFamily(string fileName, out PrivateFontCollection _myFonts)
-        {
-            //IN MEMORY _myFonts point to the myFonts created in the load event.
-            _myFonts = new PrivateFontCollection();//here is where we assing memory space to myFonts 
-            _myFonts.AddFontFile(fileName);//we add the full path of the ttf file
-            return _myFonts.Families[0];//returns the family object as usual.
-        }*/
-        /*private void ResetDirect2DFont()
-        {
-            string folderPath = "";
-            if (Directory.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts"))
-            {
-                folderPath = mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts";
-            }
-            else
-            {
-                folderPath = mainDirectory + "\\default\\NewModule\\fonts";
-            }
-            CurrentResourceFontLoader = new ResourceFontLoader(factoryDWrite, folderPath);
-            CurrentFontCollection = new SharpDX.DirectWrite.FontCollection(factoryDWrite, CurrentResourceFontLoader, CurrentResourceFontLoader.Key);
-            FontFamilyName = mod.fontName;
-        }*/
         private void fillCharList()
         {
             charList.Add('A', new SharpDX.RectangleF(fontWidth * 0, fontHeight * 0, fontWidth, fontHeight));
@@ -1054,96 +947,13 @@ namespace IceBlink2mini
             {
                 if (c == '\r') { continue; }
                 if (c == '\n') { continue; }
-                DrawD2DBitmap(bm, charList[c], new SharpDX.RectangleF(xLoc + x, yLoc + oYshift, fontWidth, fontHeight), 0.0f, false, 1.0f, 0, 0, 0, 0, true);
+                DrawD2DBitmap(bm, charList[c], new SharpDX.RectangleF(xLoc + x, yLoc, fontWidth, fontHeight), 0.0f, false, 1.0f, 0, 0, 0, 0, true);
                 x += fontWidth + fontCharSpacing;
             }
         }
-        /*public void CleanUpDrawTextResources()
-        {
-            if (textFormat != null)
-            {
-                textFormat.Dispose();
-                textFormat = null;
-            }
-            if (textLayout != null)
-            {
-                textLayout.Dispose();
-                textLayout = null;
-            }
-        }*/
-        /*public void DrawText(string text, float xLoc, float yLoc)
-        {
-            DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, SharpDX.Color.White, false);
-        }*/
-        /*public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor)
-        {
-            DrawText(text, x, y, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, fontColor, false);
-        }*/
-        /*public void DrawText(string text, float xLoc, float yLoc, float scaler, SharpDX.Color fontColor)
-        {
-            DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor, false);
-        }*/
-        /*public void DrawText(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
-        {
-            DrawText(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
-        }*/
-        /*public void DrawText(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
-        {
-            CleanUpDrawTextResources();
-            float thisFontHeight = drawFontRegHeight;
-            if (scaler > 1.05f)
-            {
-                thisFontHeight = drawFontLargeHeight;
-            }
-            else if (scaler < 0.95f)
-            {
-                thisFontHeight = drawFontSmallHeight;
-            }
-            RectangleF rectF = new RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
-            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
-            {
-                textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
-                textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
-                renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
-            }
-        }*/
-        /*public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor, bool isUnderlined)
-        {
-            CleanUpDrawTextResources();
-            float thisFontHeight = drawFontRegHeight;
-            if (scaler > 1.05f)
-            {
-                thisFontHeight = drawFontLargeHeight;
-            }
-            else if (scaler < 0.95f)
-            {
-                thisFontHeight = drawFontSmallHeight;
-            }
-            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
-            {
-                textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
-                textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
-                if (isUnderlined)
-                {
-                    textLayout.SetUnderline(true, new TextRange(0, text.Length - 1));
-                }
-                renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift), textLayout, scb, DrawTextOptions.None);
-            }
-        }*/
-        /*public void DrawRoundRectangle(IbRect rect, int rad, SharpDX.Color penColor, int penWidth)
-        {
-            RoundedRectangle r = new RoundedRectangle();
-            r.Rect = new SharpDX.RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
-            r.RadiusX = rad;
-            r.RadiusY = rad;
-            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, penColor))
-            {
-                renderTarget2D.DrawRoundedRectangle(r, scb, penWidth);
-            }
-        }*/
         public void DrawRectangle(IbRect rect, SharpDX.Color penColor, int penWidth)
         {
-            SharpDX.RectangleF r = new SharpDX.RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
+            SharpDX.RectangleF r = new SharpDX.RectangleF(rect.Left + oXshift, rect.Top + oYshift, rect.Width, rect.Height);
             using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, penColor))
             {
                 renderTarget2D.DrawRectangle(r, scb, penWidth);
@@ -1153,104 +963,28 @@ namespace IceBlink2mini
         {
             using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, penColor))
             {
-                renderTarget2D.DrawLine(new Vector2(lastX,lastY), new Vector2(nextX, nextY), scb, penWidth);
+                renderTarget2D.DrawLine(new Vector2(lastX + oXshift, lastY + oYshift), new Vector2(nextX + oXshift, nextY + oYshift), scb, penWidth);
             }
         }
-        /*public void DrawBitmapGDI(System.Drawing.Bitmap bitmap, IbRect source, IbRect target)
-        {
-            Rectangle tar = new Rectangle(target.Left, target.Top + oYshift, target.Width, target.Height);
-            Rectangle src = new Rectangle(source.Left, source.Top, source.Width, source.Height);
-            gCanvas.DrawImage(bitmap, tar, src, GraphicsUnit.Pixel);
-        }*/
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target)
         {
-            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
+            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
             DrawD2DBitmap(bitmap, src, tar);
         }
-        /*public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRectF source, IbRectF target)
-        {
-            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
-            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-            DrawD2DBitmap(bitmap, src, tar);
-        }*/
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, bool mirror)
         {
-            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
+            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
             DrawD2DBitmap(bitmap, src, tar, mirror);
         }
-        /*public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRectF source, IbRectF target, bool mirror)
-        {
-            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
-            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-            DrawD2DBitmap(bitmap, src, tar, mirror);
-        }*/
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, int angleInDegrees, bool mirror)
         {
-            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
+            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
             DrawD2DBitmap(bitmap, src, tar, angleInDegrees, mirror);
         }
-        /*public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror)
-        {
-            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
-            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-            DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror);
-        }*/
-        /*public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity)
-        {
-            //test
-            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
-            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-            DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity);
-        }*/
-        /*public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, int angleInDegrees, bool mirror, int Xshift, int Yshift)
-        {
-            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
-            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-            DrawD2DBitmap(bitmap, src, tar, angleInDegrees, mirror, Xshift, Yshift, 0, 0);
-        }*/
-        /*public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, int Xshift, int Yshift)
-        {
-            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
-            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-            DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, Xshift, Yshift, 0, 0);
-        }*/
-        /*public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, int angleInDegrees, bool mirror, int Xshift, int Yshift, int Xscale, int Yscale)
-        {
-            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
-            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-            DrawD2DBitmap(bitmap, src, tar, angleInDegrees, mirror, Xshift, Yshift, Xscale, Yscale);
-        }*/
-        /*public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, int Xshift, int Yshift, int Xscale, int Yscale)
-        {
-            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
-            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-            DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, Xshift, Yshift, Xscale, Yscale);
-        }*/
-        /*public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, bool mirror, float opac)
-        {
-            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
-            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-            //calling new overloaded draw that takes in opacity, too
-            DrawD2DBitmap(bitmap, src, tar, mirror, opac);
-        }*/
-        /*public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRectF source, IbRectF target, bool mirror, float opac)
-        {
-            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
-            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-            //calling new overloaded draw that takes in opacity, too
-            DrawD2DBitmap(bitmap, src, tar, mirror, opac);
-        }*/
-        /*public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, bool mirror, float opac, bool NearestNeighbourInterpolation)
-        {
-            SharpDX.Rectangle tar = new SharpDX.Rectangle(target.Left, target.Top + oYshift, target.Width, target.Height);
-            SharpDX.Rectangle src = new SharpDX.Rectangle(source.Left, source.Top, source.Width, source.Height);
-            //calling new overloaded draw that takes in opacity, too
-            DrawD2DBitmap(bitmap, src, tar, mirror, opac, NearestNeighbourInterpolation);
-        }*/
-
+        
         //DIRECT2D STUFF
         public void InitializeRenderer()
         {
@@ -1449,14 +1183,14 @@ namespace IceBlink2mini
             if (mod.debugMode)
             {
                 int txtH = (int)fontHeight;
-                for (int x = -2; x <= 2; x++)
+                for (int x = 0; x <= 2; x++)
                 {
-                    for (int y = -2; y <= 2; y++)
+                    for (int y = 0; y <= 2; y++)
                     {
-                        DrawText("FPS:" + fps.ToString(), x + 5, screenHeight - txtH - 5 + y - oYshift, "bk");
+                        DrawText("FPS:" + fps.ToString(), x + 5, screenHeight - txtH - 5 + y, "bk");
                     }
                 }
-                DrawText("FPS:" + fps.ToString(), 5, screenHeight - txtH - 5 - oYshift, "wh");
+                DrawText("FPS:" + fps.ToString(), 5, screenHeight - txtH - 5, "wh");
             }
             if (itemListSelector.showIBminiItemListSelector)
             {
@@ -1464,16 +1198,16 @@ namespace IceBlink2mini
             }
             EndDraw(); //uncomment this for DIRECT2D ADDITIONS
         }
-        private void RenderCallback()
+        /*private void RenderCallback()
         {
             Render();
-        }
+        }*/
         public void drawUIBackground()
         {
             try
             {
                 IbRect src = new IbRect(0, 0, cc.ui_bg_fullscreen.PixelSize.Width, cc.ui_bg_fullscreen.PixelSize.Height);
-                IbRect dst = new IbRect(0, 0, screenWidth, screenHeight - oYshift);
+                IbRect dst = new IbRect(0 - oXshift, 0 - oYshift, screenWidth, screenHeight);
                 DrawBitmap(cc.ui_bg_fullscreen, src, dst);
             }
             catch
@@ -1484,10 +1218,6 @@ namespace IceBlink2mini
         {
             DrawD2DBitmap(bitmap, source, target, false);
         }
-        /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int ibmini)
-        {
-            DrawD2DBitmap(bitmap, source, target, 0.0f, false, 1.0f, 0, 0, 0, 0, true);
-        }*/
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror)
         {
             DrawD2DBitmap(bitmap, source, target, 0.0f, mirror, 1.0f , 0, 0, 0, 0, false);
@@ -1499,36 +1229,6 @@ namespace IceBlink2mini
             DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, 1.0f, 0, 0, 0, 0, false);
             //DrawD2DBitmap(bitmap, source, target, angleInDegrees, mirror, 1.0f, 0, 0, 0, 0, false);
         }
-        /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror)
-        {
-            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, 1.0f, 0, 0, 0, 0, false);
-        }*/
-        /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opacity)
-        {
-            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opacity, 0, 0, 0, 0, false);
-        }*/
-        /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror, float opac)
-        {
-            DrawD2DBitmap(bitmap, source, target, 0, mirror, opac, 0, 0, 0, 0, false);
-        }*/
-        /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror, float opac, bool NearestNeighbourInterpolation)
-        {
-            DrawD2DBitmap(bitmap, source, target, 0, mirror, opac, 0, 0, 0, 0, NearestNeighbourInterpolation);
-        }*/
-        /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror, int Xshift, int Yshift, int Xscale, int Yscale)
-        {
-            DrawD2DBitmap(bitmap, source, target, angleInDegrees, mirror, 1.0f, Xshift, Yshift, Xscale, Yscale, false);
-        }*/
-        /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, int Xshift, int Yshift, int Xscale, int Yscale)
-        {
-            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, 1.0f, Xshift, Yshift, Xscale, Yscale, false);
-        }*/
-        /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation)
-        {
-            //convert degrees to radians
-            float angleInRadians = (float)(Math.PI * 2 * (float)angleInDegrees / (float)360);
-            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opac, Xshift, Yshift, Xscale, Yscale, false);
-        }*/
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation)
         {
             int mir = 1;
@@ -1540,7 +1240,7 @@ namespace IceBlink2mini
 
             Vector2 center = new Vector2(target.Left + (target.Width / 2), target.Top + (target.Height / 2));
             renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(mir * xscl, yscl), center, angleInRadians, new Vector2(xshf, yshf));
-            SharpDX.RectangleF trg = new SharpDX.RectangleF(target.Left, target.Top, target.Width, target.Height);
+            SharpDX.RectangleF trg = new SharpDX.RectangleF(target.Left + oXshift, target.Top + oYshift, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
 
             /*
@@ -1568,6 +1268,7 @@ namespace IceBlink2mini
         public bool formMoveable = false;
         public System.Drawing.Point currentPosition;
         public System.Drawing.Point startPosition;
+
         private void GameView_MouseWheel(object sender, MouseEventArgs e)
         {
             if (showMessageBox)
@@ -1590,20 +1291,12 @@ namespace IceBlink2mini
                 startPosition.Y = e.Y;
                 return;
             }
-            if ((screenType.Equals("main")) || (screenType.Equals("combat")))
-            {
-                //TODO log.onMouseDown(sender, e);
-            }
             onMouseEvent(sender, e, MouseEventType.EventType.MouseDown);
         }
         private void GameView_MouseUp(object sender, MouseEventArgs e)
         {
             formMoveable = false;
             Cursor.Current = Cursors.Default;
-            if ((screenType.Equals("main")) || (screenType.Equals("combat")))
-            {
-                //TODO log.onMouseUp(sender, e);
-            }
             onMouseEvent(sender, e, MouseEventType.EventType.MouseUp);
         }
         private void GameView_MouseMove(object sender, MouseEventArgs e)
@@ -1622,11 +1315,6 @@ namespace IceBlink2mini
                 this.Location = newPosition;
                 return;
             }
-
-            if ((screenType.Equals("main")) || (screenType.Equals("combat")))
-            {
-                //TODO log.onMouseMove(sender, e);
-            }
             onMouseEvent(sender, e, MouseEventType.EventType.MouseMove);
         }
         private void GameView_MouseClick(object sender, MouseEventArgs e)
@@ -1637,109 +1325,111 @@ namespace IceBlink2mini
         {
             try 
             {
+                int eX = e.X - oXshift;
+                int eY = e.Y - oYshift;
                 //do only itemListSelector if visible
                 if (itemListSelector.showIBminiItemListSelector)
                 {
-                    itemListSelector.onTouchItemListSelection(e, eventType);
+                    itemListSelector.onTouchItemListSelection(eX, eY, e, eventType);
                     return;
                 }
                 if (touchEnabled)
                 {
                     if (screenType.Equals("main"))
                     {
-                        screenMainMap.onTouchMain(e, eventType);	
+                        screenMainMap.onTouchMain(eX, eY, e, eventType);	
                     }
                     else if (screenType.Equals("launcher"))
                     {
-                        screenLauncher.onTouchLauncher(e, eventType);
+                        screenLauncher.onTouchLauncher(eX, eY, e, eventType);
                     }
                     else if (screenType.Equals("pcCreation"))
                     {
-                        screenPcCreation.onTouchPcCreation(e, eventType);
+                        screenPcCreation.onTouchPcCreation(eX, eY, e, eventType);
                     }
                     else if (screenType.Equals("learnSpellCreation"))
                     {
-                        screenSpellLevelUp.onTouchSpellLevelUp(e, eventType, true);   	
+                        screenSpellLevelUp.onTouchSpellLevelUp(eX, eY, e, eventType, true);   	
                     }
                     else if (screenType.Equals("learnSpellLevelUp"))
                     {
-                        screenSpellLevelUp.onTouchSpellLevelUp(e, eventType, false);     	
+                        screenSpellLevelUp.onTouchSpellLevelUp(eX, eY, e, eventType, false);     	
                     }
                     else if (screenType.Equals("learnTraitCreation"))
                     {
-                        screenTraitLevelUp.onTouchTraitLevelUp(e, eventType, true);   	
+                        screenTraitLevelUp.onTouchTraitLevelUp(eX, eY, e, eventType, true);   	
                     }
                     else if (screenType.Equals("learnTraitLevelUp"))
                     {
-                        screenTraitLevelUp.onTouchTraitLevelUp(e, eventType, false);     	
+                        screenTraitLevelUp.onTouchTraitLevelUp(eX, eY, e, eventType, false);     	
                     }
                     else if (screenType.Equals("title"))
                     {
-                        screenTitle.onTouchTitle(e, eventType);
+                        screenTitle.onTouchTitle(eX, eY, e, eventType);
                     }
                     else if (screenType.Equals("party"))
                     {
-                        screenParty.onTouchParty(e, eventType, false);
+                        screenParty.onTouchParty(eX, eY, e, eventType, false);
                     }
                     else if (screenType.Equals("combatParty"))
                     {
-                        screenParty.onTouchParty(e, eventType, true);
+                        screenParty.onTouchParty(eX, eY, e, eventType, true);
                     }
                     else if (screenType.Equals("inventory"))
                     {
-                        screenInventory.onTouchInventory(e, eventType, false);
+                        screenInventory.onTouchInventory(eX, eY, e, eventType, false);
                     }
                     else if (screenType.Equals("combatInventory"))
                     {
-                        screenInventory.onTouchInventory(e, eventType, true);
+                        screenInventory.onTouchInventory(eX, eY, e, eventType, true);
                     }
                     else if (screenType.Equals("itemSelector"))
                     {
-                        screenItemSelector.onTouchItemSelector(e, eventType);
+                        screenItemSelector.onTouchItemSelector(eX, eY, e, eventType);
                     }
                     else if (screenType.Equals("portraitSelector"))
                     {
-                        screenPortraitSelector.onTouchPortraitSelector(e, eventType);
+                        screenPortraitSelector.onTouchPortraitSelector(eX, eY, e, eventType);
                     }
                     else if (screenType.Equals("tokenSelector"))
                     {
-                        screenTokenSelector.onTouchTokenSelector(e, eventType);
+                        screenTokenSelector.onTouchTokenSelector(eX, eY, e, eventType);
                     }
                     else if (screenType.Equals("pcSelector"))
                     {
-                        screenPcSelector.onTouchPcSelector(e, eventType);
+                        screenPcSelector.onTouchPcSelector(eX, eY, e, eventType);
                     }
                     else if (screenType.Equals("journal"))
                     {
-                        screenJournal.onTouchJournal(e, eventType);
+                        screenJournal.onTouchJournal(eX, eY, e, eventType);
                     }
                     else if (screenType.Equals("shop"))
                     {
-                        screenShop.onTouchShop(e, eventType);
+                        screenShop.onTouchShop(eX, eY, e, eventType);
                     }
                     else if (screenType.Equals("combat"))
                     {
-                        screenCombat.onTouchCombat(e, eventType);
+                        screenCombat.onTouchCombat(eX, eY, e, eventType);
                     }
                     else if (screenType.Equals("combatCast"))
                     {
-                        screenCastSelector.onTouchCastSelector(e, eventType, true);
+                        screenCastSelector.onTouchCastSelector(eX, eY, e, eventType, true);
                     }
                     else if (screenType.Equals("mainMapCast"))
                     {
-                        screenCastSelector.onTouchCastSelector(e, eventType, false);
+                        screenCastSelector.onTouchCastSelector(eX, eY, e, eventType, false);
                     }
                     else if (screenType.Equals("convo"))
                     {
-                        screenConvo.onTouchConvo(e, eventType);
+                        screenConvo.onTouchConvo(eX, eY, e, eventType);
                     }
                     else if (screenType.Equals("partyBuild"))
                     {
-                        screenPartyBuild.onTouchPartyBuild(e, eventType);
+                        screenPartyBuild.onTouchPartyBuild(eX, eY, e, eventType);
                     }
                     else if (screenType.Equals("partyRoster"))
                     {
-                        screenPartyRoster.onTouchPartyRoster(e, eventType);
+                        screenPartyRoster.onTouchPartyRoster(eX, eY, e, eventType);
                     }
                 }
             }
@@ -1801,18 +1491,6 @@ namespace IceBlink2mini
         }
 
         //ON FORM CLOSING
-        private void GameView_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            /*DialogResult dlg = IBMessageBox.Show(this, "Are you sure you wish to exit?", enumMessageButton.YesNo);
-            if (dlg == DialogResult.Yes)
-            {
-                e.Cancel = false;
-            }
-            if (dlg == DialogResult.No)
-            {
-                e.Cancel = true;
-            }*/
-        }
         public void doVerifyClosingSetup()
         {
             List<string> actionList = new List<string> { "Yes, Exit", "No, Keep Playing" };
@@ -1846,11 +1524,6 @@ namespace IceBlink2mini
                 writer.Write(DateTime.Now + ": ");
                 writer.WriteLine(text);
             }
-        }
-
-        private void GameView_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

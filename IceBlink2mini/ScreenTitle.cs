@@ -93,7 +93,7 @@ namespace IceBlink2mini
             float dstHeight = ((float)gv.screenWidth / (float)gv.cc.GetFromBitmapList("title").PixelSize.Width) * (float)gv.cc.GetFromBitmapList("title").PixelSize.Height;
             //do narration with image setup    	
             IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList("title").PixelSize.Width, gv.cc.GetFromBitmapList("title").PixelSize.Height);
-            IbRect dst = new IbRect(0, 0, gv.screenWidth, (int)dstHeight);
+            IbRect dst = new IbRect(0 - gv.oXshift, 0 - gv.oYshift, gv.screenWidth, (int)dstHeight);
             gv.DrawBitmap(gv.cc.GetFromBitmapList("title"), src, dst);
 
             //Draw This Module's Version Number
@@ -115,7 +115,7 @@ namespace IceBlink2mini
 		    btnBeginnerGuide.Draw();           
 		    btnAbout.Draw();
 	    }
-        public void onTouchTitle(MouseEventArgs e, MouseEventType.EventType eventType)
+        public void onTouchTitle(int eX, int eY, MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
     	    btnNewGame.glowOn = false;
 		    btnLoadSavedGame.glowOn = false;
@@ -130,8 +130,8 @@ namespace IceBlink2mini
             switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseUp:
-                int x = (int)e.X;
-                int y = (int)e.Y;
+                int x = (int)eX;
+                int y = (int)eY;
 				
 			    btnNewGame.glowOn = false;
 			    btnLoadSavedGame.glowOn = false;
@@ -205,8 +205,8 @@ namespace IceBlink2mini
 
             case MouseEventType.EventType.MouseDown:
             case MouseEventType.EventType.MouseMove:
-                x = (int)e.X;
-                y = (int)e.Y;
+                x = (int)eX;
+                y = (int)eY;
 
                 if (gv.showMessageBox)
                 {

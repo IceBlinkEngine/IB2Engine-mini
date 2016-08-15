@@ -84,7 +84,7 @@ namespace IceBlink2mini
                 btn.Draw();
             }
         }        
-        public void onTouchItemListSelection(MouseEventArgs e, MouseEventType.EventType eventType)
+        public void onTouchItemListSelection(int eX, int eY, MouseEventArgs e, MouseEventType.EventType eventType)
         {
             //btnReturn.glowOn = false;
             foreach (IbbButton btn in btnSelections)
@@ -96,8 +96,8 @@ namespace IceBlink2mini
             {
                 case MouseEventType.EventType.MouseDown:
                 case MouseEventType.EventType.MouseMove:
-                    int x = (int)e.X;
-                    int y = (int)e.Y;
+                    int x = (int)eX;
+                    int y = (int)eY;
 
                     foreach (IbbButton btn in btnSelections)
                     {
@@ -109,8 +109,8 @@ namespace IceBlink2mini
                     break;
 
                 case MouseEventType.EventType.MouseUp:
-                    x = (int)e.X;
-                    y = (int)e.Y;
+                    x = (int)eX;
+                    y = (int)eY;
 
                     int index = 0;
                     foreach (IbbButton btn in btnSelections)

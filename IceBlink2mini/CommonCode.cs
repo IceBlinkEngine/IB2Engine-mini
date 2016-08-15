@@ -1730,7 +1730,7 @@ namespace IceBlink2mini
                 btnHelp.Text = "HELP";
                 btnHelp.Img = "btn_small"; // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnHelp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnHelp.X = 6 * gv.squareSize + padW * 1 + gv.oXshift;
+                btnHelp.X = 6 * gv.squareSize + padW * 1;
                 btnHelp.Y = 9 * gv.squareSize + pH * 2;
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -2125,7 +2125,7 @@ namespace IceBlink2mini
         public void addFloatyText(Coordinate coorInSquares, string value)
         {
             int txtH = (int)gv.fontHeight;
-            int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
+            int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2)) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
             Coordinate coor = new Coordinate(x, y);
             floatyTextList.Add(new FloatyText(coor, value));
@@ -2133,7 +2133,7 @@ namespace IceBlink2mini
         public void addFloatyText(Coordinate coorInSquares, string value, string color)
         {
             int txtH = (int)gv.fontHeight;
-            int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
+            int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2)) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
             Coordinate coor = new Coordinate(x, y);
             floatyTextList.Add(new FloatyText(coor, value, color));
@@ -2141,7 +2141,7 @@ namespace IceBlink2mini
         public void addFloatyText(Coordinate coorInSquares, string value, int shiftUp)
         {
             int txtH = (int)gv.fontHeight;
-            int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
+            int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2)) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2) - shiftUp;
             Coordinate coor = new Coordinate(x, y);
             floatyTextList.Add(new FloatyText(coor, value));
@@ -2603,7 +2603,7 @@ namespace IceBlink2mini
                 //set the currentPixel position of the props
                 int xOffSetInSquares = gv.mod.currentArea.Props[i].LocationX - gv.mod.PlayerLocationX;
                 int yOffSetInSquares = gv.mod.currentArea.Props[i].LocationY - gv.mod.PlayerLocationY;
-                int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                int playerPositionXInPix = gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
                 int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
 
                 gv.mod.currentArea.Props[i].currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);

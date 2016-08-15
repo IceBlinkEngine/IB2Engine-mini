@@ -181,17 +181,17 @@ namespace IceBlink2mini
 			
 			    if (y < 5)
 			    {
-				    btnNew.X = ((y + 2 + 4) * gv.squareSize) + (padW * (y * 2 + 1)) + gv.oXshift;
+				    btnNew.X = ((y + 2 + 4) * gv.squareSize) + (padW * (y * 2 + 1));
 				    btnNew.Y = 2 * gv.squareSize;
 			    }
 			    else if ((y >= 5 ) && (y < 10))
 			    {
-				    btnNew.X = ((y - 5 + 2 + 4) * gv.squareSize) + (padW * ((y - 5) * 2 + 1)) + gv.oXshift;
+				    btnNew.X = ((y - 5 + 2 + 4) * gv.squareSize) + (padW * ((y - 5) * 2 + 1));
 				    btnNew.Y = 4 * gv.squareSize + padW;
 			    }
 			    else
 			    {
-				    btnNew.X = ((y - 10 + 2 + 4) * gv.squareSize) + (padW * ((y - 10) * 2 + 1)) + gv.oXshift;
+				    btnNew.X = ((y - 10 + 2 + 4) * gv.squareSize) + (padW * ((y - 10) * 2 + 1));
 				    btnNew.Y = 6 * gv.squareSize + (padW * 2);
 			    }
 
@@ -254,7 +254,7 @@ namespace IceBlink2mini
 		    btnAction.Draw();
             btnExit.Draw();
         }
-        public void onTouchPortraitSelector(MouseEventArgs e, MouseEventType.EventType eventType)
+        public void onTouchPortraitSelector(int eX, int eY, MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
 		    btnPortraitsLeft.glowOn = false;
 		    btnPortraitsRight.glowOn = false;
@@ -265,8 +265,8 @@ namespace IceBlink2mini
 		    {
 		    case MouseEventType.EventType.MouseDown:
 		    case MouseEventType.EventType.MouseMove:
-			    int x = (int) e.X;
-			    int y = (int) e.Y;
+			    int x = (int) eX;
+			    int y = (int) eY;
 			    if (btnPortraitsLeft.getImpact(x, y))
 			    {
 				    btnPortraitsLeft.glowOn = true;
@@ -286,8 +286,8 @@ namespace IceBlink2mini
                 break;
 			
 		    case MouseEventType.EventType.MouseUp:
-			    x = (int) e.X;
-			    y = (int) e.Y;
+			    x = (int) eX;
+			    y = (int) eY;
 			
 			    btnPortraitsLeft.glowOn = false;
 			    btnPortraitsRight.glowOn = false;

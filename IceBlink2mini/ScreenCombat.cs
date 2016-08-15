@@ -2155,7 +2155,7 @@ namespace IceBlink2mini
                     {
                         int shiftY = srcLyr.Top / gv.squareSizeInPixels;
                         int shiftX = srcLyr.Left / gv.squareSizeInPixels;
-                        int tlX = ((x + shiftX) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
+                        int tlX = ((x + shiftX) * gv.squareSize) + mapStartLocXinPixels;
                         int tlY = (y + shiftY) * gv.squareSize;
                         float scalerX = srcLyr.Width / gv.tileSizeInPixels;
                         float scalerY = srcLyr.Height / gv.tileSizeInPixels;
@@ -2181,7 +2181,7 @@ namespace IceBlink2mini
                     {
                         int shiftY = srcLyr.Top / gv.squareSizeInPixels;
                         int shiftX = srcLyr.Left / gv.squareSizeInPixels;
-                        int tlX = ((x + shiftX) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
+                        int tlX = ((x + shiftX) * gv.squareSize) + mapStartLocXinPixels;
                         int tlY = (y + shiftY) * gv.squareSize;
                         float scalerX = srcLyr.Width / gv.tileSizeInPixels;
                         float scalerY = srcLyr.Height / gv.tileSizeInPixels;
@@ -2209,7 +2209,7 @@ namespace IceBlink2mini
                         {
                             int shiftY = srcLyr.Top / gv.squareSizeInPixels;
                             int shiftX = srcLyr.Left / gv.squareSizeInPixels;
-                            int tlX = ((x + shiftX) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
+                            int tlX = ((x + shiftX) * gv.squareSize) + mapStartLocXinPixels;
                             int tlY = (y + shiftY) * gv.squareSize;
                             float scalerX = srcLyr.Width / gv.tileSizeInPixels;
                             float scalerY = srcLyr.Height / gv.tileSizeInPixels;
@@ -2234,7 +2234,7 @@ namespace IceBlink2mini
                     {
                         //TileEnc tile = mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x];
 
-                        int tlX = (x * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
+                        int tlX = (x * gv.squareSize) + mapStartLocXinPixels;
                         int tlY = y * gv.squareSize;
                         int brX = gv.squareSize;
                         int brY = gv.squareSize;
@@ -2373,9 +2373,9 @@ namespace IceBlink2mini
             {
                 //Uses the Screen Pixel Locations
                 int endX = getPixelLocX(targetHighlightCenterLocation.X) + (gv.squareSize / 2);
-                int endY = getPixelLocY(targetHighlightCenterLocation.Y) + (gv.squareSize / 2) + gv.oYshift;
+                int endY = getPixelLocY(targetHighlightCenterLocation.Y) + (gv.squareSize / 2);
                 int startX = getPixelLocX(p.combatLocX) + (gv.squareSize / 2);
-                int startY = getPixelLocY(p.combatLocY) + (gv.squareSize / 2) + gv.oYshift;
+                int startY = getPixelLocY(p.combatLocY) + (gv.squareSize / 2);
                 //Uses the Map Pixel Locations
                 int endX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
                 int endY2 = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
@@ -2658,7 +2658,7 @@ namespace IceBlink2mini
         public void drawOverlayTints()
         {
             IbRect src = new IbRect(0, 0, gv.cc.tint_sunset.PixelSize.Width, gv.cc.tint_sunset.PixelSize.Height);
-            IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * (gv.playerOffsetX + gv.playerOffsetX + 1), gv.squareSize * (gv.playerOffsetY + gv.playerOffsetY + 2));
+            IbRect dst = new IbRect(mapStartLocXinPixels, 0, gv.squareSize * (gv.playerOffsetX + gv.playerOffsetX + 1), gv.squareSize * (gv.playerOffsetY + gv.playerOffsetY + 2));
             int dawn = 5 * 60;
             int sunrise = 6 * 60;
             int day = 7 * 60;
@@ -2935,7 +2935,7 @@ namespace IceBlink2mini
         #endregion
 
         #region Mouse Input
-        public void onTouchCombat(MouseEventArgs e, MouseEventType.EventType eventType)
+        public void onTouchCombat(int eX, int eY, MouseEventArgs e, MouseEventType.EventType eventType)
         {
             if (gv.showMessageBox)
             {
@@ -2945,8 +2945,8 @@ namespace IceBlink2mini
             {
                 case MouseEventType.EventType.MouseDown:
                 case MouseEventType.EventType.MouseMove:
-                    int x = (int)e.X;
-                    int y = (int)e.Y;
+                    int x = (int)eX;
+                    int y = (int)eY;
 
                     if (gv.showMessageBox)
                     {
@@ -2957,13 +2957,13 @@ namespace IceBlink2mini
                     }
 
                     //NEW SYSTEM
-                    combatUiLayout.setHover(x - gv.oXshift, y - gv.oYshift);
+                    combatUiLayout.setHover(x, y);
 
-                    int gridx = (int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize;
-                    int gridy = (int)(e.Y - gv.oYshift) / gv.squareSize;
+                    int gridx = (int)(eX - mapStartLocXinPixels) / gv.squareSize;
+                    int gridy = (int)(eY) / gv.squareSize;
 
                     #region FloatyText
-                    if (IsInCombatWindow(e.X, e.Y))
+                    if (IsInCombatWindow(eX, eY))
                     {
                         gv.cc.floatyText = "";
                         gv.cc.floatyText2 = "";
@@ -3009,8 +3009,8 @@ namespace IceBlink2mini
                     break;
 
                 case MouseEventType.EventType.MouseUp:
-                    x = (int)e.X;
-                    y = (int)e.Y;
+                    x = (int)eX;
+                    y = (int)eY;
 
                     if (gv.showMessageBox)
                     {
@@ -3029,7 +3029,7 @@ namespace IceBlink2mini
                     Player pc = mod.playerList[currentPlayerIndex];
 
                     //NEW SYSTEM
-                    string rtn = combatUiLayout.getImpact(x - gv.oXshift, y - gv.oYshift);
+                    string rtn = combatUiLayout.getImpact(x, y);
                     //gv.cc.addLogText("lime", "mouse down: " + rtn);
 
                     #region Toggles
@@ -3147,8 +3147,8 @@ namespace IceBlink2mini
                     #endregion
 
                     #region TOUCH ON MAP AREA
-                    gridx = ((int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize);
-                    gridy = ((int)(e.Y - gv.oYshift) / gv.squareSize);
+                    gridx = ((int)(eX - mapStartLocXinPixels) / gv.squareSize);
+                    gridy = ((int)(eY) / gv.squareSize);
 
                     gv.cc.floatyText = "";
                     gv.cc.floatyText2 = "";
@@ -3174,7 +3174,7 @@ namespace IceBlink2mini
                     #endregion
 
                     #region BUTTONS
-                    if ((rtn.Equals("ctrlUpArrow")) || ((gridx == pc.combatLocX) && (gridy == pc.combatLocY - 1) && (IsInCombatWindow(e.X,e.Y))))
+                    if ((rtn.Equals("ctrlUpArrow")) || ((gridx == pc.combatLocX) && (gridy == pc.combatLocY - 1) && (IsInCombatWindow(eX,eY))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3185,7 +3185,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(8);
                         }
                     }
-                    else if ((rtn.Equals("ctrlDownArrow")) || ((gridx == pc.combatLocX) && (gridy == pc.combatLocY + 1) && (IsInCombatWindow(e.X, e.Y))))
+                    else if ((rtn.Equals("ctrlDownArrow")) || ((gridx == pc.combatLocX) && (gridy == pc.combatLocY + 1) && (IsInCombatWindow(eX, eY))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3196,7 +3196,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(2);
                         }
                     }
-                    else if ((rtn.Equals("ctrlLeftArrow")) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY) && (IsInCombatWindow(e.X, e.Y))))
+                    else if ((rtn.Equals("ctrlLeftArrow")) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY) && (IsInCombatWindow(eX, eY))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3207,7 +3207,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(4);
                         }
                     }
-                    else if ((rtn.Equals("ctrlRightArrow")) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY) && (IsInCombatWindow(e.X, e.Y))))
+                    else if ((rtn.Equals("ctrlRightArrow")) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY) && (IsInCombatWindow(eX, eY))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3218,7 +3218,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(6);
                         }
                     }
-                    else if ((rtn.Equals("ctrlUpRightArrow")) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY - 1) && (IsInCombatWindow(e.X, e.Y))))
+                    else if ((rtn.Equals("ctrlUpRightArrow")) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY - 1) && (IsInCombatWindow(eX, eY))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3229,7 +3229,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(9);
                         }
                     }
-                    else if ((rtn.Equals("ctrlDownRightArrow")) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY + 1) && (IsInCombatWindow(e.X, e.Y))))
+                    else if ((rtn.Equals("ctrlDownRightArrow")) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY + 1) && (IsInCombatWindow(eX, eY))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3240,7 +3240,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(3);
                         }
                     }
-                    else if ((rtn.Equals("ctrlUpLeftArrow")) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY - 1) && (IsInCombatWindow(e.X, e.Y))))
+                    else if ((rtn.Equals("ctrlUpLeftArrow")) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY - 1) && (IsInCombatWindow(eX, eY))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3251,7 +3251,7 @@ namespace IceBlink2mini
                             MoveTargetHighlight(7);
                         }
                     }
-                    else if ((rtn.Equals("ctrlDownLeftArrow")) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY + 1) && (IsInCombatWindow(e.X, e.Y))))
+                    else if ((rtn.Equals("ctrlDownLeftArrow")) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY + 1) && (IsInCombatWindow(eX, eY))))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -3384,10 +3384,10 @@ namespace IceBlink2mini
         public bool IsInCombatWindow(int mouseX, int mouseY)
         {
             //all coordinates in screen location pixels
-            int top = gv.oYshift;
-            int bottom = gv.oYshift + (gv.squareSize * 11);
-            int left = gv.oXshift + mapStartLocXinPixels;
-            int right = gv.oXshift + mapStartLocXinPixels + (gv.squareSize * 11);
+            int top = 0;
+            int bottom = (gv.squareSize * 11);
+            int left = mapStartLocXinPixels;
+            int right = mapStartLocXinPixels + (gv.squareSize * 11);
             if ((mouseX >= left) && (mouseX <= right) && (mouseY >= top) && (mouseY <= bottom))
             {
                 return true;
@@ -4004,7 +4004,7 @@ namespace IceBlink2mini
         }*/
         public int getPixelLocX(int sqrX)
         {
-            return ((sqrX) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
+            return ((sqrX) * gv.squareSize) + mapStartLocXinPixels;
             //return ((sqrX - UpperLeftSquare.X) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
         }
         public int getPixelLocY(int sqrY)
@@ -4199,7 +4199,7 @@ namespace IceBlink2mini
         public int getGridX(Coordinate nextPoint)
         {
             //int gridx = ((nextPoint.X - mapStartLocXinPixels - gv.oXshift) / gv.squareSize) + UpperLeftSquare.X;
-            int gridx = ((nextPoint.X - mapStartLocXinPixels - gv.oXshift) / gv.squareSize);
+            int gridx = ((nextPoint.X - mapStartLocXinPixels) / gv.squareSize);
             if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
             if (gridx < 0) { gridx = 0; }
             return gridx;
@@ -4207,7 +4207,7 @@ namespace IceBlink2mini
         public int getGridY(Coordinate nextPoint)
         {
             //int gridy = ((nextPoint.Y - gv.oYshift) / gv.squareSize) + UpperLeftSquare.Y;
-            int gridy = ((nextPoint.Y - gv.oYshift) / gv.squareSize);
+            int gridy = ((nextPoint.Y) / gv.squareSize);
             if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
             if (gridy < 0) { gridy = 0; }
             return gridy;
@@ -4374,7 +4374,7 @@ namespace IceBlink2mini
                         //do your checks here for LoS blocking
                         int gridx = getGridX(nextPoint);
                         int gridy = getGridY(nextPoint);
-                        gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
+                        gv.DrawLine(lastX, lastY, nextPoint.X, nextPoint.Y, penColor, penWidth);
                         if (mod.currentEncounter.LoSBlocked[gridy * mod.currentEncounter.MapSizeX + gridx] == 1)
                         {
                             return false;
@@ -4399,7 +4399,7 @@ namespace IceBlink2mini
                         //do your checks here for LoS blocking
                         int gridx = getGridX(nextPoint);
                         int gridy = getGridY(nextPoint);
-                        gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
+                        gv.DrawLine(lastX, lastY, nextPoint.X, nextPoint.Y, penColor, penWidth);
                         if (mod.currentEncounter.LoSBlocked[gridy * mod.currentEncounter.MapSizeX + gridx] == 1)
                         {
                             return false;
@@ -4433,7 +4433,7 @@ namespace IceBlink2mini
                         //do your checks here for LoS blocking
                         int gridx = getGridX(nextPoint);
                         int gridy = getGridY(nextPoint);
-                        gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
+                        gv.DrawLine(lastX, lastY, nextPoint.X, nextPoint.Y, penColor, penWidth);
                         if (mod.currentEncounter.LoSBlocked[gridy * mod.currentEncounter.MapSizeX + gridx] == 1)
                         {
                             return false;
@@ -4458,7 +4458,7 @@ namespace IceBlink2mini
                         //do your checks here for LoS blocking
                         int gridx = getGridX(nextPoint);
                         int gridy = getGridY(nextPoint);
-                        gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
+                        gv.DrawLine(lastX, lastY, nextPoint.X, nextPoint.Y, penColor, penWidth);
                         if (mod.currentEncounter.LoSBlocked[gridy * mod.currentEncounter.MapSizeX + gridx] == 1)
                         {
                             return false;

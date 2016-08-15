@@ -50,7 +50,7 @@ namespace IceBlink2mini
                 IbbButton btnNew = new IbbButton(gv, 1.0f);
                 btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
                 btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnNew.X = ((x) * gv.squareSize) + (padW * (x + 1)) + gv.oXshift;
+                btnNew.X = ((x) * gv.squareSize) + (padW * (x + 1));
                 btnNew.Y = pH * 2;
                 btnNew.Height = (int)(50 * gv.screenDensity);
                 btnNew.Width = (int)(50 * gv.screenDensity);
@@ -135,7 +135,7 @@ namespace IceBlink2mini
                         
             btnReturn.Draw();
         }
-        public void onTouchPcSelector(MouseEventArgs e, MouseEventType.EventType eventType)
+        public void onTouchPcSelector(int eX, int eY, MouseEventArgs e, MouseEventType.EventType eventType)
         {
             btnReturn.glowOn = false;
 
@@ -143,8 +143,8 @@ namespace IceBlink2mini
             {
                 case MouseEventType.EventType.MouseDown:
                 case MouseEventType.EventType.MouseMove:
-                    int x = (int)e.X;
-                    int y = (int)e.Y;
+                    int x = (int)eX;
+                    int y = (int)eY;
 
                     if (btnReturn.getImpact(x, y))
                     {
@@ -153,8 +153,8 @@ namespace IceBlink2mini
                     break;
 
                 case MouseEventType.EventType.MouseUp:
-                    x = (int)e.X;
-                    y = (int)e.Y;
+                    x = (int)eX;
+                    y = (int)eY;
 
                     btnReturn.glowOn = false;
 

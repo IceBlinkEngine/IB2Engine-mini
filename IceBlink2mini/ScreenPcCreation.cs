@@ -53,8 +53,8 @@ namespace IceBlink2mini
             resetPC();
             setControlsStart();
             description = new IBminiTextBox(gv);
-            description.tbXloc = 0 * gv.squareSize + gv.oXshift;
-            description.tbYloc = 3 * gv.squareSize + gv.oYshift;
+            description.tbXloc = 0 * gv.squareSize;
+            description.tbYloc = 3 * gv.squareSize;
             description.tbWidth = 8 * gv.squareSize;
             description.tbHeight = 6 * gv.squareSize;
             description.showBoxBorder = false;
@@ -359,7 +359,7 @@ namespace IceBlink2mini
                 btnAbort.Text = "Abort";
                 btnAbort.Img = "btn_small"; // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnAbort.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnAbort.X = 8 * gv.squareSize + padW * 1 + gv.oXshift;
+                btnAbort.X = 8 * gv.squareSize + padW * 1;
                 btnAbort.Y = 9 * gv.squareSize + pH * 2;
                 btnAbort.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnAbort.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -470,7 +470,7 @@ namespace IceBlink2mini
                 gv.messageBox.onDrawLogBox();
             }
         }
-        public void onTouchPcCreation(MouseEventArgs e, MouseEventType.EventType eventType)
+        public void onTouchPcCreation(int eX, int eY, MouseEventArgs e, MouseEventType.EventType eventType)
         {
             btnRollStats.glowOn = false;
             btnFinished.glowOn = false;
@@ -487,8 +487,8 @@ namespace IceBlink2mini
             {
                 case MouseEventType.EventType.MouseDown:
                 case MouseEventType.EventType.MouseMove:
-                    int x = (int)e.X;
-                    int y = (int)e.Y;
+                    int x = (int)eX;
+                    int y = (int)eY;
 
                     if (gv.showMessageBox)
                     {
@@ -525,8 +525,8 @@ namespace IceBlink2mini
                     break;
 
                 case MouseEventType.EventType.MouseUp:
-                    x = (int)e.X;
-                    y = (int)e.Y;
+                    x = (int)eX;
+                    y = (int)eY;
 
                     btnRollStats.glowOn = false;
                     btnFinished.glowOn = false;

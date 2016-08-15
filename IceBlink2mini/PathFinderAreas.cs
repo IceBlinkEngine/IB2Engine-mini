@@ -158,7 +158,7 @@ namespace IceBlink2mini
                         {
                             yOffSetInSquares = pathNodes[pathNodes.Count - 1].Y - mod.PlayerLocationY;
                         }
-                        playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                        playerPositionXInPix = gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
                         playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
                         
                         callingProp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
@@ -194,7 +194,7 @@ namespace IceBlink2mini
                     {
                         yOffSetInSquares = pathNodes[pathNodes.Count - 1].Y - mod.PlayerLocationY;
                     }
-                    playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                    playerPositionXInPix = gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
                     playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
 
                     callingProp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));

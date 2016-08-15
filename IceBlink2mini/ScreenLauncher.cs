@@ -30,8 +30,8 @@ namespace IceBlink2mini
 		    setControlsStart();
             int pH = (int)((float)gv.screenHeight / 100.0f);
             description = new IBminiTextBox(gv);
-            description.tbXloc = 0 * gv.squareSize + gv.oXshift;
-            description.tbYloc = 6 * gv.squareSize + gv.oYshift;
+            description.tbXloc = 0 * gv.squareSize;
+            description.tbYloc = 6 * gv.squareSize;
             description.tbWidth = 16 * gv.squareSize;
             description.tbHeight = 6 * gv.squareSize;
             description.showBoxBorder = false;
@@ -119,8 +119,8 @@ namespace IceBlink2mini
 		    {
                 
                 string textToSpan = "<gn>Module Description</gn>" + "<br>";
-                description.tbXloc = 4 * gv.squareSize + gv.oXshift;
-                description.tbYloc = 6 * gv.squareSize + gv.oYshift;
+                description.tbXloc = 4 * gv.squareSize;
+                description.tbYloc = 6 * gv.squareSize;
                 description.tbWidth = 12 * gv.squareSize;
                 description.tbHeight = 6 * gv.squareSize;
                 textToSpan += moduleList[moduleIndex].moduleDescription;
@@ -138,7 +138,7 @@ namespace IceBlink2mini
 		    btnRight.Draw();
 		    btnModuleName.Draw();
 	    }
-        public void onTouchLauncher(MouseEventArgs e, MouseEventType.EventType eventType)
+        public void onTouchLauncher(int eX, int eY, MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
     	    btnLeft.glowOn = false;
     	    btnRight.glowOn = false;	
@@ -147,8 +147,8 @@ namespace IceBlink2mini
 		    switch (eventType)
 		    {
 		        case MouseEventType.EventType.MouseUp:
-			        int x = (int) e.X;
-			        int y = (int) e.Y;
+			        int x = (int) eX;
+			        int y = (int) eY;
 				
 			        btnLeft.glowOn = false;
 	    	        btnRight.glowOn = false;	
@@ -181,8 +181,8 @@ namespace IceBlink2mini
 		
 		        case MouseEventType.EventType.MouseMove:
 		        case MouseEventType.EventType.MouseDown:
-			        x = (int) e.X;
-			        y = (int) e.Y;
+			        x = (int) eX;
+			        y = (int) eY;
 				
 			        if (btnLeft.getImpact(x, y))
 			        {

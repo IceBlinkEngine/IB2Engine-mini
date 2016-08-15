@@ -132,7 +132,7 @@ namespace IceBlink2mini
 			    btnHelp.Text = "HELP";
 			    btnHelp.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnHelp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnHelp.X = 0 * gv.squareSize + padW * 1 + gv.oXshift;
+			    btnHelp.X = 0 * gv.squareSize + padW * 1;
 			    btnHelp.Y = 9 * gv.squareSize + pH * 2;
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
@@ -144,12 +144,12 @@ namespace IceBlink2mini
 			    btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    if (j < 5)
 			    {
-				    btnNew.X = ((j+2+4) * gv.squareSize) + (padW * (j+1)) + gv.oXshift;
+				    btnNew.X = ((j+2+4) * gv.squareSize) + (padW * (j+1));
 				    btnNew.Y = 6 * gv.squareSize;
 			    }
 			    else
 			    {
-				    btnNew.X = ((j-5+2+4) * gv.squareSize) + (padW * ((j-5)+1)) + gv.oXshift;
+				    btnNew.X = ((j-5+2+4) * gv.squareSize) + (padW * ((j-5)+1));
 				    btnNew.Y = 7 * gv.squareSize + padW;
 			    }
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -164,12 +164,12 @@ namespace IceBlink2mini
 			    btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    if (j < 5)
 			    {
-				    btnNew.X = ((j+2+4) * gv.squareSize) + (padW * (j+1)) + gv.oXshift;
+				    btnNew.X = ((j+2+4) * gv.squareSize) + (padW * (j+1));
 				    btnNew.Y = 2 * gv.squareSize;
 			    }
 			    else
 			    {
-				    btnNew.X = ((j-5+2+4) * gv.squareSize) + (padW * ((j-5)+1)) + gv.oXshift;
+				    btnNew.X = ((j-5+2+4) * gv.squareSize) + (padW * ((j-5)+1));
 				    btnNew.Y = 3 * gv.squareSize + padW;
 			    }
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -438,7 +438,7 @@ namespace IceBlink2mini
 		    }
 	    }
     
-        public void onTouchShop(MouseEventArgs e, MouseEventType.EventType eventType)
+        public void onTouchShop(int eX, int eY, MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
 		    btnInventoryLeft.glowOn = false;
 		    btnInventoryRight.glowOn = false;
@@ -455,8 +455,8 @@ namespace IceBlink2mini
 		    {
 		    case MouseEventType.EventType.MouseDown:
 		    case MouseEventType.EventType.MouseMove:
-			    int x = (int) e.X;
-			    int y = (int) e.Y;
+			    int x = (int) eX;
+			    int y = (int) eY;
 
                 if (gv.showMessageBox)
                 {
@@ -493,8 +493,8 @@ namespace IceBlink2mini
 			    break;
 			
 		    case MouseEventType.EventType.MouseUp:
-                x = (int)e.X;
-                y = (int)e.Y;
+                x = (int)eX;
+                y = (int)eY;
 			
 			    btnInventoryLeft.glowOn = false;
 			    btnInventoryRight.glowOn = false;

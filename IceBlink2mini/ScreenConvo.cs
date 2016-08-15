@@ -53,7 +53,7 @@ namespace IceBlink2mini
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
 			    btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
 			    btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnNew.X = ((x+5) * gv.squareSize) + (padW * (x+1)) + gv.oXshift;
+			    btnNew.X = ((x+5) * gv.squareSize) + (padW * (x+1));
 			    btnNew.Y = 9 * gv.squareSize + (pH * 2);
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);	
@@ -218,14 +218,14 @@ namespace IceBlink2mini
                 {
                     totalHeight += fl.lineHeight;
                 }*/
-                currentPcNodeRectList.Add(new IbRect(startX, startY + gv.oYshift, totalWidth, totalHeight));
+                currentPcNodeRectList.Add(new IbRect(startX, startY, totalWidth, totalHeight));
 
                 startY += totalHeight + pad;
                 cnt++;
             }
 	    }
 
-	    public void onTouchConvo(MouseEventArgs e, MouseEventType.EventType eventType)
+	    public void onTouchConvo(int eX, int eY, MouseEventArgs et, MouseEventType.EventType eventType)
 	    {
 		    pcNodeGlow = -1;
 		
@@ -233,8 +233,8 @@ namespace IceBlink2mini
 		    {
 		    case MouseEventType.EventType.MouseDown:
 		    case MouseEventType.EventType.MouseMove:
-			    int x = (int) e.X;
-			    int y = (int) e.Y;
+			    int x = (int) eX;
+			    int y = (int) eY;
 				
 			    int cnt = 1;
 			    foreach (IbRect r in currentPcNodeRectList)
@@ -252,8 +252,8 @@ namespace IceBlink2mini
 			    break;
 			
 		    case MouseEventType.EventType.MouseUp:
-			    x = (int) e.X;
-			    y = (int) e.Y;
+			    x = (int) eX;
+			    y = (int) eY;
 				
 			    pcNodeGlow = -1;
 			
