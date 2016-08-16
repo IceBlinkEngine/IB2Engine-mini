@@ -1433,7 +1433,7 @@ namespace IceBlink2mini
                         toReturn.moduleConvoList.Add(cnv);
                     }
                     //Read in the images
-                    gv.bsc.listImages.Clear();
+                    commonBitmapList.Clear();
                     ImageData imd;
                     for (int i = 0; i < 9999; i++)
                     {
@@ -1442,8 +1442,7 @@ namespace IceBlink2mini
                         {
                             break;
                         }
-                        imd = (ImageData)JsonConvert.DeserializeObject(s, typeof(ImageData));
-                        commonBitmapList.Clear();
+                        imd = (ImageData)JsonConvert.DeserializeObject(s, typeof(ImageData));                        
                         commonBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
                     }
                 }
