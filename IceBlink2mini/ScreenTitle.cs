@@ -90,11 +90,11 @@ namespace IceBlink2mini
         public void redrawTitle()
         {                        
     	    //DRAW TITLE SCREEN
-            float dstHeight = ((float)gv.screenWidth / (float)gv.cc.GetFromBitmapList("title").PixelSize.Width) * (float)gv.cc.GetFromBitmapList("title").PixelSize.Height;
+            float dstHeight = ((float)gv.screenWidth / (float)gv.cc.GetFromBitmapList(gv.mod.titleImageName).PixelSize.Width) * (float)gv.cc.GetFromBitmapList(gv.mod.titleImageName).PixelSize.Height;
             //do narration with image setup    	
-            IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList("title").PixelSize.Width, gv.cc.GetFromBitmapList("title").PixelSize.Height);
+            IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(gv.mod.titleImageName).PixelSize.Width, gv.cc.GetFromBitmapList(gv.mod.titleImageName).PixelSize.Height);
             IbRect dst = new IbRect(0 - gv.oXshift, 0 - gv.oYshift, gv.screenWidth, (int)dstHeight);
-            gv.DrawBitmap(gv.cc.GetFromBitmapList("title"), src, dst);
+            gv.DrawBitmap(gv.cc.GetFromBitmapList(gv.mod.titleImageName), src, dst);
 
             //Draw This Module's Version Number
             int xLoc = (gv.screenWidth / 2) - 4;

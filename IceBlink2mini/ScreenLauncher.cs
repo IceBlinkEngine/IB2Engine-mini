@@ -54,7 +54,7 @@ namespace IceBlink2mini
                     }
                     moduleList.Add(mod);
                     //titleList.Add(gv.cc.LoadBitmap("title", mod));
-                    titleList.Add(gv.cc.GetFromBitmapList("title"));
+                    titleList.Add(gv.cc.GetFromBitmapList(gv.mod.titleImageName));
                 }
             }
         }

@@ -2330,10 +2330,10 @@ namespace IceBlink2mini
                 src = new IbRect(0, 0, gv.cc.GetFromBitmapList(pc.tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(pc.tokenFilename).PixelSize.Width);
                 foreach (Effect ef in pc.effectsList)
                 {
-                    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
-                    gv.DrawBitmap(fx, src, dst);
-                    gv.cc.DisposeOfBitmap(ref fx);
+                    //Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                    src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.spriteFilename), src, dst);
+                    //gv.cc.DisposeOfBitmap(ref fx);
                 }
                 if ((pc.isDead()) || (pc.isUnconcious()))
                 {
@@ -2420,10 +2420,10 @@ namespace IceBlink2mini
                 gv.DrawBitmap(gv.cc.GetFromBitmapList(crt.cr_tokenFilename), src, dst, !crt.combatFacingLeft);
                 foreach (Effect ef in crt.cr_effectsList)
                 {
-                    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
-                    gv.DrawBitmap(fx, src, dst);
-                    gv.cc.DisposeOfBitmap(ref fx);
+                    //Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                    src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.spriteFilename), src, dst);
+                    //gv.cc.DisposeOfBitmap(ref fx);
                 }
                 //CREATURE FACING
                 src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);

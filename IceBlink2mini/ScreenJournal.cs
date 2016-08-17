@@ -16,7 +16,7 @@ namespace IceBlink2mini
 	    public GameView gv;
 	    private int journalScreenQuestIndex = 0;
 	    private int journalScreenEntryIndex = 0;	
-	    private Bitmap journalBack;
+	    //private Bitmap journalBack;
 	    private IbbButton btnReturnJournal = null;
 	    public IbbButton ctrlUpArrow = null;
 	    public IbbButton ctrlDownArrow = null;
@@ -110,11 +110,11 @@ namespace IceBlink2mini
     	    int tabStartY = pH * 40;
     	
     	    //IF BACKGROUND IS NULL, LOAD IMAGE
-    	    if (journalBack == null)
-    	    {
-                gv.cc.DisposeOfBitmap(ref journalBack);
-                journalBack = gv.cc.LoadBitmap("journalback");
-    	    }
+    	    //if (journalBack == null)
+    	    //{
+                //gv.cc.DisposeOfBitmap(ref journalBack);
+                //journalBack = gv.cc.LoadBitmap("journalback");
+    	    //}
     	    //IF BUTTONS ARE NULL, LOAD BUTTONS
     	    if (btnReturnJournal == null)
     	    {
@@ -122,9 +122,9 @@ namespace IceBlink2mini
     	    }
     	
     	    //DRAW BACKGROUND IMAGE
-            IbRect src = new IbRect(0, 0, journalBack.PixelSize.Width, journalBack.PixelSize.Height);
+            IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList("journalback").PixelSize.Width, gv.cc.GetFromBitmapList("journalback").PixelSize.Height);
             IbRect dst = new IbRect(2 * gv.squareSize, 0, (gv.squaresInWidth - 4) * gv.squareSize, (gv.squaresInHeight - 1) * gv.squareSize);
-            gv.DrawBitmap(journalBack, src, dst);
+            gv.DrawBitmap(gv.cc.GetFromBitmapList("journalback"), src, dst);
         
             //MAKE SURE NO OUT OF INDEX ERRORS
     	    if (mod.partyJournalQuests.Count > 0)
@@ -264,7 +264,7 @@ namespace IceBlink2mini
 			    else if (btnReturnJournal.getImpact(x, y))
 			    {
 				    gv.screenType = "main";
-				    journalBack = null;
+				    //journalBack = null;
 				    btnReturnJournal = null;
 				    ctrlUpArrow = null;
 				    ctrlDownArrow = null;

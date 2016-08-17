@@ -15,6 +15,7 @@ namespace IceBlink2mini
     {
         public string moduleName = "none";
         public string moduleLabelName = "none";
+        public string titleImageName = "title";
         public int moduleVersion = 1;
         public string saveName = "empty";
         public string defaultPlayerFilename = "drin.json";
