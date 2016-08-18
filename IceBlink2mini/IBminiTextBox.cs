@@ -18,6 +18,7 @@ namespace IceBlink2mini
         public int tbXloc = 10;
         public int tbYloc = 10;
         public bool showBoxBorder = false;
+        public bool showShadow = false;
 
         public IBminiTextBox(GameView g, int locX, int locY, int width, int height)
         {
@@ -36,6 +37,16 @@ namespace IceBlink2mini
         {
             if ((y > -2) && (y <= tbHeight - gv.fontHeight))
             {
+                if (showShadow)
+                {
+                    for (int xx = 0; xx <= 2; xx++)
+                    {
+                        for (int yy = 0; yy <= 2; yy++)
+                        {
+                            gv.DrawText(text, x + tbXloc + xx, y + tbYloc + yy, "bk");
+                        }
+                    }
+                }
                 gv.DrawText(text, x + tbXloc, y + tbYloc, fontColor);
             }
         }
@@ -64,7 +75,7 @@ namespace IceBlink2mini
             }
         }
         
-        public void onDrawLogBox()
+        public void onDrawTextBox()
         {
             //only draw lines needed to fill textbox
             float xLoc = 0;

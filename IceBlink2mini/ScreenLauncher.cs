@@ -54,7 +54,7 @@ namespace IceBlink2mini
                     }
                     moduleList.Add(mod);
                     //titleList.Add(gv.cc.LoadBitmap("title", mod));
-                    titleList.Add(gv.cc.GetFromBitmapList(gv.mod.titleImageName));
+                    titleList.Add(gv.cc.GetFromBitmapList(mod.titleImageName));
                 }
             }
         }
@@ -126,7 +126,7 @@ namespace IceBlink2mini
                 textToSpan += moduleList[moduleIndex].moduleDescription;
                 description.linesList.Clear();
                 description.AddFormattedTextToTextBox(textToSpan);
-                description.onDrawLogBox();
+                description.onDrawTextBox();
                 
                 btnModuleName.Text = moduleList[moduleIndex].moduleLabelName;
 	    	    drawLauncherControls();

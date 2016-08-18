@@ -437,7 +437,7 @@ namespace IceBlink2mini
             //IbRect rect = new IbRect(tabX + gv.squareSize - pW, yLoc, pW * 35, pH * 50);            
             description.linesList.Clear();
             description.AddFormattedTextToTextBox(textToSpan);
-            description.onDrawLogBox();
+            description.onDrawTextBox();
             //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
 
             btnPortrait.Img = pc.portraitFilename;

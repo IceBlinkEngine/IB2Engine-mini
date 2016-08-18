@@ -57,7 +57,7 @@ namespace IceBlink2mini
                 btnReturn.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnReturn.Width = (int)(gv.ibbwidthL * gv.screenDensity);
                 btnReturn.X = (int)(currentLocX * gv.screenDensity) + (int)((Width * gv.screenDensity) / 2) - (int)((gv.ibbwidthL * gv.screenDensity) / 2);
-                btnReturn.Y = (int)(currentLocY * gv.screenDensity) + (int)(Height * gv.screenDensity) - (int)(gv.ibbheight * gv.screenDensity);                
+                btnReturn.Y = (int)(currentLocY * gv.screenDensity) + (int)(Height * gv.screenDensity) - (int)(gv.ibbheight * gv.screenDensity) - (int)((gv.ibbheight / 4) * gv.screenDensity);                
             }            
         }
 

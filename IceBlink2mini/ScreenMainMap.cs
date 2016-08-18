@@ -25,6 +25,7 @@ namespace IceBlink2mini
         public bool hideClock = false;
         public List<FloatyText> floatyTextPool = new List<FloatyText>();
         public List<FloatyTextByPixel> floatyTextByPixelPool = new List<FloatyTextByPixel>();
+        public IBminiTextBox floatyTextBox;
         public int mapStartLocXinPixels;
         public int movementDelayInMiliseconds = 100;
         private long timeStamp = 0;
@@ -37,7 +38,9 @@ namespace IceBlink2mini
             mod = m;
             gv = g;
             mapStartLocXinPixels = 4 * gv.squareSize;
-            loadMainUILayout();          
+            loadMainUILayout();
+            floatyTextBox = new IBminiTextBox(gv);
+            floatyTextBox.showShadow = true;
         }
         public void loadMainUILayout()
         {
@@ -94,6 +97,7 @@ namespace IceBlink2mini
                         gv.cc.addLogText("red", "Welcome to " + mod.moduleLabelName);
                         gv.cc.addLogText("fuchsia", "You can scroll this message log box, use mouse wheel");
                         gv.cc.addLogText("yellow", "'x' will hide/show all UI panels");
+                        gv.cc.addLogText("fuchsia", "'Esc' will exit the game or exit a message box");
                     }                    
                 }
             }
@@ -805,6 +809,8 @@ namespace IceBlink2mini
         }
         public void drawMainMapFloatyText()
         {
+            floatyTextBox.onDrawTextBox();
+            /*
             int txtH = (int)gv.fontHeight;
 
             for (int x = 0; x <= 2; x++)
@@ -816,6 +822,7 @@ namespace IceBlink2mini
             }
             
             gv.DrawText(gv.cc.floatyText, gv.cc.floatyTextLoc.X + mapStartLocXinPixels, gv.cc.floatyTextLoc.Y + txtH, "wh");
+            */
         }
         public void drawOverlayTints()
         {
@@ -1132,7 +1139,8 @@ namespace IceBlink2mini
                     int gridy = (int)(eY) / gv.squareSize;
                     int actualX = mod.PlayerLocationX + (gridx - gv.playerOffsetX) - (mapStartLocXinPixels / gv.squareSize);
                     int actualY = mod.PlayerLocationY + (gridy - gv.playerOffsetY);
-                    gv.cc.floatyText = "";
+                    //gv.cc.floatyText = "";
+                    floatyTextBox.linesList.Clear();
                     if (IsTouchInMapWindow(gridx, gridy))
                     {
                         foreach (Prop p in mod.currentArea.Props)
@@ -1141,9 +1149,19 @@ namespace IceBlink2mini
                             {
                                 if (!p.MouseOverText.Equals("none"))
                                 {
-                                    gv.cc.floatyText = p.MouseOverText;
-                                    int halfWidth = (p.MouseOverText.Length * (gv.fontWidth + gv.fontCharSpacing)) / 2;
-                                    gv.cc.floatyTextLoc = new Coordinate((gridx * gv.squareSize) - mapStartLocXinPixels - halfWidth, gridy * gv.squareSize);
+                                    string text = p.MouseOverText;
+                                    floatyTextBox.tbWidth = 3 * gv.squareSize;
+                                    floatyTextBox.tbXloc = ((gridx) * gv.squareSize);
+                                    floatyTextBox.AddFormattedTextToTextBox(text);
+                                    //based on number of lines, pick YLoc
+                                    floatyTextBox.tbYloc = (gridy * gv.squareSize) - ((floatyTextBox.linesList.Count / 2) * (gv.fontHeight + gv.fontLineSpacing)) + (gv.squareSize / 2);                                    
+                                    floatyTextBox.tbHeight = (floatyTextBox.linesList.Count + 1) * (gv.fontHeight + gv.fontLineSpacing);
+                                    //floatyTextBox.linesList.Clear();
+                                    
+
+                                    //gv.cc.floatyText = p.MouseOverText;
+                                    //int halfWidth = (p.MouseOverText.Length * (gv.fontWidth + gv.fontCharSpacing)) / 2;
+                                    //gv.cc.floatyTextLoc = new Coordinate((gridx * gv.squareSize) - mapStartLocXinPixels - halfWidth, gridy * gv.squareSize);
                                 }
                             }
                         }

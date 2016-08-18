@@ -154,7 +154,7 @@ namespace IceBlink2mini
             htmltext.tbHeight = pH * 50;
             htmltext.linesList.Clear();
             htmltext.AddFormattedTextToTextBox(textToSpan);
-            htmltext.onDrawLogBox();
+            htmltext.onDrawTextBox();
             int totalHeight = htmltext.linesList.Count * (gv.fontHeight + gv.fontLineSpacing);
             /*foreach (FormattedLine fl in htmltext.logLinesList)
             {
@@ -209,7 +209,7 @@ namespace IceBlink2mini
                 htmltext.tbHeight = pH * 50;
                 htmltext.linesList.Clear();
                 htmltext.AddFormattedTextToTextBox(textToSpan);
-                htmltext.onDrawLogBox();
+                htmltext.onDrawTextBox();
 
                 int totalHeight = htmltext.linesList.Count * (gv.fontHeight + gv.fontLineSpacing);
                 //float totalHeight = 0;
