@@ -2413,7 +2413,7 @@ namespace IceBlink2mini
                     src = new IbRect(0, gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width);
                 }
                 IbRect dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize);
-                if (gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width > 100)
+                if (gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width > gv.standardTokenSize)
                 {
                     dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
                 }

@@ -23,6 +23,7 @@ namespace IceBlink2mini
         public int screenHeight;
         public int squareSizeInPixels = 24;
         public int tileSizeInPixels = 48;
+        public int standardTokenSize = 24;
         public int squareSize; //in dp (squareSizeInPixels * screenDensity)
         public int pS; // = squareSize / 10 ... used for small UI and text location adjustments based on squaresize
         public int squaresInWidth = 19;

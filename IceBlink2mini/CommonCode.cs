@@ -3957,21 +3957,8 @@ namespace IceBlink2mini
 
             try
             {
-                //Builder's override folder
-                if (File.Exists(gv.mainDirectory + "\\override\\" + filename + ".png"))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\override\\" + filename + ".png");
-                }
-                else if (File.Exists(gv.mainDirectory + "\\override\\" + filename + ".jpg"))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\override\\" + filename + ".jpg");
-                }
-                else if (File.Exists(gv.mainDirectory + "\\override\\" + filename))
-                {
-                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\override\\" + filename);
-                }
                 //default graphics locations
-                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\graphics\\" + filename + ".png"))
+                if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\graphics\\" + filename + ".png"))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\graphics\\" + filename + ".png");
                 }
