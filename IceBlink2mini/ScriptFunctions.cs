@@ -1256,6 +1256,7 @@ namespace IceBlink2mini
         //GLOBAL AND LOCAL INTS
         public void SetGlobalInt(string variableName, string val)
         {
+            //TODO add option for '+4' or '-3' to add 4 or subtract 3
             int value = 0;
             if (val.Equals("++"))
             {
@@ -1323,6 +1324,7 @@ namespace IceBlink2mini
         }
         public void SetLocalInt(string objectTag, string variableName, string val)
         {
+            //TODO add option for '+4' or '-3' to add 4 or subtract 3
             int value = 0;
             if (val.Equals("++"))
             {
