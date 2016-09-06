@@ -2227,6 +2227,11 @@ namespace IceBlink2mini
         {
             try
             {
+                //if the filename doesn't have a .json extension, add it
+                if (!filename.EndsWith(".json"))
+                {
+                    filename += ".json";
+                }
                 Player newPc = gv.cc.LoadPlayer(filename); //ex: filename = "ezzbel.json"
                 //newPc.token = gv.cc.LoadBitmap(newPc.tokenFilename);
                 //newPc.portrait = gv.cc.LoadBitmap(newPc.portraitFilename);
