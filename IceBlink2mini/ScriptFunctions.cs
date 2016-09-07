@@ -615,6 +615,20 @@ namespace IceBlink2mini
                         int parm3 = Convert.ToInt32(p3);
                         gv.mod.returnCheck = this.CheckIsClassLevel(parm1, p2, parm3);
                     }
+                    else if (filename.Equals("gcCheckIsLevel.cs"))
+                    {
+                        int parm1 = 0;
+                        if ((p1.Equals("")) || (p1.Equals("-1")))
+                        {
+                            parm1 = gv.mod.selectedPartyLeader;
+                        }
+                        else
+                        {
+                            parm1 = Convert.ToInt32(p1);
+                        }
+                        int parm2 = Convert.ToInt32(p2);
+                        gv.mod.returnCheck = this.CheckIsLevel(parm1, parm2);
+                    }
                     else if (filename.Equals("gcCheckIsMale.cs"))
                     {
                         int parm1 = 0;
@@ -3529,6 +3543,17 @@ namespace IceBlink2mini
                 {
                     return false;
                 }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool CheckIsLevel(int PCIndex, int level)
+        {
+            if (mod.playerList[PCIndex].classLevel >= level)
+            {
+                return true;
             }
             else
             {

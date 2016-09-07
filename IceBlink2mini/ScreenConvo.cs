@@ -725,6 +725,8 @@ namespace IceBlink2mini
                 newString = newString.Replace("<boy/girl>", "boy");
                 newString = newString.Replace("<Lad/Lass>", "Lad");
                 newString = newString.Replace("<lad/lass>", "lad");
+                newString = newString.Replace("<Lord/Lady>", "Lord");
+                newString = newString.Replace("<lord/lady>", "lord");
                 newString = newString.Replace("<Man/Woman>", "Man");
                 newString = newString.Replace("<man/woman>", "man");
                 newString = newString.Replace("<Brother/Sister>", "Brother");
@@ -744,6 +746,8 @@ namespace IceBlink2mini
                 newString = newString.Replace("<boy/girl>", "girl");
                 newString = newString.Replace("<Lad/Lass>", "Lass");
                 newString = newString.Replace("<lad/lass>", "lass");
+                newString = newString.Replace("<Lord/Lady>", "Lady");
+                newString = newString.Replace("<lord/lady>", "lady");
                 newString = newString.Replace("<Man/Woman>", "Woman");
                 newString = newString.Replace("<man/woman>", "woman");
                 newString = newString.Replace("<Brother/Sister>", "Sister");
