@@ -410,6 +410,10 @@ namespace IceBlink2mini
                         int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
                         int dstW = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                         int dstH = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        if (p.ImageFileName.StartsWith("tkn_"))
+                        {
+                            dstH = (int)(((float)(gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / 2) / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        }
                         int dstXshift = (dstW - gv.squareSize) / 2;
                         int dstYshift = (dstH - gv.squareSize) / 2;
                         IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width, gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width);
@@ -464,6 +468,10 @@ namespace IceBlink2mini
                         int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
                         int dstW = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                         int dstH = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        if (p.ImageFileName.StartsWith("tkn_"))
+                        {
+                            dstH = (int)(((float)(gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / 2) / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        }
                         int dstXshift = (dstW - gv.squareSize) / 2;
                         int dstYshift = (dstH - gv.squareSize) / 2;
                         IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width, gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width);
