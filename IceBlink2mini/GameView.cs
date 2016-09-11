@@ -913,6 +913,7 @@ namespace IceBlink2mini
         //DRAW ROUTINES
         public void DrawText(string text, float xLoc, float yLoc, string color)
         {
+            //default is WHITE
             SharpDX.Direct2D1.Bitmap bm = cc.GetFromBitmapList("fontWh.png");
             if (color.Equals("bk"))
             {
