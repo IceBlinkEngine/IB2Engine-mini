@@ -3155,20 +3155,24 @@ namespace IceBlink2mini
                     gv.cc.floatyText3 = "";
                     if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                     {
-                        //Check for second tap so TARGET
-                        if ((gridx == targetHighlightCenterLocation.X) && (gridy == targetHighlightCenterLocation.Y))
+                        if (IsInCombatWindow(eX, eY))
                         {
-                            if (currentCombatMode.Equals("attack"))
+                            //Check for second tap so TARGET
+                            if ((gridx == targetHighlightCenterLocation.X) && (gridy == targetHighlightCenterLocation.Y))
                             {
-                                TargetAttackPressed(pc);
+                                if (currentCombatMode.Equals("attack"))
+                                {
+                                    TargetAttackPressed(pc);
+                                }
+                                else if (currentCombatMode.Equals("cast"))
+                                {
+                                    TargetCastPressed(pc);
+                                }
                             }
-                            else if (currentCombatMode.Equals("cast"))
-                            {
-                                TargetCastPressed(pc);
-                            }
+                            targetHighlightCenterLocation.Y = gridy;
+                            targetHighlightCenterLocation.X = gridx;
+                            return;
                         }
-                        targetHighlightCenterLocation.Y = gridy;
-                        targetHighlightCenterLocation.X = gridx;
                     }
                     
                     #endregion
