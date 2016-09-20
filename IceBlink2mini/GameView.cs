@@ -177,7 +177,7 @@ namespace IceBlink2mini
             fontWidth = (int)(4 * screenDensity);
             fontHeight = (int)(4 * screenDensity);
             fontCharSpacing = fontWidth / 8;
-            fontLineSpacing = fontHeight / 4;
+            fontLineSpacing = fontHeight / 2;
 
             //force font to best size if squareSize is near to multiple of 48px
             if ((squareSize >= 40) && (squareSize < 56)) //48x48
@@ -185,28 +185,28 @@ namespace IceBlink2mini
                 fontWidth = 8;
                 fontHeight = 8;
                 fontCharSpacing = 1;
-                fontLineSpacing = 2;
+                fontLineSpacing = 4;
             }
             else if ((squareSize >= 64) && (squareSize < 80)) //72x72
             {
                 fontWidth = 12;
                 fontHeight = 12;
                 fontCharSpacing = 1;
-                fontLineSpacing = 3;
+                fontLineSpacing = 6;
             }
             else if ((squareSize >= 84) && (squareSize < 108)) //96x96
             {
                 fontWidth = 16;
                 fontHeight = 16;
                 fontCharSpacing = 1;
-                fontLineSpacing = 4;
+                fontLineSpacing = 8;
             }
             else if ((squareSize >= 128) && (squareSize < 160)) //144x144
             {
                 fontWidth = 24;
                 fontHeight = 24;
                 fontCharSpacing = 2;
-                fontLineSpacing = 6;
+                fontLineSpacing = 12;
             }
 
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
@@ -986,7 +986,14 @@ namespace IceBlink2mini
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
             DrawD2DBitmap(bitmap, src, tar, angleInDegrees, mirror);
         }
-        
+        public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror)
+        {
+            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top, target.Width, target.Height);
+            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+            //DrawD2DBitmap(bitmap, src, tar, angleInDegrees, mirror);
+            DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, 1.0f, 0, 0, 0, 0, false);
+        }
+
         //DIRECT2D STUFF
         public void InitializeRenderer()
         {

@@ -164,12 +164,12 @@ namespace IceBlink2mini
             if (numberOFFramesForAnimationsMadeFromSeveralBitmaps == 0)
             {
                 //gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, (int)angle, false, this.opacity);
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, (int)angle, false);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false);
             }
             else
             {
                 //gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap + currentFrameIndex.ToString()), src, dst, (int)angle, false, this.opacity);
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap + currentFrameIndex.ToString()), src, dst, (int)angle, false);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap + currentFrameIndex.ToString()), src, dst, angle, false);
             }   
         }
     }    
