@@ -12,7 +12,6 @@ namespace IceBlink2mini
         public GameView gv;
         public List<string> tagStack = new List<string>();
         public List<IBminiFormattedLine> linesList = new List<IBminiFormattedLine>();
-        //float xLoc = 0;
         public int tbHeight = 200;
         public int tbWidth = 300;
         public int tbXloc = 10;

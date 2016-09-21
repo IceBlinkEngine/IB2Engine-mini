@@ -45,8 +45,6 @@ namespace IceBlink2mini
 
         public void setHover(IB2Panel parentPanel, int x, int y)
         {
-            //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
-            //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
             if (show)
             {
                 glowOn = false;
@@ -69,8 +67,6 @@ namespace IceBlink2mini
 
         public bool getImpact(IB2Panel parentPanel, int x, int y)
         {
-            //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
-            //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
             if (show)
             {
                 if ((x >= (int)((parentPanel.currentLocX + X) * gv.screenDensity)) && (x <= (int)((parentPanel.currentLocX + X + Width) * gv.screenDensity)))
@@ -97,9 +93,7 @@ namespace IceBlink2mini
                 int pH = (int)((float)gv.screenHeight / 200.0f);
                 int pW = (int)((float)gv.screenHeight / 200.0f);
                 float fSize = (float)(gv.squareSize / 4) * scaler;
-                //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
-                //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
-
+                
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height);
                 IbRect srcBG = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgBGFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ImgBGFilename).PixelSize.Height);
                 IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
@@ -144,41 +138,7 @@ namespace IceBlink2mini
                     gv.DrawBitmap(gv.cc.ui_portrait_frame, srcFrame, dstFrame);
                 }
 
-                /*float thisFontHeight = gv.drawFontRegHeight;
-                if (scaler > 1.05f)
-                {
-                    thisFontHeight = gv.drawFontLargeHeight;
-                }
-                else if (scaler < 0.95f)
-                {
-                    thisFontHeight = gv.drawFontSmallHeight;
-                }*/
-
                 //DRAW HP/HPmax
-                // Measure string.
-                //SizeF stringSize = gv.cc.MeasureString(TextHP, thisFont, this.Width);
-                //float stringSize = gv.cc.MeasureString(TextHP, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
-
-                //int ulX = ((int)(this.Width) / 2) - ((int)stringSize / 2);
-                //int ulY = ((int)(this.Height / 2) / 2) + ((int)thisFontHeight / 2);
-                /*
-                int ulX = pW * 0;
-                int ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 2);
-
-                for (int x = -2; x <= 2; x++)
-                {
-                    for (int y = -2; y <= 2; y++)
-                    {
-                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
-                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
-                        gv.DrawText(TextHP, xLoc, yLoc, scaler, Color.Black);
-                    }
-                }
-                int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
-                int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
-                gv.DrawText(TextHP, xLoc1, yLoc1, scaler, Color.Lime);
-                */
-                //new way
                 int ulX = pW * 0;
                 int ulY = (int)(Height * gv.screenDensity) - ((int)gv.fontHeight * 2);
 
@@ -197,29 +157,6 @@ namespace IceBlink2mini
 
 
                 //DRAW SP/SPmax
-                // Measure string.
-                //stringSize = gv.cc.MeasureString(TextSP, thisFont, this.Width);
-                //stringSize = gv.cc.MeasureString(TextSP, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
-
-                //ulX = ((int)(this.Width / 2)) - ((int)stringSize);
-                //ulY = ((int)(this.Height / 2));
-                /*ulX = pW * 1;
-                ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 1);
-
-                for (int x = -2; x <= 2; x++)
-                {
-                    for (int y = -2; y <= 2; y++)
-                    {
-                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW + x);
-                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH + y);
-                        gv.DrawText(TextSP, xLoc, yLoc, scaler, Color.Black);
-                    }
-                }
-                int xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW);
-                int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
-                gv.DrawText(TextSP, xLoc2, yLoc2, scaler, Color.Yellow);
-                */
-                //new way
                 ulX = pW * 0;
                 ulY = (int)(Height * gv.screenDensity) - ((int)gv.fontHeight * 1);
 

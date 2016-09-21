@@ -30,13 +30,9 @@ namespace IceBlink2mini
         public bool debugMode = false;
         public float diagonalMoveCost = 1.5f;
         public bool allowSave = true;
-        //public bool useLuck = false;
         public bool hideRoster = false;
         public bool use3d6 = false;
         public bool useUIBackground = true;
-        //public string fontName = "Metamorphous";
-        //public string fontFilename = "Metamorphous-Regular.ttf";
-        //public float fontD2DScaleMultiplier = 1.0f;
         public int logNumberOfLines = 20;
         public string spellLabelSingular = "Spell";
         public string spellLabelPlural = "Spells";
@@ -46,23 +42,14 @@ namespace IceBlink2mini
         public List<Container> moduleContainersList = new List<Container>();
         public List<Shop> moduleShopsList = new List<Shop>();
 
-        //[JsonIgnore]
         public List<Item> moduleItemsList = new List<Item>();            
-        //[JsonIgnore]
         public List<Creature> moduleCreaturesList = new List<Creature>();
-        //[JsonIgnore]
         public List<JournalQuest> moduleJournal = new List<JournalQuest>();
-        //[JsonIgnore]
         public List<PlayerClass> modulePlayerClassList = new List<PlayerClass>();
-        //[JsonIgnore]
         public List<Race> moduleRacesList = new List<Race>();
-        //[JsonIgnore]
         public List<Spell> moduleSpellsList = new List<Spell>();
-        //[JsonIgnore]
         public List<Trait> moduleTraitsList = new List<Trait>();
-        //[JsonIgnore]
         public List<Effect> moduleEffectsList = new List<Effect>();       
-        //[JsonIgnore]
         public List<IBScript> moduleIBScriptList = new List<IBScript>();
 
         [JsonIgnore]
@@ -90,8 +77,6 @@ namespace IceBlink2mini
         public int partyGold = 0;
         public bool showPartyToken = false;
         public string partyTokenFilename = "prp_party";
-        //[JsonIgnore]
-        //public Bitmap partyTokenBitmap;
         public List<Player> playerList = new List<Player>();
         public List<Player> partyRosterList = new List<Player>();
         public List<Player> companionPlayerList = new List<Player>();
@@ -131,16 +116,8 @@ namespace IceBlink2mini
         public string OnHeartBeatIBScriptParms = "";
         public bool showInteractionState = false;
         public bool avoidInteraction = false;
-        //public bool useRealTimeTimer = false;
-        //public int realTimeTimerLengthInMilliSeconds = 1500;
         public int attackFromBehindToHitModifier = 2;
         public int attackFromBehindDamageModifier = 0;        
-        //[JsonIgnore]
-        //public List<Bitmap> loadedTileBitmaps = new List<Bitmap>();
-        //public List<string> loadedTileBitmapsNames = new List<string>();
-        //[JsonIgnore]
-        //public List<System.Drawing.Bitmap> loadedMinimapTileBitmaps = new List<System.Drawing.Bitmap>();
-        //public List<string> loadedMinimapTileBitmapsNames = new List<string>();
         public bool doConvo = true;
         public int noTriggerLocX = -1;
         public int noTriggerLocY = -1;
@@ -151,29 +128,7 @@ namespace IceBlink2mini
         {
 
         }
-        public void loadAreas(GameView gv)
-        {
-            /*foreach (string areaName in this.moduleAreasList)
-            {
-                try
-                {
-                    using (StreamReader file = File.OpenText(gv.mainDirectory + "\\modules\\" + this.moduleName + "\\areas\\" + areaName + ".lvl"))
-                    {
-                        JsonSerializer serializer = new JsonSerializer();
-                        Area newArea = (Area)serializer.Deserialize(file, typeof(Area));
-                        foreach (Prop p in newArea.Props)
-                        {
-                            p.initializeProp();
-                        }
-                        moduleAreasObjects.Add(newArea);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    gv.errorLog(ex.ToString());
-                }
-            }*/
-        }
+              
         public void setCurrentArea(string filename, GameView gv)
         {
             try
@@ -183,14 +138,6 @@ namespace IceBlink2mini
                     if (area.Filename.Equals(filename))
                     {
                         this.currentArea = area;
-                        //gv.cc.DisposeOfBitmap(ref gv.cc.bmpMap);
-                        //gv.cc.bmpMap = gv.cc.LoadBitmap(this.currentArea.ImageFileName);
-                        //TODO gv.cc.LoadTileBitmapList();
-                        //foreach (Prop p in this.currentArea.Props)
-                        //{
-                            //gv.cc.DisposeOfBitmap(ref p.token);
-                            //p.token = gv.cc.LoadBitmap(p.ImageFileName);
-                        //}
                     }
                 }
             }

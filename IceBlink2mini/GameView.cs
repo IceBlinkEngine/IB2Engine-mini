@@ -57,7 +57,7 @@ namespace IceBlink2mini
         public string versionNum = "v1.00";
         public string fixedModule = "";
         public Dictionary<char, SharpDX.RectangleF> charList = new Dictionary<char, SharpDX.RectangleF>();
-        public string screenType = "splash"; //launcher, title, moreGames, main, party, inventory, combatInventory, shop, journal, combat, combatCast, convo
+        public string screenType = "splash"; //launcher, title, main, party, inventory, combatInventory, shop, journal, combat, combatCast, convo
         public AnimationState animationState = AnimationState.None;
         public int triggerIndex = 0;
         public int triggerPropIndex = 0;
@@ -141,8 +141,8 @@ namespace IceBlink2mini
 
             screenWidth = this.Width;
             screenHeight = this.Height;
-            float sqrW = (float)screenWidth / (float)(squaresInWidth); // 2f/10f
-            float sqrH = (float)screenHeight / (float)(squaresInHeight); // 3f/10f
+            float sqrW = (float)screenWidth / (float)(squaresInWidth);
+            float sqrH = (float)screenHeight / (float)(squaresInHeight);
             if (sqrW > sqrH)
             {
                 squareSize = (int)(sqrH);
@@ -213,16 +213,6 @@ namespace IceBlink2mini
 
             log = new IB2HtmlLogBox(this);
             log.numberOfLinesToShow = 40;
-            cc.addLogText("red", "screenDensity: " + screenDensity);
-            cc.addLogText("fuchsia", "screenWidth: " + screenWidth);
-            cc.addLogText("lime", "screenHeight: " + screenHeight);
-            cc.addLogText("yellow", "squareSize: " + squareSize);
-            cc.addLogText("yellow", "sqrW: " + sqrW);
-            cc.addLogText("yellow", "sqrH: " + sqrH);
-            cc.addLogText("yellow", "fontWidth: " + fontWidth);
-            cc.addLogText("yellow", "");
-            cc.addLogText("red", "Welcome to IceBlink 2");
-            cc.addLogText("fuchsia", "You can scroll this message log box, use mouse wheel or scroll bar");
 
             //setup messageBox defaults
             messageBox = new IBminiMessageBox(this);
@@ -288,22 +278,22 @@ namespace IceBlink2mini
 	    }
         public void LoadStandardImages()
         {
-            cc.btnIni = cc.LoadBitmap("btn_ini");
-            cc.btnIniGlow = cc.LoadBitmap("btn_ini_glow");
+            //cc.btnIni = cc.LoadBitmap("btn_ini");
+            //cc.btnIniGlow = cc.LoadBitmap("btn_ini_glow");
             cc.walkPass = cc.LoadBitmap("walk_pass");
             cc.walkBlocked = cc.LoadBitmap("walk_block");
             cc.losBlocked = cc.LoadBitmap("los_block");
             cc.black_tile = cc.LoadBitmap("black_tile");
-            cc.black_tile2 = cc.LoadBitmap("black_tile2");
+            //cc.black_tile2 = cc.LoadBitmap("black_tile2");
             cc.turn_marker = cc.LoadBitmap("turn_marker");
             cc.pc_dead = cc.LoadBitmap("pc_dead");
             cc.pc_stealth = cc.LoadBitmap("pc_stealth");
-            cc.offScreen = cc.LoadBitmap("offScreen");
-            cc.offScreen5 = cc.LoadBitmap("offScreen5");
-            cc.offScreen6 = cc.LoadBitmap("offScreen6");
-            cc.offScreen7 = cc.LoadBitmap("offScreen7");
-            cc.offScreenTrans = cc.LoadBitmap("offScreenTrans");
-            cc.death_fx = cc.LoadBitmap("death_fx");
+            //cc.offScreen = cc.LoadBitmap("offScreen");
+            //cc.offScreen5 = cc.LoadBitmap("offScreen5");
+            //cc.offScreen6 = cc.LoadBitmap("offScreen6");
+            //cc.offScreen7 = cc.LoadBitmap("offScreen7");
+            //cc.offScreenTrans = cc.LoadBitmap("offScreenTrans");
+            //cc.death_fx = cc.LoadBitmap("death_fx");
             cc.hitSymbol = cc.LoadBitmap("hit_symbol");
             cc.missSymbol = cc.LoadBitmap("miss_symbol");
             cc.highlight_green = cc.LoadBitmap("highlight_green");
@@ -328,34 +318,16 @@ namespace IceBlink2mini
         }	
 	    public void resetGame()
 	    {
-		    //mod = new Module();
 		    mod = cc.LoadModule(mod.moduleName + ".mod", false);
-            //mod.useUIBackground = true; //TODO comment out after testing
-            //reset fonts
-            //ResetGDIFont();
-            //ResetDirect2DFont();
             //reset log number of lines based on the value from the Module's mod file
             log.numberOfLinesToShow = mod.logNumberOfLines;            
                         
 		    mod.debugMode = false;
-		    //mod.loadAreas(this);
 		    mod.setCurrentArea(mod.startingArea, this);
 		    mod.PlayerLocationX = mod.startingPlayerPositionX;
 		    mod.PlayerLocationY = mod.startingPlayerPositionY;
-		    //cc.title = cc.LoadBitmap("title");
-            LoadStandardImages();
-		    //cc.LoadRaces();
-		    //cc.LoadPlayerClasses();
-		    //cc.LoadItems();
-		    //cc.LoadContainers();
-		    //cc.LoadShops();
-		    //cc.LoadEffects();
-		    //cc.LoadSpells();
-		    //cc.LoadTraits();
-            //cc.LoadCreatures();
-		    //cc.LoadEncounters();
-		    //cc.LoadJournal();
-				
+		    LoadStandardImages();
+		    	
 		    foreach (Container c in mod.moduleContainersList)
             {
                 c.initialContainerItemRefs.Clear();
@@ -382,12 +354,8 @@ namespace IceBlink2mini
             }
         
 		    cc.nullOutControls();
-            //cc.setPanelsStart();
-		    cc.setControlsStart();
-            //cc.setPortraitsStart();
-		    //cc.setToggleButtonsStart();
-            //TODO log.ResetLogBoxUiBitmaps();
-
+            cc.setControlsStart();
+            
 		    createScreens();
 		    initializeSounds();
 		
@@ -505,318 +473,7 @@ namespace IceBlink2mini
             //charList.Add('/', new SharpDX.RectangleF(64, 64, 8, 12));
             charList.Add(' ', new SharpDX.RectangleF(fontWidth * 9, fontHeight * 8, fontWidth, fontHeight));
         }
-
-        #region Area Music/Sounds
-        /*
-        public void setupMusicPlayers()
-        {
-            try
-            {
-                areaMusic = new WMPLib.WindowsMediaPlayer();
-                areaMusic.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(AreaMusic_PlayStateChange);
-                areaMusic.MediaError += new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
-                areaMusic.settings.volume = 50;
-
-                areaSounds = new WMPLib.WindowsMediaPlayer();
-                areaSounds.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(AreaSounds_PlayStateChange);
-                areaSounds.MediaError += new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
-
-                //for winds
-                weatherSounds1 = new WMPLib.WindowsMediaPlayer();
-                //weatherSounds1.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(WeatherSounds1_PlayStateChange);
-                weatherSounds1.MediaError += new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
-                weatherSounds1.settings.setMode("Loop", true);
-                weatherSounds1.settings.volume = 50;
-                //for rain
-                weatherSounds2 = new WMPLib.WindowsMediaPlayer();
-                //weatherSounds2.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(WeatherSounds2_PlayStateChange);
-                weatherSounds2.MediaError += new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
-                weatherSounds2.settings.setMode("Loop", true);
-                weatherSounds2.settings.volume = 50;
-                //for lightning
-                weatherSounds3 = new WMPLib.WindowsMediaPlayer();
-                weatherSounds3.settings.volume = 50;
-                //channel 3 is for lightning, no loop needed
-                //weatherSounds3.settings.setMode("Loop", true);
-
-                startMusic();
-                startAmbient();
-            }
-            catch (Exception ex)
-            {
-                cc.addLogText("red","Failed to setup Music Player...Audio will be disabled. Most likely due to not having Windows Media Player installed or having an incompatible version.");
-                errorLog(ex.ToString());
-            }
-        }
-        public void startMusic()
-        {
-            try
-            {
-                if ((currentMainMusic.Equals(mod.currentArea.AreaMusic)) && (areaMusic != null))
-                {
-                    areaMusic.controls.play();
-                }
-                else
-                {
-                    areaMusic.controls.stop();
-                   
-                    if (mod.currentArea.AreaMusic != "none")
-                    {
-                        if (File.Exists(this.mainDirectory + "\\modules\\" + this.mod.moduleName + "\\music\\" + mod.currentArea.AreaMusic))
-                        {
-                            areaMusic.URL = this.mainDirectory + "\\modules\\" + this.mod.moduleName + "\\music\\" + mod.currentArea.AreaMusic;
-                        }
-                        else if (File.Exists(this.mainDirectory + "\\modules\\" + this.mod.moduleName + "\\music\\" + mod.currentArea.AreaMusic + ".mp3"))
-                        {
-                            areaMusic.URL = this.mainDirectory + "\\modules\\" + this.mod.moduleName + "\\music\\" + mod.currentArea.AreaMusic + ".mp3";
-                        }
-                        else if (File.Exists(this.mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaMusic + ".mp3"))
-                        {
-                            areaMusic.URL = this.mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaMusic + ".mp3";
-                        }
-                        else if (File.Exists(this.mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaMusic))
-                        {
-                            areaMusic.URL = this.mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaMusic;
-                        }
-                        else
-                        {
-                            areaMusic.URL = "";
-                        }
-                        if (areaMusic.URL != "")
-                        {
-                            areaMusic.controls.stop();
-                            areaMusic.controls.play();
-                        }
-                    }
-                    else
-                    {
-                        areaMusic.URL = "";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                cc.addLogText("red", "Failed on startMusic(): " + ex.ToString());
-                errorLog(ex.ToString());
-            }        
-        }
-        public void startAmbient()
-        {
-            try
-            {
-                if ((currentAmbientMusic.Equals(mod.currentArea.AreaSounds)) && (areaSounds != null))
-                {
-                    areaSounds.controls.play();
-                }
-                else
-                {
-                    areaSounds.controls.stop();
-
-                    if (mod.currentArea.AreaSounds != "none")
-                    {
-                        if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentArea.AreaSounds))
-                        {
-                            areaSounds.URL = mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentArea.AreaSounds;
-                        }
-                        else if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentArea.AreaSounds + ".mp3"))
-                        {
-                            areaSounds.URL = mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentArea.AreaSounds + ".mp3";
-                        }
-                        else if (File.Exists(mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaSounds))
-                        {
-                            areaSounds.URL = mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaSounds;
-                        }
-                        else if (File.Exists(mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaSounds + ".mp3"))
-                        {
-                            areaSounds.URL = mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaSounds + ".mp3";
-                        }
-                        else
-                        {
-                            areaSounds.URL = "";
-                        }
-                        if (areaSounds.URL != "")
-                        {
-                            areaSounds.controls.stop();
-                            areaSounds.controls.play();
-                        }
-                    }
-                    else
-                    {
-                        areaSounds.URL = "";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                cc.addLogText("red", "Failed on startAmbient(): " + ex.ToString());
-                errorLog(ex.ToString());
-            }
-        }
-        public void startCombatMusic()
-        {
-            try
-            {
-                if ((currentCombatMusic.Equals(mod.currentEncounter.AreaMusic)) && (areaMusic != null))
-                {
-                    areaMusic.controls.play();
-                }
-                else
-                {
-                    areaMusic.controls.stop();
-                    
-                    if (mod.currentEncounter.AreaMusic != "none")
-                    {
-                        if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentEncounter.AreaMusic + ".mp3"))
-                        {
-                            areaMusic.URL = mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentEncounter.AreaMusic + ".mp3";
-                        }
-                        else if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentEncounter.AreaMusic))
-                        {
-                            areaMusic.URL = mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentEncounter.AreaMusic;
-                        }
-                        else if (File.Exists(mainDirectory + "\\default\\NewModule\\music\\" + mod.currentEncounter.AreaMusic + ".mp3"))
-                        {
-                            areaMusic.URL = mainDirectory + "\\default\\NewModule\\music\\" + mod.currentEncounter.AreaMusic + ".mp3";
-                        }
-                        else if (File.Exists(mainDirectory + "\\default\\NewModule\\music\\" + mod.currentEncounter.AreaMusic))
-                        {
-                            areaMusic.URL = mainDirectory + "\\default\\NewModule\\music\\" + mod.currentEncounter.AreaMusic;
-                        }
-                        else
-                        {
-                            areaMusic.URL = "";
-                        }
-                        if (areaMusic.URL != "")
-                        {
-                            areaMusic.controls.stop();
-                            areaMusic.controls.play();
-                        }
-                    }
-                    else
-                    {
-                        areaMusic.URL = "";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                cc.addLogText("red", "Failed on playCombatAreaMusicSounds()" + ex.ToString());
-                errorLog(ex.ToString());
-            }
-        }
-        private void AreaMusic_PlayStateChange(int NewState)
-        {
-            try
-            {
-                if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
-                {
-                    delayMusic();
-                }
-            }
-            catch (Exception ex)
-            {
-                cc.addLogText("Failed on AreaMusic_PlayStateChange()" + ex.ToString());
-                errorLog(ex.ToString());
-            }
-        }
-        private void AreaSounds_PlayStateChange(int NewState)
-        {
-            try
-            {
-                if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
-                {
-                    delaySounds();
-                }
-            }
-            catch (Exception ex)
-            {
-                cc.addLogText("Failed on AreaSounds_PlayStateChange()" + ex.ToString());
-                errorLog(ex.ToString());
-            }
-        }
-        private void Player_MediaError(object pMediaObject)
-        {
-            cc.addLogText("Cannot play media file.");
-        }
-        private void delayMusic()
-        {
-            try
-            {
-                int rand = sf.RandInt(mod.currentArea.AreaMusicDelayRandomAdder);
-                areaMusicTimer.Enabled = false;
-                areaMusic.controls.stop();
-                areaMusicTimer.Interval = mod.currentArea.AreaMusicDelay + rand;
-                areaMusicTimer.Enabled = true;
-            }
-            catch (Exception ex)
-            {
-                cc.addLogText("Failed on delayMusic()" + ex.ToString());
-                errorLog(ex.ToString());
-            }
-        }
-        private void areaMusicTimer_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                if (areaMusic.URL != "")
-                {
-                    areaMusic.controls.play();
-                }
-                areaMusicTimer.Enabled = false;
-            }
-            catch (Exception ex)
-            {
-                cc.addLogText("Failed on areaMusicTimer_Tick()" + ex.ToString());
-                errorLog(ex.ToString());
-            }
-        }
-        private void delaySounds()
-        {
-            try
-            {
-                int rand = sf.RandInt(mod.currentArea.AreaSoundsDelayRandomAdder);
-                areaSoundsTimer.Enabled = false;
-                areaSounds.controls.stop();
-                areaSoundsTimer.Interval = mod.currentArea.AreaSoundsDelay + rand;
-                areaSoundsTimer.Enabled = true;
-            }
-            catch (Exception ex)
-            {
-                cc.addLogText("Failed on delaySounds()" + ex.ToString());
-                errorLog(ex.ToString());
-            }
-        }
-        private void areaSoundsTimer_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                if (areaSounds.URL != "")
-                {
-                    areaSounds.controls.play();
-                }
-                areaSoundsTimer.Enabled = false;
-            }
-            catch (Exception ex)
-            {
-                cc.addLogText("Failed on areaSoundsTimer_Tick()" + ex.ToString());
-                errorLog(ex.ToString());
-            }
-        }
-        public void stopMusic()
-        {
-            areaMusic.controls.pause();
-        }
-        public void stopAmbient()
-        {
-            areaSounds.controls.pause();
-        }
-        public void stopCombatMusic()
-        {
-            areaMusic.controls.pause();
-        }
-        */
-        #endregion
-
+                
         public void initializeSounds()
 	    {
             oSoundStreams.Clear();
@@ -864,7 +521,6 @@ namespace IceBlink2mini
                     delay = 1;
                 }
                 animationTimer.Interval = delay;
-                //animationTimer.Interval = 1;
                 animationTimer.Start();
             }
         }
@@ -896,9 +552,6 @@ namespace IceBlink2mini
         }
         private void Update(int elapsed)
         {
-            
-
-
             //iterate through spriteList and handle any sprite location and animation frame calculations
             if (screenType.Equals("main"))
             {
@@ -990,7 +643,6 @@ namespace IceBlink2mini
         {
             SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-            //DrawD2DBitmap(bitmap, src, tar, angleInDegrees, mirror);
             DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, 1.0f, 0, 0, 0, 0, false);
         }
 
@@ -1207,10 +859,6 @@ namespace IceBlink2mini
             }
             EndDraw(); //uncomment this for DIRECT2D ADDITIONS
         }
-        /*private void RenderCallback()
-        {
-            Render();
-        }*/
         public void drawUIBackground()
         {
             try
@@ -1236,7 +884,6 @@ namespace IceBlink2mini
             //convert degrees to radians
             float angleInRadians = (float)(Math.PI * 2 * (float)angleInDegrees / (float)360);
             DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, 1.0f, 0, 0, 0, 0, false);
-            //DrawD2DBitmap(bitmap, source, target, angleInDegrees, mirror, 1.0f, 0, 0, 0, 0, false);
         }
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation)
         {
@@ -1251,16 +898,6 @@ namespace IceBlink2mini
             renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(mir * xscl, yscl), center, angleInRadians, new Vector2(xshf, yshf));
             SharpDX.RectangleF trg = new SharpDX.RectangleF(target.Left + oXshift, target.Top + oYshift, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-
-            /*
-            if (bitmap == cc.offScreen)
-            {
-                if ((target.Left <= (screenWidth / 2 - mod.pixDistanceToBorderWest)) && (target.Left >= (screenWidth / 2 - mod.pixDistanceToBorderWest - squareSize)))
-                {
-                    bitmap = cc.offScreenTrans;
-                }
-            }
-            */
 
             if (NearestNeighbourInterpolation)
             {

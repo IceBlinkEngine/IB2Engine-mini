@@ -56,35 +56,18 @@ namespace IceBlink2mini
             gv = g;
             //TODO may need to remove .ibs if included in name
             scriptFilename = filename;
-            //read in script file and create line numbered list
-            /*if (parms != "fullScreenEffectScript")
-            {
-                lines = File.ReadAllLines(gv.cc.GetModulePath() + "\\ibscript\\" + filename + ".ibs");
-            }
-            else
-            {
-                lines = File.ReadAllLines(gv.cc.GetModulePath() + "\\ibscript\\" + "\\fullScreenEffectScripts\\" + filename + ".ibs");
-            }*/
-            //List<string> converttolist = lines.ToList();
-
+            //read in script file and create line numbered list            
             List<string> converttolist = new List<string>();
             converttolist.Add("//line 0");
             foreach (string s in gv.mod.getIBScriptByName(scriptFilename).codeLines)
             {
                 converttolist.Add(s);
-            }
-            //converttolist.Insert(0, "//line 0");
-            //lines = converttolist.ToArray();
-
+            }            
             //set-up Block lists
             fillForBlocksList();
             fillIfBlocksList();
 
-            //convert the parms into a List<String> by comma delimination and remove white space
-            //if (parms != "fullScreenEffectScript")
-            //{
-                parmsList = parms.Split(',').Select(x => x.Trim()).ToList();
-            //}
+            parmsList = parms.Split(',').Select(x => x.Trim()).ToList();            
         }
 
         public void fillForBlocksList()
@@ -330,18 +313,6 @@ namespace IceBlink2mini
             catch
             {
             }
-            
-            /*
-                if (line.StartsWith("~gaTakeItem("))
-                {  
-                    gaTakeItem(parms);
-                }
-                else if (line.StartsWith("~gaShowFloatyTextOnMainMap("))
-                {
-                    gaShowFloatyTextOnMainMap(parms);
-                }
-             */
-
         }
 
         public void DoObjectPropertyAssignment(string line)
@@ -6914,80 +6885,6 @@ namespace IceBlink2mini
 
                 }
                  #endregion
-
-
-
-                /*#region ItemResRefParty
-                else if (parm.StartsWith("%ItemResRefParty"))
-                {
-                    if (parm.EndsWith("resRef"))
-                    {
-                        return gv.mod.moduleEncountersList[indexNum].creatureResRef.ToString();
-                    }
-                    else if (parm.EndsWith("tag"))
-                    {
-                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureTag.ToString();
-                    }
-                    else if (parm.EndsWith("name"))
-                    {
-                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX.ToString();
-                    }
-                    else if (parm.EndsWith("creatureStartLocationY"))
-                    {
-                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY.ToString();
-                    }
-                }
-
-                #endregion
-
-                #region ItemResRefContainer
-                else if (parm.StartsWith("%ItemResRefContainer"))
-                {
-                    if (parm.EndsWith("resRef"))
-                    {
-                        return gv.mod.moduleEncountersList[indexNum].creatureResRef.ToString();
-                    }
-                    else if (parm.EndsWith("tag"))
-                    {
-                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureTag.ToString();
-                    }
-                    else if (parm.EndsWith("name"))
-                    {
-                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX.ToString();
-                    }
-                    else if (parm.EndsWith("creatureStartLocationY"))
-                    {
-                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY.ToString();
-                    }
-                }
-
-                #endregion
-
-                #region ItemResRefShop
-                else if (parm.StartsWith("%ItemResRefShop"))
-                {
-                    if (parm.EndsWith("resRef"))
-                    {
-                        return gv.mod.moduleEncountersList[indexNum].creatureResRef.ToString();
-                    }
-                    else if (parm.EndsWith("tag"))
-                    {
-                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureTag.ToString();
-                    }
-                    else if (parm.EndsWith("name"))
-                    {
-                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX.ToString();
-                    }
-                    else if (parm.EndsWith("creatureStartLocationY"))
-                    {
-                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY.ToString();
-                    }
-                }
-
-                #endregion*/
-
-
-
             }
             else if (parm.StartsWith("#"))
             {

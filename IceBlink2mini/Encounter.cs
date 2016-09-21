@@ -17,7 +17,6 @@ namespace IceBlink2mini
 	    public bool UseDayNightCycle = false;
         public int MapSizeX = 11;
         public int MapSizeY = 11;
-        //public List<TileEnc> encounterTiles = new List<TileEnc>();
         public List<string> Layer1Filename = new List<string>();
         public List<int> Layer1Rotate = new List<int>();
         public List<int> Layer1Mirror = new List<int>();

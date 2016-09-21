@@ -14,8 +14,6 @@ namespace IceBlink2mini
         public int timerLength = 4000; //time in ms
         public int timeToLive = 2000;
         public int z = 0; //float height multiplier
-        //begin implementing floaty text that moves with prop
-        //public string tagOfCallingProp = "";
 
         public FloatyText()
         {

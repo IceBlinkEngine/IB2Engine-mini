@@ -19,8 +19,7 @@ namespace IceBlink2mini
         public int lastLocationX = 0;
         public int lastLocationY = 0;
 	    public string ImageFileName = "blank";
-        //[JsonIgnore]
-	    public bool PropFacingLeft = true;
+        public bool PropFacingLeft = true;
 	    public string MouseOverText = "none";
 	    public bool HasCollision = false;
 	    public bool isShown = true;
@@ -30,9 +29,7 @@ namespace IceBlink2mini
 	    public string ConversationWhenOnPartySquare = "none";
 	    public string EncounterWhenOnPartySquare = "none";
 	    public bool DeletePropWhenThisEncounterIsWon = false;
-        //[JsonIgnore]
-	    //public Bitmap token;
-	    public List<LocalInt> PropLocalInts = new List<LocalInt>();
+        public List<LocalInt> PropLocalInts = new List<LocalInt>();
 	    public List<LocalString> PropLocalStrings = new List<LocalString>();
 	    //All THE PROJECT LIVING WORLD STUFF
 	    public int PostLocationX = 0;
@@ -43,7 +40,6 @@ namespace IceBlink2mini
 	    public int ChanceToMove2Squares = 0;
 	    public int ChanceToMove0Squares = 0;
 	    public string MoverType = "post"; //post, random, patrol, daily, weekly, monthly, yearly
-        //[JsonIgnore]
         //Removed save ignore for currentMoveToTarget,, othrisw all patroling props head towards 0,0 after loading a save
 	    public Coordinate CurrentMoveToTarget = new Coordinate(0,0);
 	    public bool isChaser = false;
@@ -56,8 +52,6 @@ namespace IceBlink2mini
 	    public int ChaserStartChasingTime = 0;
 	    public int RandomMoverRadius = 5;
 	    public bool ReturningToPost = false;
-        //public string OnHeartBeatLogicTree = "none";
-        //public string OnHeartBeatParms = "";
         public string OnHeartBeatIBScript = "none";
         public string OnHeartBeatIBScriptParms = "";
         public bool passOneMove = false;
@@ -70,9 +64,6 @@ namespace IceBlink2mini
         public float currentPixelPositionX = 0;
         public float currentPixelPositionY = 0;
         public int pixelMoveSpeed = 1;
-        //public int drawAnchorX = 0;
-        //public int drawAnchorY = 0;
-        //public bool startingOnVisibleSquare = true;
         public bool wasTriggeredLastUpdate = false;
         public bool blockTrigger = false;
     
@@ -148,8 +139,6 @@ namespace IceBlink2mini
 		    copy.ChaserChaseDuration = this.ChaserChaseDuration;
 		    copy.ChaserStartChasingTime = this.ChaserStartChasingTime;
 		    copy.RandomMoverRadius = this.RandomMoverRadius;
-            //copy.OnHeartBeatLogicTree = this.OnHeartBeatLogicTree;
-            //copy.OnHeartBeatParms = this.OnHeartBeatParms;
             copy.OnHeartBeatIBScript = this.OnHeartBeatIBScript;
             copy.OnHeartBeatIBScriptParms = this.OnHeartBeatIBScriptParms;
             copy.passOneMove = this.passOneMove;
@@ -161,9 +150,6 @@ namespace IceBlink2mini
             copy.currentPixelPositionX = this.currentPixelPositionX;
             copy.currentPixelPositionY = this.currentPixelPositionY;
             copy.pixelMoveSpeed = this.pixelMoveSpeed;
-            //copy.drawAnchorX = this.drawAnchorX;
-            //copy.drawAnchorY = this.drawAnchorY;
-            //copy.startingOnVisibleSquare = this.startingOnVisibleSquare;
 		    return copy;
         }
     }

@@ -13,10 +13,6 @@ namespace IceBlink2mini
     {
 	    public string tokenFilename = "blank.png";
         public string portraitFilename = "F0404_L";
-        //[JsonIgnore]
-	    //public Bitmap token;
-        //[JsonIgnore]
-        //public Bitmap portrait;
         [JsonIgnore]
 	    public bool combatFacingLeft = true;
         [JsonIgnore]

@@ -2769,7 +2769,7 @@ namespace IceBlink2mini
                     //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
                 }
             }
-            else if (keyData == Keys.X)
+            /*else if (keyData == Keys.X)
             {
                 foreach (IB2Panel pnl in combatUiLayout.panelList)
                 {
@@ -2830,7 +2830,7 @@ namespace IceBlink2mini
                         }
                     }
                 }
-            }
+            }*/
 
             #region Move PC mode
             if (currentCombatMode.Equals("move"))

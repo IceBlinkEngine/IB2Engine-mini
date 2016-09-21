@@ -10,10 +10,8 @@ namespace IceBlink2mini
 {
     public class BitmapStringConversion
     {
-        //List<string> stringBitmap = new List<string>();
         Dictionary<int, char> IntToB64 = new Dictionary<int, char>();
         Dictionary<char, int> B64ToInt = new Dictionary<char, int>();
-        //public string workingDir = "";
         public List<ImageData> listImages = new List<ImageData>();
 
         public BitmapStringConversion()
@@ -155,23 +153,6 @@ namespace IceBlink2mini
             B64ToInt.Add('+', 62);
             B64ToInt.Add('/', 63);
         }
-        /*public ImageData ConvertBitmapToImageData(string filenameNoExt, string pathandfile)
-        {
-            bitmap = new Bitmap(pathandfile);
-            ImageData imd = new ImageData();
-            imd.name = filenameNoExt;
-            imd.width = bitmap.Width;
-            imd.height = bitmap.Height;
-            for (int y = 0; y < bitmap.Height; y++)
-            {
-                for (int x = 0; x < bitmap.Width; x++)
-                {
-                    Color clr = bitmap.GetPixel(x, y);
-                    imd.pixelData.Add(IntToB64[clr.A / 4].ToString() + IntToB64[clr.R / 4].ToString() + IntToB64[clr.G / 4].ToString() + IntToB64[clr.B / 4].ToString());
-                }
-            }
-            return imd;
-        }*/
         public Bitmap ConvertImageDataToBitmap(ImageData imd)
         {
             Bitmap bitmap = new Bitmap(imd.width, imd.height, PixelFormat.Format32bppArgb);

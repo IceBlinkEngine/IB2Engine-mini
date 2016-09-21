@@ -115,37 +115,8 @@ namespace IceBlink2mini
                                         (int)((float)this.Height) + (int)(2 * gv.screenDensity));
                 gv.DrawBitmap(gv.cc.ui_portrait_frame, srcFrame, dstFrame);
             }
-
-            /*float thisFontHeight = gv.drawFontRegHeight;
-            if (scaler > 1.05f)
-            {
-                thisFontHeight = gv.drawFontLargeHeight;
-            }
-            else if (scaler < 0.95f)
-            {
-                thisFontHeight = gv.drawFontSmallHeight;
-            }*/
-            
+                       
             //DRAW HP/HPmax
-            // Measure string.
-            //SizeF stringSize = gv.cc.MeasureString(TextHP, thisFont, this.Width);
-            //float stringSize = gv.cc.MeasureString(TextHP, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
-
-            //int ulX = ((int)(this.Width) / 2) - ((int)stringSize / 2);
-            //int ulY = ((int)(this.Height / 2) / 2) + ((int)thisFontHeight / 2);
-            /*int ulX = pW * 0;
-            int ulY = this.Height - ((int)thisFontHeight * 2);
-
-            for (int x = -2; x <= 2; x++)
-            {
-                for (int y = -2; y <= 2; y++)
-                {
-                    gv.DrawText(TextHP, this.X + ulX + x, this.Y + ulY - pH + y , scaler, Color.Black);
-                }
-            }
-            gv.DrawText(TextHP, this.X + ulX, this.Y + ulY - pH, scaler, Color.Lime);
-            */
-            //new way
             int ulX = pW * 0;
             int ulY = this.Height - (gv.fontHeight * 2);
 
@@ -160,25 +131,6 @@ namespace IceBlink2mini
 
 
             //DRAW SP/SPmax
-            // Measure string.
-            //stringSize = gv.cc.MeasureString(TextSP, thisFont, this.Width);
-            //stringSize = gv.cc.MeasureString(TextSP, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
-
-            //ulX = ((int)(this.Width / 2)) - ((int)stringSize);
-            //ulY = ((int)(this.Height / 2));
-            /*ulX = pW * 1;
-            ulY = this.Height - ((int)thisFontHeight * 1);
-
-            for (int x = -2; x <= 2; x++)
-            {
-                for (int y = -2; y <= 2; y++)
-                {
-                    gv.DrawText(TextSP, this.X + ulX - pW + x, this.Y + ulY - pH + y, scaler, Color.Black);
-                }
-            }
-            gv.DrawText(TextSP, this.X + ulX - pW, this.Y + ulY - pH, scaler, Color.Yellow);
-            */
-            //new way
             ulX = pW * 1;
             ulY = this.Height - (gv.fontHeight * 1);
 

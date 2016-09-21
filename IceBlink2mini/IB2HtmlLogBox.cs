@@ -95,28 +95,6 @@ namespace IceBlink2mini
                 //loop through each line and print each word
                 foreach (IBminiFormattedWord word in logLinesList[i].wordsList)
                 {
-                    /*if (gv.textFormat != null)
-                    {
-                        gv.textFormat.Dispose();
-                        gv.textFormat = null;
-                    }
-
-                    if (gv.textLayout != null)
-                    {
-                        gv.textLayout.Dispose();
-                        gv.textLayout = null;
-                    }*/
-                    //gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
-                    //gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, word.text + " ", gv.textFormat, gv.Width, gv.Height);
-                    //int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;
-                    //if (word.underlined)
-                    //{
-                    //    gv.textLayout.SetUnderline(true, new TextRange(0, word.text.Length - 1));
-                    //}
-                    //int xLoc2 = (int)((parentPanel.currentLocX * gv.screenDensity + xLoc));
-                    //int yLoc2 = (int)((parentPanel.currentLocY * gv.screenDensity + yLoc + difYheight));
-                    //DrawString(word.text + " ", xLoc2, yLoc2, word.fontWeight, word.fontStyle, word.color, word.fontSize, word.underlined);
-                    //xLoc += gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
                     int xLoc2 = (int)((parentPanel.currentLocX * gv.screenDensity + xLoc));
                     int yLoc2 = (int)((parentPanel.currentLocY * gv.screenDensity + yLoc));
                     DrawString(word.text + " ", xLoc2, yLoc2, word.color);
@@ -124,15 +102,12 @@ namespace IceBlink2mini
                 }
                 xLoc = 0;
                 yLoc += gv.fontHeight + gv.fontLineSpacing;
-            }            
-            //draw border for debug info
-            //gv.DrawRectangle(new IbRect(parentPanel.currentLocX + tbXloc, parentPanel.currentLocY + tbYloc, tbWidth, tbHeight), SharpDX.Color.DimGray, 1);
+            }
         }
 
         public void scrollToEnd()
         {
             SetCurrentTopLineIndex(logLinesList.Count);
-            //gv.Invalidate();
         }
         public void SetCurrentTopLineIndex(int changeValue)
         {

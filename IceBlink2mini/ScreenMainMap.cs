@@ -1777,7 +1777,7 @@ namespace IceBlink2mini
                     }
                 }*/
             }
-            else if (keyData == Keys.X)
+            /*else if (keyData == Keys.X)
             {
                 if (!hideClock)
                 {
@@ -1846,7 +1846,7 @@ namespace IceBlink2mini
                         }
                     }
                 }
-            }
+            }*/
         }
         private bool moveDelay()
         {

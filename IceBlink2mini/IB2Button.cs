@@ -53,8 +53,6 @@ namespace IceBlink2mini
 
         public void setHover(IB2Panel parentPanel, int x, int y)
         {
-            //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
-            //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
             if (show)
             {
                 glowOn = false;
@@ -77,8 +75,6 @@ namespace IceBlink2mini
 
         public bool getImpact(IB2Panel parentPanel, int x, int y)
         {
-            //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
-            //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
             if (show)
             {
                 if ((x >= (int)((parentPanel.currentLocX + X) * gv.screenDensity)) && (x <= (int)((parentPanel.currentLocX + X + Width) * gv.screenDensity)))
@@ -105,9 +101,7 @@ namespace IceBlink2mini
                 int pH = (int)((float)gv.screenHeight / 200.0f);
                 int pW = (int)((float)gv.screenHeight / 200.0f);
                 float fSize = (float)(gv.squareSize / 4) * scaler;
-                //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
-                //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
-
+                
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Height);
                 IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
 
@@ -151,37 +145,7 @@ namespace IceBlink2mini
                     gv.DrawBitmap(gv.cc.GetFromBitmapList(Img3Filename), src, dst);
                 }
 
-                /*float thisFontHeight = gv.drawFontRegHeight;
-                if (scaler > 1.05f)
-                {
-                    thisFontHeight = gv.drawFontLargeHeight;
-                }
-                else if (scaler < 0.95f)
-                {
-                    thisFontHeight = gv.drawFontSmallHeight;
-                }*/
-
-                // DRAW TEXT
-                /*float stringSize = gv.cc.MeasureString(Text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
-
-                //place in the center
-                float ulX = ((Width * gv.screenDensity) - stringSize) / 2;
-                float ulY = ((Height * gv.screenDensity) - thisFontHeight) / 2;
-
-                for (int x = -2; x <= 2; x++)
-                {
-                    for (int y = -2; y <= 2; y++)
-                    {
-                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
-                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
-                        gv.DrawText(Text, xLoc, yLoc, scaler, Color.Black);
-                    }
-                }
-                int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
-                int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
-                gv.DrawText(Text, xLoc1, yLoc1, scaler, Color.White);
-                */
-                //new way
+                // DRAW TEXT                
                 int stringSize = Text.Length * (gv.fontWidth + gv.fontCharSpacing);
 
                 //place in the center
@@ -203,26 +167,6 @@ namespace IceBlink2mini
 
 
                 // DRAW QUANTITY
-                /*stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
-
-                //place in the bottom right quadrant
-                ulX = (((Width * gv.screenDensity) - stringSize) / 8) * 7;
-                ulY = (((Height * gv.screenDensity) - thisFontHeight) / 8) * 7;
-
-                for (int x = -2; x <= 2; x++)
-                {
-                    for (int y = -2; y <= 2; y++)
-                    {
-                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
-                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
-                        gv.DrawText(Quantity, xLoc, yLoc, scaler, Color.Black);
-                    }
-                }
-                int xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
-                int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
-                gv.DrawText(Quantity, xLoc2, yLoc2, scaler, Color.White);
-                */
-                //new way
                 stringSize = Quantity.Length * (gv.fontWidth + gv.fontCharSpacing);
 
                 //place in the bottom right
@@ -247,26 +191,6 @@ namespace IceBlink2mini
                 // DRAW HOTKEY
                 if (gv.showHotKeys)
                 {
-                    /*stringSize = gv.cc.MeasureString(HotKey, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
-
-                    //place in the bottom center
-                    ulX = ((Width * gv.screenDensity) - stringSize) / 2;
-                    ulY = (((Height * gv.screenDensity) - thisFontHeight) / 4) * 3;
-
-                    for (int x = -2; x <= 2; x++)
-                    {
-                        for (int y = -2; y <= 2; y++)
-                        {
-                            int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
-                            int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
-                            gv.DrawText(HotKey, xLoc, yLoc, scaler, Color.Black);
-                        }
-                    }
-                    int xLoc3 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
-                    int yLoc3 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
-                    gv.DrawText(HotKey, xLoc3, yLoc3, scaler, Color.Red);
-                    */
-                    //new way
                     stringSize = HotKey.Length * (gv.fontWidth + gv.fontCharSpacing);
 
                     //place in the bottom center

@@ -9,7 +9,6 @@ using System.IO;
 using System.ComponentModel;
 using Newtonsoft.Json;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
-//using IceBlink;
 
 namespace IceBlink2mini
 {
@@ -17,15 +16,6 @@ namespace IceBlink2mini
     {
 	    public string cr_tokenFilename = "blank.png";
         [JsonIgnore]
-	    //public Bitmap token;
-        //public float roamDistanceX = 0;
-        //public float roamDistanceY = 0;
-        //public float straightLineDistanceX = 0;
-        //public float straightLineDistanceY = 0;
-        //public bool goDown = false;
-        //public bool goRight = false;
-        //public float inactiveTimer = 0;
-
         public bool combatFacingLeft = true;
         public int combatFacing = 4; //numpad directions (7,8,9,4,6,1,2,3)
 	    public int combatLocX = 0;
@@ -210,7 +200,6 @@ namespace IceBlink2mini
         {
             Effect ef = effect.DeepCopy();
             ef.classLevelOfSender = classLevel;
-            //ef.startingTimeInUnits = startTime; //mod.WorldTime;
             //stackable effect and duration (just add effect to list)
             if (ef.isStackableEffect)
             {
@@ -249,8 +238,6 @@ namespace IceBlink2mini
                     {
                         e.classLevelOfSender = classLevel;
                     }
-                    //e.startingTimeInUnits = startTime;
-                    //e.currentDurationInUnits = 0;
                 }
             }
         }	

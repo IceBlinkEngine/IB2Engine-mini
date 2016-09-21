@@ -118,11 +118,6 @@ namespace IceBlink2mini
                 int x = (totalElapsedTime % (numberOfFrames * millisecondsPerFrame)) ;
                 currentFrameIndex = (x / millisecondsPerFrame) + 1;
             }
-            //if ((this.movementMethod == "lightning") && (currentFrameIndex == 1))
-                    
-                    //{
-                //int stop = 0;
-                    //}
         }
 
         public void Draw(GameView gv)
@@ -134,41 +129,14 @@ namespace IceBlink2mini
             {
                 src = new IbRect(0, 0, 150, 150);
             }
-            /*
-            if (gv.screenType.Equals("combat"))
-            {
-                int randXInt = gv.sf.RandInt(500);
-                float randX = randXInt / 10000f;
-                int decider = gv.sf.RandInt(2);
-                if (decider == 1)
-                {
-                    randX = -1 * randX;
-                }
-
-                int randYInt = gv.sf.RandInt(500);
-                float randY = randXInt / 10000f;
-                decider = gv.sf.RandInt(2);
-                if (decider == 1)
-                {
-                    randY = -1 * randY;
-                }
-
-                dst = new IbRect((int)this.position.X, (int)(this.position.Y + randY), (int)((gv.squareSize * this.scaleX) + randX), (int)(gv.squareSize * this.scaleY));
-            }
-            else
-            {
-            */
-                dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scaleX), (int)(gv.squareSize * this.scaleY));
-            //}
+            dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scaleX), (int)(gv.squareSize * this.scaleY));
 
             if (numberOFFramesForAnimationsMadeFromSeveralBitmaps == 0)
             {
-                //gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, (int)angle, false, this.opacity);
                 gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false);
             }
             else
             {
-                //gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap + currentFrameIndex.ToString()), src, dst, (int)angle, false, this.opacity);
                 gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap + currentFrameIndex.ToString()), src, dst, angle, false);
             }   
         }
