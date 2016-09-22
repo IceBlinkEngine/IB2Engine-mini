@@ -218,11 +218,11 @@ namespace IceBlink2mini
             messageBox = new IBminiMessageBox(this);
             messageBox.currentLocX = 150;
             messageBox.currentLocY = 25;
-            messageBox.numberOfLinesToShow = 30;
+            messageBox.numberOfLinesToShow = 28;
             messageBox.tbWidth = 150;
             messageBox.Width = 150;
             messageBox.Height = 195;
-            messageBox.tbHeight = 195;
+            messageBox.tbHeight = 187;
             messageBox.setupIBminiMessageBox();
             
             //setup itemListSelector defaults
@@ -230,7 +230,7 @@ namespace IceBlink2mini
             itemListSelector.currentLocX = 150;
             itemListSelector.currentLocY = 25;
             itemListSelector.Width = 150;
-            itemListSelector.Height = 195;
+            itemListSelector.Height = 220;
             
             if (fixedModule.Equals("")) //this is the IceBlink Engine app
             {
