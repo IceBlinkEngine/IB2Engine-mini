@@ -109,13 +109,6 @@ namespace IceBlink2mini
             int leftStartY = pH * 4;
     	    int tabStartY = pH * 40;
     	
-    	    //IF BACKGROUND IS NULL, LOAD IMAGE
-    	    //if (journalBack == null)
-    	    //{
-                //gv.cc.DisposeOfBitmap(ref journalBack);
-                //journalBack = gv.cc.LoadBitmap("journalback");
-    	    //}
-    	    //IF BUTTONS ARE NULL, LOAD BUTTONS
     	    if (btnReturnJournal == null)
     	    {
     		    setControlsStart();

@@ -2270,41 +2270,6 @@ namespace IceBlink2mini
             }
             #endregion
         }
-        /*public IbRect getSourceIbRect(int xSqr, int ySqr, int UpperLeftXsqr, int UpperLeftYsqr, int tileWinPixels, int tileHinPixels)
-        {
-            IbRect src = new IbRect(0, 0, tileWinPixels, tileHinPixels);
-
-            int tileWsqrs = tileWinPixels / gv.squareSizeInPixels;
-            int tileHsqrs = tileHinPixels / gv.squareSizeInPixels;
-            int BottomRightX = UpperLeftXsqr + gv.playerOffsetX + gv.playerOffsetX + 1;
-            int BottomRightY = UpperLeftYsqr + gv.playerOffsetY + gv.playerOffsetY + 2;
-
-            //left side
-            int startX = UpperLeftXsqr - xSqr;
-            if (startX < 0) { startX = 0; }
-            //if startX >= tileW then it is off the map
-            if (startX >= tileWsqrs) { return null; }
-
-            //top side
-            int startY = UpperLeftYsqr - ySqr;
-            if (startY < 0) { startY = 0; }
-            //if startY >= tileY then it is off the map
-            if (startY >= tileHsqrs) { return null; }
-
-            //right side
-            int endX = BottomRightX - xSqr;
-            if (endX > tileWsqrs) { endX = tileWsqrs; }
-            //if endX <=0 then it is off the map
-            if (endX <= 0) { return null; }
-
-            //bottom side
-            int endY = BottomRightY - ySqr;
-            if (endY > tileHsqrs) { endY = tileHsqrs; }
-            //if endY <=0 then it is off the map
-            if (endY <= 0) { return null; }
-
-            return new IbRect(startX * gv.squareSizeInPixels, startY * gv.squareSizeInPixels, (endX - startX) * gv.squareSizeInPixels, (endY - startY) * gv.squareSizeInPixels);
-        }*/
         public void drawCombatPlayers()
         {
             Player p = mod.playerList[currentPlayerIndex];
@@ -3887,125 +3852,6 @@ namespace IceBlink2mini
         }
 
         //Helper Methods
-        /*public void CalculateUpperLeft()
-        {
-            Player pc = mod.playerList[currentPlayerIndex];
-            int minX = pc.combatLocX - gv.playerOffsetX;
-            if (minX < 0) { minX = 0; }
-            int minY = pc.combatLocY - gv.playerOffsetY;
-            if (minY < 0) { minY = 0; }
-
-            if ((pc.combatLocX <= (UpperLeftSquare.X + 7)) && (pc.combatLocX >= UpperLeftSquare.X + 2) && (pc.combatLocY <= (UpperLeftSquare.Y + 7)) && (pc.combatLocY >= UpperLeftSquare.Y + 2))
-            {
-                return;
-            }
-            else
-            {
-                UpperLeftSquare.X = minX;
-                UpperLeftSquare.Y = minY;
-            }
-        }*/
-        /*public void CalculateUpperLeftCreature()
-        {
-            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-            int minX = crt.combatLocX - gv.playerOffsetX;
-            if (minX < 0) { minX = 0; }
-            int minY = crt.combatLocY - gv.playerOffsetY;
-            if (minY < 0) { minY = 0; }
-
-            //do not adjust view port if creature is on screen already and ends move at least one square away from border
-            if (((crt.combatLocX + 2) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 2) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 2) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 2) >= (UpperLeftSquare.Y)))
-            {
-                return;
-            }
-
-            else
-            {
-                if (gv.mod.useManualCombatCam)
-                {
-                    //Melee or AoO situation
-                    foreach (Player p in mod.playerList)
-                    {
-                        if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) <= 1)
-                        {
-                            UpperLeftSquare.X = minX;
-                            UpperLeftSquare.Y = minY;
-                            break;
-                        }
-                        if (adjustCamToRangedCreature)
-                        {
-                            if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) < 9)
-                            {
-                                if (p.combatLocX < crt.combatLocX)
-                                {
-                                    UpperLeftSquare.X = p.combatLocX;
-                                }
-                                else
-                                {
-                                    UpperLeftSquare.X = crt.combatLocX;
-                                }
-
-                                if (p.combatLocY < crt.combatLocY)
-                                {
-                                    UpperLeftSquare.Y = p.combatLocY;
-                                }
-                                else
-                                {
-                                    UpperLeftSquare.Y = crt.combatLocY;
-                                }
-                                break;
-                            }
-                        }
-                    }
-
-                    //return;
-                }
-                else
-                {
-                    UpperLeftSquare.X = minX;
-                    UpperLeftSquare.Y = minY;
-                }
-            }
-        }*/
-        /*public void CenterScreenOnPC()
-        {
-            Player pc = mod.playerList[currentPlayerIndex];
-            int minX = pc.combatLocX - gv.playerOffsetX;
-            if (minX < 0) { minX = 0; }
-            int minY = pc.combatLocY - gv.playerOffsetY;
-            if (minY < 0) { minY = 0; }
-
-            UpperLeftSquare.X = minX;
-            UpperLeftSquare.Y = minY;
-        }*/
-        /*public bool IsInVisibleCombatWindow(int sqrX, int sqrY)
-        {
-            //all input coordinates are in Map Location, not Screen Location
-            if ((sqrX < UpperLeftSquare.X) || (sqrY < UpperLeftSquare.Y))
-            {
-                return false;
-            }
-            if ((sqrX >= UpperLeftSquare.X + gv.playerOffsetX + gv.playerOffsetX + 1)
-                || (sqrY >= UpperLeftSquare.Y + gv.playerOffsetY + gv.playerOffsetY + 2))
-            {
-                return false;
-            }
-            return true;
-        }*/
-        /*public bool IsInVisibleCombatWindow(int sqrX, int sqrY, int tileW, int tileH)
-        {
-            //all input coordinates are in Map Location, not Screen Location
-            if ((sqrX < UpperLeftSquare.X) || (sqrY < UpperLeftSquare.Y))
-            {
-                return false;
-            }
-            if ((sqrX >= UpperLeftSquare.X + gv.playerOffsetX + gv.playerOffsetX + 1)
-                || (sqrY >= UpperLeftSquare.Y + gv.playerOffsetY + gv.playerOffsetY + 2))
-            {
-                return false;
-            }
-            return true;
-        }*/
         public int getPixelLocX(int sqrX)
         {
             return ((sqrX) * gv.squareSize) + mapStartLocXinPixels;
@@ -4016,14 +3862,6 @@ namespace IceBlink2mini
             return (sqrY) * gv.squareSize;
             //return (sqrY - UpperLeftSquare.Y) * gv.squareSize;
         }
-        /*public int getViewportSquareLocX(int sqrX)
-        {
-            return sqrX - UpperLeftSquare.X;
-        }*/
-        /*public int getViewportSquareLocY(int sqrY)
-        {
-            return sqrY - UpperLeftSquare.Y;
-        }*/
         public void setTargetHighlightStartLocation(Player pc)
         {
             targetHighlightCenterLocation.X = pc.combatLocX;

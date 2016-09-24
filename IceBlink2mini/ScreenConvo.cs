@@ -26,10 +26,8 @@ namespace IceBlink2mini
 	    public int originalSelectedPartyLeader = 0;
 	    public int parentIdNum = 0;    
         public Bitmap convoBitmap;
-        //public Bitmap convoPlusBitmap;
         private bool doActions = true;
         public List<int> nodeIndexList = new List<int>();
-        //private IbbHtmlTextBox htmltext;
         private IBminiTextBox htmltext;
 
         public ScreenConvo(Module m, GameView g)

@@ -1183,70 +1183,61 @@ namespace IceBlink2mini
         }
         public void doLevelUp(int selectedIndex)
         {
-            //List<string> actionList = new List<string> { "Cancel", "LEVEL UP" };
+            if (selectedIndex == 0) // selected to Cancel
+            {
+                //do nothing
+            }
+            else if (selectedIndex == 1) // selected to LEVEL UP
+            {
+                Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
+                //LEVEL UP ALL STATS AND UPDATE STATS
+                pc.LevelUp();
+                gv.sf.UpdateStats(pc);
+                traitGained = "Trait Gained: ";
+                spellGained = "Spell Gained: ";
 
-            //using (ItemListSelector itSel = new ItemListSelector(gv, actionList, "Level Up Action"))
-            //{
-                //itSel.IceBlinkButtonClose.Enabled = true;
-                //itSel.IceBlinkButtonClose.Visible = true;
-                //itSel.setupAll(gv);
-                //var ret = itSel.ShowDialog();
-                if (selectedIndex == 0) // selected to Cancel
+                //if automatically learned traits or spells add them
+                foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
                 {
-                    //do nothing
-                }
-                else if (selectedIndex == 1) // selected to LEVEL UP
-                {
-                    Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
-                    //LEVEL UP ALL STATS AND UPDATE STATS
-                    pc.LevelUp();
-                    gv.sf.UpdateStats(pc);
-                    traitGained = "Trait Gained: ";
-                    spellGained = "Spell Gained: ";
-
-                    //if automatically learned traits or spells add them
-                    foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                    if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
                     {
-                        if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
-                        {
-                            traitGained += ta.name + ", ";
-                            pc.knownTraitsTags.Add(ta.tag);
-                        }
-                    }
-                    foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
-                    {
-                        if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
-                        {
-                            spellGained += sa.name + ", ";
-                            pc.knownSpellsTags.Add(sa.tag);
-                        }
-                    }
-
-                    //check to see if have any traits to learn
-                    List<string> traitTagsList = new List<string>();
-                    traitTagsList = pc.getTraitsToLearn(gv.mod);
-
-                    //check to see if have any spells to learn
-                    List<string> spellTagsList = new List<string>();
-                    spellTagsList = pc.getSpellsToLearn();
-
-                    //if so then ask which one
-                    if (traitTagsList.Count > 0)
-                    {
-                        gv.screenTraitLevelUp.resetPC(false, pc);
-                        gv.screenType = "learnTraitLevelUp";
-                    }
-                    else if (spellTagsList.Count > 0)
-                    {
-                        gv.screenSpellLevelUp.resetPC(false, pc);
-                        gv.screenType = "learnSpellLevelUp";
-                    }
-                    else //no spells or traits to learn
-                    {
-                        doLevelUpSummary();
+                        traitGained += ta.name + ", ";
+                        pc.knownTraitsTags.Add(ta.tag);
                     }
                 }
-            //}
+                foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
+                {
+                    if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
+                    {
+                        spellGained += sa.name + ", ";
+                        pc.knownSpellsTags.Add(sa.tag);
+                    }
+                }
+
+                //check to see if have any traits to learn
+                List<string> traitTagsList = new List<string>();
+                traitTagsList = pc.getTraitsToLearn(gv.mod);
+
+                //check to see if have any spells to learn
+                List<string> spellTagsList = new List<string>();
+                spellTagsList = pc.getSpellsToLearn();
+
+                //if so then ask which one
+                if (traitTagsList.Count > 0)
+                {
+                    gv.screenTraitLevelUp.resetPC(false, pc);
+                    gv.screenType = "learnTraitLevelUp";
+                }
+                else if (spellTagsList.Count > 0)
+                {
+                    gv.screenSpellLevelUp.resetPC(false, pc);
+                    gv.screenType = "learnSpellLevelUp";
+                }
+                else //no spells or traits to learn
+                {
+                    doLevelUpSummary();
+                }
+            }
         }
         public void doLevelUpSummary()
         {

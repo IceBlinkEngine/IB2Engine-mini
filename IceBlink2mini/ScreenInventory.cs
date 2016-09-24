@@ -462,121 +462,24 @@ namespace IceBlink2mini
 
         }
         public void doItemAction(int selectedIndex)
-	    {
-            //List<string> actionList = new List<string> { "Use Item", "Drop Item", "View Item Description" };
+	    {            
+            ItemRefs itRef = GetCurrentlySelectedItemRefs();
+	        Item it = mod.getItemByResRefForInfo(itRef.resref);
+            if ((selectedIndex == 0) && ( (!it.onUseItem.Equals("none")) || (!it.onUseItemIBScript.Equals("none")) || (!it.onUseItemCastSpellTag.Equals("none")) ) )
+            {
+                doSelectPcUseItemSetup();
+	            	
+            }	                
+	        else if (selectedIndex == 1) // selected to DROP ITEM
+	        {
+                doDropForeverSetup();           		
+	            	
+	        }
+	        else if (selectedIndex == 2) // selected to VIEW ITEM
+	        {
+	            gv.sf.ShowFullDescription(it);
+	        }                                
 
-            //using (ItemListSelector itSel = new ItemListSelector(gv, actionList, "Item Action"))
-            //{
-                //itSel.IceBlinkButtonClose.Enabled = true;
-                //itSel.IceBlinkButtonClose.Visible = true;
-                //itSel.setupAll(gv);
-                //var ret = itSel.ShowDialog();
-                ItemRefs itRef = GetCurrentlySelectedItemRefs();
-	            Item it = mod.getItemByResRefForInfo(itRef.resref);
-                if ((selectedIndex == 0) && ( (!it.onUseItem.Equals("none")) || (!it.onUseItemIBScript.Equals("none")) || (!it.onUseItemCastSpellTag.Equals("none")) ) )
-                {
-                    doSelectPcUseItemSetup();
-	            	// selected to USE ITEM
-	            	/*List<string> pcNames = new List<string>();
-	                pcNames.Add("cancel");
-	                if (inCombat)
-	                {
-	                    Player pc = mod.playerList[gv.screenCombat.currentPlayerIndex];
-	                    pcNames.Add(pc.name);
-	                }
-	                else
-	                {
-		                foreach (Player pc in mod.playerList)
-		                {
-		                    pcNames.Add(pc.name);
-		                }	   
-	                }
-                    using (ItemListSelector itSel2 = new ItemListSelector(gv, pcNames, "Selected PC to Use Item"))
-                    {
-                        itSel2.IceBlinkButtonClose.Enabled = true;
-                        itSel2.IceBlinkButtonClose.Visible = true;
-                        itSel2.setupAll(gv);
-                        var ret2 = itSel2.ShowDialog();
-                        if (itSel2.selectedIndex > 0)
-                        {
-                            try
-		                    {
-		                		itRef = GetCurrentlySelectedItemRefs();
-		            	        it = mod.getItemByResRefForInfo(itRef.resref);
-		                		if (inCombat)
-		                		{
-                                    //check to see if use IBScript first
-		                			if (!it.onUseItem.Equals("none"))
-		                			{
-			                			Player pc = mod.playerList[gv.screenCombat.currentPlayerIndex];
-			                			doItemInventoryScriptBasedOnFilename(pc);
-			                			gv.screenCombat.currentCombatMode = "move";
-			                			gv.screenType = "combat";
-			                			gv.screenCombat.endPcTurn(false);
-		                			}
-                                    else if (!it.onUseItemIBScript.Equals("none"))
-		                			{
-		                				doItemInventoryIBScript(gv.screenCombat.currentPlayerIndex);
-		                				gv.screenCombat.currentCombatMode = "move";
-			                			gv.screenType = "combat";
-			                			gv.screenCombat.endPcTurn(false);
-		                			}
-                                    else if (!it.onUseItemCastSpellTag.Equals("none"))
-                                    {
-                                        doItemInventoryCastSpellCombat(gv.screenCombat.currentPlayerIndex);
-                                        gv.screenCombat.currentCombatMode = "cast";
-                                        gv.screenType = "combat";
-                                    }
-                                }
-		                		else
-		                		{
-                                    //check to see if use IBScript first
-		                			if (!it.onUseItem.Equals("none"))
-		                			{
-			                			Player pc = mod.playerList[itSel2.selectedIndex - 1];
-			                			doItemInventoryScriptBasedOnFilename(pc);
-		                			}
-                                    else if (!it.onUseItemIBScript.Equals("none"))
-		                			{
-                                        doItemInventoryIBScript(itSel2.selectedIndex - 1);
-		                			}
-                                    else if (!it.onUseItemCastSpellTag.Equals("none"))
-                                    {
-                                        doItemInventoryCastSpell(itSel2.selectedIndex - 1);
-                                    }
-                                }
-		                    }
-		                    catch (Exception ex)
-		                    {
-                                gv.errorLog(ex.ToString());
-		                    } 
-                        }
-                    }*/
-                }	                
-	            else if (selectedIndex == 1) // selected to DROP ITEM
-	            {
-                    doDropForeverSetup();           		
-	            	/*DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to drop this item forever?", enumMessageButton.YesNo);
-                    if (dlg == DialogResult.Yes)
-                    {
-                        //drop item
-	    	            itRef = GetCurrentlySelectedItemRefs();
-	    	            it = mod.getItemByResRef(itRef.resref);
-	    	            if (!it.plotItem)
-	    	            {
-		    	            gv.sf.RemoveItemFromInventory(itRef, 1);
-	    	            }
-	    	            else
-	    	            {
-	    	                gv.sf.MessageBoxHtml("You can't drop this item.");
-	    	            }
-                    }*/
-	            }
-	            else if (selectedIndex == 2) // selected to VIEW ITEM
-	            {
-	            	gv.sf.ShowFullDescription(it);
-	            }                                
-            //}
             resetInventory();
 	    }
         public void doDropForeverSetup()
