@@ -3994,11 +3994,11 @@ namespace IceBlink2mini
                 string val = ConcateString(element[2]);
                 if (element[1] == "=")
                 {
-                    gv.mod.currentEncounter.encounterCreatureList[indexNum].name = val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_name = val;
                 }
                 else if (element[1] == "+=")
                 {
-                    gv.mod.currentEncounter.encounterCreatureList[indexNum].name += val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_name += val;
                 }
             }
             else if (element[0].EndsWith("cr_tag"))
@@ -4006,11 +4006,11 @@ namespace IceBlink2mini
                 string val = ConcateString(element[2]);
                 if (element[1] == "=")
                 {
-                    gv.mod.currentEncounter.encounterCreatureList[indexNum].tag = val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_tag = val;
                 }
                 else if (element[1] == "+=")
                 {
-                    gv.mod.currentEncounter.encounterCreatureList[indexNum].tag += val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_tag += val;
                 }
             }
             else if (element[0].EndsWith("cr_resref"))
@@ -6372,11 +6372,11 @@ namespace IceBlink2mini
                     }
                     else if (parm.EndsWith("cr_name"))
                     {
-                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].name.ToString();
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_name.ToString();
                     }
                     else if (parm.EndsWith("cr_tag"))
                     {
-                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].tag.ToString();
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_tag.ToString();
                     }
                     else if (parm.EndsWith("cr_resref"))
                     {

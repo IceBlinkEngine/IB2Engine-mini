@@ -23,8 +23,8 @@ namespace IceBlink2mini
         public int moveDistance = 5;
         public int initiativeBonus = 0;
         public int moveOrder = 0;
-	    public string name = "newCreature";	
-	    public string tag = "newTag";
+	    public string cr_name = "newCreature";	
+	    public string cr_tag = "newTag";
 	    public string cr_resref = "newResRef";
 	    public string cr_desc = ""; //detailed description
 	    public int cr_level = 1;
@@ -79,8 +79,8 @@ namespace IceBlink2mini
 		    copy.combatLocY = this.combatLocY;
             copy.moveDistance = this.moveDistance;
             copy.initiativeBonus = this.initiativeBonus;
-		    copy.name = this.name;	
-		    copy.tag = this.tag;
+		    copy.cr_name = this.cr_name;	
+		    copy.cr_tag = this.cr_tag;
 		    copy.cr_resref = this.cr_resref;
 		    copy.cr_desc = this.cr_desc;
 		    copy.cr_level = this.cr_level;

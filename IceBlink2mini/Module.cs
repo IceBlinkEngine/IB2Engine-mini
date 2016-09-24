@@ -33,7 +33,7 @@ namespace IceBlink2mini
         public bool hideRoster = false;
         public bool use3d6 = false;
         public bool useUIBackground = true;
-        public int logNumberOfLines = 20;
+        public int logNumberOfLines = 28;
         public string spellLabelSingular = "Spell";
         public string spellLabelPlural = "Spells";
         public string goldLabelSingular = "Gold";
@@ -241,7 +241,7 @@ namespace IceBlink2mini
         {
             foreach (Creature crt in this.currentEncounter.encounterCreatureList)
             {
-                if (crt.tag.Equals(tag)) return crt;
+                if (crt.cr_tag.Equals(tag)) return crt;
             }
             return null;
         }

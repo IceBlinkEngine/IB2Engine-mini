@@ -113,17 +113,6 @@ namespace IceBlink2mini
         {
             mainUiLayout.Update(elapsed);
 
-            //handle RealTime Timer events if module uses this system
-            /*if (mod.useRealTimeTimer)
-            {
-                gv.realTimeTimerMilliSecondsEllapsed += elapsed;
-                if (gv.realTimeTimerMilliSecondsEllapsed >= mod.realTimeTimerLengthInMilliSeconds)
-                {
-                    gv.cc.doUpdate();
-                    gv.realTimeTimerMilliSecondsEllapsed = 0;
-                }
-            }*/
-
             #region PROP AMBIENT SPRITES
             foreach (Sprite spr in spriteList)
             {
@@ -259,22 +248,12 @@ namespace IceBlink2mini
                         
             if (!mod.currentArea.areaDark)
             {
-                //drawSprites();
-                //bool hideOverlayNeeded = false;
                 if (mod.currentArea.UseDayNightCycle)
                 {
                     drawOverlayTints();
-                    //hideOverlayNeeded = true;
                 }
-
-                /*if (hideOverlayNeeded)
-                {
-                    drawBlackTilesOverTints();
-                    hideOverlayNeeded = false;
-                }*/
                 drawFogOfWar();
-            } 
-           
+            }
             if ((showClock) && (!hideClock))
             {
                 drawMainMapClockText();
@@ -871,26 +850,6 @@ namespace IceBlink2mini
             }
 
         }
-        /*public void drawSprites()
-        {
-            foreach (Sprite spr in spriteList)
-            {
-                if (spr.movementMethod.Contains("rain") || spr.movementMethod.Contains("snow") || spr.movementMethod.Contains("sandStorm"))
-                {
-                    spr.Draw(gv);
-                }
-            }
-
-            foreach (Sprite spr in spriteList)
-            {
-                if (!spr.movementMethod.Contains("rain") && !spr.movementMethod.Contains("snow") && !spr.movementMethod.Contains("sandStorm"))
-                {
-                    spr.Draw(gv);
-                }
-            }
-
-            drawBlackTilesOverTints();
-        }*/
         public void drawMainMapClockText()
         {
             int timeofday = mod.WorldTime % (24 * 60);
@@ -968,35 +927,6 @@ namespace IceBlink2mini
                 }
             }
         }
-        /*public void drawBlackTilesOverTints()
-        {
-            int width = gv.playerOffsetX * 2 + 1;
-            int height = gv.playerOffsetY * 2 + 1;
-
-            //at left edge
-            for (int i = -2; i < gv.playerOffsetX - mod.PlayerLocationX; i++)
-            {
-                drawColumnOfBlack(i);                    
-            }
-
-            //at top edge
-            for (int i = -2; i < gv.playerOffsetY - mod.PlayerLocationY; i++)
-            {
-                drawRowOfBlack(i);
-            }
-
-            //at right edge
-            for (int i = -1; i <= gv.playerOffsetX + mod.PlayerLocationX - mod.currentArea.MapSizeX + 1; i++)
-            {
-                drawColumnOfBlack(width - i);                    
-            }
-
-            //at bottom edge
-            for (int i = -1; i <= gv.playerOffsetY + mod.PlayerLocationY - mod.currentArea.MapSizeY + 1; i++)
-            {
-                drawRowOfBlack(height - i);
-            }
-        }*/
         public void drawFloatyTextPool()
         {
             if (floatyTextPool.Count > 0)
@@ -1047,33 +977,6 @@ namespace IceBlink2mini
                 }
             }
         }
-        /*public void drawColumnOfBlack(int col)
-        {
-            for (int y = -1; y < gv.playerOffsetY * 2 + 1 + 2; y++)
-            {
-                int tlX = col * gv.squareSize;
-                int tlY = y * gv.squareSize;
-                int brX = gv.squareSize;
-                int brY = gv.squareSize;
-                IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
-                IbRect dst = new IbRect(tlX + mapStartLocXinPixels, tlY, brX, brY);
-
-                gv.DrawBitmap(gv.cc.black_tile, src, dst);
-            }
-        }*/
-        /*public void drawRowOfBlack(int row)
-        {
-            for (int x = -1; x < gv.playerOffsetX * 2 + 1 + 2; x++)
-            {
-                int tlX = x * gv.squareSize;
-                int tlY = row * gv.squareSize;
-                int brX = gv.squareSize;
-                int brY = gv.squareSize;
-                IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
-                IbRect dst = new IbRect(tlX + mapStartLocXinPixels, tlY, brX, brY);
-                gv.DrawBitmap(gv.cc.black_tile, src, dst);
-            }
-        }*/
         public void drawUiLayout()
         {
             //SET PORTRAITS
@@ -1088,6 +991,8 @@ namespace IceBlink2mini
                     int index = 0;
                     foreach (Player pc in mod.playerList)
                     {
+                        if (pc.IsReadyToAdvanceLevel()) { pnl.portraitList[index].levelUpOn = true; }
+                        else { pnl.portraitList[index].levelUpOn = false; }
                         pnl.portraitList[index].show = true;
                         pnl.portraitList[index].ImgFilename = pc.portraitFilename;
                         pnl.portraitList[index].TextHP = pc.hp + "/" + pc.hpMax;

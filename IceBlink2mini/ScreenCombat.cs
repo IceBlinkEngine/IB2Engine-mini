@@ -208,7 +208,7 @@ namespace IceBlink2mini
                         try
                         {
                             Creature copy = c.DeepCopy();
-                            copy.tag = crf.creatureTag;
+                            copy.cr_tag = crf.creatureTag;
                             //gv.cc.DisposeOfBitmap(ref copy.token);
                             //copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
                             copy.combatLocX = crf.creatureStartLocationX;
@@ -371,7 +371,7 @@ namespace IceBlink2mini
                 if (crt.moveOrder == currentMoveOrderIndex)
                 {
 
-                    gv.cc.addLogText("<font color='blue'>It's the turn of " + crt.name + ". </font><BR>");
+                    gv.cc.addLogText("<font color='blue'>It's the turn of " + crt.cr_name + ". </font><BR>");
                     //change creatureIndex or currentPlayerIndex
                     creatureIndex = idx;
                     //set isPlayerTurn
@@ -763,7 +763,7 @@ namespace IceBlink2mini
             if ((attack >= defense) || (attackRoll == 20) || (automaticallyHits == true)) //HIT
             {
                 crt.hp = crt.hp - damage;
-                gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> attacks </font><font color='silver'>" + crt.name + "</font>");
+                gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> attacks </font><font color='silver'>" + crt.cr_name + "</font>");
                 gv.cc.addLogText("<font color='white'> and HITS (</font><font color='lime'>" + damage + "</font><font color='white'> damage)</font><BR>");
                 gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font><BR>");
 
@@ -801,7 +801,7 @@ namespace IceBlink2mini
                 if (crt.hp <= 0)
                 {
                     deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
-                    gv.cc.addLogText("<font color='lime'>You killed the " + crt.name + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>You killed the " + crt.cr_name + "</font><BR>");
                     return 2; //killed
                 }
                 else
@@ -816,7 +816,7 @@ namespace IceBlink2mini
                 {
                     gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                 }
-                gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> attacks </font><font color='gray'>" + crt.name + "</font>");
+                gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> attacks </font><font color='gray'>" + crt.cr_name + "</font>");
                 gv.cc.addLogText("<font color='white'> and MISSES</font><BR>");
                 gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + "</font><BR>");
                 return 0; //missed
@@ -1308,7 +1308,7 @@ namespace IceBlink2mini
             {
                 if (gv.mod.debugMode)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + crt.name + " is a BasicAttacker</font><BR>");
+                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is a BasicAttacker</font><BR>");
                 }
                 BasicAttacker(crt);
             }
@@ -1316,7 +1316,7 @@ namespace IceBlink2mini
             {
                 if (gv.mod.debugMode)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + crt.name + " is a GeneralCaster</font><BR>");
+                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is a GeneralCaster</font><BR>");
                 }
                 GeneralCaster(crt);
             }
@@ -1324,7 +1324,7 @@ namespace IceBlink2mini
             {
                 if (gv.mod.debugMode)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + crt.name + " is a BasicAttacker</font><BR>");
+                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is a BasicAttacker</font><BR>");
                 }
                 BasicAttacker(crt);
             }
@@ -1478,7 +1478,7 @@ namespace IceBlink2mini
             if ((attack >= defense) || (attackRoll == 20))
             {
                 pc.hp = pc.hp - damage;
-                gv.cc.addLogText("<font color='silver'>" + crt.name + "</font>" +
+                gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" +
                         "<font color='white'>" + " attacks " + "</font>" +
                         "<font color='aqua'>" + pc.name + "</font><BR>");
                 gv.cc.addLogText("<font color='white'>" + " and HITS (" + "</font>" +
@@ -1510,7 +1510,7 @@ namespace IceBlink2mini
             }
             else
             {
-                gv.cc.addLogText("<font color='silver'>" + crt.name + "</font>" +
+                gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" +
                         "<font color='white'>" + " attacks " + "</font>" +
                         "<font color='aqua'>" + pc.name + "</font><BR>");
                 gv.cc.addLogText("<font color='white'>" + " and MISSES" + "</font><BR>");
@@ -1568,11 +1568,11 @@ namespace IceBlink2mini
                             int DC = 15;
                             if (saveChk >= DC) //passed save check
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + crt.name + " avoids stun (" + saveChkRoll + " + " + crt.fortitude + " >= " + DC + ")</font><BR>");
+                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids stun (" + saveChkRoll + " + " + crt.fortitude + " >= " + DC + ")</font><BR>");
                             }
                             else
                             {
-                                gv.cc.addLogText("<font color='red'>" + crt.name + " is stunned by mace (" + saveChkRoll + " + " + crt.fortitude + " < " + DC + ")</font><BR>");
+                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is stunned by mace (" + saveChkRoll + " + " + crt.fortitude + " < " + DC + ")</font><BR>");
                                 crt.cr_status = "Held";
                                 Effect ef = mod.getEffectByTag("hold");
                                 crt.AddEffectByObject(ef, 1);
@@ -1626,7 +1626,7 @@ namespace IceBlink2mini
                                         + " fireDam = " + fireDam + "</font>" +
                                         "<BR>");
                         }
-                        gv.cc.addLogText("<font color='aqua'>" + crt.name + "</font>" +
+                        gv.cc.addLogText("<font color='aqua'>" + crt.cr_name + "</font>" +
                                 "<font color='white'>" + " is burned for " + "</font>" +
                                 "<font color='red'>" + fireDam + "</font>" +
                                 "<font color='white'>" + " hit point(s)" + "</font>" +
@@ -1645,7 +1645,7 @@ namespace IceBlink2mini
                                         + " fireDam = " + fireDam + "</font>" +
                                         "<BR>");
                         }
-                        gv.cc.addLogText("<font color='aqua'>" + crt.name + "</font>" +
+                        gv.cc.addLogText("<font color='aqua'>" + crt.cr_name + "</font>" +
                                 "<font color='white'>" + " is burned for " + "</font>" +
                                 "<font color='red'>" + fireDam + "</font>" +
                                 "<font color='white'>" + " hit point(s)" + "</font>" +
@@ -1664,7 +1664,7 @@ namespace IceBlink2mini
                                         + " fireDam = " + fireDam + "</font>" +
                                         "<BR>");
                         }
-                        gv.cc.addLogText("<font color='aqua'>" + crt.name + "</font>" +
+                        gv.cc.addLogText("<font color='aqua'>" + crt.cr_name + "</font>" +
                                 "<font color='white'>" + " is burned for " + "</font>" +
                                 "<font color='red'>" + fireDam + "</font>" +
                                 "<font color='white'>" + " hit point(s)" + "</font>" +
@@ -2972,7 +2972,7 @@ namespace IceBlink2mini
                         {
                             if ((crt.combatLocX == gridx) && (crt.combatLocY == gridy))
                             {
-                                gv.cc.floatyText = crt.name;
+                                gv.cc.floatyText = crt.cr_name;
                                 gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
                                 gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
                                 gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
@@ -4560,7 +4560,7 @@ namespace IceBlink2mini
                         }
                         else
                         {
-                            gv.cc.addLogText("<font color='blue'>Attack of Opportunity by: " + crt.name + "</font><BR>");
+                            gv.cc.addLogText("<font color='blue'>Attack of Opportunity by: " + crt.cr_name + "</font><BR>");
                             doActualCreatureAttack(pc, crt, 1);
                             if (pc.hp <= 0)
                             {
@@ -4795,7 +4795,7 @@ namespace IceBlink2mini
                 if (IsCreatureAttackFromBehind(pc, crt))
                 {
                     modifier += 2;
-                    gv.cc.addLogText("<font color='yellow'>" + crt.name + " attacks from behind: +2 att</font><BR>");
+                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " attacks from behind: +2 att</font><BR>");
                 }
                 return crt.cr_att + modifier;
             }
@@ -5022,7 +5022,7 @@ namespace IceBlink2mini
         {
             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
             {
-                if (crt.tag.Equals(tag))
+                if (crt.cr_tag.Equals(tag))
                 {
                     return crt;
                 }

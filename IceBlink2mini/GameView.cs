@@ -602,7 +602,10 @@ namespace IceBlink2mini
             {
                 if (c == '\r') { continue; }
                 if (c == '\n') { continue; }
-                DrawD2DBitmap(bm, charList[c], new SharpDX.RectangleF(xLoc + x, yLoc, fontWidth, fontHeight), 0.0f, false, 1.0f, 0, 0, 0, 0, true);
+                char c1 = '0';
+                if (!charList.ContainsKey(c)) { c1 = '#'; }
+                else c1 = c;
+                DrawD2DBitmap(bm, charList[c1], new SharpDX.RectangleF(xLoc + x, yLoc, fontWidth, fontHeight), 0.0f, false, 1.0f, 0, 0, 0, 0, true);
                 x += fontWidth + fontCharSpacing;
             }
         }
