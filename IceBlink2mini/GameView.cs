@@ -54,6 +54,7 @@ namespace IceBlink2mini
         public SharpDX.DirectWrite.Factory factoryDWrite;
         public RenderTarget renderTarget2D;
         public SolidColorBrush sceneColorBrush;
+
         public string versionNum = "v1.00";
         public string fixedModule = "";
         public Dictionary<char, SharpDX.RectangleF> charList = new Dictionary<char, SharpDX.RectangleF>();
@@ -131,13 +132,13 @@ namespace IceBlink2mini
 
             this.MinimumSize = new Size(100, 100);
             //this is the standard way, comment out the next 3 lines if manually forcing a screen resolution for testing UI layouts
-            //this.WindowState = FormWindowState.Maximized;
-            //this.Width = Screen.PrimaryScreen.Bounds.Width;
-            //this.Height = Screen.PrimaryScreen.Bounds.Height;            
+            this.WindowState = FormWindowState.Maximized;
+            this.Width = Screen.PrimaryScreen.Bounds.Width;
+            this.Height = Screen.PrimaryScreen.Bounds.Height;            
             //for testing other screen sizes, manually enter a resolution here
             //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792, 912x528, 456x264, 960x540,
-            this.Width = 960;
-            this.Height = 540;
+            //this.Width = 960;
+            //this.Height = 540;
 
             screenWidth = this.Width;
             screenHeight = this.Height;
@@ -174,39 +175,39 @@ namespace IceBlink2mini
             //CREATES A FONTFAMILY
             fillCharList();
 
-            fontWidth = (int)(4 * screenDensity);
-            fontHeight = (int)(4 * screenDensity);
-            fontCharSpacing = fontWidth / 8;
-            fontLineSpacing = fontHeight / 2;
+            fontWidth = (int)(6 * screenDensity); //4
+            fontHeight = (int)(6 * screenDensity); //4
+            fontCharSpacing = fontWidth / 8; //8
+            fontLineSpacing = fontHeight / 2; //2
 
             //force font to best size if squareSize is near to multiple of 48px
             if ((squareSize >= 40) && (squareSize < 56)) //48x48
             {
-                fontWidth = 8;
-                fontHeight = 8;
-                fontCharSpacing = 1;
-                fontLineSpacing = 4;
+                fontWidth = 12; //8
+                fontHeight = 12; //8
+                fontCharSpacing = 1; //1
+                fontLineSpacing = 6; //4
             }
             else if ((squareSize >= 64) && (squareSize < 80)) //72x72
-            {
-                fontWidth = 12;
-                fontHeight = 12;
-                fontCharSpacing = 1;
-                fontLineSpacing = 6;
-            }
-            else if ((squareSize >= 84) && (squareSize < 108)) //96x96
             {
                 fontWidth = 16;
                 fontHeight = 16;
                 fontCharSpacing = 1;
                 fontLineSpacing = 8;
             }
-            else if ((squareSize >= 128) && (squareSize < 160)) //144x144
+            else if ((squareSize >= 84) && (squareSize < 108)) //96x96
             {
                 fontWidth = 24;
                 fontHeight = 24;
                 fontCharSpacing = 2;
                 fontLineSpacing = 12;
+            }
+            else if ((squareSize >= 128) && (squareSize < 160)) //144x144
+            {
+                fontWidth = 32;
+                fontHeight = 32;
+                fontCharSpacing = 2;
+                fontLineSpacing = 16;
             }
 
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);

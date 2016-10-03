@@ -39,6 +39,7 @@ namespace IceBlink2mini
         public void setupIB2HtmlLogBox(GameView g)
         {
             gv = g;
+            numberOfLinesToShow = (int)((tbHeight * gv.screenDensity) / (gv.fontHeight + gv.fontLineSpacing));
         }
 
         public void DrawString(string text, float x, float y, string fontColor)
