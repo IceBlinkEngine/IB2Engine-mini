@@ -2149,7 +2149,7 @@ namespace IceBlink2mini
                 for (int y = 0; y < this.mod.currentEncounter.MapSizeY; y++)
                 {
                     string tile = mod.currentEncounter.Layer1Filename[y * mod.currentEncounter.MapSizeX + x];
-                    IbRect srcLyr = new IbRect(x, y, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
+                    IbRect srcLyr = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
 
                     if (srcLyr != null)
                     {
@@ -2158,7 +2158,9 @@ namespace IceBlink2mini
                         int tlX = ((x + shiftX) * gv.squareSize) + mapStartLocXinPixels;
                         int tlY = (y + shiftY) * gv.squareSize;
                         float scalerX = srcLyr.Width / gv.tileSizeInPixels;
+                        if (scalerX == 0) { scalerX = 1.0f; }
                         float scalerY = srcLyr.Height / gv.tileSizeInPixels;
+                        if (scalerY == 0) { scalerY = 1.0f; }
                         int brX = (int)(gv.squareSize * scalerX);
                         int brY = (int)(gv.squareSize * scalerY);
                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
@@ -2175,7 +2177,7 @@ namespace IceBlink2mini
                 for (int y = 0; y < this.mod.currentEncounter.MapSizeY; y++)
                 {
                     string tile = mod.currentEncounter.Layer2Filename[y * mod.currentEncounter.MapSizeX + x];
-                    IbRect srcLyr = new IbRect(x, y, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
+                    IbRect srcLyr = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
 
                     if (srcLyr != null)
                     {
@@ -2184,7 +2186,9 @@ namespace IceBlink2mini
                         int tlX = ((x + shiftX) * gv.squareSize) + mapStartLocXinPixels;
                         int tlY = (y + shiftY) * gv.squareSize;
                         float scalerX = srcLyr.Width / gv.tileSizeInPixels;
+                        if (scalerX == 0) { scalerX = 1.0f; }
                         float scalerY = srcLyr.Height / gv.tileSizeInPixels;
+                        if (scalerY == 0) { scalerY = 1.0f; }
                         int brX = (int)(gv.squareSize * scalerX);
                         int brY = (int)(gv.squareSize * scalerY);
                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
@@ -2203,7 +2207,7 @@ namespace IceBlink2mini
                     for (int y = 0; y < this.mod.currentEncounter.MapSizeY; y++)
                     {
                         string tile = mod.currentEncounter.Layer3Filename[y * mod.currentEncounter.MapSizeX + x];
-                        IbRect srcLyr = new IbRect(x, y, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
+                        IbRect srcLyr = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
 
                         if (srcLyr != null)
                         {
@@ -2212,7 +2216,9 @@ namespace IceBlink2mini
                             int tlX = ((x + shiftX) * gv.squareSize) + mapStartLocXinPixels;
                             int tlY = (y + shiftY) * gv.squareSize;
                             float scalerX = srcLyr.Width / gv.tileSizeInPixels;
+                            if (scalerX == 0) { scalerX = 1.0f; }
                             float scalerY = srcLyr.Height / gv.tileSizeInPixels;
+                            if (scalerY == 0) { scalerY = 1.0f; }
                             int brX = (int)(gv.squareSize * scalerX);
                             int brY = (int)(gv.squareSize * scalerY);
                             IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);

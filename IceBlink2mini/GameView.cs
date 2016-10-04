@@ -28,7 +28,7 @@ namespace IceBlink2mini
         public int pS; // = squareSize / 10 ... used for small UI and text location adjustments based on squaresize
         public int squaresInWidth = 19;
         public int squaresInHeight = 11;
-        public int ibbwidthL = 85;
+        public int ibbwidthL = 120;
         public int ibbwidthR = 25;
         public int ibbheight = 25;
         public int ibpwidth = 27;

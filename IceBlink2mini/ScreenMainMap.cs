@@ -293,7 +293,9 @@ namespace IceBlink2mini
                     int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
                     int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                     float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / gv.tileSizeInPixels;
+                    if (scalerX == 0) { scalerX = 1.0f; }
                     float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / gv.tileSizeInPixels;
+                    if (scalerY == 0) { scalerY = 1.0f; }
                     int brX = (int)(gv.squareSize * scalerX);
                     int brY = (int)(gv.squareSize * scalerY);
 
@@ -324,7 +326,9 @@ namespace IceBlink2mini
                     int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
                     int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                     float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / gv.tileSizeInPixels;
+                    if (scalerX == 0) { scalerX = 1.0f; }
                     float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / gv.tileSizeInPixels;
+                    if (scalerY == 0) { scalerY = 1.0f; }
                     int brX = (int)(gv.squareSize * scalerX);
                     int brY = (int)(gv.squareSize * scalerY);
 
@@ -357,7 +361,9 @@ namespace IceBlink2mini
                         int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
                         int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                         float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / gv.tileSizeInPixels;
+                        if (scalerX == 0) { scalerX = 1.0f; }
                         float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / gv.tileSizeInPixels;
+                        if (scalerY == 0) { scalerY = 1.0f; }
                         int brX = (int)(gv.squareSize * scalerX);
                         int brY = (int)(gv.squareSize * scalerY);
 
