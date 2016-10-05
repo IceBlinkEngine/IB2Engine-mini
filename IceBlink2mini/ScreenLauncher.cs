@@ -119,9 +119,9 @@ namespace IceBlink2mini
 		    {
                 
                 string textToSpan = "<gn>Module Description</gn>" + "<br>";
-                description.tbXloc = 4 * gv.squareSize;
+                description.tbXloc = 1 * gv.squareSize;
                 description.tbYloc = 6 * gv.squareSize;
-                description.tbWidth = 12 * gv.squareSize;
+                description.tbWidth = 18 * gv.squareSize;
                 description.tbHeight = 6 * gv.squareSize;
                 textToSpan += moduleList[moduleIndex].moduleDescription;
                 description.linesList.Clear();

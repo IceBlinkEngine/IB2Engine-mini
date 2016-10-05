@@ -342,7 +342,7 @@ namespace IceBlink2mini
                     }
 
                     //write the pc's name to log whsoe turn it is
-                    gv.cc.addLogText("<font color='blue'>It's the turn of " + pc.name + ". </font><BR>");
+                    //gv.cc.addLogText("<font color='blue'>It's the turn of " + pc.name + ". </font><BR>");
 
                     //change creatureIndex or currentPlayerIndex
                     currentPlayerIndex = idx;
@@ -371,7 +371,7 @@ namespace IceBlink2mini
                 if (crt.moveOrder == currentMoveOrderIndex)
                 {
 
-                    gv.cc.addLogText("<font color='blue'>It's the turn of " + crt.cr_name + ". </font><BR>");
+                    //gv.cc.addLogText("<font color='blue'>It's the turn of " + crt.cr_name + ". </font><BR>");
                     //change creatureIndex or currentPlayerIndex
                     creatureIndex = idx;
                     //set isPlayerTurn
