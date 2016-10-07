@@ -96,7 +96,7 @@ namespace IceBlink2mini
                 }
 			    btnAction.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnAction.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-                btnAction.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f) - (gv.squareSize * 4);
+                btnAction.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f) - (gv.squareSize * 6);
 			    btnAction.Y = 9 * gv.squareSize + pH * 2;
                 btnAction.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnAction.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
@@ -114,7 +114,7 @@ namespace IceBlink2mini
                 }
                 btnAction2.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnAction2.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-                btnAction2.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f) + (gv.squareSize * 4);
+                btnAction2.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f) + (gv.squareSize * 6);
                 btnAction2.Y = 9 * gv.squareSize + pH * 2;
                 btnAction2.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnAction2.Width = (int)(gv.ibbwidthL * gv.screenDensity);
@@ -137,7 +137,7 @@ namespace IceBlink2mini
 			    btnInfo.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnInfo.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnInfo.X = (16 * gv.squareSize) - padW * 1;
-                btnInfo.Y = 9 * gv.squareSize + pH * 2;
+                btnInfo.Y = 8 * gv.squareSize - pH * 2;
                 btnInfo.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInfo.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }

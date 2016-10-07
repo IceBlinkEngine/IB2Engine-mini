@@ -199,8 +199,8 @@ namespace IceBlink2mini
     	
             //DRAW TEXT		
 		    locY = gv.squareSize + (pH * 2);
-		    gv.DrawText("Party", locX + (gv.squareSize * 5) + pW * 2, locY, "wh");
-            gv.DrawText("Inventory", locX + (gv.squareSize * 5) + pW * 2, locY += spacing, "wh");
+		    gv.DrawText("Party", locX + (gv.squareSize * 4) + pW * 2, locY, "wh");
+            gv.DrawText("Inventory", locX + (gv.squareSize * 4) + pW * 2, locY += spacing, "wh");
 		    locY = gv.squareSize + (pH * 2);
 		    gv.DrawText("Party", tabX2 + (gv.squareSize * 6), locY, "yl");
             gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + (gv.squareSize * 6), locY += spacing, "yl");
@@ -256,8 +256,8 @@ namespace IceBlink2mini
                 
                 description.tbXloc = (11 * gv.squareSize) + (pW * 5);
                 description.tbYloc = 2 * gv.squareSize;
-                description.tbWidth = pW * 80;
-                description.tbHeight = pH * 50;
+                description.tbWidth = 6 * gv.squareSize;
+                description.tbHeight = 8 * gv.squareSize;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);
                 description.onDrawLogBox();

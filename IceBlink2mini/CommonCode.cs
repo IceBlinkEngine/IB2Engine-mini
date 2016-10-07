@@ -453,6 +453,7 @@ namespace IceBlink2mini
                 {
                     senc.completed = false;
                 }
+                saveMod.moduleEncountersCompletedList.Add(senc);
             }
             saveMod.moduleGlobalInts.Clear();
             foreach (GlobalInt g in gv.mod.moduleGlobalInts)
