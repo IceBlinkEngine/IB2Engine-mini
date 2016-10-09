@@ -267,8 +267,8 @@ namespace IceBlink2mini
 	            }
                 description.tbXloc = (11 * gv.squareSize) + (pW * 5);
                 description.tbYloc = 2 * gv.squareSize;
-                description.tbWidth = pW * 80;
-                description.tbHeight = pH * 50;
+                description.tbWidth = 7 * gv.squareSize;
+                description.tbHeight = 8 * gv.squareSize;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);
                 description.onDrawLogBox();
