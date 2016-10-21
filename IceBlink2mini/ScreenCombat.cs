@@ -4027,7 +4027,10 @@ namespace IceBlink2mini
                 {
                     if (!crt.isHeld())
                     {
-                        return true;
+                        if (crt.hp > 0)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
@@ -4039,7 +4042,10 @@ namespace IceBlink2mini
             {
                 if (getDistance(new Coordinate(pc.combatLocX, pc.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) == 1)
                 {
-                    return true;
+                    if ((pc.hp > 0) && (!pc.isHeld()))
+                    { 
+                       return true;
+                    }
                 }
             }
             return false;
