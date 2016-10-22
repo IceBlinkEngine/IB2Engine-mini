@@ -5511,6 +5511,7 @@ namespace IceBlink2mini
 
 //            gv.postDelayed("doFloatyText", 100);
         }
+        /*
         public void efHeld(object src, Effect ef)
         {
             //int parm1 = Integer.parseInt(p1); // parm1 = RemainingDurationInUnits (how many seconds remain)
@@ -5696,7 +5697,7 @@ namespace IceBlink2mini
                 return;
             }
         }
-
+        */
         public float GetDistanceF(int sX, int sY, int eX, int eY)
         {
             double y = Math.Abs(eY - sY);
@@ -6457,7 +6458,9 @@ namespace IceBlink2mini
 
 //            gv.postDelayed("doFloatyText", 100);
         }
+        
         //SPELLS WIZARD
+        /*        
         public void spFlameFingers(object src, object trg, Spell thisSpell)
         {
             //set squares list
@@ -6573,23 +6576,7 @@ namespace IceBlink2mini
             }
             
             //remove dead creatures            
-            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
-            {
-                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
-                {
-                    try
-                    {
-                        //do OnDeath IBScript
-                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
-                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
-                    }
-                    catch (Exception ex)
-                    {
-                        gv.errorLog(ex.ToString());
-                    }
-                }
-            }*/
+
 //            gv.postDelayed("doFloatyText", 100);
         }
         public void spMageBolt(object src, object trg)
@@ -6619,34 +6606,6 @@ namespace IceBlink2mini
                     {
                         gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + target.cr_name + "</font><BR>");
-                        /*try
-                        {
-                            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
-                            {
-                                if (mod.currentEncounter.encounterCreatureList[x] == target)
-                                {
-                                    try
-                                    {
-                                        //do OnDeath LOGIC TREE
-                                        //REMOVEgv.cc.doLogicTreeBasedOnTag(target.onDeathLogicTree, target.onDeathParms);
-                                        //do OnDeath IBScript
-                                        gv.cc.doIBScriptBasedOnFilename(target.onDeathIBScript, target.onDeathIBScriptParms);
-                                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        gv.errorLog(ex.ToString());
-                                    }
-                                }
-                            }
-
-                            //mod.currentEncounter.encounterCreatureList.remove(target);
-                        }
-                        catch (Exception ex)
-                        {
-                            gv.errorLog(ex.ToString());
-                        }*/
                     }
                 }
                 //Do floaty text damage
@@ -7046,23 +7005,7 @@ namespace IceBlink2mini
             }
 
             //remove dead creatures            
-            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
-            {
-                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
-                {
-                    try
-                    {
-                        //do OnDeath IBScript
-                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
-                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
-                    }
-                    catch (Exception ex)
-                    {
-                        gv.errorLog(ex.ToString());
-                    }
-                }
-            }*/
+
 //            gv.postDelayed("doFloatyText", 100);
         }
         public void spFireball(object src, object trg, Spell thisSpell)
@@ -7182,23 +7125,7 @@ namespace IceBlink2mini
             }
 
             //remove dead creatures            
-            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
-            {
-                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
-                {
-                    try
-                    {
-                        //do OnDeath IBScript
-                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
-                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
-                    }
-                    catch (Exception ex)
-                    {
-                        gv.errorLog(ex.ToString());
-                    }
-                }
-            }*/
+
 //            gv.postDelayed("doFloatyText", 100);
         }
         public void spLightning(object src, object trg, Spell thisSpell)
@@ -7318,26 +7245,10 @@ namespace IceBlink2mini
             }
 
             //remove dead creatures            
-            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
-            {
-                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
-                {
-                    try
-                    {
-                        //do OnDeath IBScript
-                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
-                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
-                    }
-                    catch (Exception ex)
-                    {
-                        gv.errorLog(ex.ToString());
-                    }
-                }
-            }*/
+
 //            gv.postDelayed("doFloatyText", 100);
         }
-
+        
         //SPELLS CLERIC
         public void spHeal(object src, object trg, int healAmount)
         {
@@ -7557,33 +7468,7 @@ namespace IceBlink2mini
                     {
                         gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + target.cr_name + "</font><BR>");
-                        /*try
-                        {
-                            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
-                            {
-                                if (mod.currentEncounter.encounterCreatureList[x] == target)
-                                {
-                                    try
-                                    {
-                                        //do OnDeath LOGIC TREE
-                                        //REMOVEgv.cc.doLogicTreeBasedOnTag(target.onDeathLogicTree, target.onDeathParms);
-                                        //do OnDeath IBScript
-                                        gv.cc.doIBScriptBasedOnFilename(target.onDeathIBScript, target.onDeathIBScriptParms);
-                                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        gv.errorLog(ex.ToString());
-                                    }
-                                }
-                            }
-                            mod.currentEncounter.encounterCreatureList.Remove(target);
-                        }
-                        catch (Exception ex)
-                        {
-                            gv.errorLog(ex.ToString());
-                        }*/
+
                     }
                 }
                 //Do floaty text damage
@@ -7765,23 +7650,7 @@ namespace IceBlink2mini
             }
 
             //remove dead creatures            
-            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
-            {
-                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
-                {
-                    try
-                    {
-                        //do OnDeath IBScript
-                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
-                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
-                    }
-                    catch (Exception ex)
-                    {
-                        gv.errorLog(ex.ToString());
-                    }
-                }
-            }*/
+
 //            gv.postDelayed("doFloatyText", 100);
         }
         public void spHold(object src, object trg)
@@ -7841,5 +7710,6 @@ namespace IceBlink2mini
                 //Toast.makeText(gv.gameContext, "don't recognize target type", Toast.LENGTH_SHORT).show();			
             }
         }
+        */
     }
 }

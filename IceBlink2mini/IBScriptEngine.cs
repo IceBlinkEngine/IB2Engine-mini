@@ -5611,7 +5611,7 @@ namespace IceBlink2mini
                 {
                     if (gv.mod.debugMode)
                     {
-                        gv.cc.addLogText("<font color='yellow'>Replaced " + parm + " with " + parmsList[index] + "</font><BR>");
+                        gv.cc.addLogText("<yl>Replaced " + parm + " with " + parmsList[index] + "</yl><BR>");
                     }
                     return parmsList[index];
                 }
@@ -5619,7 +5619,7 @@ namespace IceBlink2mini
                 {
                     if (gv.mod.debugMode)
                     {
-                        gv.cc.addLogText("<font color='yellow'>index given in " + parm + " is outside range</font><BR>");
+                        gv.cc.addLogText("<yl>index given in " + parm + " is outside range</yl><BR>");
                     }
                 }
             }

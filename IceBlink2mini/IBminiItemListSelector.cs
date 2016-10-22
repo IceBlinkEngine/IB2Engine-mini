@@ -49,7 +49,7 @@ namespace IceBlink2mini
                 btnNew.X = (int)(currentLocX * gv.screenDensity) + padW;
                 btnNew.Y = (int)(currentLocY * gv.screenDensity) + ((y + 1) * gv.squareSize) + (y * padW);
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnNew.Width = (int)(gv.ibbwidthL * gv.screenDensity * 2.0f);
+                btnNew.Width = (int)(gv.ibbwidthL * gv.screenDensity * 2.5f);
                 btnNew.Text = itemList[y];
                 btnSelections.Add(btnNew);
             }

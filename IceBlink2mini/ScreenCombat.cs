@@ -504,14 +504,14 @@ namespace IceBlink2mini
         {
             pc.sp += increment;
             if (pc.sp > pc.spMax) { pc.sp = pc.spMax; }
-            gv.cc.addLogText("<font color='lime'>" + pc.name + " regens " + increment + "sp</font><br>");
+            gv.cc.addLogText("<gn>" + pc.name + " +" + increment + "sp</gn><br>");
 
         }
         public void doRegenHp(Player pc, int increment)
         {
             pc.hp += increment;
             if (pc.hp > pc.hpMax) { pc.hp = pc.hpMax; }
-            gv.cc.addLogText("<font color='lime'>" + pc.name + " regens " + increment + "hp</font><br>");
+            gv.cc.addLogText("<gn>" + pc.name + " +" + increment + "hp</gn><br>");
         }
         public void applyEffectsCombat()
         {
@@ -763,9 +763,11 @@ namespace IceBlink2mini
             if ((attack >= defense) || (attackRoll == 20) || (automaticallyHits == true)) //HIT
             {
                 crt.hp = crt.hp - damage;
-                gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> attacks </font><font color='silver'>" + crt.cr_name + "</font>");
-                gv.cc.addLogText("<font color='white'> and HITS (</font><font color='lime'>" + damage + "</font><font color='white'> damage)</font><BR>");
-                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font><BR>");
+                gv.cc.addLogText("<bu>" + pc.name + "</bu><br>");
+                gv.cc.addLogText("<wh>attacks </wh><br>");
+                gv.cc.addLogText("<gy>" + crt.cr_name + "</gy><br>");
+                gv.cc.addLogText("<gn>HITS (-" + damage + "hp)</gn><br>");
+                gv.cc.addLogText("<wh>" + attackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
 
                 Item it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 if (it != null)
@@ -801,7 +803,7 @@ namespace IceBlink2mini
                 if (crt.hp <= 0)
                 {
                     deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
-                    gv.cc.addLogText("<font color='lime'>You killed the " + crt.cr_name + "</font><BR>");
+                    gv.cc.addLogText("<gn>You killed the " + crt.cr_name + "</gn><BR>");
                     return 2; //killed
                 }
                 else
@@ -816,9 +818,11 @@ namespace IceBlink2mini
                 {
                     gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                 }
-                gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> attacks </font><font color='gray'>" + crt.cr_name + "</font>");
-                gv.cc.addLogText("<font color='white'> and MISSES</font><BR>");
-                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + "</font><BR>");
+                gv.cc.addLogText("<bu>" + pc.name + "</bu><br>");
+                gv.cc.addLogText("<wh>attacks </wh><br>");
+                gv.cc.addLogText("<gy>" + crt.cr_name + "</gy><br>");
+                gv.cc.addLogText("<wh>MISSES</wh><br>");
+                gv.cc.addLogText("<wh>" + attackRoll + "+" + attackMod + " < " + defense + "</wh><BR>");
                 return 0; //missed
             }
         }
@@ -879,12 +883,12 @@ namespace IceBlink2mini
             if (roll + attMod + skillMod >= DC)
             {
                 pc.steathModeOn = true;
-                gv.cc.addLogText("<font color='lime'> stealth ON: " + roll + "+" + attMod + "+" + skillMod + ">=" + DC + "</font><BR>");
+                gv.cc.addLogText("<gn> stealth ON: " + roll + "+" + attMod + "+" + skillMod + ">=" + DC + "</gn><BR>");
             }
             else
             {
                 pc.steathModeOn = false;
-                gv.cc.addLogText("<font color='lime'> stealth OFF: " + roll + "+" + attMod + "+" + skillMod + "<" + DC + "</font><BR>");
+                gv.cc.addLogText("<gn> stealth OFF: " + roll + "+" + attMod + "+" + skillMod + "<" + DC + "</gn><BR>");
             }
         }
         public void doPlayerCombatFacing(Player pc, int tarX, int tarY)
@@ -1308,7 +1312,7 @@ namespace IceBlink2mini
             {
                 if (gv.mod.debugMode)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is a BasicAttacker</font><BR>");
+                    gv.cc.addLogText("<yl>" + crt.cr_name + " is a BasicAttacker</yl><BR>");
                 }
                 BasicAttacker(crt);
             }
@@ -1316,7 +1320,7 @@ namespace IceBlink2mini
             {
                 if (gv.mod.debugMode)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is a GeneralCaster</font><BR>");
+                    gv.cc.addLogText("<yl>" + crt.cr_name + " is a GeneralCaster</yl><BR>");
                 }
                 GeneralCaster(crt);
             }
@@ -1324,7 +1328,7 @@ namespace IceBlink2mini
             {
                 if (gv.mod.debugMode)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is a BasicAttacker</font><BR>");
+                    gv.cc.addLogText("<yl>" + crt.cr_name + " is a BasicAttacker</yl><BR>");
                 }
                 BasicAttacker(crt);
             }
@@ -1478,13 +1482,11 @@ namespace IceBlink2mini
             if ((attack >= defense) || (attackRoll == 20))
             {
                 pc.hp = pc.hp - damage;
-                gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" +
-                        "<font color='white'>" + " attacks " + "</font>" +
-                        "<font color='aqua'>" + pc.name + "</font><BR>");
-                gv.cc.addLogText("<font color='white'>" + " and HITS (" + "</font>" +
-                        "<font color='red'>" + damage + "</font>" +
-                        "<font color='white'>" + " damage)" + "</font><BR>");
-                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font><BR>");
+                gv.cc.addLogText("<gy>" + crt.cr_name + "</gy><BR>");
+                gv.cc.addLogText("<wh>" + "attacks" + "</wh><BR>");
+                gv.cc.addLogText("<bu>" + pc.name + "</bu><BR>");
+                gv.cc.addLogText("<rd>" + "HITS (-" + damage + "hp)</rd><BR>");
+                gv.cc.addLogText("<wh>" + attackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
 
                 doOnHitScriptBasedOnFilename(crt.onScoringHit, crt, pc);
                 if (!crt.onScoringHitCastSpellTag.Equals("none"))
@@ -1499,7 +1501,7 @@ namespace IceBlink2mini
 
                 if (pc.hp <= 0)
                 {
-                    gv.cc.addLogText("<font color='red'>" + pc.name + " drops down unconsciously!" + "</font><BR>");
+                    gv.cc.addLogText("<rd>" + pc.name + " drops down unconsciously!" + "</rd><BR>");
                     pc.charStatus = "Dead";
                 }
                 if (pc.hp <= -20)
@@ -1510,11 +1512,11 @@ namespace IceBlink2mini
             }
             else
             {
-                gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" +
-                        "<font color='white'>" + " attacks " + "</font>" +
-                        "<font color='aqua'>" + pc.name + "</font><BR>");
-                gv.cc.addLogText("<font color='white'>" + " and MISSES" + "</font><BR>");
-                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + "</font><BR>");
+                gv.cc.addLogText("<gy>" + crt.cr_name + "</gy><BR>");
+                gv.cc.addLogText("<wh>" + "attacks" + "</wh><BR>");
+                gv.cc.addLogText("<bu>" + pc.name + "</bu><BR>");
+                gv.cc.addLogText("<wh>" + "MISSES</wh><BR>");
+                gv.cc.addLogText("<wh>" + attackRoll + "+" + attackMod + " < " + defense + "</wh><BR>");
                 return false;
             }
         }
@@ -1744,14 +1746,14 @@ namespace IceBlink2mini
                 // give gold drop
                 if (mod.currentEncounter.goldDrop > 0)
                 {
-                    gv.cc.addLogText("<font color='yellow'>The party finds " + mod.currentEncounter.goldDrop + " " + mod.goldLabelPlural + ".<BR></font>");
+                    gv.cc.addLogText("<yl>The party finds " + mod.currentEncounter.goldDrop + " " + mod.goldLabelPlural + ".<BR></yl>");
                 }
                 mod.partyGold += mod.currentEncounter.goldDrop;
                 // give InventoryList
                 if (mod.currentEncounter.encounterInventoryRefsList.Count > 0)
                 {
 
-                    string s = "<font color='fuchsia'>" + "The party has found:<BR>";
+                    string s = "<ma>" + "The party has found:<BR>";
                     foreach (ItemRefs itRef in mod.currentEncounter.encounterInventoryRefsList)
                     {
                         mod.partyInventoryRefsList.Add(itRef.DeepCopy());
@@ -1759,7 +1761,7 @@ namespace IceBlink2mini
                         //find this creatureRef in mod creature list
 
                     }
-                    gv.cc.addLogText(s + "</font>" + "<BR>");
+                    gv.cc.addLogText(s + "</ma>" + "<BR>");
                 }
 
                 int giveEachXP = encounterXP / mod.playerList.Count;
@@ -4406,11 +4408,11 @@ namespace IceBlink2mini
                     {
                         if (pc.steathModeOn)
                         {
-                            gv.cc.addLogText("<font color='lime'>Avoids Attack of Opportunity due to Stealth</font><BR>");
+                            gv.cc.addLogText("<gn>Avoids Attack of Opportunity due to Stealth</gn><BR>");
                         }
                         else
                         {
-                            gv.cc.addLogText("<font color='blue'>Attack of Opportunity by: " + crt.cr_name + "</font><BR>");
+                            gv.cc.addLogText("<bu>Attack of Opportunity by: " + crt.cr_name + "</bu><BR>");
                             doActualCreatureAttack(pc, crt, 1);
                             if (pc.hp <= 0)
                             {
@@ -4447,7 +4449,7 @@ namespace IceBlink2mini
                         //+1 for every 2 levels after level 1
                         int adding = ((pc.classLevel - 1) / 2) + 1;
                         modifier += adding;
-                        gv.cc.addLogText("<font color='lime'> sneak attack: +" + adding + " to hit</font><BR>");
+                        gv.cc.addLogText("<gn> sneak attack: +" + adding + " to hit</gn><BR>");
                     }
                 }
                 //all attacks of the PC from behind get a +2 bonus to hit            
@@ -4456,7 +4458,7 @@ namespace IceBlink2mini
                     modifier += mod.attackFromBehindToHitModifier;
                     if (mod.attackFromBehindToHitModifier > 0)
                     {
-                        gv.cc.addLogText("<font color='lime'> Attack from behind: +" + mod.attackFromBehindToHitModifier.ToString() + " to hit." + "</font><BR>");
+                        gv.cc.addLogText("<gn> Attack from behind: +" + mod.attackFromBehindToHitModifier.ToString() + " to hit." + "</gn><BR>");
                     }
                 }
             }
@@ -4473,27 +4475,27 @@ namespace IceBlink2mini
                     else
                     {
                         modifier -= 4;
-                        gv.cc.addLogText("<font color='yellow'>" + "-4 ranged attack penalty" + "</font><BR>");
-                        gv.cc.addLogText("<font color='yellow'>" + "with enemies in melee range" + "</font><BR>");
+                        gv.cc.addLogText("<yl>" + "-4 ranged attack penalty" + "</yl><BR>");
+                        gv.cc.addLogText("<yl>" + "with enemies in melee range" + "</yl><BR>");
                         gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "-4 att", "yellow");
                     }
                 }
                 if (gv.sf.hasTrait(pc, "preciseshot2"))
                 {
                     modifier += 2;
-                    gv.cc.addLogText("<font color='lime'> PreciseShotL2: +2 to hit</font><BR>");
+                    gv.cc.addLogText("<gn> PreciseShotL2: +2 to hit</gn><BR>");
                 }
                 else if (gv.sf.hasTrait(pc, "preciseshot"))
                 {
                     modifier++;
-                    gv.cc.addLogText("<font color='lime'> PreciseShotL1: +1 to hit</font><BR>");
+                    gv.cc.addLogText("<gn> PreciseShotL1: +1 to hit</gn><BR>");
                 }
             }
             if (gv.sf.hasTrait(pc, "hardtokill"))
             {
                 modifier -= 2;
-                gv.cc.addLogText("<font color='yellow'>" + "blinded by rage" + "</font><BR>");
-                gv.cc.addLogText("<font color='yellow'>" + "-2 attack penalty" + "</font><BR>");
+                gv.cc.addLogText("<yl>" + "blinded by rage" + "</yl><BR>");
+                gv.cc.addLogText("<yl>" + "-2 attack penalty" + "</yl><BR>");
             }
             int attackMod = modifier + pc.baseAttBonus + mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
             Item it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
@@ -4539,7 +4541,7 @@ namespace IceBlink2mini
                     damModifier += mod.attackFromBehindDamageModifier;
                     if (mod.attackFromBehindDamageModifier > 0)
                     {
-                        gv.cc.addLogText("<font color='lime'> Attack from behind: +" + mod.attackFromBehindDamageModifier.ToString() + " damage." + "</font><BR>");
+                        gv.cc.addLogText("<gn> Attack from behind: +" + mod.attackFromBehindDamageModifier.ToString() + " damage." + "</gn><BR>");
                     }
                 }
 
@@ -4551,12 +4553,12 @@ namespace IceBlink2mini
                 if (gv.sf.hasTrait(pc, "preciseshot2"))
                 {
                     damModifier += 2;
-                    gv.cc.addLogText("<font color='lime'> PreciseShotL2: +2 damage</font><BR>");
+                    gv.cc.addLogText("<gn> PreciseShotL2: +2 damage</gn><BR>");
                 }
                 else if (gv.sf.hasTrait(pc, "preciseshot"))
                 {
                     damModifier++;
-                    gv.cc.addLogText("<font color='lime'> PreciseShotL1: +1 damage</font><BR>");
+                    gv.cc.addLogText("<gn> PreciseShotL1: +1 damage</gn><BR>");
                 }
 
             }
@@ -4622,7 +4624,7 @@ namespace IceBlink2mini
                         adding += gv.sf.RandInt(6);
                     }
                     totalDam += adding;
-                    gv.cc.addLogText("<font color='lime'> sneak attack: +" + adding + " damage</font><BR>");
+                    gv.cc.addLogText("<gn> sneak attack: +" + adding + " damage</gn><BR>");
                 }
             }
             return totalDam;
@@ -4631,9 +4633,9 @@ namespace IceBlink2mini
         {
             if ((crt.cr_category.Equals("Ranged")) && (isAdjacentPc(crt)))
             {
-                gv.cc.addLogText("<font color='yellow'>" + "-4 ranged attack penalty" + "</font>" +
+                gv.cc.addLogText("<yl>" + "-4 ranged attack penalty" + "</yl>" +
                         "<BR>");
-                gv.cc.addLogText("<font color='yellow'>" + "with enemies in melee range" + "</font>" +
+                gv.cc.addLogText("<yl>" + "with enemies in melee range" + "</yl>" +
                         "<BR>");
                 gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "-4 att", "yellow");
                 return crt.cr_att - 4;
@@ -4645,7 +4647,7 @@ namespace IceBlink2mini
                 if (IsCreatureAttackFromBehind(pc, crt))
                 {
                     modifier += 2;
-                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " attacks from behind: +2 att</font><BR>");
+                    gv.cc.addLogText("<yl>" + crt.cr_name + " attacks from behind: +2 att</yl><BR>");
                 }
                 return crt.cr_att + modifier;
             }
@@ -4727,7 +4729,7 @@ namespace IceBlink2mini
                             pc = p;
                             if (gv.mod.debugMode)
                             {
-                                gv.cc.addLogText("<font color='yellow'>target:" + pc.name + "</font><BR>");
+                                gv.cc.addLogText("<yl>target:" + pc.name + "</yl><BR>");
                             }
                         }
                     }
@@ -4737,7 +4739,7 @@ namespace IceBlink2mini
                         pc = p;
                         if (gv.mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>target:" + pc.name + "</font><BR>");
+                            gv.cc.addLogText("<yl>target:" + pc.name + "</yl><BR>");
                         }
                     }
                 }
@@ -4804,7 +4806,7 @@ namespace IceBlink2mini
                     }
                     if (gv.mod.debugMode)
                     {
-                        gv.cc.addLogText("<font color='yellow'>(" + selectedPoint.X + "," + selectedPoint.Y + "):" + utility + "</font><BR>");
+                        gv.cc.addLogText("<yl>(" + selectedPoint.X + "," + selectedPoint.Y + "):" + utility + "</yl><BR>");
                     }
                 }
             }

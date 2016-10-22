@@ -228,9 +228,9 @@ namespace IceBlink2mini
             
             //setup itemListSelector defaults
             itemListSelector = new IBminiItemListSelector();
-            itemListSelector.currentLocX = 100;
+            itemListSelector.currentLocX = 73;
             itemListSelector.currentLocY = 25;
-            itemListSelector.Width = 250;
+            itemListSelector.Width = 310;
             itemListSelector.Height = 220;
             
             if (fixedModule.Equals("")) //this is the IceBlink Engine app
@@ -504,7 +504,7 @@ namespace IceBlink2mini
                     errorLog(ex.ToString());
                     if (mod.debugMode) //SD_20131102
                     {
-                        cc.addLogText("<font color='yellow'>failed to play sound" + filenameNoExtension + "</font><BR>");
+                        cc.addLogText("<yl>failed to play sound" + filenameNoExtension + "</yl><BR>");
                     }
                     initializeSounds();
                 }

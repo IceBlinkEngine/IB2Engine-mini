@@ -1578,7 +1578,7 @@ namespace IceBlink2mini
                                     if (gv.mod.debugMode)
                                     {
                                         //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "following you", "red", 4000);
-                                        gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " start chasing " + gv.mod.currentArea.Props[i].ChaserChaseDuration + " seconds</font><BR>");
+                                        gv.cc.addLogText("<yl>" + gv.mod.currentArea.Props[i].PropTag + " start chasing " + gv.mod.currentArea.Props[i].ChaserChaseDuration + " seconds</yl><BR>");
                                     }
                                 }
                             }
@@ -1593,7 +1593,7 @@ namespace IceBlink2mini
                                     {
                                         //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Nevermind...", "green", 1000);
                                         //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "nevermind", "green", 4000);
-                                        gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " stop chasing on range</font><BR>");
+                                        gv.cc.addLogText("<yl>" + gv.mod.currentArea.Props[i].PropTag + " stop chasing on range</yl><BR>");
                                     }
                                 }
                                 else if (gv.mod.WorldTime - gv.mod.currentArea.Props[i].ChaserStartChasingTime >= gv.mod.currentArea.Props[i].ChaserChaseDuration)
@@ -1604,7 +1604,7 @@ namespace IceBlink2mini
                                     if (gv.mod.debugMode)
                                     {
                                         //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "nevermind", "green", 4000);
-                                        gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " stop chasing on duration</font><BR>");
+                                        gv.cc.addLogText("<yl>" + gv.mod.currentArea.Props[i].PropTag + " stop chasing on duration</yl><BR>");
                                     }
                                 }
                                 else
@@ -1612,7 +1612,7 @@ namespace IceBlink2mini
                                     if (gv.mod.debugMode)
                                     {
                                         int timeRemain = gv.mod.currentArea.Props[i].ChaserChaseDuration - (gv.mod.WorldTime - gv.mod.currentArea.Props[i].ChaserStartChasingTime);
-                                        gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " chasing " + timeRemain + " seconds left</font><BR>");
+                                        gv.cc.addLogText("<yl>" + gv.mod.currentArea.Props[i].PropTag + " chasing " + timeRemain + " seconds left</yl><BR>");
                                     }
                                 }
                             }
@@ -1629,7 +1629,7 @@ namespace IceBlink2mini
                             doPropBarkString(gv.mod.currentArea.Props[i]);
                             if (gv.mod.debugMode)
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</font><BR>");
+                                gv.cc.addLogText("<yl>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</yl><BR>");
                                 gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
                             }
                         }
@@ -1654,7 +1654,7 @@ namespace IceBlink2mini
                                 }
                                 if (gv.mod.debugMode)
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</font><BR>");
+                                    gv.cc.addLogText("<yl>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</yl><BR>");
                                     gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
                                 }
                             }
@@ -1684,7 +1684,7 @@ namespace IceBlink2mini
                             //gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, "(" + prp.CurrentMoveToTarget.X + "," + prp.CurrentMoveToTarget.Y + ")", "red", 4000);
                             if (gv.mod.debugMode)
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</font><BR>");
+                                gv.cc.addLogText("<yl>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</yl><BR>");
                                 gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
                             }
                             doPropBarkString(gv.mod.currentArea.Props[i]);
@@ -1734,7 +1734,7 @@ namespace IceBlink2mini
                                 }
                                 if (gv.mod.debugMode)
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</font><BR>");
+                                    gv.cc.addLogText("<yl>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</yl><BR>");
                                     gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
                                 }
                             }
@@ -1898,7 +1898,7 @@ namespace IceBlink2mini
 
                                 if ((gv.mod.debugMode) && (!registerRemoval))
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</font><BR>");
+                                    gv.cc.addLogText("<yl>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</yl><BR>");
                                     gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
                                 }
                             }
@@ -2300,27 +2300,6 @@ namespace IceBlink2mini
             {
                 gv.sf.efGeneric(src, ef);
             }
-
-            else if (ef.effectScript.Equals("efHeld"))
-            {
-                gv.sf.efHeld(src, ef);
-            }
-            else if (ef.effectScript.Equals("efSleep"))
-            {
-                gv.sf.efSleep(src, ef);
-            }
-            else if (ef.effectScript.Equals("efRegenMinor"))
-            {
-                gv.sf.efRegenMinor(src, ef);
-            }
-            else if (ef.effectScript.Equals("efPoisonedLight"))
-            {
-                gv.sf.efPoisoned(src, ef, 2);
-            }
-            else if (ef.effectScript.Equals("efPoisonedMedium"))
-            {
-                gv.sf.efPoisoned(src, ef, 4);
-            }
         }
         public void doPropTriggers()
         {
@@ -2630,70 +2609,14 @@ namespace IceBlink2mini
             //WIZARD SPELLS
             else if (spell.spellScript.Equals("spFlameFingers"))
             {
-                gv.sf.spFlameFingers(source, target, spell);
+                //gv.sf.spFlameFingers(source, target, spell);
             }
-            else if (spell.spellScript.Equals("spMageBolt"))
-            {
-                gv.sf.spMageBolt(source, target);
-            }
-            else if (spell.spellScript.Equals("spSleep"))
-            {
-                gv.sf.spSleep(source, target, spell);
-            }
-            else if (spell.spellScript.Equals("spMageArmor"))
-            {
-                gv.sf.spMageArmor(source, target);
-            }
-            else if (spell.spellScript.Equals("spMinorRegen"))
-            {
-                gv.sf.spMinorRegen(source, target);
-            }
-            else if (spell.spellScript.Equals("spWeb"))
-            {
-                gv.sf.spWeb(source, target, spell);
-            }
-            else if (spell.spellScript.Equals("spIceStorm"))
-            {
-                gv.sf.spIceStorm(source, target, spell);
-            }
-            else if (spell.spellScript.Equals("spFireball"))
-            {
-                gv.sf.spFireball(source, target, spell);
-            }
-            else if (spell.spellScript.Equals("spLightning"))
-            {
-                gv.sf.spLightning(source, target, spell);
-            }
-            
+                        
             //CLERIC SPELLS
             else if (spell.tag.Equals("minorHealing"))
             {
-                gv.sf.spHeal(source, target, 8);
-            }
-            else if (spell.tag.Equals("moderateHealing"))
-            {
-                gv.sf.spHeal(source, target, 16);
-            }
-            else if (spell.tag.Equals("massMinorHealing"))
-            {
-                gv.sf.spMassHeal(source, target, 8);
-            }
-            else if (spell.spellScript.Equals("spBless"))
-            {
-                gv.sf.spBless(source, target);
-            }
-            else if (spell.spellScript.Equals("spMagicStone"))
-            {
-                gv.sf.spMagicStone(source, target);
-            }
-            else if (spell.spellScript.Equals("spBlastOfLight"))
-            {
-                gv.sf.spBlastOfLight(source, target, spell);
-            }
-            else if (spell.spellScript.Equals("spHold"))
-            {
-                gv.sf.spHold(source, target);
-            }
+                //gv.sf.spHeal(source, target, 8);
+            }            
         }
         public void doScriptBasedOnFilename(string filename, string prm1, string prm2, string prm3, string prm4)
         {
