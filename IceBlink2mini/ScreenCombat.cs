@@ -2018,7 +2018,7 @@ namespace IceBlink2mini
                         pnl.portraitList[index].ImgFilename = pc1.portraitFilename;
                         pnl.portraitList[index].TextHP = pc1.hp + "/" + pc1.hpMax;
                         pnl.portraitList[index].TextSP = pc1.sp + "/" + pc1.spMax;
-                        if (gv.mod.selectedPartyLeader == index)
+                        if (pc1.moveOrder == currentMoveOrderIndex - 1)
                         {
                             pnl.portraitList[index].glowOn = true;
                         }
@@ -2067,7 +2067,8 @@ namespace IceBlink2mini
                 btn = combatUiLayout.GetButtonByTag("btnSelect");
                 if (btn != null)
                 {
-                    btn.Text = "TARGET";
+                    btn.Img2Filename = "btntarget";
+                    //btn.Text = "TARGET";
                 }
             }
             else
@@ -2075,7 +2076,8 @@ namespace IceBlink2mini
                 btn = combatUiLayout.GetButtonByTag("btnSelect");
                 if (btn != null)
                 {
-                    btn.Text = "SELECT";
+                    btn.Img2Filename = "btnselection";
+                    //btn.Text = "SELECT";
                 }
             }
             //move button
@@ -2334,7 +2336,7 @@ namespace IceBlink2mini
                 if (showMoveOrder)
                 {
                     int mo = pc.moveOrder + 1;
-                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - gv.fontHeight - gv.fontLineSpacing, mo.ToString(), "wh");
+                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - gv.fontHeight - 2, mo.ToString(), "wh");
                 }
                 
             }
@@ -2413,7 +2415,7 @@ namespace IceBlink2mini
                 if (showMoveOrder)
                 {
                     int mo = crt.moveOrder + 1;
-                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - gv.fontHeight - gv.fontLineSpacing, mo.ToString(), "wh");
+                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - gv.fontHeight - 2, mo.ToString(), "wh");
                 }
             }
         }
@@ -2552,13 +2554,33 @@ namespace IceBlink2mini
             {
                 foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                 {
-                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), crt.hp + "/" + crt.hpMax, "rd");
-                    
+                    if (crt.hp > (int)(crt.hpMax * 0.66f))
+                    {
+                        drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), crt.hp + "", "gn");
+                    }
+                    else if (crt.hp > (int)(crt.hpMax * 0.33f))
+                    {
+                        drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), crt.hp + "", "yl");
+                    }
+                    else
+                    {
+                        drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), crt.hp + "", "rd");
+                    }
                 }
                 foreach (Player pc in mod.playerList)
                 {
-                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), pc.hp + "/" + pc.hpMax, "rd");
-                    
+                    if (pc.hp > (int)(pc.hpMax * 0.66f))
+                    {
+                        drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), pc.hp + "", "gn");
+                    }
+                    else if (pc.hp > (int)(pc.hpMax * 0.33f))
+                    {
+                        drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), pc.hp + "", "yl");
+                    }
+                    else
+                    {
+                        drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), pc.hp + "", "rd");
+                    }
                 }
             }
         }
@@ -2566,16 +2588,14 @@ namespace IceBlink2mini
         {
             if ((showSP) && (!animationsOn))
             {
-                int txtH = gv.fontHeight + gv.fontLineSpacing;
+                int txtH = gv.fontHeight + 2;
                 foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                 {
-                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) + txtH, "sp: " + crt.sp, "yl");
-                    
+                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) + txtH, crt.sp + "", "yl");                    
                 }
                 foreach (Player pc in mod.playerList)
                 {
-                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) + txtH, pc.sp + "/" + pc.spMax, "yl");
-                    
+                    drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) + txtH, pc.sp + "", "yl");                    
                 }
             }
         }
