@@ -3019,6 +3019,9 @@ namespace IceBlink2mini
                         }
                     }
 
+                    //NEW SYSTEM FOR GLOW
+                    //combatUiLayout.setHover(-1, -1);
+
                     Player pc = mod.playerList[currentPlayerIndex];
 
                     //NEW SYSTEM

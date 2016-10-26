@@ -15,7 +15,7 @@ namespace IceBlink2mini
 	
 	    public int castingPlayerIndex = 0;
 	    private int spellSlotIndex = 0;
-	    private int slotsPerPage = 20;
+	    private int slotsPerPage = 48;
 	    private List<IbbButton> btnSpellSlots = new List<IbbButton>();
 	    private IbbButton btnHelp = null;
 	    private IbbButton btnSelect = null;
@@ -90,9 +90,9 @@ namespace IceBlink2mini
 			    btnNew.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			
-			    int x = y % 5;
-			    int yy = y / 5;
-			    btnNew.X = ((x + 4) * gv.squareSize) + (padW * (x+1));
+			    int x = y % 8;
+			    int yy = y / 8;
+			    btnNew.X = ((x + 1) * gv.squareSize) + (padW * (x+1));
 			    btnNew.Y = (1 + yy) * gv.squareSize + (padW * yy);
 
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -152,10 +152,14 @@ namespace IceBlink2mini
                         }
                     }
                 }
-            }	
-		
-		    //DRAW ALL SPELL SLOTS		
-		    int cntSlot = 0;
+            }
+            else
+            {
+                gv.DrawText(mod.spellLabelPlural + " Known or Available for this Class", noticeX, pH * 1, "gy");
+            }
+
+            //DRAW ALL SPELL SLOTS		
+            int cntSlot = 0;
 		    foreach (IbbButton btn in btnSpellSlots)
 		    {			
 			    Player pc = getCastingPlayer();						

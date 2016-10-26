@@ -15,7 +15,7 @@ namespace IceBlink2mini
 	    private GameView gv;
 	
 	    private int traitSlotIndex = 0;
-	    private int slotsPerPage = 20;
+	    private int slotsPerPage = 48;
 	    private List<IbbButton> btnTraitSlots = new List<IbbButton>();
 	    private IbbButton btnHelp = null;
 	    private IbbButton btnSelect = null;
@@ -87,14 +87,12 @@ namespace IceBlink2mini
 		    for (int y = 0; y < slotsPerPage; y++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);
-                //gv.cc.DisposeOfBitmap(ref btnNew.Img);
                 btnNew.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-                //gv.cc.DisposeOfBitmap(ref btnNew.Glow);
                 btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			
-			    int x = y % 5;
-			    int yy = y / 5;
-			    btnNew.X = ((x + 4) * gv.squareSize) + (padW * (x+1));
+			    int x = y % 8;
+			    int yy = y / 8;
+			    btnNew.X = ((x + 1) * gv.squareSize) + (padW * (x + 1));
 			    btnNew.Y = (1 + yy) * gv.squareSize + (padW * yy);
 
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -152,14 +150,16 @@ namespace IceBlink2mini
                         }
                     }
                 }
-            }	
+            }
+            else
+            {
+                gv.DrawText("Traits Known or Available for this Class", noticeX, pH * 1, "gy");
+            }
 		
 		    //DRAW ALL TRAIT SLOTS		
 		    int cntSlot = 0;
 		    foreach (IbbButton btn in btnTraitSlots)
 		    {			
-			    //Player pc = getCastingPlayer();
-			
 			    if (cntSlot == traitSlotIndex) {btn.glowOn = true;}
 			    else {btn.glowOn = false;}
 			
@@ -173,16 +173,12 @@ namespace IceBlink2mini
                     {
                         if (pc.knownTraitsTags.Contains(tr.tag)) //check to see if already known, if so turn on button
                         {
-                            //gv.cc.DisposeOfBitmap(ref btn.Img);
                             btn.Img = "btn_small";
-                            //gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = tr.traitImage;
                         }
                         else //trait not known yet
                         {
-                            //gv.cc.DisposeOfBitmap(ref btn.Img);
                             btn.Img = "btn_small_off";
-                            //gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = tr.traitImage + "_off";
                         }
                     }
@@ -190,25 +186,19 @@ namespace IceBlink2mini
                     {
                         if (pc.knownTraitsTags.Contains(tr.tag)) //check to see if already known, if so turn off button
                         {
-                            //gv.cc.DisposeOfBitmap(ref btn.Img);
                             btn.Img = "btn_small_off";
-                            //gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = tr.traitImage + "_off";
                         }
                         else //trait not known yet
                         {
                             if (isAvailableToLearn(tr.tag)) //if available to learn, turn on button
                             {
-                                //gv.cc.DisposeOfBitmap(ref btn.Img);
                                 btn.Img = "btn_small";
-                                //gv.cc.DisposeOfBitmap(ref btn.Img2);
                                 btn.Img2 = tr.traitImage;
                             }
                             else //not available to learn, turn off button
                             {
-                                //gv.cc.DisposeOfBitmap(ref btn.Img);
                                 btn.Img = "btn_small_off";
-                                //gv.cc.DisposeOfBitmap(ref btn.Img2);
                                 btn.Img2 = tr.traitImage + "_off";
                             }
                         }
@@ -216,7 +206,6 @@ namespace IceBlink2mini
 			    }
 			    else //slot is not in traits allowed index range
 			    {
-                    //gv.cc.DisposeOfBitmap(ref btn.Img);
                     btn.Img = "btn_small_off"; 
 				    btn.Img2 = null;
 			    }			

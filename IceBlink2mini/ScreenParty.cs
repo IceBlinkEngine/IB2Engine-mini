@@ -83,9 +83,11 @@ namespace IceBlink2mini
             if (btnSpells == null)
             {
                 btnSpells = new IbbButton(gv, 0.6f);
-                btnSpells.Text = mod.spellLabelPlural.ToUpper();
+                //btnSpells.Text = mod.spellLabelPlural.ToUpper();
+                btnSpells.Text = "";
                 btnSpells.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnSpells.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnSpells.Img2 = "btnspell";
                 btnSpells.X = 6 * gv.squareSize + padW * 1 + (int)(gv.squareSize * 0.75f);
                 //btnSpells.Y = 10 * gv.squareSize + pH * 2; See OnDraw for Y
                 btnSpells.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -94,9 +96,10 @@ namespace IceBlink2mini
             if (btnTraits == null)
             {
                 btnTraits = new IbbButton(gv, 0.6f);
-                btnTraits.Text = "TRAITS";
+                btnTraits.Text = "";
                 btnTraits.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnTraits.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnTraits.Img2 = "btntrait";
                 btnTraits.X = 7 * gv.squareSize + padW * 2 + (int)(gv.squareSize * 0.75f);
                 //btnSpells.Y = 10 * gv.squareSize + pH * 2; See OnDraw for Y
                 btnTraits.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -105,9 +108,10 @@ namespace IceBlink2mini
             if (btnEffects == null)
             {
                 btnEffects = new IbbButton(gv, 0.6f);
-                btnEffects.Text = "EFFECTS";
+                btnEffects.Text = "";
                 btnEffects.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnEffects.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnEffects.Img2 = "btneffect";
                 btnEffects.X = 8 * gv.squareSize + padW * 3 + (int)(gv.squareSize * 0.75f);
                 //btnSpells.Y = 10 * gv.squareSize + pH * 2; See OnDraw for Y
                 btnEffects.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -116,9 +120,10 @@ namespace IceBlink2mini
             if (btnOthers == null)
             {
                 btnOthers = new IbbButton(gv, 0.6f);
-                btnOthers.Text = "OTHERS";
+                btnOthers.Text = "";
                 btnOthers.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnOthers.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnOthers.Img2 = "btnother";
                 btnOthers.X = 9 * gv.squareSize + padW * 4 + (int)(gv.squareSize * 0.75f);
                 //btnSpells.Y = 10 * gv.squareSize + pH * 2; See OnDraw for Y
                 btnOthers.Height = (int)(gv.ibbheight * gv.screenDensity);

@@ -1109,6 +1109,9 @@ namespace IceBlink2mini
                         }
                     }
 
+                    //NEW SYSTEM FOR GLOW
+                    //mainUiLayout.setHover(-1, -1);
+
                     //NEW SYSTEM
                     string rtn = mainUiLayout.getImpact(x, y);
 
