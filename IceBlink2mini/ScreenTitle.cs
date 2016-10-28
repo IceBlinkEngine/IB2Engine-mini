@@ -97,7 +97,7 @@ namespace IceBlink2mini
             gv.DrawBitmap(gv.cc.GetFromBitmapList(gv.mod.titleImageName), src, dst);
 
             //Draw This Module's Version Number
-            int xLoc = (gv.screenWidth / 2) - 4;
+            int xLoc = (gv.screenWidth / 2) - (2 * gv.fontWidth);
             int pH = (int)((float)gv.screenHeight / 100.0f);
             for (int x = 0; x <= 2; x++)
             {

@@ -3080,23 +3080,6 @@ namespace IceBlink2mini
                             gv.cc.addLogText("lime", "combat speed: 1x");
                         }
                     }
-                    if (rtn.Equals("tglSound"))
-                    {
-                        IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
-                        if (tgl == null) { return; }
-                        if (tgl.toggleOn)
-                        {
-                            tgl.toggleOn = false;
-                            mod.playMusic = false;
-                            gv.cc.addLogText("lime", "Music Off");
-                        }
-                        else
-                        {
-                            tgl.toggleOn = true;
-                            mod.playMusic = true;
-                            gv.cc.addLogText("lime", "Music On");
-                        }
-                    }
                     if (rtn.Equals("tglSoundFx"))
                     {
                         IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);

@@ -133,7 +133,7 @@ namespace IceBlink2mini
 			    btnPageIndex = new IbbButton(gv, 1.0f);
 			    btnPageIndex.Img = "btn_small_off"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
 			    btnPageIndex.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnPageIndex.Text = "1/10";
+			    btnPageIndex.Text = "1";
 			    btnPageIndex.X = 9 * gv.squareSize;
 			    btnPageIndex.Y = (1 * gv.squareSize) - (pH * 2);
                 btnPageIndex.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -331,7 +331,7 @@ namespace IceBlink2mini
 				    if (tknPageIndex > 0)
 				    {
 					    tknPageIndex--;
-					    btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+					    btnPageIndex.Text = (tknPageIndex + 1) + "";
 				    }
 			    }
 			    else if (btnTokensRight.getImpact(x, y))
@@ -339,7 +339,7 @@ namespace IceBlink2mini
 				    if (tknPageIndex < maxPages)
 				    {
 					    tknPageIndex++;
-					    btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
+					    btnPageIndex.Text = (tknPageIndex + 1) + "";
 				    }
 			    }
 			    else if (btnAction.getImpact(x, y))

@@ -488,6 +488,10 @@ namespace IceBlink2mini
             btnFinished.glowOn = false;
             btnAbort.glowOn = false;
             btnHelp.glowOn = false;
+            btnName.glowOn = false;
+            btnRace.glowOn = false;
+            btnClass.glowOn = false;
+            btnGender.glowOn = false;
             btnPlayerGuideOnPcCreation.glowOn = false;
             btnBeginnerGuideOnPcCreation.glowOn = false;
             if (gv.showMessageBox)
@@ -526,6 +530,22 @@ namespace IceBlink2mini
                     {
                         btnHelp.glowOn = true;
                     }
+                    else if (btnName.getImpact(x, y))
+                    {
+                        btnName.glowOn = true;
+                    }
+                    else if (btnRace.getImpact(x, y))
+                    {
+                        btnRace.glowOn = true;
+                    }
+                    else if (btnClass.getImpact(x, y))
+                    {
+                        btnClass.glowOn = true;
+                    }
+                    else if (btnGender.getImpact(x, y))
+                    {
+                        btnGender.glowOn = true;
+                    }
                     else if (btnPlayerGuideOnPcCreation.getImpact(x, y))
                     {
                         btnPlayerGuideOnPcCreation.glowOn = true;
@@ -540,6 +560,10 @@ namespace IceBlink2mini
                     x = (int)eX;
                     y = (int)eY;
 
+                    btnName.glowOn = false;
+                    btnRace.glowOn = false;
+                    btnClass.glowOn = false;
+                    btnGender.glowOn = false;
                     btnRollStats.glowOn = false;
                     btnFinished.glowOn = false;
                     btnAbort.glowOn = false;

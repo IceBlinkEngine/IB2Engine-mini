@@ -65,7 +65,7 @@ namespace IceBlink2mini
 			    btnPageIndex = new IbbButton(gv, 1.0f);
 			    btnPageIndex.Img = "btn_small_off"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
 			    btnPageIndex.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnPageIndex.Text = "1/10";
+			    btnPageIndex.Text = "1";
 			    btnPageIndex.X = 8 * gv.squareSize;
 			    btnPageIndex.Y = (5 * gv.squareSize) - (pH * 2);
                 btnPageIndex.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -98,7 +98,7 @@ namespace IceBlink2mini
 			    btnShopPageIndex = new IbbButton(gv, 1.0f);
 			    btnShopPageIndex.Img = "btn_small_off"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
 			    btnShopPageIndex.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnShopPageIndex.Text = "1/10";
+			    btnShopPageIndex.Text = "1";
 			    btnShopPageIndex.X = 8 * gv.squareSize;
 			    btnShopPageIndex.Y = (1 * gv.squareSize) - (pH * 2);
                 btnShopPageIndex.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -544,7 +544,7 @@ namespace IceBlink2mini
 				    if (inventoryPageIndex > 0)
 				    {
 					    inventoryPageIndex--;
-					    btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
+					    btnPageIndex.Text = (inventoryPageIndex + 1) + "";
 				    }
 			    }
 			    else if (btnInventoryRight.getImpact(x, y))
@@ -552,7 +552,7 @@ namespace IceBlink2mini
 				    if (inventoryPageIndex < 9)
 				    {
 					    inventoryPageIndex++;
-					    btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
+					    btnPageIndex.Text = (inventoryPageIndex + 1) + "";
 				    }
 			    }
 			    else if (btnShopLeft.getImpact(x, y))
@@ -560,7 +560,7 @@ namespace IceBlink2mini
 				    if (shopPageIndex > 0)
 				    {
 					    shopPageIndex--;
-					    btnShopPageIndex.Text = (shopPageIndex + 1) + "/10";
+					    btnShopPageIndex.Text = (shopPageIndex + 1) + "";
 				    }
 			    }
 			    else if (btnShopRight.getImpact(x, y))
@@ -568,7 +568,7 @@ namespace IceBlink2mini
 				    if (shopPageIndex < 9)
 				    {
 					    shopPageIndex++;
-					    btnShopPageIndex.Text = (shopPageIndex + 1) + "/10";
+					    btnShopPageIndex.Text = (shopPageIndex + 1) + "";
 				    }
 			    }
 			    else if (btnHelp.getImpact(x, y))

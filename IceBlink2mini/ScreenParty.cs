@@ -36,7 +36,7 @@ namespace IceBlink2mini
         private IbbButton btnSpells = null;
         private IbbButton btnTraits = null;
         private IbbButton btnEffects = null;
-        private IbbButton btnOthers = null;
+        //private IbbButton btnOthers = null;
         //private bool dialogOpen = false;
         public string traitGained = "";
         public string spellGained = "";
@@ -117,7 +117,7 @@ namespace IceBlink2mini
                 btnEffects.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnEffects.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
-            if (btnOthers == null)
+            /*if (btnOthers == null)
             {
                 btnOthers = new IbbButton(gv, 0.6f);
                 btnOthers.Text = "";
@@ -128,7 +128,7 @@ namespace IceBlink2mini
                 //btnSpells.Y = 10 * gv.squareSize + pH * 2; See OnDraw for Y
                 btnOthers.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnOthers.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-            }
+            }*/
             if (btnPartyRoster == null)
             {
                 btnPartyRoster = new IbbButton(gv, 0.6f);
@@ -379,7 +379,7 @@ namespace IceBlink2mini
             btnSpells.Y = bottomLocY;
             btnTraits.Y = bottomLocY;
             btnEffects.Y = bottomLocY;
-            btnOthers.Y = bottomLocY;
+            //btnOthers.Y = bottomLocY;
             btnPartyRoster.Y = 9 * gv.squareSize + pH * 2;
 
             //LOCATE EQUIPMENT SLOTS
@@ -484,7 +484,7 @@ namespace IceBlink2mini
             btnSpells.Draw();
             btnTraits.Draw();
             btnEffects.Draw();
-            btnOthers.Draw();
+            //btnOthers.Draw();
             if (mod.hideRoster == false)
             {
                 btnPartyRoster.Draw();
@@ -677,7 +677,7 @@ namespace IceBlink2mini
             btnSpells.glowOn = false;
             btnTraits.glowOn = false;
             btnEffects.glowOn = false;
-            btnOthers.glowOn = false;
+            //btnOthers.glowOn = false;
             if (gv.showMessageBox)
             {
                 gv.messageBox.btnReturn.glowOn = false;
@@ -731,10 +731,10 @@ namespace IceBlink2mini
                     {
                         btnEffects.glowOn = true;
                     }
-                    else if (btnOthers.getImpact(x, y))
+                    /*else if (btnOthers.getImpact(x, y))
                     {
                         btnOthers.glowOn = true;
-                    }
+                    }*/
                     break;
 
                 case MouseEventType.EventType.MouseUp:
@@ -749,7 +749,7 @@ namespace IceBlink2mini
                     btnSpells.glowOn = false;
                     btnTraits.glowOn = false;
                     btnEffects.glowOn = false;
-                    btnOthers.glowOn = false;
+                    //btnOthers.glowOn = false;
 
                     if (gv.showMessageBox)
                     {
@@ -804,7 +804,7 @@ namespace IceBlink2mini
                         }
                         gv.sf.MessageBoxHtml("<big><b>CURRENT EFFECTS</b></big><br><b><small>(#) denotes effect time left</small></b><br><br>" + allEffects);
                     }
-                    else if (btnOthers.getImpact(x, y))
+                    /*else if (btnOthers.getImpact(x, y))
                     {
                         gv.sf.MessageBoxHtml("<big><b><u>SAVING THROW MODIFIERS</u></b></big><br>" +
                                 "Fortitude: " + pc.fortitude + "<br>" +
@@ -819,7 +819,7 @@ namespace IceBlink2mini
                                 "Magic: " + pc.damageTypeResistanceTotalMagic + "<br>" +
                                 "Poison: " + pc.damageTypeResistanceTotalPoison + "<br>"
                                 );
-                    }
+                    }*/
                     else if (btnMainHand.getImpact(x, y))
                     {
                         if (gv.cc.partyItemSlotIndex == 0)

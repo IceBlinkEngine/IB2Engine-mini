@@ -46,7 +46,7 @@ namespace IceBlink2mini
 			    ctrlUpArrow.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    ctrlUpArrow.Img2 = "ctrl_up_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_up_arrow);
 			    ctrlUpArrow.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.arrow_glow);
-			    ctrlUpArrow.X = 12 * gv.squareSize;
+			    ctrlUpArrow.X = 15 * gv.squareSize;
 			    ctrlUpArrow.Y = 1 * gv.squareSize + pH * 2;
                 ctrlUpArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlUpArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -57,7 +57,7 @@ namespace IceBlink2mini
 			    ctrlDownArrow.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    ctrlDownArrow.Img2 = "ctrl_down_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_down_arrow);
 			    ctrlDownArrow.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.arrow_glow);
-			    ctrlDownArrow.X = 12 * gv.squareSize;
+			    ctrlDownArrow.X = 15 * gv.squareSize;
 			    ctrlDownArrow.Y = 2 * gv.squareSize + pH * 3;
                 ctrlDownArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlDownArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -68,7 +68,7 @@ namespace IceBlink2mini
 			    ctrlLeftArrow.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    ctrlLeftArrow.Img2 = "ctrl_left_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
 			    ctrlLeftArrow.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.arrow_glow);
-			    ctrlLeftArrow.X = 10 * gv.squareSize + xShift;
+			    ctrlLeftArrow.X = 13 * gv.squareSize + xShift;
 			    ctrlLeftArrow.Y = pH * 34;
                 ctrlLeftArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlLeftArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -79,7 +79,7 @@ namespace IceBlink2mini
 			    ctrlRightArrow.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    ctrlRightArrow.Img2 = "ctrl_right_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
 			    ctrlRightArrow.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.arrow_glow);
-			    ctrlRightArrow.X = 11 * gv.squareSize + pW * 2 + xShift;
+			    ctrlRightArrow.X = 14 * gv.squareSize + pW * 2 + xShift;
 			    ctrlRightArrow.Y = pH * 34;
                 ctrlRightArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
@@ -116,7 +116,7 @@ namespace IceBlink2mini
     	
     	    //DRAW BACKGROUND IMAGE
             IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList("journalback").PixelSize.Width, gv.cc.GetFromBitmapList("journalback").PixelSize.Height);
-            IbRect dst = new IbRect(2 * gv.squareSize, 0, (gv.squaresInWidth - 4) * gv.squareSize, (gv.squaresInHeight - 1) * gv.squareSize);
+            IbRect dst = new IbRect(2 * gv.squareSize, 0, (gv.squaresInWidth - 4) * gv.squareSize, (gv.squaresInHeight) * gv.squareSize);
             gv.DrawBitmap(gv.cc.GetFromBitmapList("journalback"), src, dst);
         
             //MAKE SURE NO OUT OF INDEX ERRORS
@@ -155,14 +155,14 @@ namespace IceBlink2mini
 		    if (mod.partyJournalQuests.Count > 0)
     	    {
                 //Description
-                string textToSpan = "<font color='black'><i><b>" + mod.partyJournalQuests[journalScreenQuestIndex].Entries[journalScreenEntryIndex].EntryTitle + "</b></i></font><br>";
-                textToSpan += mod.partyJournalQuests[journalScreenQuestIndex].Entries[journalScreenEntryIndex].EntryText;
+                string textToSpan = "<gy>" + mod.partyJournalQuests[journalScreenQuestIndex].Entries[journalScreenEntryIndex].EntryTitle + "</gy><br>";
+                textToSpan += "<bk>" + mod.partyJournalQuests[journalScreenQuestIndex].Entries[journalScreenEntryIndex].EntryText + "</bk>";
 	                            
                 int yLoc = pH * 18;
 
                 description.tbXloc = locX;
                 description.tbYloc = locY + spacing;
-                description.tbWidth = pW * 30;
+                description.tbWidth = 12 * gv.squareSize;
                 description.tbHeight = pH * 50;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);
