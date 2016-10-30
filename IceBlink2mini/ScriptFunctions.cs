@@ -1268,6 +1268,35 @@ namespace IceBlink2mini
         }
 
         //GLOBAL AND LOCAL INTS
+        public void SetupLocalIntIfDoesntExist(string objectTag, string variableName)
+        {
+            //check creatures, PCs, Props, areas, items
+            foreach (Area a in mod.moduleAreasObjects)
+            {                
+                foreach (Prop p in a.Props)
+                {
+                    if (p.PropTag.Equals(objectTag))
+                    {
+                        bool foundone = false;
+                        foreach (LocalInt variable in p.PropLocalInts)
+                        {
+                            if (variable.Key.Equals(variableName))
+                            {
+                                foundone = true;
+                            }
+                        }
+                        if (!foundone)
+                        {
+                            SetLocalInt(objectTag, variableName, "0");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<yl>" + "SetUpLocal:: tag:" + objectTag + " name:" + variableName + " value:0</yl><BR>");
+                            }
+                        }
+                    }
+                }                
+            }
+        }
         public void SetGlobalInt(string variableName, string val)
         {
             //TODO add option for '+4' or '-3' to add 4 or subtract 3
@@ -1582,199 +1611,73 @@ namespace IceBlink2mini
         {
             if (mod.debugMode) //SD_20131102
             {
-                gv.cc.addLogText("<font color='yellow'>" + "checkLocal: " + objectTag + " " + variableName + " " + compare + " " + value + "</font>" +
-                        "<BR>");
+                gv.cc.addLogText("<yl>" + "checkLocal: " + objectTag + " " + variableName + " " + compare + " " + value + "</yl><BR>");
             }
-            //check creatures, PCs, Props, areas, items
+            //check Props
             foreach (Area a in mod.moduleAreasObjects)
-            {
-                if (a.Filename.Equals(objectTag))
+            {                
+                foreach (Prop p in a.Props)
                 {
-                    /*foreach (LocalInt variable in a.AreaLocalInts)
+                    if (p.PropTag.Equals(objectTag))
                     {
-                        if (variable.Key.Equals(variableName))
+                        SetupLocalIntIfDoesntExist(objectTag, variableName);
+                        foreach (LocalInt variable in p.PropLocalInts)
                         {
-                            if (compare.Equals("="))
+                            if (variable.Key.Equals(variableName))
                             {
-                                if (variable.Value == value)
+                                if (compare.Equals("="))
                                 {
-                                    if (mod.debugMode) //SD_20131102
+                                    if (variable.Value == value)
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + "foundLocal: " + variable.Key + " == " + variable.Value + "</font>" +
-                                                "<BR>");
+                                        if (mod.debugMode) //SD_20131102
+                                        {
+                                            gv.cc.addLogText("<yl>" + "foundLocal: " + variable.Key + " == " + variable.Value + "</yl><BR>");
+                                        }
+                                        return true;
                                     }
-                                    return true;
                                 }
-                            }
-                            else if (compare.Equals(">"))
-                            {
-                                if (variable.Value > value)
+                                else if (compare.Equals(">"))
                                 {
-                                    if (mod.debugMode) //SD_20131102
+                                    if (variable.Value > value)
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + "foundLocal: " + variable.Key + " > " + variable.Value + "</font>" +
-                                                "<BR>");
+                                        if (mod.debugMode) //SD_20131102
+                                        {
+                                            gv.cc.addLogText("<yl>" + "foundLocal: " + variable.Key + " > " + variable.Value + "</yl><BR>");
+                                        }
+                                        return true;
                                     }
-                                    return true;
                                 }
-                            }
-                            else if (compare.Equals("<"))
-                            {
-                                if (variable.Value < value)
+                                else if (compare.Equals("<"))
                                 {
-                                    if (mod.debugMode) //SD_20131102
+                                    if (variable.Value < value)
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + "foundLocal: " + variable.Key + " < " + variable.Value + "</font>" +
-                                                "<BR>");
+                                        if (mod.debugMode) //SD_20131102
+                                        {
+                                            gv.cc.addLogText("<yl>" + "foundLocal: " + variable.Key + " < " + variable.Value + "</yl><BR>");
+                                        }
+                                        return true;
                                     }
-                                    return true;
                                 }
-                            }
-                            else if (compare.Equals("!"))
-                            {
-                                if (variable.Value != value)
+                                else if (compare.Equals("!"))
                                 {
-                                    if (mod.debugMode) //SD_20131102
+                                    if (variable.Value != value)
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + "foundLocal: " + variable.Key + " != " + variable.Value + "</font>" +
-                                                "<BR>");
+                                        if (mod.debugMode) //SD_20131102
+                                        {
+                                            gv.cc.addLogText("<yl>" + "foundLocal: " + variable.Key + " != " + variable.Value + "</yl><BR>");
+                                        }
+                                        return true;
                                     }
-                                    return true;
                                 }
                             }
                         }
-                    }*/
-                    return false;
-                }
-                else
-                {
-                    foreach (Prop p in a.Props)
-                    {
-                        if (p.PropTag.Equals(objectTag))
-                        {
-                            foreach (LocalInt variable in p.PropLocalInts)
-                            {
-                                if (variable.Key.Equals(variableName))
-                                {
-                                    if (compare.Equals("="))
-                                    {
-                                        if (variable.Value == value)
-                                        {
-                                            if (mod.debugMode) //SD_20131102
-                                            {
-                                                gv.cc.addLogText("<font color='yellow'>" + "foundLocal: " + variable.Key + " == " + variable.Value + "</font>" +
-                                                        "<BR>");
-                                            }
-                                            return true;
-                                        }
-                                    }
-                                    else if (compare.Equals(">"))
-                                    {
-                                        if (variable.Value > value)
-                                        {
-                                            if (mod.debugMode) //SD_20131102
-                                            {
-                                                gv.cc.addLogText("<font color='yellow'>" + "foundLocal: " + variable.Key + " > " + variable.Value + "</font>" +
-                                                        "<BR>");
-                                            }
-                                            return true;
-                                        }
-                                    }
-                                    else if (compare.Equals("<"))
-                                    {
-                                        if (variable.Value < value)
-                                        {
-                                            if (mod.debugMode) //SD_20131102
-                                            {
-                                                gv.cc.addLogText("<font color='yellow'>" + "foundLocal: " + variable.Key + " < " + variable.Value + "</font>" +
-                                                        "<BR>");
-                                            }
-                                            return true;
-                                        }
-                                    }
-                                    else if (compare.Equals("!"))
-                                    {
-                                        if (variable.Value != value)
-                                        {
-                                            if (mod.debugMode) //SD_20131102
-                                            {
-                                                gv.cc.addLogText("<font color='yellow'>" + "foundLocal: " + variable.Key + " != " + variable.Value + "</font>" +
-                                                        "<BR>");
-                                            }
-                                            return true;
-                                        }
-                                    }
-                                }
-                            }
-                            return false;
-                        }
+                        return false;
                     }
-                }
-            }
-            foreach (Creature cr in mod.currentEncounter.encounterCreatureList)
-            {
-                if (cr.cr_tag.Equals(objectTag))
-                {
-                    /*foreach (LocalInt variable in cr.CreatureLocalInts)
-                    {
-                        if (variable.Key.Equals(variableName))
-                        {
-                            if (compare.Equals("="))
-                            {
-                                if (variable.Value == value)
-                                {
-                                    if (mod.debugMode) //SD_20131102
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + "foundLocal: " + variable.Key + " == " + variable.Value + "</font>" +
-                                                "<BR>");
-                                    }
-                                    return true;
-                                }
-                            }
-                            else if (compare.Equals(">"))
-                            {
-                                if (variable.Value > value)
-                                {
-                                    if (mod.debugMode) //SD_20131102
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + "foundLocal: " + variable.Key + " > " + variable.Value + "</font>" +
-                                                "<BR>");
-                                    }
-                                    return true;
-                                }
-                            }
-                            else if (compare.Equals("<"))
-                            {
-                                if (variable.Value < value)
-                                {
-                                    if (mod.debugMode) //SD_20131102
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + "foundLocal: " + variable.Key + " < " + variable.Value + "</font>" +
-                                                "<BR>");
-                                    }
-                                    return true;
-                                }
-                            }
-                            else if (compare.Equals("!"))
-                            {
-                                if (variable.Value != value)
-                                {
-                                    if (mod.debugMode) //SD_20131102
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + "foundLocal: " + variable.Key + " != " + variable.Value + "</font>" +
-                                                "<BR>");
-                                    }
-                                    return true;
-                                }
-                            }
-                        }
-                    }*/
-                    return false;
                 }
             }
             if (mod.debugMode)
             {
-                gv.cc.addLogText("<font color='yellow'>couldn't find the object with the tag (tag: " + objectTag + ") specified (only Creatures or Areas)</font><BR>");
+                gv.cc.addLogText("<yl>couldn't find the object with the tag (tag: " + objectTag + ") specified (only Props have LocalInts)</yl><BR>");
             }
             return false;
         }
@@ -1813,6 +1716,7 @@ namespace IceBlink2mini
             val = value + "";
             SetGlobalInt(variableName, val);
         }
+        
 
         //GLOBAL AND LOCAL STRINGS
         public void SetGlobalString(string variableName, string val)
