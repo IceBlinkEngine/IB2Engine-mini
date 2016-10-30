@@ -532,7 +532,7 @@ namespace IceBlink2mini
                     }
                     else if (filename.Equals("gcCheckJournalEntryByTag.cs"))
                     {
-                        int parm3 = Convert.ToInt32(p4);
+                        int parm3 = Convert.ToInt32(p3);
                         gv.mod.returnCheck = CheckJournalEntry(prm1, prm2, parm3);
                     }
                     else if (filename.Equals("gcCheckForGold.cs"))
@@ -647,7 +647,7 @@ namespace IceBlink2mini
                         gv.mod.returnCheck = false;
                         foreach (Player pc in gv.mod.playerList)
                         {
-                            if (pc.name.Equals(p1))
+                            if ((pc.name.Equals(p1)) || (pc.name.ToLower().Equals(p1)) || (pc.name.Equals(p1.ToLower())))
                             {
                                 gv.mod.returnCheck = true;
                             }
@@ -656,7 +656,7 @@ namespace IceBlink2mini
                     else if (filename.Equals("gcCheckSelectedPcName.cs"))
                     {
                         gv.mod.returnCheck = false;
-                        if (gv.mod.playerList[gv.mod.selectedPartyLeader].name.Equals(p1))
+                        if ((gv.mod.playerList[gv.mod.selectedPartyLeader].name.Equals(p1)) || (gv.mod.playerList[gv.mod.selectedPartyLeader].name.ToLower().Equals(p1)) || (gv.mod.playerList[gv.mod.selectedPartyLeader].name.Equals(p1.ToLower())))
                         {
                             gv.mod.returnCheck = true;
                         }

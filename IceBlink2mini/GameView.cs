@@ -137,8 +137,8 @@ namespace IceBlink2mini
             this.Height = Screen.PrimaryScreen.Bounds.Height;            
             //for testing other screen sizes, manually enter a resolution here
             //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792, 912x528, 456x264, 960x540,
-            //this.Width = 960;
-            //this.Height = 540;
+            //this.Width = 1366;
+            //this.Height = 768;
 
             screenWidth = this.Width;
             screenHeight = this.Height;
@@ -156,7 +156,7 @@ namespace IceBlink2mini
             {
                 squareSize = 96;
             }
-            else if ((squareSize >= 72) && (squareSize < 76))
+            else if ((squareSize >= 68) && (squareSize < 76))
             {
                 squareSize = 72;
             }

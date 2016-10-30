@@ -243,7 +243,7 @@ namespace IceBlink2mini
             {
                 drawMovingProps();
             }
-            drawMainMapFloatyText();
+            
             drawFloatyTextPool();
                         
             if (!mod.currentArea.areaDark)
@@ -254,6 +254,9 @@ namespace IceBlink2mini
                 }
                 drawFogOfWar();
             }
+
+            drawMainMapFloatyText();
+
             if ((showClock) && (!hideClock))
             {
                 drawMainMapClockText();
@@ -1066,10 +1069,10 @@ namespace IceBlink2mini
                         {
                             if ((p.LocationX == actualX) && (p.LocationY == actualY))
                             {
-                                if (!p.MouseOverText.Equals("none"))
+                                if ((!p.MouseOverText.Equals("none")) && ((mod.currentArea.Visible[actualY * mod.currentArea.MapSizeX + actualX] == 1)))
                                 {
                                     string text = p.MouseOverText;
-                                    floatyTextBox.tbWidth = 3 * gv.squareSize;
+                                    floatyTextBox.tbWidth = 5 * gv.squareSize;
                                     floatyTextBox.tbXloc = ((gridx) * gv.squareSize);
                                     floatyTextBox.AddFormattedTextToTextBox(text);
                                     //based on number of lines, pick YLoc
