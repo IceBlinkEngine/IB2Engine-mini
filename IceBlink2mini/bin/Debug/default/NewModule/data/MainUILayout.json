@@ -316,33 +316,11 @@
 						"buttonList": [],
       "toggleList": [
         {
-											"tag": "tglInteractionState",
-											"ImgOnFilename": "tgl_state_on",
-											"ImgOffFilename": "tgl_state_off",
-											"toggleOn": true,
-											"X": 3,
-											"Y": 3,
-											"Width": 24,
-											"Height": 24,
-											"show": true
-        },
-        {
-											"tag": "tglAvoidConversation",
-											"ImgOnFilename": "tgl_avoidConvo_on",
-											"ImgOffFilename": "tgl_avoidConvo_off",
-											"toggleOn": false,
-											"X": 30,
-											"Y": 3,
-											"Width": 24,
-											"Height": 24,
-											"show": true
-        },
-        {
 											"tag": "tglClock",
 											"ImgOnFilename": "tgl_clock_on",
 											"ImgOffFilename": "tgl_clock_off",
 											"toggleOn": true,
-											"X": 57,
+											"X": 3,
 											"Y": 3,
 											"Width": 24,
 											"Height": 24,
@@ -353,12 +331,23 @@
 											"ImgOnFilename": "tgl_sound_on",
 											"ImgOffFilename": "tgl_sound_off",
 											"toggleOn": false,
-											"X": 84,
+											"X": 30,
 											"Y": 3,
 											"Width": 24,
 											"Height": 24,
 											"show": true
-        }        
+        },
+        {
+											"tag": "tglDebugMode",
+											"ImgOnFilename": "tgl_debugmode_on",
+											"ImgOffFilename": "tgl_debugmode_off",
+											"toggleOn": false,
+											"X": 57,
+											"Y": 3,
+											"Width": 24,
+											"Height": 24,
+											"show": true
+        }
       ],
       "portraitList": [],
 				  "logList": []

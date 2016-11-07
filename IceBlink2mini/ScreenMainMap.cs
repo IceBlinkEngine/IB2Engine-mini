@@ -1147,7 +1147,7 @@ namespace IceBlink2mini
                             mod.map_showGrid = true;
                         }
                     }
-                    if (rtn.Equals("tglInteractionState"))
+                    /*if (rtn.Equals("tglInteractionState"))
                     {
                         IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
                         if (tgl == null) { return; }
@@ -1163,8 +1163,8 @@ namespace IceBlink2mini
                             mod.showInteractionState = true;
                             gv.cc.addLogText("lime", "Show info about interaction state of NPC and creatures (encounter = red, mandatory conversation = orange and optional conversation = green");
                         }
-                    }
-                    if (rtn.Equals("tglAvoidConversation"))
+                    }*/
+                    /*if (rtn.Equals("tglAvoidConversation"))
                     {
                         IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
                         if (tgl == null) { return; }
@@ -1180,7 +1180,7 @@ namespace IceBlink2mini
                             mod.avoidInteraction = true;
                             gv.cc.addLogText("yellow", "In a hurry: Party is avoiding all conversations that are not mandatory");
                         }
-                    }
+                    }*/
 
                     if (rtn.Equals("tglClock"))
                     {
@@ -1206,6 +1206,23 @@ namespace IceBlink2mini
                             mod.playMusic = true;
                             mod.playSoundFx = true;
                             gv.cc.addLogText("lime", "SoundFX On");
+                        }
+                    }
+                    if (rtn.Equals("tglDebugMode"))
+                    {
+                        IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
+                        {
+                            tgl.toggleOn = false;
+                            mod.debugMode = false;
+                            gv.cc.addLogText("lime", "DebugMode Off");
+                        }
+                        else
+                        {
+                            tgl.toggleOn = true;
+                            mod.debugMode = true;
+                            gv.cc.addLogText("lime", "DebugMode On");
                         }
                     }
                     if (rtn.Equals("tglFullParty"))
