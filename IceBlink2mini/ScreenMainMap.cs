@@ -1622,13 +1622,17 @@ namespace IceBlink2mini
             }
             else if (keyData == Keys.D)
             {
+                IB2ToggleButton tgl = mainUiLayout.GetToggleByTag("tglDebugMode");
+                if (tgl == null) { return; }
                 if (gv.mod.debugMode)
                 {
+                    tgl.toggleOn = false;
                     gv.mod.debugMode = false;
                     gv.cc.addLogText("lime", "DebugMode Turned Off");
                 }
                 else
                 {
+                    tgl.toggleOn = true;
                     gv.mod.debugMode = true;
                     gv.cc.addLogText("lime", "DebugMode Turned On");
                 }

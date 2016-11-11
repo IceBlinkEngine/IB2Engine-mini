@@ -132,13 +132,13 @@ namespace IceBlink2mini
 
             this.MinimumSize = new Size(100, 100);
             //this is the standard way, comment out the next 3 lines if manually forcing a screen resolution for testing UI layouts
-            this.WindowState = FormWindowState.Maximized;
-            this.Width = Screen.PrimaryScreen.Bounds.Width;
-            this.Height = Screen.PrimaryScreen.Bounds.Height;            
+            //this.WindowState = FormWindowState.Maximized;
+            //this.Width = Screen.PrimaryScreen.Bounds.Width;
+            //this.Height = Screen.PrimaryScreen.Bounds.Height;            
             //for testing other screen sizes, manually enter a resolution here
             //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792, 912x528, 456x264, 960x540,
-            //this.Width = 1366;
-            //this.Height = 768;
+            this.Width = 1366;
+            this.Height = 768;
 
             screenWidth = this.Width;
             screenHeight = this.Height;
