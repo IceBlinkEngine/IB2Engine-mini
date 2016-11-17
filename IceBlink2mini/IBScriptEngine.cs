@@ -62,7 +62,9 @@ namespace IceBlink2mini
             foreach (string s in gv.mod.getIBScriptByName(scriptFilename).codeLines)
             {
                 converttolist.Add(s);
-            }            
+            }
+            lines = new string[converttolist.Count];
+            lines = converttolist.ToArray();
             //set-up Block lists
             fillForBlocksList();
             fillIfBlocksList();
