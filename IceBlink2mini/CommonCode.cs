@@ -636,6 +636,8 @@ namespace IceBlink2mini
                             if (newItem != null)
                             {
                                 updatedShop.shopItemRefs.Add(itemRef.DeepCopy());
+                                //make sure to add to initial list so it doesn't keep getting duplicated with every load save
+                                updatedShop.initialShopItemRefs.Add(itemRef.DeepCopy());
                             }
                         }
                     }
@@ -747,6 +749,8 @@ namespace IceBlink2mini
                             if (newItem != null)
                             {
                                 updatedCont.containerItemRefs.Add(itemRef.DeepCopy());
+                                //make sure to add to initial list so it doesn't keep getting duplicated with every load save
+                                updatedCont.initialContainerItemRefs.Add(itemRef.DeepCopy());
                             }
                         }
                     }

@@ -49,9 +49,14 @@ namespace IceBlink2mini
 		    copy.shopItemRefs = new List<ItemRefs>();
 		    foreach (ItemRefs s in this.shopItemRefs)
             {
-                copy.shopItemRefs.Add(s);
+                copy.shopItemRefs.Add(s.DeepCopy());
             }
-		    return copy;
+            copy.initialShopItemRefs = new List<ItemRefs>();
+            foreach (ItemRefs s in this.initialShopItemRefs)
+            {
+                copy.initialShopItemRefs.Add(s.DeepCopy());
+            }
+            return copy;
         }
     }
 }
