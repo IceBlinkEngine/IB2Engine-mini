@@ -772,7 +772,7 @@ namespace IceBlink2mini
                 Item it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 if (it != null)
                 {
-                    doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
+                    //doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
                     if (!it.onScoringHitCastSpellTag.Equals("none"))
                     {
                         doItemOnHitCastSpell(it.onScoringHitCastSpellTag, it, crt);
@@ -782,7 +782,7 @@ namespace IceBlink2mini
                 it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 if (it != null)
                 {
-                    doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
+                    //doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
                     if (!it.onScoringHitCastSpellTag.Equals("none"))
                     {
                         doItemOnHitCastSpell(it.onScoringHitCastSpellTag, it, crt);

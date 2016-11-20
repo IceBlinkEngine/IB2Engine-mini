@@ -487,6 +487,15 @@ namespace IceBlink2mini
             {
                 sw.Write(json.ToString());
             }
+
+            //SAVE THE FILE
+            //filepath = "C:\\Users\\Slowdive\\Dropbox\\IceBlink2mini\\saves\\" + gv.mod.moduleName + "\\" + filename;
+            //MakeDirectoryIfDoesntExist(filepath);
+            //json = JsonConvert.SerializeObject(saveMod, Newtonsoft.Json.Formatting.Indented);
+            //using (StreamWriter sw = new StreamWriter(filepath))
+            //{
+            //    sw.Write(json.ToString());
+            //}
         }
         //LOAD SAVEGAME
         public bool LoadSaveGame(string filename)
@@ -2710,7 +2719,7 @@ namespace IceBlink2mini
                 gv.errorLog(ex.ToString());
             }            
         }
-        public void doItemScriptBasedOnUseItem(Player pc, ItemRefs itRef, bool destroyItemAfterUse)
+        /*public void doItemScriptBasedOnUseItem(Player pc, ItemRefs itRef, bool destroyItemAfterUse)
         {
             Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
             bool foundScript = false;
@@ -2738,7 +2747,7 @@ namespace IceBlink2mini
             {
                 gv.sf.RemoveItemFromInventory(itRef, 1);
             }
-        }
+        }*/
                         
         //MISC FUNCTIONS
         public int getDistance(Coordinate start, Coordinate end)

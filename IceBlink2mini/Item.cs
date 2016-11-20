@@ -66,9 +66,9 @@ namespace IceBlink2mini
         public int hpRegenPerRoundInCombat = 0;
         public int roundsPerSpRegenOutsideCombat = 0;
         public int roundsPerHpRegenOutsideCombat = 0;
-        public string onScoringHit = "none";
-        public string onScoringHitParms = "";
-        public string onUseItem = "none";
+        //public string onScoringHit = "none";
+        //public string onScoringHitParms = "";
+        //public string onUseItem = "none";
         public string onWhileEquipped = "none";
         public string onUseItemIBScript = "none";
         public string onUseItemIBScriptParms = "";
@@ -141,9 +141,9 @@ namespace IceBlink2mini
             copy.hpRegenPerRoundInCombat = this.hpRegenPerRoundInCombat;
             copy.roundsPerSpRegenOutsideCombat = this.roundsPerSpRegenOutsideCombat;
             copy.roundsPerHpRegenOutsideCombat = this.roundsPerHpRegenOutsideCombat;
-		    copy.onScoringHit = this.onScoringHit;
-		    copy.onScoringHitParms = this.onScoringHitParms;
-		    copy.onUseItem = this.onUseItem;
+		    //copy.onScoringHit = this.onScoringHit;
+		    //copy.onScoringHitParms = this.onScoringHitParms;
+		    //copy.onUseItem = this.onUseItem;
 		    copy.onWhileEquipped = this.onWhileEquipped;
 		    copy.onUseItemIBScript = this.onUseItemIBScript;
             copy.onUseItemIBScriptParms = this.onUseItemIBScriptParms;

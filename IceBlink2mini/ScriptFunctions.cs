@@ -5025,12 +5025,12 @@ namespace IceBlink2mini
         }
 
         //ITEM ON USE
-        public void itHeal(Player pc, Item it, int healAmount)
+        /*public void itHeal(Player pc, Item it, int healAmount)
         {
             if (pc.hp <= -20)
             {
                 MessageBox("Can't heal a dead character!");
-                gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                gv.cc.addLogText("<rd>" + "Can't heal a dead character!" + "</rd><BR>");
             }
             else
             {
@@ -5044,9 +5044,9 @@ namespace IceBlink2mini
                     pc.charStatus = "Alive";
                 }
                 MessageBox(pc.name + " gains " + healAmount + " HPs, now has " + pc.hp + "/" + pc.hpMax + "HPs");
-                gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + healAmount + " HPs" + "</font><BR>");
+                gv.cc.addLogText("<gn>" + pc.name + " gains " + healAmount + " HPs" + "</gn><BR>");
             }
-        }
+        }*/
         public void itForceRest()
         {
             foreach (Player pc in mod.playerList)
@@ -5058,7 +5058,7 @@ namespace IceBlink2mini
                 }
             }
             MessageBox("Party safely rests until completely healed.");
-            gv.cc.addLogText("<font color='lime'>" + "Party safely rests until completely healed." + "</font><BR>");
+            gv.cc.addLogText("<gn>" + "Party safely rests until completely healed." + "</gn><BR>");
         }
         public void itForceRestAndRaiseDead()
         {
@@ -5070,9 +5070,9 @@ namespace IceBlink2mini
                 pc.charStatus = "Alive";
             }
             MessageBox("Party safely rests until completely healed and the dead are raised.");
-            gv.cc.addLogText("<font color='lime'>" + "Party safely rests until completely healed and the dead are raised." + "</font><BR>");
+            gv.cc.addLogText("<gn>" + "Party safely rests until completely healed and the dead are raised." + "</gn><BR>");
         }
-        public void itSpHeal(Player pc, Item it, int healAmount)
+        /*public void itSpHeal(Player pc, Item it, int healAmount)
         {
             pc.sp += healAmount;
             if (pc.sp > pc.spMax)
@@ -5080,8 +5080,8 @@ namespace IceBlink2mini
                 pc.sp = pc.spMax;
             }
             MessageBox(pc.name + " regains " + healAmount + " SPs, now has " + pc.sp + "/" + pc.spMax + "SPs");
-            gv.cc.addLogText("<font color='lime'>" + pc.name + " regains " + healAmount + " SPs" + "</font><BR>");
-        }
+            gv.cc.addLogText("<gn>" + pc.name + " regains " + healAmount + " SPs" + "</gn><BR>");
+        }*/
 
         //Effects
         public void efGeneric(object src, Effect ef)

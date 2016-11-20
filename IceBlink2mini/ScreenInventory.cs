@@ -465,7 +465,7 @@ namespace IceBlink2mini
 	    {            
             ItemRefs itRef = GetCurrentlySelectedItemRefs();
 	        Item it = mod.getItemByResRefForInfo(itRef.resref);
-            if ((selectedIndex == 0) && ( (!it.onUseItem.Equals("none")) || (!it.onUseItemIBScript.Equals("none")) || (!it.onUseItemCastSpellTag.Equals("none")) ) )
+            if ((selectedIndex == 0) && ( (!it.onUseItemIBScript.Equals("none")) || (!it.onUseItemCastSpellTag.Equals("none")) ) )
             {
                 doSelectPcUseItemSetup();
 	            	
@@ -537,15 +537,15 @@ namespace IceBlink2mini
                     if (inCombat)
                     {
                         //check to see if use IBScript first
-                        if (!it.onUseItem.Equals("none"))
+                        /*if (!it.onUseItem.Equals("none"))
                         {
                             Player pc = mod.playerList[gv.screenCombat.currentPlayerIndex];
                             doItemInventoryScriptBasedOnFilename(pc);
                             gv.screenCombat.currentCombatMode = "move";
                             gv.screenType = "combat";
                             gv.screenCombat.endPcTurn(false);
-                        }
-                        else if (!it.onUseItemIBScript.Equals("none"))
+                        }*/
+                        if (!it.onUseItemIBScript.Equals("none"))
                         {
                             doItemInventoryIBScript(gv.screenCombat.currentPlayerIndex);
                             gv.screenCombat.currentCombatMode = "move";
@@ -562,12 +562,12 @@ namespace IceBlink2mini
                     else
                     {
                         //check to see if use IBScript first
-                        if (!it.onUseItem.Equals("none"))
+                        /*if (!it.onUseItem.Equals("none"))
                         {
                             Player pc = mod.playerList[selectedIndex - 1];
                             doItemInventoryScriptBasedOnFilename(pc);
-                        }
-                        else if (!it.onUseItemIBScript.Equals("none"))
+                        }*/
+                        if (!it.onUseItemIBScript.Equals("none"))
                         {
                             doItemInventoryIBScript(selectedIndex - 1);
                         }
@@ -585,7 +585,7 @@ namespace IceBlink2mini
             }
         }
 
-	    public void doItemInventoryScriptBasedOnFilename(Player pc)
+	    /*public void doItemInventoryScriptBasedOnFilename(Player pc)
         {
     	    if (isSelectedItemSlotInPartyInventoryRange())
 		    {
@@ -593,7 +593,7 @@ namespace IceBlink2mini
         	    gv.cc.doItemScriptBasedOnUseItem(pc, itRef, true);	    	
 		    }
             resetInventory();
-        }
+        }*/
 	    public void doItemInventoryIBScript(int pcIndex)
         {
     	    if (isSelectedItemSlotInPartyInventoryRange())
