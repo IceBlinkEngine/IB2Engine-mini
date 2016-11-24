@@ -2374,10 +2374,13 @@ namespace IceBlink2mini
             {
                 if (!isPlayerTurn)
                 {
-                    Creature cr = mod.currentEncounter.encounterCreatureList[creatureIndex];
-                    IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
-                    IbRect dst = new IbRect(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
-                    gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+                    if (creatureIndex < mod.currentEncounter.encounterCreatureList.Count)
+                    {
+                        Creature cr = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                        IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
+                        IbRect dst = new IbRect(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
+                        gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+                    }
                 }
             }
             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
