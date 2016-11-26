@@ -20,6 +20,7 @@ namespace IceBlink2mini
         public int combatFacing = 4; //numpad directions (7,8,9,4,6,1,2,3)
 	    public int combatLocX = 0;
 	    public int combatLocY = 0;
+        public List<Coordinate> tokenCoveredSquares = new List<Coordinate>();
         public int moveDistance = 5;
         public int initiativeBonus = 0;
         public int moveOrder = 0;

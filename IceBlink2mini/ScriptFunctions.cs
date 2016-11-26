@@ -5179,7 +5179,11 @@ namespace IceBlink2mini
                     crt.hp -= damageTotal;
                     if (crt.hp <= 0)
                     {
-                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                        //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                        foreach (Coordinate coor in crt.tokenCoveredSquares)
+                        {
+                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
+                        }
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
@@ -5846,10 +5850,13 @@ namespace IceBlink2mini
                 {
                     foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                     {
-                        //if in range of radius of x and radius of y
-                        if ((crt.combatLocX == coor.X) && (crt.combatLocY == coor.Y))
+                        //if any part of creature is in range of radius of x and radius of y
+                        foreach (Coordinate crtCoor in crt.tokenCoveredSquares)
                         {
-                            AoeTargetsList.Add(crt);
+                            if ((crtCoor.X == coor.X) && (crtCoor.Y == coor.Y))
+                            {
+                                AoeTargetsList.Add(crt);
+                            }
                         }
                     }
                     foreach (Player pc in mod.playerList)
@@ -6011,7 +6018,11 @@ namespace IceBlink2mini
                         crt.hp -= damageTotal;
                         if (crt.hp <= 0)
                         {
-                            gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                            //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                            foreach (Coordinate coor in crt.tokenCoveredSquares)
+                            {
+                                gv.screenCombat.deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
+                            }
                             gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                         }
                         //Do floaty text damage

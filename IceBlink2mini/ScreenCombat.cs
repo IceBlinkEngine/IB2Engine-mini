@@ -239,7 +239,7 @@ namespace IceBlink2mini
             {
                 encounterXP += crtr.cr_XP;
             }
-            pf = new PathFinderEncounters(mod);
+            pf = new PathFinderEncounters(gv, mod);
             //tutorialMessageCombat(false);            
             gv.cc.tutorialMessageCombat(false);
             //IBScript Setup Combat Hook (run only once)
@@ -674,70 +674,73 @@ namespace IceBlink2mini
 
                 foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                 {
-                    if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
+                    foreach (Coordinate coor in crt.tokenCoveredSquares)
                     {
-                        int attResult = 0; //0=missed, 1=hit, 2=killed
-                        int numAtt = 1;
-                        int crtLocX = crt.combatLocX;
-                        int crtLocY = crt.combatLocY;
+                        if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
+                        {
+                            int attResult = 0; //0=missed, 1=hit, 2=killed
+                            int numAtt = 1;
+                            int crtLocX = crt.combatLocX;
+                            int crtLocY = crt.combatLocY;
 
-                        if ((gv.sf.hasTrait(pc, "twoAttack")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
-                        {
-                            numAtt = 2;
-                        }
-                        if ((gv.sf.hasTrait(pc, "rapidshot")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
-                        {
-                            numAtt = 2;
-                        }
-                        if ((gv.sf.hasTrait(pc, "rapidshot2")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
-                        {
-                            numAtt = 3;
-                        }
-                        for (int i = 0; i < numAtt; i++)
-                        {
-                            if ((gv.sf.hasTrait(pc, "cleave")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+                            if ((gv.sf.hasTrait(pc, "twoAttack")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
                             {
-                                attResult = doActualCombatAttack(pc, crt, i);
-                                if (attResult == 2) //2=killed, 1=hit, 0=missed
+                                numAtt = 2;
+                            }
+                            if ((gv.sf.hasTrait(pc, "rapidshot")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
+                            {
+                                numAtt = 2;
+                            }
+                            if ((gv.sf.hasTrait(pc, "rapidshot2")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
+                            {
+                                numAtt = 3;
+                            }
+                            for (int i = 0; i < numAtt; i++)
+                            {
+                                if ((gv.sf.hasTrait(pc, "cleave")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
                                 {
-                                    Creature crt2 = GetNextAdjacentCreature(pc);
-                                    if (crt2 != null)
+                                    attResult = doActualCombatAttack(pc, crt, i);
+                                    if (attResult == 2) //2=killed, 1=hit, 0=missed
                                     {
-                                        crtLocX = crt2.combatLocX;
-                                        crtLocY = crt2.combatLocY;
-                                        gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
-                                        attResult = doActualCombatAttack(pc, crt2, i);
+                                        Creature crt2 = GetNextAdjacentCreature(pc);
+                                        if (crt2 != null)
+                                        {
+                                            crtLocX = crt2.combatLocX;
+                                            crtLocY = crt2.combatLocY;
+                                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
+                                            attResult = doActualCombatAttack(pc, crt2, i);
+                                        }
+                                        break; //do not try and attack same creature that was just killed
                                     }
-                                    break; //do not try and attack same creature that was just killed
                                 }
+                                else
+                                {
+                                    attResult = doActualCombatAttack(pc, crt, i);
+                                    if (attResult == 2) //2=killed, 1=hit, 0=missed
+                                    {
+                                        break; //do not try and attack same creature that was just killed
+                                    }
+                                }
+
+                            }
+                            if (attResult > 0) //2=killed, 1=hit, 0=missed
+                            {
+                                hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
+                                //new system
+                                AnimationStackGroup newGroup = new AnimationStackGroup();
+                                animationSeqStack[0].AnimationSeq.Add(newGroup);
+                                addHitAnimation(newGroup);
                             }
                             else
                             {
-                                attResult = doActualCombatAttack(pc, crt, i);
-                                if (attResult == 2) //2=killed, 1=hit, 0=missed
-                                {
-                                    break; //do not try and attack same creature that was just killed
-                                }
+                                hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
+                                //new system
+                                AnimationStackGroup newGroup = new AnimationStackGroup();
+                                animationSeqStack[0].AnimationSeq.Add(newGroup);
+                                addMissAnimation(newGroup);
                             }
-
+                            return;
                         }
-                        if (attResult > 0) //2=killed, 1=hit, 0=missed
-                        {
-                            hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
-                            //new system
-                            AnimationStackGroup newGroup = new AnimationStackGroup();
-                            animationSeqStack[0].AnimationSeq.Add(newGroup);
-                            addHitAnimation(newGroup);
-                        }
-                        else
-                        {
-                            hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
-                            //new system
-                            AnimationStackGroup newGroup = new AnimationStackGroup();
-                            animationSeqStack[0].AnimationSeq.Add(newGroup);
-                            addMissAnimation(newGroup);
-                        }
-                        return;
                     }
                 }
             }
@@ -802,7 +805,10 @@ namespace IceBlink2mini
 
                 if (crt.hp <= 0)
                 {
-                    deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                    foreach (Coordinate coor in crt.tokenCoveredSquares)
+                    {
+                        deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
+                    }
                     gv.cc.addLogText("<gn>You killed the " + crt.cr_name + "</gn><BR>");
                     return 2; //killed
                 }
@@ -985,7 +991,7 @@ namespace IceBlink2mini
                 //run pathFinder to get new location
                 if (pc != null)
                 {
-                    pf.resetGrid();
+                    pf.resetGrid(crt);
                     Coordinate newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
                     if ((newCoor.X == -1) && (newCoor.Y == -1))
                     {
@@ -1023,7 +1029,7 @@ namespace IceBlink2mini
                         //try to move horizontally or vertically instead if most points are not enough for diagonal move
                         else if ((crt.moveDistance - creatureMoves) >= 1)
                         {
-                            pf.resetGrid();
+                            pf.resetGrid(crt);
                             //block the originial diagonal target square and calculate again
                             newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
                             if ((newCoor.X == -1) && (newCoor.Y == -1))
@@ -1108,7 +1114,7 @@ namespace IceBlink2mini
                 int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
                 // determine if ranged or melee
                 if ((crt.cr_category.Equals("Ranged"))
-                        && (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange)
+                        && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange)
                         && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
                 {
                     //play attack sound for ranged
@@ -1162,7 +1168,7 @@ namespace IceBlink2mini
                     }
                 }
                 else if ((crt.cr_category.Equals("Melee"))
-                        && (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange))
+                        && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange))
                 {
                     if ((pc.combatLocX < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
                     {
@@ -1811,6 +1817,7 @@ namespace IceBlink2mini
         public void Update(int elapsed)
         {
             combatUiLayout.Update(elapsed);
+            refreshCreatureCoveredSquares();
 
             #region PROP AMBIENT SPRITES
             foreach (Sprite spr in spriteList)
@@ -1972,6 +1979,38 @@ namespace IceBlink2mini
                 }
             }
             #endregion
+        }
+        public void refreshCreatureCoveredSquares()
+        {
+            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            {
+                crt.tokenCoveredSquares.Clear();
+                //add normal creature size square location first...add other sizes as needed
+                crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                
+                int width = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width;
+                int height = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Height;
+                //1=normal, 2=wide, 3=tall, 4=large
+                int crtSize = gv.cc.getCreatureSize(crt.cr_tokenFilename);
+
+                //wide
+                if (crtSize == 2)
+                {
+                    crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX + 1, crt.combatLocY));
+                }
+                //tall
+                else if (crtSize == 3)
+                {
+                    crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX, crt.combatLocY + 1));
+                }
+                //large
+                else if (crtSize == 4)
+                {
+                    crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX + 1, crt.combatLocY));
+                    crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX, crt.combatLocY + 1));
+                    crt.tokenCoveredSquares.Add(new Coordinate(crt.combatLocX + 1, crt.combatLocY + 1));
+                }
+            }
         }
 
         #region Combat Draw
@@ -2274,7 +2313,7 @@ namespace IceBlink2mini
                 {
                     if ((pf.values != null) && (mod.debugMode))
                     {
-                        //gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
+                        gv.DrawText(pf.values[x, y].ToString(), x * gv.squareSize + mapStartLocXinPixels, y * gv.squareSize, "wh");
                     }
                 }
             }
@@ -2378,23 +2417,45 @@ namespace IceBlink2mini
                     {
                         Creature cr = mod.currentEncounter.encounterCreatureList[creatureIndex];
                         IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
-                        IbRect dst = new IbRect(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
-                        gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+                        foreach (Coordinate coor in cr.tokenCoveredSquares)
+                        {
+                            IbRect dst = new IbRect(getPixelLocX(coor.X), getPixelLocY(coor.Y), gv.squareSize, gv.squareSize);
+                            gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+                        }
                     }
                 }
             }
             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
-            {
-                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width);
+            {                
+                int width = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width;
+                int height = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Height;
+                //1=normal, 2=wide, 3=tall, 4=large
+                int crtSize = gv.cc.getCreatureSize(crt.cr_tokenFilename);
+
+                IbRect src = new IbRect(0, 0, width, height / 2);
                 if ((creatureToAnimate != null) && (creatureToAnimate == crt))
                 {
-                    src = new IbRect(0, gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width);
+                    src = new IbRect(0, height / 2, width, height / 2);
                 }
+
+                //normal
                 IbRect dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize);
-                if (gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width > gv.standardTokenSize)
+                //wide
+                if (crtSize == 2)
                 {
-                    dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
+                    dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize * 2, gv.squareSize);
                 }
+                //tall
+                if (crtSize == 3)
+                {
+                    dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize * 2);
+                }
+                //large
+                if (crtSize == 4)
+                {
+                    dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize * 2, gv.squareSize * 2);
+                }
+
                 gv.DrawBitmap(gv.cc.GetFromBitmapList(crt.cr_tokenFilename), src, dst, !crt.combatFacingLeft);
                 foreach (Effect ef in crt.cr_effectsList)
                 {
@@ -2966,12 +3027,56 @@ namespace IceBlink2mini
                         gv.cc.floatyText3 = "";
                         foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                         {
-                            if ((crt.combatLocX == gridx) && (crt.combatLocY == gridy))
+                            //1=normal, 2=wide, 3=tall, 4=large
+                            int crtSize = gv.cc.getCreatureSize(crt.cr_tokenFilename);
+                            //normal
+                            if (crtSize == 1)
                             {
-                                gv.cc.floatyText = crt.cr_name;
-                                gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
-                                gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
-                                gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                                if ((crt.combatLocX == gridx) && (crt.combatLocY == gridy))
+                                {
+                                    gv.cc.floatyText = crt.cr_name;
+                                    gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
+                                    gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                    gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                                }
+                            }
+                            //wide
+                            else if (crtSize == 2)
+                            {
+                                if (((crt.combatLocX == gridx) && (crt.combatLocY == gridy)) ||
+                                    ((crt.combatLocX + 1 == gridx) && (crt.combatLocY == gridy)))
+                                {
+                                    gv.cc.floatyText = crt.cr_name;
+                                    gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
+                                    gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                    gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                                }
+                            }
+                            //tall
+                            else if (crtSize == 3)
+                            {
+                                if (((crt.combatLocX == gridx) && (crt.combatLocY == gridy)) ||
+                                    ((crt.combatLocX == gridx) && (crt.combatLocY + 1 == gridy)))
+                                {
+                                    gv.cc.floatyText = crt.cr_name;
+                                    gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
+                                    gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                    gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                                }
+                            }
+                            //large
+                            else if (crtSize == 4)
+                            {
+                                if (((crt.combatLocX == gridx) && (crt.combatLocY == gridy)) ||
+                                    ((crt.combatLocX + 1 == gridx) && (crt.combatLocY == gridy)) ||
+                                    ((crt.combatLocX == gridx) && (crt.combatLocY + 1 == gridy)) ||
+                                    ((crt.combatLocX + 1 == gridx) && (crt.combatLocY + 1 == gridy)))
+                                {
+                                    gv.cc.floatyText = crt.cr_name;
+                                    gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
+                                    gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                    gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                                }
                             }
                         }
                         foreach (Player pc1 in mod.playerList)
@@ -2996,7 +3101,6 @@ namespace IceBlink2mini
                                 gv.cc.floatyText2 = "AC:" + actext + " " + pc1.charStatus;
                                 gv.cc.floatyText3 = "Ammo: " + am;
                                 gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(pc1.combatLocX), getPixelLocY(pc1.combatLocY));
-
                             }
                         }
                     }
@@ -3917,9 +4021,12 @@ namespace IceBlink2mini
                 {
                     foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                     {
-                        if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
+                        foreach (Coordinate coor in crt.tokenCoveredSquares)
                         {
-                            return true;
+                            if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -3953,9 +4060,12 @@ namespace IceBlink2mini
                     {
                         foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                         {
-                            if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
+                            foreach (Coordinate coor in crt.tokenCoveredSquares)
                             {
-                                return true;
+                                if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
+                                {
+                                    return true;
+                                }
                             }
                         }
                     }
@@ -3990,9 +4100,12 @@ namespace IceBlink2mini
                     {
                         foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                         {
-                            if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
+                            foreach (Coordinate coor in crt.tokenCoveredSquares)
                             {
-                                return crt;
+                                if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
+                                {
+                                    return crt;
+                                }
                             }
                         }
                     }
@@ -4034,13 +4147,16 @@ namespace IceBlink2mini
         {
             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
             {
-                if (getDistance(new Coordinate(pc.combatLocX, pc.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) == 1)
+                foreach (Coordinate coor in crt.tokenCoveredSquares)
                 {
-                    if (!crt.isHeld())
+                    if (getDistance(new Coordinate(pc.combatLocX, pc.combatLocY), new Coordinate(coor.X, coor.Y)) == 1)
                     {
-                        if (crt.hp > 0)
+                        if (!crt.isHeld())
                         {
-                            return true;
+                            if (crt.hp > 0)
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -4392,10 +4508,13 @@ namespace IceBlink2mini
         public Creature isBumpIntoCreature(int x, int y)
         {
             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
-            {
-                if ((crt.combatLocX == x) && (crt.combatLocY == y))
+            {                
+                foreach (Coordinate coor in crt.tokenCoveredSquares)
                 {
-                    return crt;
+                    if ((coor.X == x) && (coor.Y == y))
+                    {
+                        return crt;
+                    }
                 }
             }
             return null;
@@ -4410,10 +4529,10 @@ namespace IceBlink2mini
                     //if started in distance = 1 and now distance = 2 then do attackOfOpportunity
                     //also do attackOfOpportunity if moving within controlled area around a creature, i.e. when distance to cerature after move is still one square
                     //the later makes it harder to circle around a cretaure or break through lines, fighters get more area control this way, allwoing them to protect other charcters with more ease
-                    if (((CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
-                        && (CalcDistance(crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 2))
-                        || ((currentMoves > 0) && (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
-                        && (CalcDistance(crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 1)))
+                    if (((CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
+                        && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 2))
+                        || ((currentMoves > 0) && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
+                        && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 1)))
                     {
                         if (pc.steathModeOn)
                         {
@@ -4728,7 +4847,7 @@ namespace IceBlink2mini
             {
                 if ((!p.isDead()) && (p.hp >= 0) && (!p.steathModeOn))
                 {
-                    int dist = CalcDistance(crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
+                    int dist = CalcDistance(crt, crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
                     if (dist == farDist)
                     {
                         //since at same distance, do a random check to see if switch or stay with current PC target
@@ -4795,14 +4914,14 @@ namespace IceBlink2mini
                     }
                     foreach (Creature crtr in mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
                     {
-                        if (this.CalcDistance(crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
+                        if (this.CalcDistance(crtr, crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
                         {
                             utility -= 1;
                         }
                     }
                     foreach (Player tgt_pc in mod.playerList)
                     {
-                        if ((this.CalcDistance(tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!
+                        if ((this.CalcDistance(null, tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!
                         {
                             utility += 2;
                             if (utility > optimalUtil)
@@ -4822,15 +4941,102 @@ namespace IceBlink2mini
 
             return targetLoc;
         }
-        public int CalcDistance(int locCrX, int locCrY, int locPcX, int locPcY)
+        public int CalcDistance(Creature crt, int locCrX, int locCrY, int locPcX, int locPcY)
         {
-            int dist = 0;
-            int deltaX = (int)Math.Abs((locCrX - locPcX));
-            int deltaY = (int)Math.Abs((locCrY - locPcY));
-            if (deltaX > deltaY)
-                dist = deltaX;
-            else
-                dist = deltaY;
+            int dist = 999;
+            if (crt == null)
+            {
+                int deltaX = (int)Math.Abs((locCrX - locPcX));
+                int deltaY = (int)Math.Abs((locCrY - locPcY));
+                if (deltaX > deltaY)
+                    return deltaX;
+                else
+                    return deltaY;
+            }
+            //go through all squares of creature and return the lowest distance
+            int crtSize = gv.cc.getCreatureSize(crt.cr_tokenFilename); //1=normal, 2=wide, 3=tall, 4=large
+            //crt normal
+            if (crtSize == 1)
+            {
+                int deltaX = (int)Math.Abs((locCrX - locPcX));
+                int deltaY = (int)Math.Abs((locCrY - locPcY));
+                if (deltaX > deltaY)
+                    dist = deltaX;
+                else
+                    dist = deltaY;
+            }
+            //crt wide
+            else if (crtSize == 2)
+            {
+                int dist1 = 999;
+                int dist2 = 999;
+                //main square
+                int deltaX = (int)Math.Abs((locCrX - locPcX));
+                int deltaY = (int)Math.Abs((locCrY - locPcY));
+                if (deltaX > deltaY) { dist1 = deltaX; }
+                else { dist1 = deltaY; }
+                //right square
+                deltaX = (int)Math.Abs((locCrX + 1 - locPcX));
+                deltaY = (int)Math.Abs((locCrY - locPcY));
+                if (deltaX > deltaY) { dist2 = deltaX; }
+                else { dist2 = deltaY; }
+                //see which is lower
+                if (dist1 > dist2) { dist = dist2; }
+                else { dist = dist1; }
+            }
+            //crt tall
+            else if (crtSize == 3)
+            {
+                int dist1 = 999;
+                int dist2 = 999;
+                //main square
+                int deltaX = (int)Math.Abs((locCrX - locPcX));
+                int deltaY = (int)Math.Abs((locCrY - locPcY));
+                if (deltaX > deltaY) { dist1 = deltaX; }
+                else { dist1 = deltaY; }
+                //lower square
+                deltaX = (int)Math.Abs((locCrX - locPcX));
+                deltaY = (int)Math.Abs((locCrY + 1 - locPcY));
+                if (deltaX > deltaY) { dist2 = deltaX; }
+                else { dist2 = deltaY; }
+                //see which is lower
+                if (dist1 > dist2) { dist = dist2; }
+                else { dist = dist1; }
+            }
+            //crt large
+            else if (crtSize == 4)
+            {
+                int dist1 = 999;
+                int dist2 = 999;
+                int dist3 = 999;
+                int dist4 = 999;
+                //main square
+                int deltaX = (int)Math.Abs((locCrX - locPcX));
+                int deltaY = (int)Math.Abs((locCrY - locPcY));
+                if (deltaX > deltaY) { dist1 = deltaX; }
+                else { dist1 = deltaY; }
+                //right square
+                deltaX = (int)Math.Abs((locCrX + 1 - locPcX));
+                deltaY = (int)Math.Abs((locCrY - locPcY));
+                if (deltaX > deltaY) { dist2 = deltaX; }
+                else { dist2 = deltaY; }
+                //lower square
+                deltaX = (int)Math.Abs((locCrX - locPcX));
+                deltaY = (int)Math.Abs((locCrY + 1 - locPcY));
+                if (deltaX > deltaY) { dist3 = deltaX; }
+                else { dist3 = deltaY; }
+                //lower right square
+                deltaX = (int)Math.Abs((locCrX + 1 - locPcX));
+                deltaY = (int)Math.Abs((locCrY + 1 - locPcY));
+                if (deltaX > deltaY) { dist4 = deltaX; }
+                else { dist4 = deltaY; }
+                //see which is lower
+                if (dist1 < dist) { dist = dist1; }
+                if (dist2 < dist) { dist = dist2; }
+                if (dist3 < dist) { dist = dist3; }
+                if (dist4 < dist) { dist = dist4; }
+            }
+            
             return dist;
         }
         public Creature GetCreatureWithLowestHP()
@@ -4872,7 +5078,7 @@ namespace IceBlink2mini
         {
             foreach (Creature nextCrt in mod.currentEncounter.encounterCreatureList)
             {
-                if ((CalcDistance(nextCrt.combatLocX, nextCrt.combatLocY, pc.combatLocX, pc.combatLocY) < 2) && (nextCrt.hp > 0))
+                if ((CalcDistance(nextCrt, nextCrt.combatLocX, nextCrt.combatLocY, pc.combatLocX, pc.combatLocY) < 2) && (nextCrt.hp > 0))
                 {
                     return nextCrt;
                 }
