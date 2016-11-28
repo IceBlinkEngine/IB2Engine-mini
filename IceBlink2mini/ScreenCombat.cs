@@ -995,12 +995,71 @@ namespace IceBlink2mini
                     Coordinate newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
                     if ((newCoor.X == -1) && (newCoor.Y == -1))
                     {
-                        //didn't find a path, don't move
-                        gv.Render();
-                        endCreatureTurn();
-                        return;
+                        //didn't find a path, try other PCs
+                        bool foundOne = false;
+                        //try each PC
+                        for (int d = 0; d < gv.mod.playerList.Count; d++)
+                        {
+                            pf.resetGrid(crt);
+                            newCoor = pf.findNewPoint(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY));
+                            if ((newCoor.X == -1) && (newCoor.Y == -1))
+                            {
+                                //didn't find a path so keep searching
+                            }
+                            else
+                            {
+                                //found a path so break
+                                foundOne = true;
+                                break;
+                            }
+                        }
+                        if (!foundOne)
+                        {
+                            //try around the nearest PC
+                            int closestDist = 999;
+                            for (int j = 1; j < 3; j++) //used for radius around PC
+                            {
+                                for (int x = -j; x < j; x++)
+                                {
+                                    for (int y = -j; y < j; y++)
+                                    {
+                                        if (isSquareOnCombatMap(pc.combatLocX + x, pc.combatLocY + y))
+                                        {
+                                            pf.resetGrid(crt);
+                                            Coordinate testCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX + x, pc.combatLocY + y));
+                                            if ((testCoor.X == -1) && (testCoor.Y == -1))
+                                            {
+                                                //didn't find a path so keep searching
+                                            }
+                                            else
+                                            {
+                                                //found a path so check if closer distance
+                                                int dist = getDistance(testCoor, new Coordinate(crt.combatLocX, crt.combatLocY));
+                                                if (dist < closestDist)
+                                                {
+                                                    closestDist = dist;
+                                                    newCoor.X = testCoor.X;
+                                                    newCoor.Y = testCoor.Y;
+                                                    foundOne = true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (!foundOne)
+                        {
+                            //give up and end
+                            gv.Render();
+                            endCreatureTurn();
+                            return;
+                        }                        
                     }
-
+                    if (gv.mod.debugMode)
+                    {
+                        gv.cc.addLogText("<yl>newCoor:" + newCoor.X + "," + newCoor.Y + "</yl><BR>");
+                    }
                     //it's a diagonal move
                     if ((crt.combatLocX != newCoor.X) && (crt.combatLocY != newCoor.Y))
                     {
@@ -1029,6 +1088,11 @@ namespace IceBlink2mini
                         //try to move horizontally or vertically instead if most points are not enough for diagonal move
                         else if ((crt.moveDistance - creatureMoves) >= 1)
                         {
+                            //don't move horizontally/vertically, just give up
+                            gv.Render();
+                            endCreatureTurn();
+                            return;
+                            /*
                             pf.resetGrid(crt);
                             //block the originial diagonal target square and calculate again
                             newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
@@ -1055,7 +1119,7 @@ namespace IceBlink2mini
                             canMove = false;
                             animationState = AnimationState.CreatureMove;
                             gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
-
+                            */
                         }
                         //less than one move point, no move
                         else
@@ -1089,7 +1153,7 @@ namespace IceBlink2mini
                 }
                 else //no target found
                 {
-                    gv.Render();
+                    //gv.Render();
                     endCreatureTurn();
                     return;
                 }
@@ -1097,7 +1161,7 @@ namespace IceBlink2mini
             //less than a move point left, no move
             else
             {
-                gv.Render();
+                //gv.Render();
                 endCreatureTurn();
                 return;
             }
@@ -3973,6 +4037,26 @@ namespace IceBlink2mini
         }
 
         //Helper Methods
+        public bool isSquareOnCombatMap(int x, int y)
+        {
+            if (x >= gv.mod.currentEncounter.MapSizeX)
+            {
+                return false;
+            }
+            if (x < 0)
+            {
+                return false;
+            }
+            if (y >= gv.mod.currentEncounter.MapSizeY)
+            {
+                return false;
+            }
+            if (y < 0)
+            {
+                return false;
+            }
+            return true;
+        }
         public int getPixelLocX(int sqrX)
         {
             return ((sqrX) * gv.squareSize) + mapStartLocXinPixels;
