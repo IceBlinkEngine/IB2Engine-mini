@@ -208,39 +208,6 @@ namespace IceBlink2mini
                 if (p.isAlive())
                 {
                     grid[p.combatLocX, p.combatLocY] = 1;
-                    /*int crt3Size = gv.cc.getCreatureSize(crt.cr_tokenFilename); //1=normal, 2=wide, 3=tall, 4=large
-                    //crt wide
-                    if (crt3Size == 2)
-                    {
-                        if (p.combatLocX > 0)
-                        {
-                            grid[p.combatLocX - 1, p.combatLocY] = 1;
-                        }
-                    }
-                    //crt tall
-                    if (crt3Size == 3)
-                    {
-                        if (p.combatLocY > 0)
-                        {
-                            grid[p.combatLocX, p.combatLocY - 1] = 1;
-                        }
-                    }
-                    //crt large
-                    if (crt3Size == 4)
-                    {
-                        if (p.combatLocX > 0)
-                        {
-                            grid[p.combatLocX - 1, p.combatLocY] = 1;
-                        }
-                        if (p.combatLocY > 0)
-                        {
-                            grid[p.combatLocX, p.combatLocY - 1] = 1;
-                        }
-                        if ((p.combatLocX > 0) && (p.combatLocY > 0))
-                        {
-                            grid[p.combatLocX - 1, p.combatLocY - 1] = 1;
-                        }
-                    }*/
                 }
             }
                         
@@ -254,8 +221,12 @@ namespace IceBlink2mini
         	    }
             }*/
             grid[crt.combatLocX, crt.combatLocY] = 2; //2 marks the start point in the grid
-            
-            //end point for larger creatures should be more squares around PC
+
+            if (grid[end.X, end.Y] != 0)
+            {
+                //ending point is a wall or PC or creature square...skip this square target
+                return newPoint;
+            }
             grid[end.X, end.Y] = 3; //3 marks the end point in the grid            
             buildPath();
 

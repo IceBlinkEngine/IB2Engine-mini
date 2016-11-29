@@ -1000,28 +1000,35 @@ namespace IceBlink2mini
                         //try each PC
                         for (int d = 0; d < gv.mod.playerList.Count; d++)
                         {
-                            pf.resetGrid(crt);
-                            newCoor = pf.findNewPoint(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY));
-                            if ((newCoor.X == -1) && (newCoor.Y == -1))
+                            if ((gv.mod.playerList[d].isAlive()) && (!gv.mod.playerList[d].steathModeOn) && (!gv.mod.playerList[d].isInvisible()))
                             {
-                                //didn't find a path so keep searching
-                            }
-                            else
-                            {
-                                //found a path so break
-                                foundOne = true;
-                                break;
+                                pf.resetGrid(crt);
+                                newCoor = pf.findNewPoint(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY));
+                                if ((newCoor.X == -1) && (newCoor.Y == -1))
+                                {
+                                    //didn't find a path so keep searching
+                                }
+                                else
+                                {
+                                    if (gv.mod.debugMode)
+                                    {
+                                        gv.cc.addLogText("<yl>player " + d + ":" + newCoor.X + "," + newCoor.Y + "</yl><BR>");
+                                    }
+                                    //found a path so break
+                                    foundOne = true;
+                                    break;
+                                }
                             }
                         }
                         if (!foundOne)
                         {
                             //try around the nearest PC
                             int closestDist = 999;
-                            for (int j = 1; j < 3; j++) //used for radius around PC
+                            for (int j = 1; j < 5; j++) //used for radius around PC
                             {
-                                for (int x = -j; x < j; x++)
+                                for (int x = -j; x <= j; x++)
                                 {
-                                    for (int y = -j; y < j; y++)
+                                    for (int y = -j; y <= j; y++)
                                     {
                                         if (isSquareOnCombatMap(pc.combatLocX + x, pc.combatLocY + y))
                                         {
@@ -1034,13 +1041,17 @@ namespace IceBlink2mini
                                             else
                                             {
                                                 //found a path so check if closer distance
-                                                int dist = getDistance(testCoor, new Coordinate(crt.combatLocX, crt.combatLocY));
+                                                int dist = getDistance(new Coordinate(pc.combatLocX + x, pc.combatLocY + y), new Coordinate(crt.combatLocX, crt.combatLocY));
                                                 if (dist < closestDist)
                                                 {
                                                     closestDist = dist;
                                                     newCoor.X = testCoor.X;
                                                     newCoor.Y = testCoor.Y;
                                                     foundOne = true;
+                                                    if (gv.mod.debugMode)
+                                                    {
+                                                        gv.cc.addLogText("<yl>dist: " + dist + " coor:" + newCoor.X + "," + newCoor.Y + "</yl><BR>");
+                                                    }
                                                 }
                                             }
                                         }
@@ -1092,7 +1103,7 @@ namespace IceBlink2mini
                             gv.Render();
                             endCreatureTurn();
                             return;
-                            /*
+                            
                             pf.resetGrid(crt);
                             //block the originial diagonal target square and calculate again
                             newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
@@ -1119,7 +1130,7 @@ namespace IceBlink2mini
                             canMove = false;
                             animationState = AnimationState.CreatureMove;
                             gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
-                            */
+                            
                         }
                         //less than one move point, no move
                         else
@@ -1153,7 +1164,7 @@ namespace IceBlink2mini
                 }
                 else //no target found
                 {
-                    //gv.Render();
+                    gv.Render();
                     endCreatureTurn();
                     return;
                 }
@@ -1161,7 +1172,7 @@ namespace IceBlink2mini
             //less than a move point left, no move
             else
             {
-                //gv.Render();
+                gv.Render();
                 endCreatureTurn();
                 return;
             }
@@ -1382,7 +1393,7 @@ namespace IceBlink2mini
             {
                 if (gv.mod.debugMode)
                 {
-                    gv.cc.addLogText("<yl>" + crt.cr_name + " is a BasicAttacker</yl><BR>");
+                    //gv.cc.addLogText("<yl>" + crt.cr_name + " is a BasicAttacker</yl><BR>");
                 }
                 BasicAttacker(crt);
             }
@@ -1390,7 +1401,7 @@ namespace IceBlink2mini
             {
                 if (gv.mod.debugMode)
                 {
-                    gv.cc.addLogText("<yl>" + crt.cr_name + " is a GeneralCaster</yl><BR>");
+                    //gv.cc.addLogText("<yl>" + crt.cr_name + " is a GeneralCaster</yl><BR>");
                 }
                 GeneralCaster(crt);
             }
@@ -1398,7 +1409,7 @@ namespace IceBlink2mini
             {
                 if (gv.mod.debugMode)
                 {
-                    gv.cc.addLogText("<yl>" + crt.cr_name + " is a BasicAttacker</yl><BR>");
+                    //gv.cc.addLogText("<yl>" + crt.cr_name + " is a BasicAttacker</yl><BR>");
                 }
                 BasicAttacker(crt);
             }
@@ -4941,7 +4952,7 @@ namespace IceBlink2mini
                             pc = p;
                             if (gv.mod.debugMode)
                             {
-                                gv.cc.addLogText("<yl>target:" + pc.name + "</yl><BR>");
+                                //gv.cc.addLogText("<yl>target:" + pc.name + "</yl><BR>");
                             }
                         }
                     }
@@ -4951,7 +4962,7 @@ namespace IceBlink2mini
                         pc = p;
                         if (gv.mod.debugMode)
                         {
-                            gv.cc.addLogText("<yl>target:" + pc.name + "</yl><BR>");
+                            //gv.cc.addLogText("<yl>target:" + pc.name + "</yl><BR>");
                         }
                     }
                 }
@@ -5018,7 +5029,7 @@ namespace IceBlink2mini
                     }
                     if (gv.mod.debugMode)
                     {
-                        gv.cc.addLogText("<yl>(" + selectedPoint.X + "," + selectedPoint.Y + "):" + utility + "</yl><BR>");
+                        //gv.cc.addLogText("<yl>(" + selectedPoint.X + "," + selectedPoint.Y + "):" + utility + "</yl><BR>");
                     }
                 }
             }
