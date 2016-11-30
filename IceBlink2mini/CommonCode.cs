@@ -2620,9 +2620,9 @@ namespace IceBlink2mini
             }
 
             //WIZARD SPELLS
-            else if (spell.spellScript.Equals("spFlameFingers"))
+            else if (spell.spellScript.Equals("spDimensionDoor"))
             {
-                //gv.sf.spFlameFingers(source, target, spell);
+                gv.sf.spDimensionDoor(source, target);
             }
                         
             //CLERIC SPELLS
