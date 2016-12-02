@@ -32,13 +32,16 @@ namespace IceBlink2mini
 	    public string effectScript = "none";
         public string saveCheckType = "none"; //none, reflex, will, fortitude
         public int saveCheckDC = 10;
-        
+        //public bool isCombatSquareEffect = false;
+        public int combatLocX = 0; //used in combat for effects on squares
+        public int combatLocY = 0; //used in combat for effects on squares
+
         //* = marks properties that only work on PCs, not Creatures
         //The below modifiers will be cumulative over each round of the Effects duration if usedForUpdateStats = false
-        
+
         //if you want the effect to be cumulative such as damage per round due to poison, set usedForUpdateStats = false
         //if you want the effect to NOT be cumulative such as AC bonus, set usedForUpdateStats = true
-                
+
         //DAMAGE (hp)
         public bool doDamage = false;
         public string damType = "Normal"; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
@@ -122,6 +125,9 @@ namespace IceBlink2mini
 		    copy.effectScript = this.effectScript;
             copy.saveCheckType = this.saveCheckType;
             copy.saveCheckDC = this.saveCheckDC;
+            //copy.isCombatSquareEffect = this.isCombatSquareEffect;
+            copy.combatLocX = this.combatLocX;
+            copy.combatLocY = this.combatLocY;
             copy.doBuff = this.doBuff;
             copy.doDamage = this.doDamage;
             copy.doDeBuff = this.doDeBuff;

@@ -543,6 +543,33 @@ namespace IceBlink2mini
                         }
                     }
                 }
+                foreach (Effect ef in mod.currentEncounter.effectsList)
+                {
+                    //decrement duration of all effects on the encounter map squares
+                    ef.durationInUnits -= gv.mod.TimePerRound;
+
+                    foreach (Player pc in mod.playerList)
+                    {
+                        if ((pc.combatLocX == ef.combatLocX) && (pc.combatLocY == ef.combatLocY))
+                        {
+                            if (!ef.usedForUpdateStats) //not used for stat updates
+                            {
+                                gv.cc.doEffectScript(pc, ef);
+                            }
+                        }
+                    }
+                    foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+                    {
+                        if ((crtr.combatLocX == ef.combatLocX) && (crtr.combatLocY == ef.combatLocY))
+                        {
+                            if (!ef.usedForUpdateStats) //not used for stat updates
+                            {
+                                gv.cc.doEffectScript(crtr, ef);
+                            }
+                        }
+                    }
+                }
+
                 //if remaining duration <= 0, remove from list
                 foreach (Player pc in mod.playerList)
                 {
@@ -563,7 +590,15 @@ namespace IceBlink2mini
                             crtr.cr_effectsList.RemoveAt(i - 1);
                         }
                     }
+                }                
+                for (int i = mod.currentEncounter.effectsList.Count; i > 0; i--)
+                {
+                    if (mod.currentEncounter.effectsList[i - 1].durationInUnits <= 0)
+                    {
+                        mod.currentEncounter.effectsList.RemoveAt(i - 1);
+                    }
                 }
+                
             }
             catch (Exception ex)
             {
@@ -2093,7 +2128,8 @@ namespace IceBlink2mini
         {
             drawCombatMap();
             drawCombatPlayers();
-            drawCombatCreatures();            
+            drawCombatCreatures();
+            drawEffectSquares();          
             drawSprites();
             if (mod.currentEncounter.UseDayNightCycle)
             {
@@ -2558,6 +2594,15 @@ namespace IceBlink2mini
                     int mo = crt.moveOrder + 1;
                     drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - gv.fontHeight - 2, mo.ToString(), "wh");
                 }
+            }
+        }
+        public void drawEffectSquares()
+        {
+            foreach (Effect ef in mod.currentEncounter.effectsList)
+            {
+                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width);
+                IbRect dst = new IbRect(getPixelLocX(ef.combatLocX), getPixelLocY(ef.combatLocY), gv.squareSize, gv.squareSize);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.spriteFilename), src, dst);
             }
         }
         public void drawTargetHighlight()

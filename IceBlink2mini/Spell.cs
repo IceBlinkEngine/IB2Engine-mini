@@ -25,6 +25,7 @@ namespace IceBlink2mini
 	    public int costSP = 10;	
 	    public string spellTargetType = "Enemy"; //Self, Enemy, Friend, PointLocation
 	    public string spellEffectType = "Damage"; //Damage, Heal, Buff, Debuff
+        public bool isUsedForCombatSquareEffect = false;
         public AreaOfEffectShape aoeShape = AreaOfEffectShape.Circle;
 	    public int aoeRadius = 1;
 	    public int range = 2;	
@@ -52,6 +53,7 @@ namespace IceBlink2mini
 		    copy.costSP = this.costSP;
 		    copy.spellTargetType = this.spellTargetType;
 		    copy.spellEffectType = this.spellEffectType;
+            copy.isUsedForCombatSquareEffect = this.isUsedForCombatSquareEffect;
             copy.aoeShape = this.aoeShape;
 		    copy.aoeRadius = this.aoeRadius;
 		    copy.range = this.range;
