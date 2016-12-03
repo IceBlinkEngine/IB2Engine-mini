@@ -33,6 +33,7 @@ namespace IceBlink2mini
 	    public List<Creature> encounterCreatureList = new List<Creature>();
         public List<ItemRefs> encounterInventoryRefsList = new List<ItemRefs>();
         public List<Coordinate> encounterPcStartLocations = new List<Coordinate>();
+        public List<Trigger> Triggers = new List<Trigger>();
         public List<Effect> effectsList = new List<Effect>();
 	    public int goldDrop = 0;
 	    public string OnSetupCombatIBScript = "none";
@@ -48,6 +49,31 @@ namespace IceBlink2mini
 	    {
 		
 	    }
+        public Trigger getTriggerByLocation(int x, int y)
+        {
+            foreach (Trigger t in this.Triggers)
+            {
+                foreach (Coordinate p in t.TriggerSquaresList)
+                {
+                    if ((p.X == x) && (p.Y == y))
+                    {
+                        return t;
+                    }
+                }
+            }
+            return null;
+        }
+        public Trigger getTriggerByTag(String tag)
+        {
+            foreach (Trigger t in this.Triggers)
+            {
+                if (t.TriggerTag.Equals(tag))
+                {
+                    return t;
+                }
+            }
+            return null;
+        }
         public Effect getEffectByTag(string tag)
         {
             foreach (Effect ef in this.effectsList)

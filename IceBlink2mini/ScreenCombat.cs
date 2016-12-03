@@ -60,6 +60,7 @@ namespace IceBlink2mini
         public bool animationsOn = false;
         public int attackAnimationTimeElapsed = 0;
         public int attackAnimationLengthInMilliseconds = 250;
+        public int triggerIndexCombat = 0;
 
         public ScreenCombat(Module m, GameView g)
         {
@@ -189,6 +190,9 @@ namespace IceBlink2mini
                 {
                     creatureMoves++;
                 }
+                //do triggers and anything else needed after each creature or PC move
+                afterEachMoveCalls();
+                //determine and do the next creature action
                 doCreatureNextAction();
             }
         }
@@ -606,6 +610,121 @@ namespace IceBlink2mini
                 gv.errorLog(ex.ToString());
             }
             checkEndEncounter();
+        }
+        public void afterEachMoveCalls()
+        {
+            gv.triggerIndex = 0;
+            doTriggers();
+        }
+        public void doTriggers()
+        {
+            try
+            {
+                Trigger trig = gv.mod.currentEncounter.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
+                if (isPlayerTurn)
+                {
+                    Player pc = mod.playerList[currentPlayerIndex];
+                    trig = gv.mod.currentEncounter.getTriggerByLocation(pc.combatLocX, pc.combatLocY);
+                }
+                else
+                {
+                    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                    trig = gv.mod.currentEncounter.getTriggerByLocation(crt.combatLocX, crt.combatLocY);
+                }
+                
+                if ((trig != null) && (trig.Enabled))
+                {
+                    //iterate through each event                  
+                    #region Event1 stuff
+                    //check to see if enabled and parm not "none"                    
+                    triggerIndexCombat++;
+
+                    if ((triggerIndexCombat == 1) && (trig.EnabledEvent1) && (!trig.Event1FilenameOrTag.Equals("none")))
+                    {
+                        //check to see what type of event
+                        if (trig.Event1Type.Equals("script"))
+                        {
+                            gv.cc.doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
+                            doTriggers();
+                        }
+                        else if (trig.Event1Type.Equals("ibscript"))
+                        {
+                            gv.cc.doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
+                            doTriggers();
+                        }
+                        //do that event
+                        if (trig.DoOnceOnlyEvent1)
+                        {
+                            trig.EnabledEvent1 = false;
+                        }
+                    }
+                    #endregion
+                    #region Event2 stuff
+                    //check to see if enabled and parm not "none"
+                    else if ((triggerIndexCombat == 2) && (trig.EnabledEvent2) && (!trig.Event2FilenameOrTag.Equals("none")))
+                    {
+                        //check to see what type of event
+                        if (trig.Event2Type.Equals("script"))
+                        {
+                            gv.cc.doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
+                            doTriggers();
+                        }
+                        else if (trig.Event1Type.Equals("ibscript"))
+                        {
+                            gv.cc.doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
+                            doTriggers();
+                        }
+                        //do that event
+                        if (trig.DoOnceOnlyEvent2)
+                        {
+                            trig.EnabledEvent2 = false;
+                        }
+                    }
+                    #endregion
+                    #region Event3 stuff
+                    //check to see if enabled and parm not "none"
+                    else if ((triggerIndexCombat == 3) && (trig.EnabledEvent3) && (!trig.Event3FilenameOrTag.Equals("none")))
+                    {
+                        //check to see what type of event
+                        if (trig.Event3Type.Equals("script"))
+                        {
+                            gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                            doTriggers();
+                        }
+                        else if (trig.Event1Type.Equals("ibscript"))
+                        {
+                            gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                            doTriggers();
+                        }
+                        //do that event
+                        if (trig.DoOnceOnlyEvent3)
+                        {
+                            trig.EnabledEvent3 = false;
+                        }
+                    }
+                    else if (triggerIndexCombat < 4)
+                    {
+                        doTriggers();
+                    }
+                    #endregion
+                    if (triggerIndexCombat > 3)
+                    {
+                        triggerIndexCombat = 0;
+                        if (trig.DoOnceOnly)
+                        {
+                            trig.Enabled = false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (gv.mod.debugMode)
+                {
+                    gv.sf.MessageBox("failed to do trigger: " + ex.ToString());
+                    gv.errorLog(ex.ToString());
+                }
+            }
         }
 
         //COMBAT	
@@ -2127,9 +2246,9 @@ namespace IceBlink2mini
         public void redrawCombat()
         {
             drawCombatMap();
+            drawEffectSquares();
             drawCombatPlayers();
-            drawCombatCreatures();
-            drawEffectSquares();          
+            drawCombatCreatures();            
             drawSprites();
             if (mod.currentEncounter.UseDayNightCycle)
             {
@@ -3608,7 +3727,7 @@ namespace IceBlink2mini
         }
         public void doUpdate(Player pc)
         {
-            //CalculateUpperLeft();
+            //CalculateUpperLeft();            
             if (moveCost == mod.diagonalMoveCost)
             {
                 currentMoves += mod.diagonalMoveCost;
@@ -3620,6 +3739,8 @@ namespace IceBlink2mini
             }
             float moveleft = pc.moveDistance - currentMoves;
             if (moveleft < 1) { moveleft = 0; }
+            //do triggers and anything else needed after each creature or PC move
+            afterEachMoveCalls();
         }
         public void MoveTargetHighlight(int numPadDirection)
         {
