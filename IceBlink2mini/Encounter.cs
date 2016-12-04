@@ -44,8 +44,10 @@ namespace IceBlink2mini
         public string OnStartCombatTurnIBScriptParms = "";
         public string OnEndCombatIBScript = "none";
         public string OnEndCombatIBScriptParms = "";
-    
-	    public Encounter()
+        public int triggerScriptCalledFromSquareLocX = 0;
+        public int triggerScriptCalledFromSquareLocY = 0;
+
+        public Encounter()
 	    {
 		
 	    }

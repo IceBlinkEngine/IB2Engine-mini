@@ -620,16 +620,24 @@ namespace IceBlink2mini
         {
             try
             {
+                //reset the calling square loaction
+                gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = 0;
+                gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = 0;
+
                 Trigger trig = gv.mod.currentEncounter.getTriggerByLocation(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY);
                 if (isPlayerTurn)
                 {
                     Player pc = mod.playerList[currentPlayerIndex];
                     trig = gv.mod.currentEncounter.getTriggerByLocation(pc.combatLocX, pc.combatLocY);
+                    gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = pc.combatLocX;
+                    gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = pc.combatLocY;
                 }
                 else
                 {
                     Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
                     trig = gv.mod.currentEncounter.getTriggerByLocation(crt.combatLocX, crt.combatLocY);
+                    gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = crt.combatLocX;
+                    gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = crt.combatLocY;
                 }
                 
                 if ((trig != null) && (trig.Enabled))
