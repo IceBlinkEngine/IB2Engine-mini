@@ -29,6 +29,8 @@ namespace IceBlink2mini
 	    public string ConversationWhenOnPartySquare = "none";
 	    public string EncounterWhenOnPartySquare = "none";
 	    public bool DeletePropWhenThisEncounterIsWon = false;
+        public string OnEnterSquareIBScript = "none";
+        public string OnEnterSquareIBScriptParms = "";
         public List<LocalInt> PropLocalInts = new List<LocalInt>();
 	    public List<LocalString> PropLocalStrings = new List<LocalString>();
 	    //All THE PROJECT LIVING WORLD STUFF
@@ -96,7 +98,9 @@ namespace IceBlink2mini
 		    copy.PropCategoryName = this.PropCategoryName;
 		    copy.ConversationWhenOnPartySquare = this.ConversationWhenOnPartySquare;
 		    copy.EncounterWhenOnPartySquare = this.EncounterWhenOnPartySquare;
-		    copy.DeletePropWhenThisEncounterIsWon = this.DeletePropWhenThisEncounterIsWon;		
+		    copy.DeletePropWhenThisEncounterIsWon = this.DeletePropWhenThisEncounterIsWon;
+            copy.OnEnterSquareIBScript = this.OnEnterSquareIBScript;
+            copy.OnEnterSquareIBScriptParms = this.OnEnterSquareIBScriptParms;	
 		    copy.PropLocalInts = new List<LocalInt>();
             foreach (LocalInt l in this.PropLocalInts)
             {

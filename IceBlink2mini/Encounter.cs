@@ -35,6 +35,7 @@ namespace IceBlink2mini
         public List<Coordinate> encounterPcStartLocations = new List<Coordinate>();
         public List<Trigger> Triggers = new List<Trigger>();
         public List<Effect> effectsList = new List<Effect>();
+        public List<Prop> propsList = new List<Prop>();
 	    public int goldDrop = 0;
 	    public string OnSetupCombatIBScript = "none";
         public string OnSetupCombatIBScriptParms = "";
@@ -51,6 +52,28 @@ namespace IceBlink2mini
 	    {
 		
 	    }
+        public Prop getPropByLocation(int x, int y)
+        {
+            foreach (Prop p in this.propsList)
+            {
+                if ((p.LocationX == x) && (p.LocationY == y))
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+        public Prop getPropByTag(string tag)
+        {
+            foreach (Prop p in this.propsList)
+            {
+                if (p.PropTag.Equals(tag))
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
         public Trigger getTriggerByLocation(int x, int y)
         {
             foreach (Trigger t in this.Triggers)
