@@ -2297,6 +2297,7 @@ namespace IceBlink2mini
         public void redrawCombat()
         {
             drawCombatMap();
+            drawProps();
             drawEffectSquares();
             drawCombatPlayers();
             drawCombatCreatures();            
@@ -2773,6 +2774,15 @@ namespace IceBlink2mini
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width);
                 IbRect dst = new IbRect(getPixelLocX(ef.combatLocX), getPixelLocY(ef.combatLocY), gv.squareSize, gv.squareSize);
                 gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.spriteFilename), src, dst);
+            }
+        }
+        public void drawProps()
+        {
+            foreach (Prop prp in mod.currentEncounter.propsList)
+            {
+                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(prp.ImageFileName).PixelSize.Width, gv.cc.GetFromBitmapList(prp.ImageFileName).PixelSize.Width);
+                IbRect dst = new IbRect(getPixelLocX(prp.LocationX), getPixelLocY(prp.LocationY), gv.squareSize, gv.squareSize);
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(prp.ImageFileName), src, dst);
             }
         }
         public void drawTargetHighlight()
