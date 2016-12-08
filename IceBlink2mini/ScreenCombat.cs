@@ -777,7 +777,54 @@ namespace IceBlink2mini
                 }
             }
         }
-
+        public void doPropOrTriggerCastSpell(string tag)
+        {
+            Spell sp = gv.mod.getSpellByTag(tag);
+            if (sp == null) { return; }
+            Coordinate srcCoor = new Coordinate(gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX, gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY);
+            //if spell target type is coor, use coor...else use creature or PC on square
+            if (sp.spellTargetType.Equals("PointLocation"))
+            {
+                gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, srcCoor, false);
+            }
+            else
+            {
+                foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+                {
+                    if ((crt.combatLocX == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX) && (crt.combatLocY == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY))
+                    {
+                        gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, crt, false);
+                    }
+                }
+                foreach (Player pc in gv.mod.playerList)
+                {
+                    if ((pc.combatLocX == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX) && (pc.combatLocY == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY))
+                    {
+                        gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, pc, false);
+                    }
+                }
+            }
+            
+            //add ending animation
+            string filename = sp.spriteEndingFilename;
+            AnimationSequence newSeq = new AnimationSequence();
+            animationSeqStack.Add(newSeq);
+            AnimationStackGroup newGroup = new AnimationStackGroup();
+            animationSeqStack[0].AnimationSeq.Add(newGroup);
+            foreach (Coordinate coor in gv.sf.AoeSquaresList)
+            {
+                addEndingAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)), filename);
+            }
+            //add floaty text
+            //add death animations
+            newGroup = new AnimationStackGroup();
+            animationSeqStack[0].AnimationSeq.Add(newGroup);
+            foreach (Coordinate coor in deathAnimationLocations)
+            {
+                addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+            }
+            animationsOn = true;
+        }
         //COMBAT	
         #region PC Combat Stuff
         public void decrementAmmo(Player pc)
@@ -2132,14 +2179,17 @@ namespace IceBlink2mini
                     playerToAnimate = null;
                     foreach (AnimationSequence seq in animationSeqStack)
                     {
-                        if (seq.AnimationSeq[0].turnFloatyTextOn)
+                        if (seq.AnimationSeq.Count > 0)
                         {
-                            floatyTextOn = true; //show any floaty text in the pool
-                        }
-                        foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
-                        {
-                            //just update the group at the top of the stack, first in first
-                            spr.Update(elapsed, gv);
+                            if (seq.AnimationSeq[0].turnFloatyTextOn)
+                            {
+                                floatyTextOn = true; //show any floaty text in the pool
+                            }
+                            foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
+                            {
+                                //just update the group at the top of the stack, first in first
+                                spr.Update(elapsed, gv);
+                            }
                         }
                     }
                     //remove sprites if hit end of life

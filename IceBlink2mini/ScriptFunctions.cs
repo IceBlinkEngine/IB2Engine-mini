@@ -467,6 +467,10 @@ namespace IceBlink2mini
                             gv.mod.currentArea.Walkable[y * gv.mod.currentArea.MapSizeX + x] = 0;
                         }
                     }
+                    else if (filename.Equals("gaPropOrTriggerCastSpellOnThisSquare.cs"))
+                    {
+                        gv.screenCombat.doPropOrTriggerCastSpell(p1);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -5655,6 +5659,12 @@ namespace IceBlink2mini
                 srcX = pcs.combatLocX;
                 srcY = pcs.combatLocY;
             }
+            else if (src is Coordinate) //prop or trigger was used
+            {
+                Coordinate coor = (Coordinate)src;
+                srcX = coor.X;
+                srcY = coor.Y;
+            }
 
             //shape and radius
             #region Circle
@@ -5819,6 +5829,11 @@ namespace IceBlink2mini
                 startX2 = gv.screenCombat.targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
                 startY2 = gv.screenCombat.targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
             }
+            else if (src is Coordinate) //called from a prop or trigger
+            {
+                startX2 = gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX * gv.squareSize + (gv.squareSize / 2);
+                startY2 = gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX * gv.squareSize + (gv.squareSize / 2);
+            }
             else if (src is Creature) //source is a Creature
             {
                 if (trg is Player)
@@ -5932,6 +5947,11 @@ namespace IceBlink2mini
                 Item source = (Item)src;
                 classLevel = source.levelOfItemForCastSpell;
                 sourceName = source.name;
+            }
+            else if (src is Coordinate) //trigger or prop was used
+            {
+                classLevel = 1;
+                sourceName = "trigger";
             }
             #endregion
 
