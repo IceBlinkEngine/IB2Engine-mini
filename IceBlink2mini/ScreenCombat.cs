@@ -3113,10 +3113,13 @@ namespace IceBlink2mini
                 {
                     foreach (AnimationSequence seq in animationSeqStack)
                     {
-                        foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
+                        if (seq.AnimationSeq.Count > 0)
                         {
-                            //just draw the group at the top of the stack, first in first
-                            spr.Draw(gv);
+                            foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
+                            {
+                                //just draw the group at the top of the stack, first in first
+                                spr.Draw(gv);
+                            }
                         }
                     }
                 }
