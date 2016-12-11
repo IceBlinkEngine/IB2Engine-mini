@@ -641,13 +641,35 @@ namespace IceBlink2mini
                 }
                 if ((prp != null) && (prp.isActive))
                 {
-                    //check to see what type of event
+                    //check to see if using an IBScript
                     if (!prp.OnEnterSquareIBScript.Equals("none"))
                     {
-                        gv.cc.doIBScriptBasedOnFilename(prp.OnEnterSquareIBScript, prp.OnEnterSquareIBScriptParms);                        
+                        if ((isPlayerTurn) && (prp.canBeTriggeredByPc)) //only do if PC can trigger
+                        {
+                            gv.cc.doIBScriptBasedOnFilename(prp.OnEnterSquareIBScript, prp.OnEnterSquareIBScriptParms);
+                            decrementAndRemoveProp(prp);
+                        }
+                        else if ((!isPlayerTurn) && (prp.canBeTriggeredByCreature)) //only do if creature can trigger
+                        {
+                            gv.cc.doIBScriptBasedOnFilename(prp.OnEnterSquareIBScript, prp.OnEnterSquareIBScriptParms);
+                            decrementAndRemoveProp(prp);
+                        }
+                    }
+                    //check to see if using a Script
+                    else if (!prp.OnEnterSquareScript.Equals("none"))
+                    {
+                        if ((isPlayerTurn) && (prp.canBeTriggeredByPc)) //only do if PC can trigger
+                        {
+                            gv.cc.doScriptBasedOnFilename(prp.OnEnterSquareScript, prp.OnEnterSquareScriptParm1, prp.OnEnterSquareScriptParm2, prp.OnEnterSquareScriptParm3, prp.OnEnterSquareScriptParm4);
+                            decrementAndRemoveProp(prp);
+                        }
+                        else if ((!isPlayerTurn) && (prp.canBeTriggeredByCreature)) //only do if creature can trigger
+                        {
+                            gv.cc.doScriptBasedOnFilename(prp.OnEnterSquareScript, prp.OnEnterSquareScriptParm1, prp.OnEnterSquareScriptParm2, prp.OnEnterSquareScriptParm3, prp.OnEnterSquareScriptParm4);
+                            decrementAndRemoveProp(prp);
+                        }
                     }
                 }
-
                 doTriggers();
             }
             catch (Exception ex)
@@ -659,6 +681,24 @@ namespace IceBlink2mini
                 }
             }
         }
+        public void decrementAndRemoveProp(Prop prp)
+        {
+            prp.numberOfScriptCallsRemaining--;
+            if (prp.numberOfScriptCallsRemaining < 1)
+            {
+                gv.mod.currentEncounter.propsList.Remove(prp);
+            }
+        }
+        public void decrementAndRemoveTrigger(Trigger trg)
+        {
+            trg.numberOfScriptCallsRemaining--;
+            if (trg.numberOfScriptCallsRemaining < 1)
+            {
+                gv.mod.currentEncounter.Triggers.Remove(trg);
+            }
+        }
+
+        public bool didTriggerEvent = false;
         public void doTriggers()
         {
             try
@@ -695,12 +735,32 @@ namespace IceBlink2mini
                         //check to see what type of event
                         if (trig.Event1Type.Equals("script"))
                         {
-                            gv.cc.doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
+                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger
+                            {
+                                gv.cc.doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
+                                didTriggerEvent = true;
+                            }
+                            else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger
+                            {
+                                gv.cc.doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
+                                didTriggerEvent = true;
+                            }
+                            //gv.cc.doScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1, trig.Event1Parm2, trig.Event1Parm3, trig.Event1Parm4);
                             doTriggers();
                         }
                         else if (trig.Event1Type.Equals("ibscript"))
                         {
-                            gv.cc.doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
+                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger
+                            {
+                                gv.cc.doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
+                                didTriggerEvent = true;
+                            }
+                            else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger
+                            {
+                                gv.cc.doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
+                                didTriggerEvent = true;
+                            }
+                            //gv.cc.doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
                             doTriggers();
                         }
                         //do that event
@@ -717,12 +777,30 @@ namespace IceBlink2mini
                         //check to see what type of event
                         if (trig.Event2Type.Equals("script"))
                         {
-                            gv.cc.doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
+                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger
+                            {
+                                gv.cc.doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
+                                didTriggerEvent = true;
+                            }
+                            else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger
+                            {
+                                gv.cc.doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
+                                didTriggerEvent = true;
+                            }
                             doTriggers();
                         }
-                        else if (trig.Event1Type.Equals("ibscript"))
+                        else if (trig.Event2Type.Equals("ibscript"))
                         {
-                            gv.cc.doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
+                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger
+                            {
+                                gv.cc.doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
+                                didTriggerEvent = true;
+                            }
+                            else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger
+                            {
+                                gv.cc.doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
+                                didTriggerEvent = true;
+                            }
                             doTriggers();
                         }
                         //do that event
@@ -739,12 +817,30 @@ namespace IceBlink2mini
                         //check to see what type of event
                         if (trig.Event3Type.Equals("script"))
                         {
-                            gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger
+                            {
+                                gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                                didTriggerEvent = true;
+                            }
+                            else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger
+                            {
+                                gv.cc.doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
+                                didTriggerEvent = true;
+                            }
                             doTriggers();
                         }
-                        else if (trig.Event1Type.Equals("ibscript"))
+                        else if (trig.Event3Type.Equals("ibscript"))
                         {
-                            gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                            if ((isPlayerTurn) && (trig.canBeTriggeredByPc)) //only do if PC can trigger
+                            {
+                                gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                                didTriggerEvent = true;
+                            }
+                            else if ((!isPlayerTurn) && (trig.canBeTriggeredByCreature)) //only do if creature can trigger
+                            {
+                                gv.cc.doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
+                                didTriggerEvent = true;
+                            }
                             doTriggers();
                         }
                         //do that event
@@ -760,7 +856,12 @@ namespace IceBlink2mini
                     #endregion
                     if (triggerIndexCombat > 3)
                     {
+                        if (didTriggerEvent)
+                        {
+                            decrementAndRemoveTrigger(trig);
+                        }
                         triggerIndexCombat = 0;
+                        didTriggerEvent = false;
                         if (trig.DoOnceOnly)
                         {
                             trig.Enabled = false;

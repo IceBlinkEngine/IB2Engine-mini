@@ -31,6 +31,14 @@ namespace IceBlink2mini
 	    public bool DeletePropWhenThisEncounterIsWon = false;
         public string OnEnterSquareIBScript = "none";
         public string OnEnterSquareIBScriptParms = "";
+        public string OnEnterSquareScript = "none";
+        public string OnEnterSquareScriptParm1 = "none";
+        public string OnEnterSquareScriptParm2 = "none";
+        public string OnEnterSquareScriptParm3 = "none";
+        public string OnEnterSquareScriptParm4 = "none";
+        public bool canBeTriggeredByPc = true;
+        public bool canBeTriggeredByCreature = true;
+        public int numberOfScriptCallsRemaining = 999;
         public List<LocalInt> PropLocalInts = new List<LocalInt>();
 	    public List<LocalString> PropLocalStrings = new List<LocalString>();
 	    //All THE PROJECT LIVING WORLD STUFF
@@ -100,8 +108,16 @@ namespace IceBlink2mini
 		    copy.EncounterWhenOnPartySquare = this.EncounterWhenOnPartySquare;
 		    copy.DeletePropWhenThisEncounterIsWon = this.DeletePropWhenThisEncounterIsWon;
             copy.OnEnterSquareIBScript = this.OnEnterSquareIBScript;
-            copy.OnEnterSquareIBScriptParms = this.OnEnterSquareIBScriptParms;	
-		    copy.PropLocalInts = new List<LocalInt>();
+            copy.OnEnterSquareIBScriptParms = this.OnEnterSquareIBScriptParms;
+            copy.OnEnterSquareScript = this.OnEnterSquareScript;
+            copy.OnEnterSquareScriptParm1 = this.OnEnterSquareScriptParm1;
+            copy.OnEnterSquareScriptParm2 = this.OnEnterSquareScriptParm1;
+            copy.OnEnterSquareScriptParm3 = this.OnEnterSquareScriptParm1;
+            copy.OnEnterSquareScriptParm4 = this.OnEnterSquareScriptParm1;
+            copy.canBeTriggeredByPc = this.canBeTriggeredByPc;
+            copy.canBeTriggeredByCreature = this.canBeTriggeredByCreature;
+            copy.numberOfScriptCallsRemaining = this.numberOfScriptCallsRemaining;
+            copy.PropLocalInts = new List<LocalInt>();
             foreach (LocalInt l in this.PropLocalInts)
             {
                 LocalInt Lint = new LocalInt();

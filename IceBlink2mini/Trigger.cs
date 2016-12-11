@@ -15,8 +15,11 @@ namespace IceBlink2mini
 	    public bool DoOnceOnly = false;
         public bool conversationCannotBeAvoided = true;
 	    public List<Coordinate> TriggerSquaresList = new List<Coordinate>();
+        public int numberOfScriptCallsRemaining = 999;
+        public bool canBeTriggeredByPc = true;
+        public bool canBeTriggeredByCreature = true;
 
-	    public bool EnabledEvent1 = true;
+        public bool EnabledEvent1 = true;
 	    public bool DoOnceOnlyEvent1 = false;
 	    public string Event1Type = "none"; // container, transition, conversation, encounter, script
 	    public string Event1FilenameOrTag = "none";
