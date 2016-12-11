@@ -61,6 +61,7 @@ namespace IceBlink2mini
         public int attackAnimationTimeElapsed = 0;
         public int attackAnimationLengthInMilliseconds = 250;
         public int triggerIndexCombat = 0;
+        public bool didTriggerEvent = false;
 
         public ScreenCombat(Module m, GameView g)
         {
@@ -697,8 +698,6 @@ namespace IceBlink2mini
                 gv.mod.currentEncounter.Triggers.Remove(trg);
             }
         }
-
-        public bool didTriggerEvent = false;
         public void doTriggers()
         {
             try
@@ -926,6 +925,7 @@ namespace IceBlink2mini
             }
             animationsOn = true;
         }
+        
         //COMBAT	
         #region PC Combat Stuff
         public void decrementAmmo(Player pc)

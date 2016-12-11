@@ -39,6 +39,8 @@ namespace IceBlink2mini
         public bool canBeTriggeredByPc = true;
         public bool canBeTriggeredByCreature = true;
         public int numberOfScriptCallsRemaining = 999;
+        public bool isTrap = false;
+        public int trapDCforDisableCheck = 10;
         public List<LocalInt> PropLocalInts = new List<LocalInt>();
 	    public List<LocalString> PropLocalStrings = new List<LocalString>();
 	    //All THE PROJECT LIVING WORLD STUFF
@@ -117,6 +119,8 @@ namespace IceBlink2mini
             copy.canBeTriggeredByPc = this.canBeTriggeredByPc;
             copy.canBeTriggeredByCreature = this.canBeTriggeredByCreature;
             copy.numberOfScriptCallsRemaining = this.numberOfScriptCallsRemaining;
+            copy.isTrap = this.isTrap;
+            copy.trapDCforDisableCheck = this.trapDCforDisableCheck;
             copy.PropLocalInts = new List<LocalInt>();
             foreach (LocalInt l in this.PropLocalInts)
             {

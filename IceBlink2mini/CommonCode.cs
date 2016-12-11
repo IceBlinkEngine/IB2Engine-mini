@@ -2629,7 +2629,13 @@ namespace IceBlink2mini
             else if (spell.tag.Equals("minorHealing"))
             {
                 //gv.sf.spHeal(source, target, 8);
-            }            
+            }
+
+            //THIEF SKILL
+            else if (spell.spellScript.Equals("trRemoveTrap"))
+            {
+                gv.sf.trRemoveTrap(source, target);
+            }
         }
         public void doScriptBasedOnFilename(string filename, string prm1, string prm2, string prm3, string prm4)
         {

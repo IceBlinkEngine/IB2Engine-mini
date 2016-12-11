@@ -6469,6 +6469,28 @@ namespace IceBlink2mini
                 }
             }
         }
+        public void trRemoveTrap(object src, object trg)
+        {
+            if (src is Player) //player casting
+            {
+                Player source = (Player)src;
+                Coordinate target = (Coordinate)trg;
+
+                foreach(Prop prp in gv.mod.currentEncounter.propsList)
+                {
+                    if ((prp.LocationX == target.X) && (prp.LocationY == target.Y))
+                    {
+                        if (prp.isTrap)
+                        {
+                            gv.mod.currentEncounter.propsList.Remove(prp);
+                            gv.cc.addLogText("<gn>" + source.name + " removed trap</gn><BR>");
+                            gv.cc.addFloatyText(new Coordinate(target.X, target.X), "trap removed", "green");
+                            return;
+                        }
+                    }
+                }
+            }            
+        }
         public bool IsSquareOpen(Coordinate target)
         {
             if (gv.mod.currentEncounter.Walkable[target.Y * mod.currentEncounter.MapSizeX + target.X] == 0)
