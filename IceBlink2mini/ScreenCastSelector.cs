@@ -43,7 +43,7 @@ namespace IceBlink2mini
 		    if (btnSelect == null)
 		    {
 			    btnSelect = new IbbButton(gv, 0.8f);	
-			    btnSelect.Text = "CAST SELECTED " + mod.spellLabelSingular.ToUpper();
+			    btnSelect.Text = "CAST SELECTED SPELL";
 			    btnSelect.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnSelect.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnSelect.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
@@ -142,14 +142,17 @@ namespace IceBlink2mini
 	    //CAST SELECTOR SCREEN (COMBAT and MAIN)
         public void redrawCastSelector(bool inCombat)
         {
+            Player pc = getCastingPlayer();
+
             isInCombat = inCombat;
     	    //IF CONTROLS ARE NULL, CREATE THEM
     	    if (btnSelect == null)
     	    {
     		    setControlsStart();
     	    }
-    	
-    	    int pW = (int)((float)gv.screenWidth / 100.0f);
+            btnSelect.Text = "CAST SELECTED " + mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular.ToUpper();
+
+            int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		
     	    int locY = 0;
@@ -167,15 +170,14 @@ namespace IceBlink2mini
             //DRAW TEXT		
 		    locY = (gv.squareSize * 0) + (pH * 2);
 		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-		    gv.DrawText("Select a " + mod.spellLabelSingular + " to Cast", noticeX, pH * 3, "wh");
+		    gv.DrawText("Select a " + mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Cast", noticeX, pH * 3, "wh");
 		    //gv.mSheetTextPaint.setColor(Color.YELLOW);
 		    gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY, "wh");
 		
 		    //DRAW NOTIFICATIONS
 		    if (isSelectedSpellSlotInKnownSpellsRange())
 		    {
-			    Spell sp = GetCurrentlySelectedSpell();
-			    Player pc = getCastingPlayer();	
+			    Spell sp = GetCurrentlySelectedSpell();			    	
 			
 			    if (pc.knownSpellsTags.Contains(sp.tag))
 			    {
@@ -218,7 +220,7 @@ namespace IceBlink2mini
 			    {
 				    //if unknown spell, "Spell Not Known Yet" in red
 				    //gv.mSheetTextPaint.setColor(Color.RED);
-                    gv.DrawText(mod.spellLabelSingular + " Not Known Yet", noticeX, noticeY, "rd");
+                    gv.DrawText(mod.getPlayerClass(pc.classTag).spellLabelSingular + " Not Known Yet", noticeX, noticeY, "rd");
 			    }
 		    }		
 		
@@ -435,7 +437,7 @@ namespace IceBlink2mini
 			                        }        	                            	        	                        
 			            	    }
 
-                                gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, mod.spellLabelSingular + " Target", "castselectorspelltarget");
+                                gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular + " Target", "castselectorspelltarget");
                                 gv.itemListSelector.showIBminiItemListSelector = true;
 
                                 /*using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.spellLabelSingular + " Target"))

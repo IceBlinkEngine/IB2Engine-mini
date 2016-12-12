@@ -34,8 +34,8 @@ namespace IceBlink2mini
         public bool use3d6 = false;
         public bool useUIBackground = true;
         public int logNumberOfLines = 28;
-        public string spellLabelSingular = "Spell";
-        public string spellLabelPlural = "Spells";
+        //public string spellLabelSingular = "Spell";
+        //public string spellLabelPlural = "Spells";
         public string goldLabelSingular = "Gold";
         public string goldLabelPlural = "Gold";
         public bool ArmorClassAscending = true;

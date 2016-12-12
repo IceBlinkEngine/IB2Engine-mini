@@ -105,7 +105,11 @@ namespace IceBlink2mini
 	    //CAST SELECTOR SCREEN (COMBAT and MAIN)
         public void redrawSpellLevelUp(bool inPcCreation)
         {
-    	    spellsToLearnTagsList.Clear();
+            Player pc = getCastingPlayer();
+
+            btnSelect.Text = "LEARN SELECTED " + mod.getPlayerClass(getCastingPlayer().classTag).spellLabelPlural;
+
+            spellsToLearnTagsList.Clear();
     	    fillToLearnList();
     	
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
@@ -124,14 +128,13 @@ namespace IceBlink2mini
             {
                 //DRAW TEXT		
                 locY = (gv.squareSize * 0) + (pH * 2);
-                gv.DrawText("Select One " + mod.spellLabelSingular + " to Learn", noticeX, pH * 1, "gy");
+                gv.DrawText("Select One " + mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Learn", noticeX, pH * 1, "gy");
                 gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 50, pH * 1, "yl");
 
                 //DRAW NOTIFICATIONS
                 if (isSelectedSpellSlotInKnownSpellsRange())
                 {
-                    Spell sp = GetCurrentlySelectedSpell();
-                    Player pc = getCastingPlayer();
+                    Spell sp = GetCurrentlySelectedSpell();                    
 
                     //check to see if already known
                     if (pc.knownSpellsTags.Contains(sp.tag))
@@ -148,22 +151,20 @@ namespace IceBlink2mini
                         }
                         else //not available yet
                         {
-                            gv.DrawText(mod.spellLabelSingular + " Not Available to Learn Yet", noticeX, noticeY, "rd");
+                            gv.DrawText(mod.getPlayerClass(pc.classTag).spellLabelSingular + " Not Available to Learn Yet", noticeX, noticeY, "rd");
                         }
                     }
                 }
             }
             else
             {
-                gv.DrawText(mod.spellLabelPlural + " Known or Available for this Class", noticeX, pH * 1, "gy");
+                gv.DrawText(mod.getPlayerClass(pc.classTag).spellLabelPlural + " Known or Available for this Class", noticeX, pH * 1, "gy");
             }
 
             //DRAW ALL SPELL SLOTS		
             int cntSlot = 0;
 		    foreach (IbbButton btn in btnSpellSlots)
-		    {			
-			    Player pc = getCastingPlayer();						
-			
+		    {	
 			    if (cntSlot == spellSlotIndex) {btn.glowOn = true;}
 			    else {btn.glowOn = false;}
 			
@@ -259,7 +260,7 @@ namespace IceBlink2mini
             }
             else
             {
-                btnSelect.Text = "LEARN SELECTED " + mod.spellLabelSingular.ToUpper();
+                btnSelect.Text = "LEARN SELECTED " + mod.getPlayerClass(pc.classTag).spellLabelSingular.ToUpper();
                 btnHelp.Draw();
                 btnExit.Draw();
                 btnSelect.Draw();
