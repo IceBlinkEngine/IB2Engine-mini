@@ -504,8 +504,8 @@ namespace IceBlink2mini
 
             //Description
             string textToSpan = "";
-            textToSpan = "<u>Description</u>" + "<BR>";
-            textToSpan += "<b><i><big>" + it.name + "</big></i></b><BR>";
+            textToSpan = "<gy>Description</gy>" + "<BR>";
+            textToSpan += "<gn>" + it.name + "</gn><BR>";
             if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
             {
                 textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";

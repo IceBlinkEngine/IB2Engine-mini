@@ -550,7 +550,7 @@ namespace IceBlink2mini
                 int y2 = mod.PlayerLocationY * minimapSquareSizeInPixels;
                 src = new IbRect(0, 0, gv.cc.pc_dead.PixelSize.Width, gv.cc.pc_dead.PixelSize.Height);
                 dst = new IbRect(pW + x2, pH + y2, minimapSquareSizeInPixels, minimapSquareSizeInPixels);
-                gv.DrawBitmap(gv.cc.pc_dead, src, dst);	            
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(mod.playerList[mod.selectedPartyLeader].tokenFilename), src, dst);	            
             }
         }
         public void drawPlayer()

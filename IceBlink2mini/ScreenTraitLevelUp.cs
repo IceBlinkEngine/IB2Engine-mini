@@ -219,8 +219,8 @@ namespace IceBlink2mini
 		    {
                 Trait tr = GetCurrentlySelectedTrait();
                 
-                string textToSpan = "<u>Description</u>" + "<BR>";
-                textToSpan += "<b><i><big>" + tr.name + "</big></i></b><BR>";
+                string textToSpan = "<gy>Description</gy>" + "<BR>";
+                textToSpan += "<gn>" + tr.name + "</gn><BR>";
                 textToSpan += "Available at Level: " + getLevelAvailable(tr.tag) + "<BR>";
                 textToSpan += "<BR>";
                 textToSpan += tr.description;

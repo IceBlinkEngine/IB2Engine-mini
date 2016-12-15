@@ -219,7 +219,7 @@ namespace IceBlink2mini
             messageBox = new IBminiMessageBox(this);
             messageBox.currentLocX = 100;
             messageBox.currentLocY = 25;
-            messageBox.numberOfLinesToShow = 28;
+            messageBox.numberOfLinesToShow = 17;
             messageBox.tbWidth = 250;
             messageBox.Width = 250;
             messageBox.Height = 195;

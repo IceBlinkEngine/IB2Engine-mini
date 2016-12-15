@@ -111,6 +111,8 @@ namespace IceBlink2mini
             //only draw lines needed to fill textbox
             float xLoc = 0.0f;
             float yLoc = 15.0f;
+            int totalFontSpacing = gv.fontHeight + gv.fontLineSpacing;
+            numberOfLinesToShow = (int)(((float)(tbHeight * gv.screenDensity) - (btnReturn.Height * 1.25f)) / (totalFontSpacing));
             int maxLines = currentTopLineIndex + numberOfLinesToShow;
 
             if (maxLines > logLinesList.Count) { maxLines = logLinesList.Count; }

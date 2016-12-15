@@ -1,7 +1,3 @@
-<big><b>TRAIT SELECTION SCREEN</b></big><br>
-<br>
-<b>1. Trait Selection:</b> Tap on a trait once to select it.<br>
-<br>
-<b>2. Learn Selected Trait:</b> Tap on the "LEARN SELECTED TRAIT" button to learn the currently selected trait.<br>
-<br>
-<small><b>Note:</b> Also, check out the 'Player's Guide' in the settings menu (the rusty gear looking button)</small>
+<yl>TRAIT SELECTION SCREEN</yl>
+<gn>1. Trait Selection:</gn> Tap on a trait once to select it.
+<gn>2. Learn Selected Trait:</gn> Tap on the "LEARN SELECTED TRAIT" button to learn the currently selected trait.

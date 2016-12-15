@@ -235,9 +235,9 @@ namespace IceBlink2mini
             {
                 Spell sp = GetCurrentlySelectedSpell();
                 
-                string textToSpan = "<u>Description</u>" + "<BR>";
-                textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
-                textToSpan += "SP Cost: " + sp.costSP + "<BR>";
+                string textToSpan = "<gy>Description</gy>" + "<BR>";
+                textToSpan += "<gn>" + sp.name + "</gn><BR>";
+                textToSpan += "<yl>SP Cost: " + sp.costSP + "</yl><BR>";
                 textToSpan += "Target Range: " + sp.range + "<BR>";
                 textToSpan += "Area of Effect Radius: " + sp.aoeRadius + "<BR>";
                 textToSpan += "Available at Level: " + getLevelAvailable(sp.tag) + "<BR>";

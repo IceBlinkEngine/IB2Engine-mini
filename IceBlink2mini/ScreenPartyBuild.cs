@@ -218,7 +218,7 @@ namespace IceBlink2mini
                 btnHelp.Text = "HELP";
                 btnHelp.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnHelp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnHelp.X = 2 * gv.squareSize + padW * 1;
+                btnHelp.X = center - (int)((gv.ibbwidthL / 2) * gv.screenDensity) - (int)(gv.squareSize * 1.5);
                 //btnHelp.X = pW * 2;
                 btnHelp.Y = 9 * gv.squareSize + (pH * 2);
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);

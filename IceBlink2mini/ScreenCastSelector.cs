@@ -172,7 +172,7 @@ namespace IceBlink2mini
 		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
 		    gv.DrawText("Select a " + mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Cast", noticeX, pH * 3, "wh");
 		    //gv.mSheetTextPaint.setColor(Color.YELLOW);
-		    gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY, "wh");
+		    gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY, "yl");
 		
 		    //DRAW NOTIFICATIONS
 		    if (isSelectedSpellSlotInKnownSpellsRange())
@@ -243,9 +243,9 @@ namespace IceBlink2mini
 		    if (isSelectedSpellSlotInKnownSpellsRange())
 		    {
 			    Spell sp = GetCurrentlySelectedSpell();
-			    string textToSpan = "<u>Description</u>" + "<BR>";
-	            textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
-	            textToSpan += "SP Cost: " + sp.costSP + "<BR>";
+			    string textToSpan = "<gy>Description</gy><BR>";
+	            textToSpan += "<gn>" + sp.name + "</gn><BR>";
+	            textToSpan += "<yl>SP Cost: " + sp.costSP + "</yl><BR>";
 	            textToSpan += "Target Range: " + sp.range + "<BR>";
 	            textToSpan += "Area of Effect Radius: " + sp.aoeRadius + "<BR>";
 	            textToSpan += "Available at Level: " + getLevelAvailable(sp.tag) + "<BR>";
