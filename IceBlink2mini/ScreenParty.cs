@@ -135,7 +135,7 @@ namespace IceBlink2mini
                 btnPartyRoster.Text = "ROSTER";
                 btnPartyRoster.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnPartyRoster.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnPartyRoster.X = 13 * gv.squareSize;
+                btnPartyRoster.X = (gv.screenWidth / 2) + (int)((gv.ibbwidthL / 2) * gv.screenDensity) + (int)(gv.squareSize * 0.5);
                 btnPartyRoster.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnPartyRoster.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -145,7 +145,7 @@ namespace IceBlink2mini
                 btnHelp.Text = "HELP";
                 btnHelp.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnHelp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnHelp.X = 5 * gv.squareSize + padW * 1;
+                btnHelp.X = (gv.screenWidth / 2) - (int)((gv.ibbwidthL / 2) * gv.screenDensity) - (int)(gv.squareSize * 1.5);
                 btnHelp.Y = 9 * gv.squareSize + pH * 2;
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);

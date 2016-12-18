@@ -2928,15 +2928,15 @@ namespace IceBlink2mini
         public SharpDX.Direct2D1.Bitmap GetFromTileBitmapList(string fileNameWithOutExt)
         {
             //check to see if in list already and return bitmap it if found
-            if (tileBitmapList.ContainsKey(fileNameWithOutExt))
+            if (commonBitmapList.ContainsKey(fileNameWithOutExt))
             {
-                return tileBitmapList[fileNameWithOutExt];
+                return commonBitmapList[fileNameWithOutExt];
             }
             //try loading and adding to list and return bitmap
             else
             {
-                tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
-                return tileBitmapList[fileNameWithOutExt];
+                commonBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                return commonBitmapList[fileNameWithOutExt];
             }
         }
         public System.Drawing.Bitmap GetFromTileGDIBitmapList(string fileNameWithOutExt)

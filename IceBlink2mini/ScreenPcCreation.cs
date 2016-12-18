@@ -68,8 +68,8 @@ namespace IceBlink2mini
             //pc.portrait = gv.cc.LoadBitmap(pc.portraitFilename);
             pc.playerClass = mod.getPlayerClass(pc.classTag);
             pc.race = this.getAllowedRace(pc.raceTag);
-            pc.name = "CharacterName";
-            pc.tag = "characterName";
+            //pc.name = "CharacterName";
+            //pc.tag = "characterName";
             pcCreationIndex = 0;
             reRollStats(pc);
         }
