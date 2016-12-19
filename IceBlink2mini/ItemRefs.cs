@@ -12,7 +12,7 @@ namespace IceBlink2mini
 	    public string name = "none";
 	    public bool canNotBeUnequipped = false;
 	    public int quantity = 1; //useful for stacking and ammo
-    
+
         public ItemRefs()
         {
     	
@@ -25,7 +25,7 @@ namespace IceBlink2mini
 		    copy.resref = this.resref;
 		    copy.canNotBeUnequipped = this.canNotBeUnequipped; 	
 		    copy.quantity = this.quantity;
-		    return copy;
+            return copy;
 	    }    
     }
 }

@@ -21,7 +21,7 @@ namespace IceBlink2mini
         public bool showClock = false;
         public bool showFullParty = false;
         public bool showArrows = true;
-        public bool showTogglePanel = false;
+        public bool showTogglePanel = true;
         public bool hideClock = false;
         public List<FloatyText> floatyTextPool = new List<FloatyText>();
         public List<FloatyTextByPixel> floatyTextByPixelPool = new List<FloatyTextByPixel>();
@@ -243,8 +243,6 @@ namespace IceBlink2mini
             {
                 drawMovingProps();
             }
-            
-            drawFloatyTextPool();
                         
             if (!mod.currentArea.areaDark)
             {
@@ -255,6 +253,7 @@ namespace IceBlink2mini
                 drawFogOfWar();
             }
 
+            drawFloatyTextPool();
             drawMainMapFloatyText();
 
             if ((showClock) && (!hideClock))
@@ -870,15 +869,36 @@ namespace IceBlink2mini
                 sMinute = "0" + minute;
             }
 
-            int txtH = (int)gv.fontHeight;            
+            int txtH = (int)gv.fontHeight;
+            int xLoc = (gv.playerOffsetX - 1) * gv.squareSize;
+            int yLoc = (gv.playerOffsetY * 2) * gv.squareSize + gv.squareSize - gv.fontHeight - gv.fontHeight;
+            if (showTogglePanel)
+            {
+                yLoc = (gv.playerOffsetY * 2) * gv.squareSize - gv.fontHeight - gv.fontHeight;
+            }
+                      
             for (int x = 0; x <= 2; x++)
             {
                 for (int y = 0; y <= 2; y++)
                 {
-                    gv.DrawText(hour + ":" + sMinute, x + (gv.playerOffsetX - 1) * gv.squareSize, (gv.playerOffsetY * 2) * gv.squareSize - (6 * gv.pS), "bk");
+                    if (gv.mod.useRationSystem)
+                    {
+                        gv.DrawText(hour + ":" + sMinute + " Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", x + xLoc, y + yLoc, "bk");
+                    }
+                    else
+                    {
+                        gv.DrawText(hour + ":" + sMinute, x + xLoc, y + yLoc, "bk");
+                    }
                 }
             }
-            gv.DrawText(hour + ":" + sMinute, (gv.playerOffsetX - 1) * gv.squareSize, (gv.playerOffsetY * 2) * gv.squareSize - (6 * gv.pS), "wh");
+            if (gv.mod.useRationSystem)
+            {
+                gv.DrawText(hour + ":" + sMinute + " Rations(" + gv.mod.numberOfRationsRemaining.ToString() + ")", xLoc, yLoc, "wh");
+            }
+            else
+            {
+                gv.DrawText(hour + ":" + sMinute, xLoc, yLoc, "wh");
+            }
         }
         public void drawFogOfWar()
         {            
@@ -950,6 +970,9 @@ namespace IceBlink2mini
                         continue; //out of range from view so skip drawing floaty message
                     }
 
+                    ft.onDrawTextBox();
+
+                    /*
                     //location.X should be the the props actual map location in squares (not screen location)
                     int xLoc = (ft.location.X + gv.playerOffsetX - mod.PlayerLocationX) * gv.squareSize;
                     int yLoc = ((ft.location.Y + gv.playerOffsetY - mod.PlayerLocationY) * gv.squareSize) - (ft.z);
@@ -983,6 +1006,7 @@ namespace IceBlink2mini
                         colr = "wh";
                     }
                     gv.DrawText(ft.value, xLoc + mapStartLocXinPixels, yLoc + txtH, colr);
+                    */
                 }
             }
         }
@@ -1025,7 +1049,17 @@ namespace IceBlink2mini
 
         public void addFloatyText(int sqrX, int sqrY, string value, string color, int length)
         {
-            floatyTextPool.Add(new FloatyText(sqrX, sqrY, value, color, length));
+            FloatyText floatyBox = new FloatyText(sqrX, sqrY, value, color, length);
+            floatyBox.showShadow = true;
+            floatyBox.gv = gv;
+            floatyBox.linesList.Clear();
+            floatyBox.tbWidth = 5 * gv.squareSize;
+            floatyBox.AddFormattedTextToTextBox(value);
+            //based on number of lines, pick YLoc
+            //floatyBox.location.Y = (gridy * gv.squareSize) - ((floatyTextBox.linesList.Count / 2) * (gv.fontHeight + gv.fontLineSpacing)) + (gv.squareSize / 2);
+            floatyBox.tbHeight = (floatyBox.linesList.Count + 1) * (gv.fontHeight + gv.fontLineSpacing);
+
+            floatyTextPool.Add(floatyBox);
         }
         public void addFloatyText(Prop floatyCarrier, string value, string color, int length)
         {

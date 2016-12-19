@@ -86,8 +86,9 @@ namespace IceBlink2mini
 	    public int damageTypeResistanceValueMagic = 0;
 	    public int damageTypeResistanceValuePoison = 0;
         public string typeOfDamage = "Normal"; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
-    
-	    public Item()
+        public bool isRation = false;
+
+        public Item()
 	    {
 		
 	    }
@@ -161,6 +162,7 @@ namespace IceBlink2mini
 		    copy.damageTypeResistanceValueMagic = this.damageTypeResistanceValueMagic;
 		    copy.damageTypeResistanceValuePoison = this.damageTypeResistanceValuePoison;
 		    copy.typeOfDamage = this.typeOfDamage;
+            copy.isRation = this.isRation;
 		    return copy;
 	    }
     }

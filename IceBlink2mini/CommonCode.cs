@@ -1085,6 +1085,7 @@ namespace IceBlink2mini
 
         public void doUpdate()
         {
+            handleRations();
             //in case whole party is unconscious and bleeding, end the game (outside combat here)
             bool endGame = true;
             foreach (Player pc in gv.mod.playerList)
@@ -1142,6 +1143,132 @@ namespace IceBlink2mini
 
             //check for levelup available and switch button image
             checkLevelUpAvailable(); //move this to on update and use a plus overlay in top left            
+        }
+        public void handleRations()
+        {            
+            //code for discardign surplus resource items
+            bool discardedRations = false;
+            for (int i = gv.mod.partyInventoryRefsList.Count - 1; i >= 0; i--)
+            //foreach (ItemRefs itRef in gv.mod.partyInventoryRefsList)
+            {
+                //code for capping number of rations and light sources
+                if ((gv.mod.getItemByResRef(gv.mod.partyInventoryRefsList[i].resref).isRation) && (gv.mod.numberOfRationsRemaining > gv.mod.maxNumberOfRationsAllowed))
+                {
+                    //gv.mod.numberOfRationsRemaining--;
+                    gv.mod.numberOfRationsRemaining--;
+                    //itRef.quantity = gv.mod.maxNumberOfRationsAllowed;
+                    if (gv.mod.partyInventoryRefsList[i].quantity < 1)
+                    {
+                        gv.mod.partyInventoryRefsList.Remove(gv.mod.partyInventoryRefsList[i]);
+                    }
+                    else
+                    {
+                        //gv.mod.partyInventoryRefsList[i].quantity = gv.mod.maxNumberOfRationsAllowed;
+                        gv.mod.partyInventoryRefsList.Remove(gv.mod.partyInventoryRefsList[i]);
+                        //gv.mod.partyInventoryRefsList[i].quantity = gv.mod.maxNumberOfRationsAllowed;
+                    }
+                    discardedRations = true;
+                }
+            }            
+
+            if (discardedRations)
+            {
+                gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Discarding excess rations, too heavy", "white", 4000);
+            }
+
+            //ration consumption and damage code
+            if (gv.mod.useRationSystem)
+            {
+                if (gv.mod.minutesSinceLastRationConsumed < 1440)
+                {
+                    gv.mod.minutesSinceLastRationConsumed += gv.mod.currentArea.TimePerSquare;
+                }
+                else
+                {
+                    gv.mod.minutesSinceLastRationConsumed = 0;
+                    bool foundRation = false;
+                    foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
+                    {
+                        if (gv.mod.getItemByResRef(it.resref).isRation)
+                        {
+                            it.quantity--;
+                            gv.mod.numberOfRationsRemaining--;
+                            if (it.quantity < 1)
+                            {
+                                gv.mod.partyInventoryRefsList.Remove(it);
+                            }
+                            gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Ration consumed", "white", 4000);
+                            foundRation = true;
+                            //gv.mod.onLastRation = false;
+                            break;
+                        }
+                    }
+                    if (!foundRation)
+                    {
+                        gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "Very deprived by lack of supplies... HP & SP lost", "red", 4000);
+                        foreach (Player p in gv.mod.playerList)
+                        {
+                            int healthReduction = (int)(p.hpMax / 5f);
+                            if (healthReduction < 1)
+                            {
+                                healthReduction = 1;
+                            }
+                            if (p.hp > -20)
+                            {
+                                p.hp -= healthReduction;
+                            }
+
+                            int spReduction = (int)(p.spMax / 5f);
+                            if (spReduction < 1)
+                            {
+                                spReduction = 1;
+                            }
+                            if (p.sp >= spReduction)
+                            {
+                                p.sp -= spReduction;
+                            }
+
+                        }
+                    }
+                    //prepare final warning
+                    gv.mod.numberOfRationsRemaining = 0;
+                    foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
+                    {
+                        if (gv.mod.getItemByResRef(it.resref).isRation)
+                        {
+                            gv.mod.numberOfRationsRemaining += it.quantity;
+                        }
+                    }
+
+                    if (gv.mod.numberOfRationsRemaining == 1)
+                    {
+                        gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "On your last ration... 48h left to resupply", "red", 4000);
+                    }
+
+                    if ((gv.mod.numberOfRationsRemaining == 0) && (foundRation))
+                    {
+                        gv.screenMainMap.addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, "No rations... you are in dire need to resupply", "red", 4000);
+                    }
+
+                }
+            }
+            //always have correct ration count
+            gv.mod.numberOfRationsRemaining = 0;
+            foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
+            {
+                if (gv.mod.getItemByResRef(it.resref).isRation)
+                {
+                    //gv.mod.numberOfRationsRemaining = it.quantity;
+                    if (it.quantity <= 1)
+                    {
+                        gv.mod.numberOfRationsRemaining++;
+                    }
+                    else
+                    {
+                        gv.mod.numberOfRationsRemaining += it.quantity;
+                    }
+                }
+            }
         }
         public void SwitchToNextAvailablePartyLeader()
         {

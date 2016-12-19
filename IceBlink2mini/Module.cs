@@ -123,6 +123,10 @@ namespace IceBlink2mini
         public int noTriggerLocY = -1;
         public bool firstTriggerCall = true;
         public bool isRecursiveCall = false;
+        public bool useRationSystem = false;
+        public int numberOfRationsRemaining = 0;
+        public int maxNumberOfRationsAllowed = 7;
+        public int minutesSinceLastRationConsumed = 0;
 
         public Module()
         {

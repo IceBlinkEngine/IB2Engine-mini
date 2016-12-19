@@ -5052,16 +5052,53 @@ namespace IceBlink2mini
         }*/
         public void itForceRest()
         {
-            foreach (Player pc in mod.playerList)
+            if (gv.mod.useRationSystem)
             {
-                if (pc.hp > -20)
+                if (gv.mod.numberOfRationsRemaining > 0)
                 {
-                    pc.hp = pc.hpMax;
-                    pc.sp = pc.spMax;
+                    foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
+                    {
+                        if (gv.mod.getItemByResRef(ir.resref).isRation)
+                        {
+                            ir.quantity--;
+                            if (ir.quantity < 1)
+                            {
+                                gv.mod.partyInventoryRefsList.Remove(ir);
+                            }
+                            break;
+                        }
+                    }
+
+                    foreach (Player pc in mod.playerList)
+                    {
+                        if (pc.hp > -20)
+                        {
+                            pc.hp = pc.hpMax;
+                            pc.sp = pc.spMax;
+                        }
+                    }
+                    MessageBox("Party safely rests until completely healed.");
+                    gv.cc.addLogText("<gn>" + "Party safely rests until completely healed." + "</gn><BR>");
+                }
+                else
+                {
+                    MessageBox("Party cannot rest without rations.");
+                    gv.cc.addLogText("<rd>" + "Party cannot rest without rations." + "</rd><BR>");
                 }
             }
-            MessageBox("Party safely rests until completely healed.");
-            gv.cc.addLogText("<gn>" + "Party safely rests until completely healed." + "</gn><BR>");
+            else
+            {
+                foreach (Player pc in mod.playerList)
+                {
+                    if (pc.hp > -20)
+                    {
+                        pc.hp = pc.hpMax;
+                        pc.sp = pc.spMax;
+                    }
+                }
+                MessageBox("Party safely rests until completely healed.");
+                gv.cc.addLogText("<gn>" + "Party safely rests until completely healed." + "</gn><BR>");
+            }
         }
         public void itForceRestAndRaiseDead()
         {
