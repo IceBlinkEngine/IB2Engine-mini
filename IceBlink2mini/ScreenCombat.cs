@@ -37,7 +37,7 @@ namespace IceBlink2mini
         public string currentCombatMode = "info"; //info, move, cast, attack
         public Coordinate targetHighlightCenterLocation = new Coordinate();
         public Coordinate creatureTargetLocation = new Coordinate();
-        private int encounterXP = 0;
+        public int encounterXP = 0;
         private Creature creatureToAnimate = null;
         private Player playerToAnimate = null;
         private Coordinate hitAnimationLocation = new Coordinate();

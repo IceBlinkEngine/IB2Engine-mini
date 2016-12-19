@@ -3248,8 +3248,16 @@ namespace IceBlink2mini
                     //just check whether a free squre does exist at all; if not, do not complete the summon
                     if ((nearestTileByIndex != -1) || (changeSummonLocation == false))
                     {
+                        copy.moveOrder = gv.screenCombat.moveOrderList.Count;
                         //finally add creature
                         mod.currentEncounter.encounterCreatureList.Add(copy);
+                        //add to end of move order
+                        MoveOrder newMO = new MoveOrder();
+                        newMO.PcOrCreature = copy;
+                        newMO.rank = 100;
+                        gv.screenCombat.moveOrderList.Add(newMO);
+                        //add to encounter xp
+                        gv.screenCombat.encounterXP += copy.cr_XP;
                     }
                 }
             }
