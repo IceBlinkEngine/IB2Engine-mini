@@ -3256,6 +3256,8 @@ namespace IceBlink2mini
                         newMO.PcOrCreature = copy;
                         newMO.rank = 100;
                         gv.screenCombat.moveOrderList.Add(newMO);
+                        //increment the number of initial move order objects
+                        gv.screenCombat.initialMoveOrderListSize++;
                         //add to encounter xp
                         gv.screenCombat.encounterXP += copy.cr_XP;
                     }

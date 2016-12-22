@@ -31,6 +31,7 @@ namespace IceBlink2mini
         public bool showTutorialParty = true;
         public bool showTutorialInventory = true;
         public bool showTutorialCombat = true;
+        public int minutesSinceLastRationConsumed = 0;
 
         public SaveGame()
         {

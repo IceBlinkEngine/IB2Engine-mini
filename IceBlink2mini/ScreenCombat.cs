@@ -2782,12 +2782,15 @@ namespace IceBlink2mini
                 {
                     gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst, !pc.combatFacingLeft);
                     //src = new IbRect(0, 0, gv.cc.GetFromBitmapList(pc.tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(pc.tokenFilename).PixelSize.Width);
-                    foreach (Effect ef in pc.effectsList)
+                    if (!animationsOn)
                     {
-                        //Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                        src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width);
-                        gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.spriteFilename), src, dst);
-                        //gv.cc.DisposeOfBitmap(ref fx);
+                        foreach (Effect ef in pc.effectsList)
+                        {
+                            //Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                            src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width);
+                            gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.spriteFilename), src, dst);
+                            //gv.cc.DisposeOfBitmap(ref fx);
+                        }
                     }
                     if (pc.steathModeOn)
                     {
@@ -2892,12 +2895,15 @@ namespace IceBlink2mini
                 }
 
                 gv.DrawBitmap(gv.cc.GetFromBitmapList(crt.cr_tokenFilename), src, dst, !crt.combatFacingLeft);
-                foreach (Effect ef in crt.cr_effectsList)
+                if (!animationsOn)
                 {
-                    //Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                    src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width);
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.spriteFilename), src, dst);
-                    //gv.cc.DisposeOfBitmap(ref fx);
+                    foreach (Effect ef in crt.cr_effectsList)
+                    {
+                        //Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                        src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width);
+                        gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.spriteFilename), src, dst);
+                        //gv.cc.DisposeOfBitmap(ref fx);
+                    }
                 }
                 //CREATURE FACING
                 src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
@@ -2920,11 +2926,14 @@ namespace IceBlink2mini
         }
         public void drawEffectSquares()
         {
-            foreach (Effect ef in mod.currentEncounter.effectsList)
+            if (!animationsOn)
             {
-                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width);
-                IbRect dst = new IbRect(getPixelLocX(ef.combatLocX), getPixelLocY(ef.combatLocY), gv.squareSize, gv.squareSize);
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.spriteFilename), src, dst);
+                foreach (Effect ef in mod.currentEncounter.effectsList)
+                {
+                    IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ef.spriteFilename).PixelSize.Width);
+                    IbRect dst = new IbRect(getPixelLocX(ef.combatLocX), getPixelLocY(ef.combatLocY), gv.squareSize, gv.squareSize);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.spriteFilename), src, dst);
+                }
             }
         }
         public void drawProps()

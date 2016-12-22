@@ -478,6 +478,7 @@ namespace IceBlink2mini
             saveMod.showTutorialCombat = gv.mod.showTutorialCombat;
             saveMod.showTutorialInventory = gv.mod.showTutorialInventory;
             saveMod.showTutorialParty = gv.mod.showTutorialParty;
+            saveMod.minutesSinceLastRationConsumed = gv.mod.minutesSinceLastRationConsumed;
 
             //SAVE THE FILE
             string filepath = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\" + filename;
@@ -605,6 +606,7 @@ namespace IceBlink2mini
             gv.mod.showTutorialInventory = saveMod.showTutorialInventory;
             //U  "showTutorialParty": true, (use all save)
             gv.mod.showTutorialParty = saveMod.showTutorialParty;
+            gv.mod.minutesSinceLastRationConsumed = saveMod.minutesSinceLastRationConsumed;
             
             gv.initializeSounds();
 
@@ -3303,31 +3305,31 @@ namespace IceBlink2mini
             string clr = "wh";
             foreach (string s in tagStack)
             {
-                if ((s.Equals("Bk")) || (s.Equals("bk")))
+                if ((s.Equals("Bk")) || (s.Equals("bk")) || (s.Equals("font color='black'")))
                 {
                     clr = "bk";
                 }
-                else if ((s.Equals("Bu")) || (s.Equals("bu")))
+                else if ((s.Equals("Bu")) || (s.Equals("bu")) || (s.Equals("font color='blue'")))
                 {
                     clr = "bu";
                 }
-                else if ((s.Equals("Gn")) || (s.Equals("gn")))
+                else if ((s.Equals("Gn")) || (s.Equals("gn")) || (s.Equals("font color='green'")) || (s.Equals("font color='lime'")))
                 {
                     clr = "gn";
                 }
-                else if ((s.Equals("Gy")) || (s.Equals("gy")))
+                else if ((s.Equals("Gy")) || (s.Equals("gy")) || (s.Equals("font color='grey'")) || (s.Equals("font color='gray'")))
                 {
                     clr = "gy";
                 }
-                else if ((s.Equals("Ma")) || (s.Equals("ma")))
+                else if ((s.Equals("Ma")) || (s.Equals("ma")) || (s.Equals("font color='magenta'")) || (s.Equals("font color='fuchsia'")))
                 {
                     clr = "ma";
                 }
-                else if ((s.Equals("Rd")) || (s.Equals("rd")))
+                else if ((s.Equals("Rd")) || (s.Equals("rd")) || (s.Equals("font color='red'")))
                 {
                     clr = "rd";
                 }
-                else if ((s.Equals("Yl")) || (s.Equals("yl")))
+                else if ((s.Equals("Yl")) || (s.Equals("yl")) || (s.Equals("font color='yellow'")))
                 {
                     clr = "yl";
                 }
