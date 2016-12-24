@@ -638,8 +638,9 @@ namespace IceBlink2mini
                         }
                     }
                     //compare lists and add items that are new
-                    foreach (ItemRefs itemRef in updatedShop.initialShopItemRefs)
+                    for (int i = updatedShop.initialShopItemRefs.Count - 1; i >= 0; i--)
                     {
+                        ItemRefs itemRef = updatedShop.initialShopItemRefs[i];
                         if (!saveShp.containsInitialItemWithResRef(itemRef.resref))
                         {
                             //item is not in the saved game initial container item list so add it to the container
@@ -749,8 +750,9 @@ namespace IceBlink2mini
                         }
                     }
                     //compare lists and add items that are new
-                    foreach (ItemRefs itemRef in updatedCont.initialContainerItemRefs)
+                    for (int i = updatedCont.initialContainerItemRefs.Count - 1; i >= 0; i--)
                     {
+                        ItemRefs itemRef = updatedCont.initialContainerItemRefs[i];
                         //check to see if item in toolset does not exist in save initial list so it is new and add it
                         if (!saveCnt.containsInitialItemWithResRef(itemRef.resref))
                         {

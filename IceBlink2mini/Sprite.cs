@@ -107,7 +107,7 @@ namespace IceBlink2mini
             {
                 numberOfFrames = this.numberOFFramesForAnimationsMadeFromSeveralBitmaps;
             }
-
+            if (numberOfFrames == 0) { numberOfFrames = 1; }
             if (numberOFFramesForAnimationsMadeFromSeveralBitmaps == 0)
             {
                 int x = totalElapsedTime % (numberOfFrames * millisecondsPerFrame);
