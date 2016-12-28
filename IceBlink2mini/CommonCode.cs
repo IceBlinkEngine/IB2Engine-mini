@@ -2626,7 +2626,7 @@ namespace IceBlink2mini
                             doScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1, trig.Event2Parm2, trig.Event2Parm3, trig.Event2Parm4);
                             doTrigger();
                         }
-                        else if (trig.Event1Type.Equals("ibscript"))
+                        else if (trig.Event2Type.Equals("ibscript"))
                         {
                             doIBScriptBasedOnFilename(trig.Event2FilenameOrTag, trig.Event2Parm1);
                             doTrigger();
@@ -2672,7 +2672,7 @@ namespace IceBlink2mini
                             doScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1, trig.Event3Parm2, trig.Event3Parm3, trig.Event3Parm4);
                             doTrigger();
                         }
-                        else if (trig.Event1Type.Equals("ibscript"))
+                        else if (trig.Event3Type.Equals("ibscript"))
                         {
                             doIBScriptBasedOnFilename(trig.Event3FilenameOrTag, trig.Event3Parm1);
                             doTrigger();
