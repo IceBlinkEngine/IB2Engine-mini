@@ -516,6 +516,10 @@ namespace IceBlink2mini
         public void switchEquipment()
         {
             Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
+            if (GetCurrentlySelectedItemRefs().resref.Equals("none"))
+            {
+                return;
+            }
             if (gv.cc.partyItemSlotIndex == 0) //Main Hand
             {
                 if (!pc.MainHandRefs.resref.Equals("none"))
