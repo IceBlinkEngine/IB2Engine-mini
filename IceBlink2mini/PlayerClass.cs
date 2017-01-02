@@ -20,7 +20,8 @@ namespace IceBlink2mini
 	    public string description = "";
 	    public int startingHP = 10;
 	    public int startingSP = 20;
-	    public int hpPerLevelUp = 10;
+        public string modifierFromSPRelevantAttribute = "intelligence";
+        public int hpPerLevelUp = 10;
 	    public int spPerLevelUp = 20;
 	    public int hpRegenTimeNeeded = 0;
 	    public int spRegenTimeNeeded = 0;
@@ -83,6 +84,7 @@ namespace IceBlink2mini
 		    copy.startingSP = this.startingSP;	
 		    copy.hpPerLevelUp = this.hpPerLevelUp;
 		    copy.spPerLevelUp = this.spPerLevelUp;
+            copy.modifierFromSPRelevantAttribute = this.modifierFromSPRelevantAttribute;
             copy.spellLabelSingular = this.spellLabelSingular;
             copy.spellLabelPlural = this.spellLabelPlural;
             copy.baseFortitudeAtLevel = (int[])this.baseFortitudeAtLevel.Clone();

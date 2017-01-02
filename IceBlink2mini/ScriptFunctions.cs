@@ -4186,8 +4186,41 @@ namespace IceBlink2mini
                 pc.baseAttBonus = pc.playerClass.babTable[pc.classLevel] + CalcBABAdders(pc); //SD_20131115
             }
 
+            int modifierFromSPRelevantAttribute = 0;
+            foreach (PlayerClass pClass in gv.mod.modulePlayerClassList)
+            {
+                if (pc.classTag.Equals(pClass.tag))
+                {
+                    if (pClass.modifierFromSPRelevantAttribute.Contains("intelligence"))
+                    {
+                        modifierFromSPRelevantAttribute = (pc.intelligence - 10) / 2;
+                    }
+                    if (pClass.modifierFromSPRelevantAttribute.Contains("wisdom"))
+                    {
+                        modifierFromSPRelevantAttribute = (pc.wisdom - 10) / 2;
+                    }
+                    if (pClass.modifierFromSPRelevantAttribute.Contains("charisma"))
+                    {
+                        modifierFromSPRelevantAttribute = (pc.charisma - 10) / 2;
+                    }
+                    if (pClass.modifierFromSPRelevantAttribute.Contains("constitution"))
+                    {
+                        modifierFromSPRelevantAttribute = (pc.constitution - 10) / 2;
+                    }
+                    if (pClass.modifierFromSPRelevantAttribute.Contains("strength"))
+                    {
+                        modifierFromSPRelevantAttribute = (pc.strength - 10) / 2;
+                    }
+                    if (pClass.modifierFromSPRelevantAttribute.Contains("dexterity"))
+                    {
+                        modifierFromSPRelevantAttribute = (pc.dexterity - 10) / 2;
+                    }
+                    break;
+                }
+            }
+
             int cMod = (pc.constitution - 10) / 2;
-            int iMod = (pc.intelligence - 10) / 2;
+            int iMod = modifierFromSPRelevantAttribute;
             pc.spMax = pc.playerClass.startingSP + iMod + ((pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod));
             pc.hpMax = pc.playerClass.startingHP + cMod + ((pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod));
 
