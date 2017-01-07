@@ -537,8 +537,8 @@ namespace IceBlink2mini
 
             //1. get number of attacks with melee or ranged (numAtt)
             int numAtt = 1;
-
-            if ((gv.sf.hasTrait(pc, "twoAttack")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+            numAtt = gv.sf.CalcNumberOfAttacks(pc);
+            /*if ((gv.sf.hasTrait(pc, "twoAttack")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
             {
                 numAtt = 2;
             }
@@ -549,38 +549,34 @@ namespace IceBlink2mini
             if ((gv.sf.hasTrait(pc, "rapidshot2")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
             {
                 numAtt = 3;
-            }
+            }*/
 
             //2. calculate attack modifier with current weapon (attackMod)
             int attackMod = 0;
             int modifier = 0;
-            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
-                    || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
-                    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            if (gv.sf.isMeleeAttack(pc))
             {
-                modifier = (pc.strength - 10) / 2;
-                //if has critical strike trait use dexterity for attack modifier in melee if greater than strength modifier
-                if (pc.knownTraitsTags.Contains("criticalstrike"))
-                {
-                    int modifierDex = (pc.dexterity - 10) / 2;
-                    if (modifierDex > modifier)
-                    {
-                        modifier = (pc.dexterity - 10) / 2;
-                    }
-                }
-
+                modifier = gv.sf.CalcPcMeleeAttackAttributeModifier(pc);                
             }
             else //ranged weapon used
             {
                 modifier = (pc.dexterity - 10) / 2;
-
-                if (gv.sf.hasTrait(pc, "preciseshot2"))
+                int preciseShotAdder = 0;
+                preciseShotAdder = gv.sf.CalcPcRangedAttackModifier(pc);
+                if (preciseShotAdder > 0)
                 {
-                    modifier += 2;
+                    modifier += preciseShotAdder;
                 }
-                else if (gv.sf.hasTrait(pc, "preciseshot"))
+                else
                 {
-                    modifier++;
+                    if (gv.sf.hasTrait(pc, "preciseshot2"))
+                    {
+                        modifier += 2;
+                    }
+                    else if (gv.sf.hasTrait(pc, "preciseshot"))
+                    {
+                        modifier++;
+                    }
                 }
                 Item it2 = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 if (it2 != null)
@@ -597,39 +593,36 @@ namespace IceBlink2mini
             int damModifier = 0;
             string damageType = mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage;
 
-            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
-                    || (pc.MainHandRefs.name.Equals("none"))
-                    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            if (gv.sf.isMeleeAttack(pc))
             {
-                damModifier = (pc.strength - 10) / 2;
-                //if has critical strike trait use dexterity for damage modifier in melee if greater than strength modifier
-                if (gv.sf.hasTrait(pc, "criticalstrike"))
-                {
-                    int damModifierDex = (pc.dexterity - 10) / 4;
-                    if (damModifierDex > damModifier)
-                    {
-                        damModifier = (pc.dexterity - 10) / 2;
-                    }
-                }
+                damModifier = gv.sf.CalcPcMeleeDamageAttributeModifier(pc);                
             }
             else //ranged weapon used
             {
                 damModifier = 0;
-                if (gv.sf.hasTrait(pc, "preciseshot2"))
+                int preciseShotAdder = 0;
+                preciseShotAdder = gv.sf.CalcPcRangedDamageModifier(pc);
+                if (preciseShotAdder > 0)
                 {
-                    damModifier += 2;
+                    damModifier += preciseShotAdder;
                 }
-                else if (gv.sf.hasTrait(pc, "preciseshot"))
+                else
                 {
-                    damModifier++;
-                }
+                    if (gv.sf.hasTrait(pc, "preciseshot2"))
+                    {
+                        damModifier += 2;
+                    }
+                    else if (gv.sf.hasTrait(pc, "preciseshot"))
+                    {
+                        damModifier++;
+                    }
+                }                
                 Item it3 = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 if (it3 != null)
                 {
                     damModifier += mod.getItemByResRefForInfo(pc.AmmoRefs.resref).damageAdder;
                     damageType = mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage;
                 }
-
             }
 
             damModifier += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageAdder;

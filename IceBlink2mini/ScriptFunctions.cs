@@ -4285,7 +4285,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > savBonuses) { savBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { savBonuses = highestNonStackable; }
             return savBonuses;
         }
         public int CalcSavingThrowModifiersFortitude(Player pc)
@@ -4314,7 +4314,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > savBonuses) { savBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { savBonuses = highestNonStackable; }
             return savBonuses;
         }
         public int CalcSavingThrowModifiersWill(Player pc)
@@ -4343,7 +4343,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > savBonuses) { savBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { savBonuses = highestNonStackable; }
             return savBonuses;
         }
         public int CalcAttributeModifierStr(Player pc)
@@ -4372,7 +4372,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierDex(Player pc)
@@ -4401,7 +4401,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierInt(Player pc)
@@ -4430,7 +4430,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierCha(Player pc)
@@ -4459,7 +4459,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierCon(Player pc)
@@ -4488,7 +4488,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierWis(Player pc)
@@ -4517,7 +4517,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierLuk(Player pc)
@@ -4546,7 +4546,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAcidModifiers(Player pc)
@@ -4575,7 +4575,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcNormalModifiers(Player pc)
@@ -4604,7 +4604,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcColdModifiers(Player pc)
@@ -4633,7 +4633,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcElectricityModifiers(Player pc)
@@ -4662,7 +4662,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcFireModifiers(Player pc)
@@ -4691,7 +4691,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcMagicModifiers(Player pc)
@@ -4720,7 +4720,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcPoisonModifiers(Player pc)
@@ -4749,7 +4749,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > md) { md = highestNonStackable; }
+            if (highestNonStackable > -99) { md = highestNonStackable; }
             return md;
         }
         public int CalcBABAdders(Player pc)
@@ -4770,7 +4770,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > adder) { adder = highestNonStackable; }
+            if (highestNonStackable > -99) { adder = highestNonStackable; }
             return adder;
         }
         public int CalcACModifiers(Player pc)
@@ -4791,7 +4791,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > adder) { adder = highestNonStackable; }
+            if (highestNonStackable > -99) { adder = highestNonStackable; }
             return adder;
         }
         public int CalcArmorBonuses(Player pc)
@@ -4854,7 +4854,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            if (highestNonStackable > moveBonuses) { moveBonuses = highestNonStackable; }
+            if (highestNonStackable > -99) { moveBonuses = highestNonStackable; }
             return moveBonuses;
         }
         public void RunAllItemWhileEquippedScripts(Player pc)
@@ -4906,6 +4906,508 @@ namespace IceBlink2mini
         public bool hasTrait(Player pc, string tag)
         {
             return pc.knownTraitsTags.Contains(tag);
+        }
+        public int CalcNumberOfAttacks(Player pc)
+        {
+            if (isMeleeAttack(pc))
+            {
+                return CalcNumberOfMeleeAttacks(pc);
+            }
+            else
+            {
+                return CalcNumberOfRangedAttacks(pc);
+            }
+        }
+        public int CalcNumberOfMeleeAttacks(Player pc)
+        {
+            int numOfAdditionalPositiveMeleeAttacks = 0;
+            int numOfAdditionalPositiveStackableMeleeAttacks = 0;
+            int numOfAdditionalNegativeMeleeAttacks = 0;
+            int numOfAdditionalNegativeStackableMeleeAttacks = 0;
+            //go through all traits and see if has passive rapidshot type trait, use largest, not cumulative
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    //replace non-stackable positive with highest value
+                    if ((ef.modifyNumberOfMeleeAttacks > numOfAdditionalPositiveMeleeAttacks) && (ta.isPassive) && (!ef.isStackableEffect))
+                    {
+                        numOfAdditionalPositiveMeleeAttacks = ef.modifyNumberOfMeleeAttacks;
+                    }
+                    //replace non-stackable negative with lowest value
+                    if ((ef.modifyNumberOfMeleeAttacks < numOfAdditionalNegativeMeleeAttacks) && (ta.isPassive) && (!ef.isStackableEffect))
+                    {
+                        numOfAdditionalNegativeMeleeAttacks = ef.modifyNumberOfMeleeAttacks;
+                    }
+                    //if isStackable positive then pile on
+                    if ((ef.modifyNumberOfMeleeAttacks > 0) && (ta.isPassive) && (ef.isStackableEffect))
+                    {
+                        numOfAdditionalPositiveStackableMeleeAttacks += ef.modifyNumberOfMeleeAttacks;
+                    }
+                    //if isStackable negative then pile on
+                    if ((ef.modifyNumberOfMeleeAttacks < 0) && (ta.isPassive) && (ef.isStackableEffect))
+                    {
+                        numOfAdditionalNegativeStackableMeleeAttacks += ef.modifyNumberOfMeleeAttacks;
+                    }
+                }
+            }
+            //go through each effect and see if has a buff type like rapidshot, use largest, not cumulative
+            foreach (Effect ef in pc.effectsList)
+            {
+                //replace non-stackable positive with highest value
+                if ((ef.modifyNumberOfMeleeAttacks > numOfAdditionalPositiveMeleeAttacks) && (!ef.isStackableEffect))
+                {
+                    numOfAdditionalPositiveMeleeAttacks = ef.modifyNumberOfMeleeAttacks;
+                }
+                //replace non-stackable negative with lowest value
+                if ((ef.modifyNumberOfMeleeAttacks < numOfAdditionalNegativeMeleeAttacks) && (!ef.isStackableEffect))
+                {
+                    numOfAdditionalNegativeMeleeAttacks = ef.modifyNumberOfMeleeAttacks;
+                }
+                //if isStackable positive then pile on
+                if ((ef.modifyNumberOfMeleeAttacks > 0) && (ef.isStackableEffect))
+                {
+                    numOfAdditionalPositiveStackableMeleeAttacks += ef.modifyNumberOfMeleeAttacks;
+                }
+                //if isStackable negative then pile on
+                if ((ef.modifyNumberOfMeleeAttacks < 0) && (ef.isStackableEffect))
+                {
+                    numOfAdditionalNegativeStackableMeleeAttacks += ef.modifyNumberOfMeleeAttacks;
+                }
+            }
+
+            int numOfPos = 0;
+            int numOfNeg = 0;
+            //check to see if stackable is greater than non-stackable and combine the highest positive and negative effect
+            if (numOfAdditionalPositiveMeleeAttacks > numOfAdditionalPositiveStackableMeleeAttacks)
+            {
+                numOfPos = numOfAdditionalPositiveMeleeAttacks;
+            }
+            else
+            {
+                numOfPos = numOfAdditionalPositiveStackableMeleeAttacks;
+            }
+            if (numOfAdditionalNegativeMeleeAttacks > numOfAdditionalNegativeStackableMeleeAttacks)
+            {
+                numOfNeg = numOfAdditionalNegativeMeleeAttacks;
+            }
+            else
+            {
+                numOfNeg = numOfAdditionalNegativeStackableMeleeAttacks;
+            }
+
+            int numOfAdditionalAttacks = numOfPos + numOfNeg;
+            if (numOfAdditionalAttacks != 0)
+            {
+                return numOfAdditionalAttacks + 1;
+            }
+            else if (gv.sf.hasTrait(pc, "twoAttack"))
+            {
+                return 2;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        public int CalcNumberOfRangedAttacks(Player pc)
+        {
+            int numOfAdditionalPositiveRangedAttacks = 0;
+            int numOfAdditionalPositiveStackableRangedAttacks = 0;
+            int numOfAdditionalNegativeRangedAttacks = 0;
+            int numOfAdditionalNegativeStackableRangedAttacks = 0;
+            //go through all traits and see if has passive rapidshot type trait, use largest, not cumulative
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    //replace non-stackable positive with highest value
+                    if ((ef.modifyNumberOfRangedAttacks > numOfAdditionalPositiveRangedAttacks) && (ta.isPassive) && (!ef.isStackableEffect))
+                    {
+                        numOfAdditionalPositiveRangedAttacks = ef.modifyNumberOfRangedAttacks;
+                    }
+                    //replace non-stackable negative with lowest value
+                    if ((ef.modifyNumberOfRangedAttacks < numOfAdditionalNegativeRangedAttacks) && (ta.isPassive) && (!ef.isStackableEffect))
+                    {
+                        numOfAdditionalNegativeRangedAttacks = ef.modifyNumberOfRangedAttacks;
+                    }
+                    //if isStackable positive then pile on
+                    if ((ef.modifyNumberOfRangedAttacks > 0) && (ta.isPassive) && (ef.isStackableEffect))
+                    {
+                        numOfAdditionalPositiveStackableRangedAttacks += ef.modifyNumberOfRangedAttacks;
+                    }
+                    //if isStackable negative then pile on
+                    if ((ef.modifyNumberOfRangedAttacks < 0) && (ta.isPassive) && (ef.isStackableEffect))
+                    {
+                        numOfAdditionalNegativeStackableRangedAttacks += ef.modifyNumberOfRangedAttacks;
+                    }
+                }
+            }
+            //go through each effect and see if has a buff type like rapidshot, use largest, not cumulative
+            foreach (Effect ef in pc.effectsList)
+            {
+                //replace non-stackable positive with highest value
+                if ((ef.modifyNumberOfRangedAttacks > numOfAdditionalPositiveRangedAttacks) && (!ef.isStackableEffect))
+                {
+                    numOfAdditionalPositiveRangedAttacks = ef.modifyNumberOfRangedAttacks;
+                }
+                //replace non-stackable negative with lowest value
+                if ((ef.modifyNumberOfRangedAttacks < numOfAdditionalNegativeRangedAttacks) && (!ef.isStackableEffect))
+                {
+                    numOfAdditionalNegativeRangedAttacks = ef.modifyNumberOfRangedAttacks;
+                }
+                //if isStackable positive then pile on
+                if ((ef.modifyNumberOfRangedAttacks > 0) && (ef.isStackableEffect))
+                {
+                    numOfAdditionalPositiveStackableRangedAttacks += ef.modifyNumberOfRangedAttacks;
+                }
+                //if isStackable negative then pile on
+                if ((ef.modifyNumberOfRangedAttacks < 0) && (ef.isStackableEffect))
+                {
+                    numOfAdditionalNegativeStackableRangedAttacks += ef.modifyNumberOfRangedAttacks;
+                }
+            }
+
+            int numOfPos = 0;
+            int numOfNeg = 0;
+            //check to see if stackable is greater than non-stackable and combine the highest positive and negative effect
+            if (numOfAdditionalPositiveRangedAttacks > numOfAdditionalPositiveStackableRangedAttacks)
+            {
+                numOfPos = numOfAdditionalPositiveRangedAttacks;
+            }
+            else
+            {
+                numOfPos = numOfAdditionalPositiveStackableRangedAttacks;
+            }
+            if (numOfAdditionalNegativeRangedAttacks > numOfAdditionalNegativeStackableRangedAttacks)
+            {
+                numOfNeg = numOfAdditionalNegativeRangedAttacks;
+            }
+            else
+            {
+                numOfNeg = numOfAdditionalNegativeStackableRangedAttacks;
+            }
+
+            int numOfAdditionalAttacks = numOfPos + numOfNeg;
+            if (numOfAdditionalAttacks != 0)
+            {
+                return numOfAdditionalAttacks + 1;
+            }
+            else if (gv.sf.hasTrait(pc, "rapidshot2"))
+            {
+                return 3;
+            }
+            else if (gv.sf.hasTrait(pc, "rapidshot"))
+            {
+                return 2;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        public bool isMeleeAttack(Player pc)
+        {
+            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                    || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
+                    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            {
+                return true;
+            }
+            return false;
+        }
+        public int CalcNumberOfCleaveAttackTargets(Player pc)
+        {
+            int cleaveAttTargets = 0;
+            //go through all traits and see if has passive cleave type trait, use largest, not cumulative
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    if ((ef.modifyNumberOfEnemiesAttackedOnCleave > cleaveAttTargets) && (ta.isPassive))
+                    {
+                        cleaveAttTargets = ef.modifyNumberOfEnemiesAttackedOnCleave;
+                    }
+                }
+            }
+            //go through each effect and see if has a buff type like cleave, use largest, not cumulative
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.modifyNumberOfEnemiesAttackedOnCleave > cleaveAttTargets)
+                {
+                    cleaveAttTargets = ef.modifyNumberOfEnemiesAttackedOnCleave;
+                }
+            }
+            if (cleaveAttTargets > 0)
+            {
+                return cleaveAttTargets;
+            }
+            else if (gv.sf.hasTrait(pc, "cleave"))
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        public int CalcNumberOfSweepAttackTargets(Player pc)
+        {
+            int sweepAttTargets = 0;
+            //go through all traits and see if has passive sweep type trait, use largest, not cumulative
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    if ((ef.modifyNumberOfEnemiesAttackedOnSweepAttack > sweepAttTargets) && (ta.isPassive))
+                    {
+                        sweepAttTargets = ef.modifyNumberOfEnemiesAttackedOnSweepAttack;
+                    }
+                }
+            }
+            //go through each effect and see if has a buff/active type like sweep, use largest, not cumulative
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.modifyNumberOfEnemiesAttackedOnSweepAttack > sweepAttTargets)
+                {
+                    sweepAttTargets = ef.modifyNumberOfEnemiesAttackedOnSweepAttack;
+                }
+            }
+            if (sweepAttTargets > 0)
+            {
+                return sweepAttTargets;
+            }            
+            else
+            {
+                return 0;
+            }
+        }
+        public int CalcPcMeleeAttackAttributeModifier(Player pc)
+        {
+            int modifier = (pc.strength - 10) / 2;
+            bool useDexModifier = false;
+            //go through all traits and see if has passive criticalstrike type trait
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    if ((ef.useDexterityForMeleeAttackModifierIfGreaterThanStrength) && (ta.isPassive))
+                    {
+                        useDexModifier = true;
+                    }
+                }
+            }
+            //go through each effect and see if has a buff type like criticalstrike
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.useDexterityForMeleeAttackModifierIfGreaterThanStrength)
+                {
+                    useDexModifier = true;
+                }
+            }
+            //if has critical strike trait use dexterity for attack modifier in melee if greater than strength modifier
+            if ((pc.knownTraitsTags.Contains("criticalstrike")) || (useDexModifier))
+            {
+                int modifierDex = (pc.dexterity - 10) / 2;
+                if (modifierDex > modifier)
+                {
+                    modifier = (pc.dexterity - 10) / 2;
+                }
+            }
+            return modifier;
+        }
+        public int CalcPcMeleeDamageAttributeModifier(Player pc)
+        {
+            int damModifier = (pc.strength - 10) / 2;
+            bool useDexModifier = false;
+            //go through all traits and see if has passive criticalstrike type trait
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    if ((ef.useDexterityForMeleeDamageModifierIfGreaterThanStrength) && (ta.isPassive))
+                    {
+                        useDexModifier = true;
+                    }
+                }
+            }
+            //go through each effect and see if has a buff type like criticalstrike
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.useDexterityForMeleeDamageModifierIfGreaterThanStrength)
+                {
+                    useDexModifier = true;
+                }
+            }
+            //if has critical strike trait use dexterity for damage modifier in melee if greater than strength modifier
+            if ((pc.knownTraitsTags.Contains("criticalstrike")) || (useDexModifier))
+            {
+                int damModifierDex = (pc.dexterity - 10) / 4;
+                if (damModifierDex > damModifier)
+                {
+                    damModifier = damModifierDex;
+                }
+            }
+            return damModifier;
+        }
+        public bool canNegateAdjacentAttackPenalty(Player pc)
+        {
+            bool cancelAttackPenalty = false;
+            //go through all traits and see if has passive pointblankshot type trait
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    if ((ef.negateAttackPenaltyForAdjacentEnemyWithRangedAttack) && (ta.isPassive))
+                    {
+                        cancelAttackPenalty = true;
+                    }
+                }
+            }
+            //go through each effect and see if has a buff type like pointblankshot
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.negateAttackPenaltyForAdjacentEnemyWithRangedAttack)
+                {
+                    cancelAttackPenalty = true;
+                }
+            }
+            if ((gv.sf.hasTrait(pc, "pointblankshot")) || (cancelAttackPenalty))
+            {
+                return true;
+            }
+            return false;
+        }
+        public int CalcPcRangedAttackModifier(Player pc)
+        {
+            int preciseShotAdder = 0;
+            string label = "";
+            //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    if ((ef.babModifierForRangedAttack > preciseShotAdder) && (ta.isPassive))
+                    {
+                        preciseShotAdder = ef.babModifierForRangedAttack;
+                        label = ta.name;
+                    }
+                }
+            }
+            //go through each effect and see if has a buff type like preciseshot, use largest, not cumulative
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.babModifierForRangedAttack > preciseShotAdder)
+                {
+                    preciseShotAdder = ef.babModifierForRangedAttack;
+                    label = ef.name;
+                }
+            }
+            return preciseShotAdder;
+        }
+        public int CalcPcMeleeDamageModifier(Player pc)
+        {
+            int adder = 0;
+            //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    if ((ef.damageModifierForMeleeAttack > adder) && (ta.isPassive))
+                    {
+                        adder = ef.damageModifierForMeleeAttack;
+                    }
+                }
+            }
+            //go through each effect and see if has a buff type like preciseshot, use largest, not cumulative
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.damageModifierForMeleeAttack > adder)
+                {
+                    adder = ef.damageModifierForMeleeAttack;
+                }
+            }
+            return adder;
+        }
+        public int CalcPcRangedDamageModifier(Player pc)
+        {
+            int preciseShotAdder = 0;
+            //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    if ((ef.damageModifierForRangedAttack > preciseShotAdder) && (ta.isPassive))
+                    {
+                        preciseShotAdder = ef.damageModifierForRangedAttack;
+                    }
+                }
+            }
+            //go through each effect and see if has a buff type like preciseshot, use largest, not cumulative
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.damageModifierForRangedAttack > preciseShotAdder)
+                {
+                    preciseShotAdder = ef.damageModifierForRangedAttack;
+                }
+            }
+            return preciseShotAdder;
+        }
+        public int CalcPcHpRegenInCombat(Player pc)
+        {
+            int adder = 0;
+            //go through all traits and see if has passive HP regen type trait, use largest, not cumulative
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    if ((ef.modifyHpInCombat > adder) && (ta.isPassive))
+                    {
+                        adder = ef.modifyHpInCombat;
+                    }
+                }
+            }
+            return adder;
+        }
+        public int CalcPcSpRegenInCombat(Player pc)
+        {
+            int adder = 0;
+            //go through all traits and see if has passive HP regen type trait, use largest, not cumulative
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    if ((ef.modifySpInCombat > adder) && (ta.isPassive))
+                    {
+                        adder = ef.modifySpInCombat;
+                    }
+                }
+            }
+            return adder;
         }
 
         //DEFAULT SCRIPTS
@@ -6184,15 +6686,25 @@ namespace IceBlink2mini
                                 }
                             }
                             #endregion
-                            crt.hp += heal;
-                            if (crt.hp > crt.hpMax)
+                            if (thisSpellEffect.healHP)
                             {
-                                crt.hp = crt.hpMax;
+                                crt.hp += heal;
+                                if (crt.hp > crt.hpMax)
+                                {
+                                    crt.hp = crt.hpMax;
+                                }
+                                gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                                gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
                             }
-                            gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                            else
+                            {
+                                crt.sp += heal;
+                                gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " SPs" + "</font><BR>");
+                                gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "yellow");
+                            }
                             //Do floaty text heal
                             //gv.screenCombat.floatyTextOn = true;
-                            gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
+                            
                             #endregion
                         }
                         if (thisSpellEffect.doBuff)
@@ -6395,19 +6907,33 @@ namespace IceBlink2mini
                                     }
                                 }
                                 #endregion
-                                pc.hp += heal;
-                                if (pc.hp > pc.hpMax)
+                                if (thisSpellEffect.healHP)
                                 {
-                                    pc.hp = pc.hpMax;
+                                    pc.hp += heal;
+                                    if (pc.hp > pc.hpMax)
+                                    {
+                                        pc.hp = pc.hpMax;
+                                    }
+                                    if (pc.hp > 0)
+                                    {
+                                        pc.charStatus = "Alive";
+                                    }
+                                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
                                 }
-                                if (pc.hp > 0)
+                                else
                                 {
-                                    pc.charStatus = "Alive";
+                                    pc.sp += heal;
+                                    if (pc.sp > pc.spMax)
+                                    {
+                                        pc.sp = pc.spMax;
+                                    }
+                                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " SPs" + "</font><BR>");
+                                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "yellow");
                                 }
-                                gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
                                 //Do floaty text heal
                                 //gv.screenCombat.floatyTextOn = true;
-                                gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
+                                
                             }
                             #endregion
                         }
@@ -6506,6 +7032,549 @@ namespace IceBlink2mini
             #endregion
 
 //            gv.postDelayed("doFloatyText", 100);
+        }
+        public void trGeneric(Trait thisTrait, object src, object trg, bool outsideCombat)
+        {
+            //Effect thisTraitEffect = gv.mod.getEffectByTag(thisTrait.traitEffectTagList[0].tag);
+
+            //set squares list
+            CreateAoeSquaresList(src, trg, thisTrait.aoeShape, thisTrait.aoeRadius);
+
+            //set target list
+            if (outsideCombat)
+            {
+                AoeTargetsList.Clear();
+                AoeTargetsList.Add(trg);
+            }
+            else
+            {
+                if (thisTrait.isUsedForCombatSquareEffect)
+                {
+                    CreateAoeTargetsList(src, trg, true);
+                }
+                else
+                {
+                    CreateAoeTargetsList(src, trg, false);
+                }
+            }
+
+            //loop through all effects of trait here
+            foreach (EffectTagForDropDownList eftag in thisTrait.traitEffectTagList)
+            {
+                Effect thisTraitEffect = gv.mod.getEffectByTag(eftag.tag);
+
+                #region Get trait using source information
+                int classLevel = 0;
+                string sourceName = "";
+                if (thisTraitEffect == null)
+                {
+                    gv.sf.MessageBoxHtml("EffectTag: " + eftag.tag + " does not exist in this module. Abort trait use.");
+                    return;
+                }
+                if (src is Player) //player casting
+                {
+                    Player source = (Player)src;
+                    classLevel = source.classLevel;
+                    sourceName = source.name;
+                    source.sp -= thisTrait.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                }
+                else if (src is Creature) //creature casting
+                {
+                    Creature source = (Creature)src;
+                    classLevel = source.cr_level;
+                    sourceName = source.cr_name;
+                    source.sp -= thisTrait.costSP;
+                    if (source.sp < 0) { source.sp = 0; }
+                }
+                else if (src is Item) //item was used
+                {
+                    Item source = (Item)src;
+                    classLevel = source.levelOfItemForCastSpell;
+                    sourceName = source.name;
+                }
+                else if (src is Coordinate) //trigger or prop was used
+                {
+                    classLevel = 1;
+                    sourceName = "trigger";
+                }
+                #endregion
+
+                if (thisTrait.isUsedForCombatSquareEffect)
+                {
+                    #region Iterate over squares and apply effect to them
+                    int numberOfRounds = thisTraitEffect.durationInUnits / gv.mod.TimePerRound;
+                    gv.cc.addLogText("<gn>" + thisTraitEffect.name + " is applied for " + numberOfRounds + " round(s)</gn><BR>");
+                    foreach (object target in AoeTargetsList)
+                    {
+                        if (target is Coordinate)
+                        {
+                            Coordinate c = (Coordinate)target;
+                            Effect e = thisTraitEffect.DeepCopy();
+                            e.combatLocX = c.X;
+                            e.combatLocY = c.Y;
+                            gv.mod.currentEncounter.AddEffectByObject(e, classLevel);
+                        }
+                    }
+                    #endregion
+                }
+                else
+                {
+                    #region Iterate over targets and apply the modifiers for damage, heal, buffs and debuffs
+                    foreach (object target in AoeTargetsList)
+                    {
+                        if (target is Creature)
+                        {
+                            Creature crt = (Creature)target;
+                            if (thisTraitEffect.doDamage)
+                            {
+                                #region Do Damage
+                                #region Get Resistances
+                                float resist = 0;
+                                if (thisTraitEffect.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f)); }
+                                #endregion
+                                int damageTotal = 0;
+                                #region Calculate Number of Attacks
+                                //(for reference) NumOfAttacks: A of these attacks for every B levels after level C up to D attacks total                    
+                                int numberOfAttacks = 0;
+                                if (thisTraitEffect.damNumberOfAttacksForEveryNLevels == 0) //this effect is using a fixed amount of attacks
+                                {
+                                    numberOfAttacks = thisTraitEffect.damNumberOfAttacks;
+                                }
+                                else //this effect is using a variable amount of attacks
+                                {
+                                    //numberOfAttacks = (((classLevel - C) / B) + 1) * A;
+                                    numberOfAttacks = (((classLevel - thisTraitEffect.damNumberOfAttacksAfterLevelN) / thisTraitEffect.damNumberOfAttacksForEveryNLevels) + 1) * thisTraitEffect.damNumberOfAttacks; //ex: 1 bolt for every 2 levels after level 1
+                                    if (numberOfAttacks > thisTraitEffect.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = thisTraitEffect.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
+                                }
+
+                                #endregion
+                                //loop over number of attacks
+                                for (int i = 0; i < numberOfAttacks; i++)
+                                {
+                                    #region Calculate Damage
+                                    //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
+                                    // damage += RandDieRoll(A,B) + C
+                                    //int damage = (int)((1 * RandInt(4) + 1) * resist);
+                                    int damage = 0;
+                                    if (thisTraitEffect.damAttacksEveryNLevels == 0) //this damage is not level based
+                                    {
+                                        damage = RandDiceRoll(thisTraitEffect.damNumOfDice, thisTraitEffect.damDie) + thisTraitEffect.damAdder;
+                                    }
+                                    else //this damage is level based
+                                    {
+                                        int numberOfDamAttacks = ((classLevel - thisTraitEffect.damAttacksAfterLevelN) / thisTraitEffect.damAttacksEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                                        if (numberOfDamAttacks > thisTraitEffect.damAttacksUpToNLevelsTotal) { numberOfDamAttacks = thisTraitEffect.damAttacksUpToNLevelsTotal; } //can't have more than a max amount of attacks
+                                        for (int j = 0; j < numberOfDamAttacks; j++)
+                                        {
+                                            damage += RandDiceRoll(thisTraitEffect.damNumOfDice, thisTraitEffect.damDie) + thisTraitEffect.damAdder;
+                                        }
+                                    }
+                                    #endregion
+                                    #region Do Calc Save and DC
+                                    int saveChkRoll = RandInt(20);
+                                    int saveChk = 0;
+                                    int DC = 0;
+                                    int saveChkAdder = 0;
+                                    if (thisTraitEffect.saveCheckType.Equals("will"))
+                                    {
+                                        saveChkAdder = crt.will;
+                                    }
+                                    else if (thisTraitEffect.saveCheckType.Equals("reflex"))
+                                    {
+                                        saveChkAdder = crt.reflex;
+                                    }
+                                    else if (thisTraitEffect.saveCheckType.Equals("fortitude"))
+                                    {
+                                        saveChkAdder = crt.fortitude;
+                                    }
+                                    else
+                                    {
+                                        saveChkAdder = -99;
+                                    }
+                                    saveChk = saveChkRoll + saveChkAdder;
+                                    DC = thisTraitEffect.saveCheckDC;
+                                    #endregion
+                                    if (saveChk >= DC) //passed save check (do half or avoid all?)
+                                    {
+                                        damage = damage / 2;
+                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the " + thisTraitEffect.name + "</font><BR>");
+                                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>"); }
+                                    }
+                                    if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + "</font><BR>"); }
+                                    int damageAndResist = (int)((float)damage * resist);
+                                    damageTotal += damageAndResist;
+                                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                    + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisTraitEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                    + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                                }
+                                crt.hp -= damageTotal;
+                                if (crt.hp <= 0)
+                                {
+                                    //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                                    foreach (Coordinate coor in crt.tokenCoveredSquares)
+                                    {
+                                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
+                                    }
+                                    gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                                }
+                                //Do floaty text damage
+                                //gv.screenCombat.floatyTextOn = true;
+                                gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damageTotal + "");
+                                #endregion
+                            }
+                            if (thisTraitEffect.doHeal)
+                            {
+                                #region Do Heal
+                                #region Calculate Heal
+                                //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
+                                // heal += RandDieRoll(A,B) + C
+                                int heal = 0;
+                                if (thisTraitEffect.healActionsEveryNLevels == 0) //this heal is not level based
+                                {
+                                    heal = RandDiceRoll(thisTraitEffect.healNumOfDice, thisTraitEffect.healDie) + thisTraitEffect.healAdder;
+                                }
+                                else //this heal is level based
+                                {
+                                    int numberOfHealActions = ((classLevel - thisTraitEffect.healActionsAfterLevelN) / thisTraitEffect.healActionsEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                                    if (numberOfHealActions > thisTraitEffect.healActionsUpToNLevelsTotal) { numberOfHealActions = thisTraitEffect.healActionsUpToNLevelsTotal; } //can't have more than a max amount of actions
+                                    for (int j = 0; j < numberOfHealActions; j++)
+                                    {
+                                        heal += RandDiceRoll(thisTraitEffect.healNumOfDice, thisTraitEffect.healDie) + thisTraitEffect.healAdder;
+                                    }
+                                }
+                                #endregion
+                                if (thisTraitEffect.healHP)
+                                {
+                                    crt.hp += heal;
+                                    if (crt.hp > crt.hpMax)
+                                    {
+                                        crt.hp = crt.hpMax;
+                                    }
+                                    gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
+                                }
+                                else
+                                {
+                                    crt.sp += heal;
+                                    gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " SPs" + "</font><BR>");
+                                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "yellow");
+                                }
+                                //Do floaty text heal
+                                //gv.screenCombat.floatyTextOn = true;
+                                
+                                #endregion
+                            }
+                            if (thisTraitEffect.doBuff)
+                            {
+                                #region Do Buff
+                                int numberOfRounds = thisTraitEffect.durationInUnits / gv.mod.TimePerRound;
+                                gv.cc.addLogText("<font color='lime'>" + thisTraitEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                crt.AddEffectByObject(thisTraitEffect, classLevel);
+                                #endregion
+                            }
+                            if (thisTraitEffect.doDeBuff)
+                            {
+                                #region Do DeBuff
+                                #region Do Calc Save and DC
+                                int saveChkRoll = RandInt(20);
+                                int saveChk = 0;
+                                int DC = 0;
+                                int saveChkAdder = 0;
+                                if (thisTraitEffect.saveCheckType.Equals("will"))
+                                {
+                                    saveChkAdder = crt.will;
+                                }
+                                else if (thisTraitEffect.saveCheckType.Equals("reflex"))
+                                {
+                                    saveChkAdder = crt.reflex;
+                                }
+                                else if (thisTraitEffect.saveCheckType.Equals("fortitude"))
+                                {
+                                    saveChkAdder = crt.fortitude;
+                                }
+                                else
+                                {
+                                    saveChkAdder = -99;
+                                }
+                                saveChk = saveChkRoll + saveChkAdder;
+                                DC = thisTraitEffect.saveCheckDC;
+                                #endregion
+                                if (saveChk >= DC) //passed save check
+                                {
+                                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the " + thisTraitEffect.name + " effect.</font><BR>");
+                                }
+                                else
+                                {
+                                    int numberOfRounds = thisTraitEffect.durationInUnits / gv.mod.TimePerRound;
+                                    gv.cc.addLogText("<font color='lime'>" + thisTraitEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                    crt.AddEffectByObject(thisTraitEffect, classLevel);
+                                }
+                                #endregion
+                            }
+                            if (thisTrait.removeEffectTagList.Count > 0)
+                            {
+                                #region remove effects  
+                                foreach (EffectTagForDropDownList efTag in thisTrait.removeEffectTagList)
+                                {
+                                    for (int x = crt.cr_effectsList.Count - 1; x >= 0; x--)
+                                    {
+                                        if (crt.cr_effectsList[x].tag.Equals(efTag.tag))
+                                        {
+                                            try
+                                            {
+                                                crt.cr_effectsList.RemoveAt(x);
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                gv.errorLog(ex.ToString());
+                                            }
+                                        }
+                                    }
+                                }
+                                #endregion
+                            }
+                        }
+                        else //target is Player
+                        {
+                            Player pc = (Player)target;
+                            if (thisTraitEffect.doDamage)
+                            {
+                                #region Do Damage
+                                #region Get Resistances
+                                float resistPc = 0;
+                                if (thisTraitEffect.damType.Equals("Normal")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalNormal / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Acid")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalAcid / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Cold")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalCold / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Electricity")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalElectricity / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Fire")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Magic")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalMagic / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Poison")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalPoison / 100f)); }
+                                #endregion
+                                int damageTotal = 0;
+                                #region Calculate Number of Attacks
+                                //(for reference) NumOfAttacks: A of these attacks for every B levels after level C up to D attacks total                    
+                                int numberOfAttacks = 0;
+                                if (thisTraitEffect.damNumberOfAttacksForEveryNLevels == 0) //this effect is using a fixed amount of attacks
+                                {
+                                    numberOfAttacks = thisTraitEffect.damNumberOfAttacks;
+                                }
+                                else //this effect is using a variable amount of attacks
+                                {
+                                    //numberOfAttacks = (((classLevel - C) / B) + 1) * A;
+                                    numberOfAttacks = (((classLevel - thisTraitEffect.damNumberOfAttacksAfterLevelN) / thisTraitEffect.damNumberOfAttacksForEveryNLevels) + 1) * thisTraitEffect.damNumberOfAttacks; //ex: 1 bolt for every 2 levels after level 1
+                                }
+                                if (numberOfAttacks > thisTraitEffect.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = thisTraitEffect.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
+                                #endregion
+                                //loop over number of attacks
+                                for (int i = 0; i < numberOfAttacks; i++)
+                                {
+                                    #region Calculate Damage
+                                    //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
+                                    // damage += RandDieRoll(A,B) + C
+                                    //int damage = (int)((1 * RandInt(4) + 1) * resist);
+                                    int damagePc = 0;
+                                    if (thisTraitEffect.damAttacksEveryNLevels == 0) //this damage is not level based
+                                    {
+                                        damagePc = RandDiceRoll(thisTraitEffect.damNumOfDice, thisTraitEffect.damDie) + thisTraitEffect.damAdder;
+                                    }
+                                    else //this damage is level based
+                                    {
+                                        int numberOfDamAttacks = ((classLevel - thisTraitEffect.damAttacksAfterLevelN) / thisTraitEffect.damAttacksEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                                        if (numberOfDamAttacks > thisTraitEffect.damAttacksUpToNLevelsTotal) { numberOfDamAttacks = thisTraitEffect.damAttacksUpToNLevelsTotal; } //can't have more than a max amount of attacks
+                                        for (int j = 0; j < numberOfDamAttacks; j++)
+                                        {
+                                            damagePc += RandDiceRoll(thisTraitEffect.damNumOfDice, thisTraitEffect.damDie) + thisTraitEffect.damAdder;
+                                        }
+                                    }
+                                    #endregion
+                                    #region Do Calc Save and DC
+                                    int saveChkRollPc = RandInt(20);
+                                    int saveChkPc = 0;
+                                    int DCPc = 0;
+                                    int saveChkAdder = 0;
+                                    if (thisTraitEffect.saveCheckType.Equals("will"))
+                                    {
+                                        saveChkAdder = pc.will;
+                                    }
+                                    else if (thisTraitEffect.saveCheckType.Equals("reflex"))
+                                    {
+                                        saveChkAdder = pc.reflex;
+                                    }
+                                    else if (thisTraitEffect.saveCheckType.Equals("fortitude"))
+                                    {
+                                        saveChkAdder = pc.fortitude;
+                                    }
+                                    else
+                                    {
+                                        saveChkAdder = -99;
+                                    }
+                                    saveChkPc = saveChkRollPc + saveChkAdder;
+                                    DCPc = thisTraitEffect.saveCheckDC;
+                                    #endregion
+                                    if (saveChkPc >= DCPc) //passed save check (do half or avoid all?)
+                                    {
+                                        damagePc = damagePc / 2;
+                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the " + thisTraitEffect.name + "</font><BR>");
+                                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>"); }
+                                    }
+                                    if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resistPc + " damage = " + damagePc + "</font><BR>"); }
+                                    int damageAndResist = (int)((float)damagePc * resistPc);
+                                    damageTotal += damageAndResist;
+                                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
+                                                    + pc.name + "</font>" + "<font color='white'>" + "with " + thisTraitEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                                    + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                                }
+                                pc.hp -= damageTotal;
+                                if (pc.hp <= 0)
+                                {
+                                    gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                                    gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                                    pc.charStatus = "Dead";
+                                }
+                                //Do floaty text damage
+                                //gv.screenCombat.floatyTextOn = true;
+                                gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damageTotal + "");
+                                #endregion
+                            }
+                            if (thisTraitEffect.doHeal)
+                            {
+                                #region Do Heal
+                                if (pc.hp <= -20)
+                                {
+                                    //MessageBox("Can't heal a dead character!");
+                                    gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                                }
+                                else
+                                {
+                                    #region Calculate Heal
+                                    //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
+                                    // heal += RandDieRoll(A,B) + C
+                                    int heal = 0;
+                                    if (thisTraitEffect.healActionsEveryNLevels == 0) //this heal is not level based
+                                    {
+                                        heal = RandDiceRoll(thisTraitEffect.healNumOfDice, thisTraitEffect.healDie) + thisTraitEffect.healAdder;
+                                    }
+                                    else //this heal is level based
+                                    {
+                                        int numberOfHealActions = ((classLevel - thisTraitEffect.healActionsAfterLevelN) / thisTraitEffect.healActionsEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                                        if (numberOfHealActions > thisTraitEffect.healActionsUpToNLevelsTotal) { numberOfHealActions = thisTraitEffect.healActionsUpToNLevelsTotal; } //can't have more than a max amount of actions
+                                        for (int j = 0; j < numberOfHealActions; j++)
+                                        {
+                                            heal += RandDiceRoll(thisTraitEffect.healNumOfDice, thisTraitEffect.healDie) + thisTraitEffect.healAdder;
+                                        }
+                                    }
+                                    #endregion
+                                    if (thisTraitEffect.healHP)
+                                    {
+                                        pc.hp += heal;
+                                        if (pc.hp > pc.hpMax)
+                                        {
+                                            pc.hp = pc.hpMax;
+                                        }
+                                        if (pc.hp > 0)
+                                        {
+                                            pc.charStatus = "Alive";
+                                        }
+                                        gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                                        gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
+                                    }
+                                    else
+                                    {
+                                        pc.sp += heal;
+                                        if (pc.sp > pc.spMax)
+                                        {
+                                            pc.sp = pc.spMax;
+                                        }
+                                        gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " SPs" + "</font><BR>");
+                                        gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "yellow");
+                                    }
+                                    //Do floaty text heal
+                                    //gv.screenCombat.floatyTextOn = true;
+                                    
+                                }
+                                #endregion
+                            }
+                            if (thisTraitEffect.doBuff)
+                            {
+                                #region Do Buff
+                                int numberOfRounds = thisTraitEffect.durationInUnits / gv.mod.TimePerRound;
+                                gv.cc.addLogText("<font color='lime'>" + thisTraitEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                pc.AddEffectByObject(thisTraitEffect, classLevel);
+                                #endregion
+                            }
+                            if (thisTraitEffect.doDeBuff)
+                            {
+                                #region Do DeBuff
+                                #region Do Calc Save and DC
+                                int saveChkRoll = RandInt(20);
+                                int saveChk = 0;
+                                int DC = 0;
+                                int saveChkAdder = 0;
+                                if (thisTraitEffect.saveCheckType.Equals("will"))
+                                {
+                                    saveChkAdder = pc.will;
+                                }
+                                else if (thisTraitEffect.saveCheckType.Equals("reflex"))
+                                {
+                                    saveChkAdder = pc.reflex;
+                                }
+                                else if (thisTraitEffect.saveCheckType.Equals("fortitude"))
+                                {
+                                    saveChkAdder = pc.fortitude;
+                                }
+                                else
+                                {
+                                    saveChkAdder = -99;
+                                }
+                                saveChk = saveChkRoll + saveChkAdder;
+                                DC = thisTraitEffect.saveCheckDC;
+                                #endregion
+                                if (saveChk >= DC) //passed save check
+                                {
+                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids the " + thisTraitEffect.name + " effect.</font><BR>");
+                                }
+                                else
+                                {
+                                    int numberOfRounds = thisTraitEffect.durationInUnits / gv.mod.TimePerRound;
+                                    gv.cc.addLogText("<font color='lime'>" + thisTraitEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                    pc.AddEffectByObject(thisTraitEffect, classLevel);
+                                }
+                                #endregion
+                            }
+                            if (thisTrait.removeEffectTagList.Count > 0)
+                            {
+                                #region remove effects  
+                                foreach (EffectTagForDropDownList efTag in thisTrait.removeEffectTagList)
+                                {
+                                    for (int x = pc.effectsList.Count - 1; x >= 0; x--)
+                                    {
+                                        if (pc.effectsList[x].tag.Equals(efTag.tag))
+                                        {
+                                            try
+                                            {
+                                                pc.effectsList.RemoveAt(x);
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                gv.errorLog(ex.ToString());
+                                            }
+                                        }
+                                    }
+                                }
+                                #endregion
+                            }
+                        }
+                    }
+                    #endregion
+                }
+            }
         }
 
         //SPELLS WIZARD

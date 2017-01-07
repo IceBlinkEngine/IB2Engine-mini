@@ -69,6 +69,7 @@ namespace IceBlink2mini
         public Dictionary<string, System.Drawing.Bitmap> tileGDIBitmapList = new Dictionary<string, System.Drawing.Bitmap>();
 
         public Spell currentSelectedSpell = new Spell();
+        public Trait currentSelectedTrait = new Trait();
         public string floatyText = "";
         public string floatyText2 = "";
         public string floatyText3 = "";
@@ -2764,6 +2765,21 @@ namespace IceBlink2mini
 
             //THIEF SKILL
             else if (spell.spellScript.Equals("trRemoveTrap"))
+            {
+                gv.sf.trRemoveTrap(source, target);
+            }
+        }
+        public void doTraitBasedOnScriptOrEffectTag(Trait trait, object source, object target, bool outsideCombat)
+        {
+            gv.sf.AoeTargetsList.Clear();
+
+            if (trait.traitEffectTagList.Count > 0)
+            {
+                gv.sf.trGeneric(trait, source, target, outsideCombat);
+            }
+
+            //THIEF SKILL
+            else if (trait.traitScript.Equals("trRemoveTrap"))
             {
                 gv.sf.trRemoveTrap(source, target);
             }

@@ -25,6 +25,7 @@ namespace IceBlink2mini
         //COMBAT STUFF
         //public bool adjustCamToRangedCreature = false;
         private bool isPlayerTurn = true;
+        private bool dontEndTurn = false;
         public bool canMove = true;
         public int currentPlayerIndex = 0;
         public int creatureIndex = 0;
@@ -42,6 +43,7 @@ namespace IceBlink2mini
         private Player playerToAnimate = null;
         private Coordinate hitAnimationLocation = new Coordinate();
         public int spellSelectorIndex = 0;
+        public int traitUseSelectorIndex = 0;
         public List<string> spellSelectorSpellTagList = new List<string>();
         private Coordinate projectileAnimationLocation = new Coordinate();
         private Coordinate endingAnimationLocation = new Coordinate();
@@ -299,8 +301,11 @@ namespace IceBlink2mini
         }
         public void turnController()
         {
-            //redraw screen
-            //gv.Render();
+            //update all player stats in case their was a recently added spell or trait effect that would change them
+            foreach (Player p in mod.playerList)
+            {
+                gv.sf.UpdateStats(p);
+            }
             if (currentMoveOrderIndex >= initialMoveOrderListSize)
             {
                 //hit the end so start the next round
@@ -409,6 +414,16 @@ namespace IceBlink2mini
             foreach (Player pc in mod.playerList)
             {
                 RunAllItemCombatRegenerations(pc);
+                int regenSP = gv.sf.CalcPcSpRegenInCombat(pc);
+                if (regenSP > 0)
+                {
+                    doRegenSp(pc, regenSP);
+                }
+                int regenHP = gv.sf.CalcPcHpRegenInCombat(pc);
+                if (regenHP > 0)
+                {
+                    doRegenHp(pc, regenHP);
+                }
             }
             applyEffectsCombat();
             //IBScript Start Combat Round Hook
@@ -936,16 +951,13 @@ namespace IceBlink2mini
                 ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
                 if (itr != null)
                 {
-                    //decrement by one
-                    itr.quantity--;
-                    if (gv.sf.hasTrait(pc, "rapidshot"))
+                    int numOfAtt = gv.sf.CalcNumberOfRangedAttacks(pc);
+
+                    if (numOfAtt > 0)
                     {
-                        itr.quantity--;
+                        itr.quantity -= numOfAtt;
                     }
-                    if (gv.sf.hasTrait(pc, "rapidshot2"))
-                    {
-                        itr.quantity--;
-                    }
+                    
                     //if equal to zero, remove from party inventory and from all PCs ammo slot
                     if (itr.quantity < 1)
                     {
@@ -969,6 +981,8 @@ namespace IceBlink2mini
             gv.touchEnabled = true;
             currentCombatMode = "move";
             Player pc = mod.playerList[currentPlayerIndex];
+            //do sp and hp regen if they have it
+
             gv.sf.UpdateStats(pc);
             currentMoves = 0;
             //do onTurn IBScript
@@ -1024,7 +1038,6 @@ namespace IceBlink2mini
                     }
                 }
 
-
                 foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                 {
                     foreach (Coordinate coor in crt.tokenCoveredSquares)
@@ -1036,45 +1049,72 @@ namespace IceBlink2mini
                             int crtLocX = crt.combatLocX;
                             int crtLocY = crt.combatLocY;
 
-                            if ((gv.sf.hasTrait(pc, "twoAttack")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+                            numAtt = gv.sf.CalcNumberOfAttacks(pc);
+                            if (numAtt < 1)
                             {
-                                numAtt = 2;
+                                numAtt = 0;
                             }
-                            if ((gv.sf.hasTrait(pc, "rapidshot")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
-                            {
-                                numAtt = 2;
-                            }
-                            if ((gv.sf.hasTrait(pc, "rapidshot2")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
-                            {
-                                numAtt = 3;
-                            }
-                            for (int i = 0; i < numAtt; i++)
-                            {
-                                if ((gv.sf.hasTrait(pc, "cleave")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
-                                {
-                                    attResult = doActualCombatAttack(pc, crt, i);
-                                    if (attResult == 2) //2=killed, 1=hit, 0=missed
-                                    {
-                                        Creature crt2 = GetNextAdjacentCreature(pc);
-                                        if (crt2 != null)
-                                        {
-                                            crtLocX = crt2.combatLocX;
-                                            crtLocY = crt2.combatLocY;
-                                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
-                                            attResult = doActualCombatAttack(pc, crt2, i);
-                                        }
-                                        break; //do not try and attack same creature that was just killed
-                                    }
-                                }
-                                else
-                                {
-                                    attResult = doActualCombatAttack(pc, crt, i);
-                                    if (attResult == 2) //2=killed, 1=hit, 0=missed
-                                    {
-                                        break; //do not try and attack same creature that was just killed
-                                    }
-                                }
 
+                            //reset the already targeted creatures list
+                            alreadyTargetedCreatureTagsList.Clear();
+
+                            int numSweep = gv.sf.CalcNumberOfSweepAttackTargets(pc);
+                            //do sweep attacks if any                        
+                            if ((numSweep > 0) && (gv.sf.isMeleeAttack(pc)))
+                            {
+                                attResult = doActualCombatAttack(pc, crt, 0);
+                                for (int j = 1; j < numSweep; j++)
+                                {
+                                    Creature crt2 = GetNextAdjacentCreature(pc);
+                                    if (crt2 != null)
+                                    {
+                                        crtLocX = crt2.combatLocX;
+                                        crtLocY = crt2.combatLocY;
+                                        gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "sweep", "green");
+                                        int attResult2 = doActualCombatAttack(pc, crt2, 0);
+                                    }
+                                }
+                            }
+                            else //do multiple attack and cleave attack
+                            {
+                                int numCleave = gv.sf.CalcNumberOfCleaveAttackTargets(pc);
+                                for (int i = 0; i < numAtt; i++)
+                                {
+                                    //do cleave attacks if any                        
+                                    if ((numCleave > 0) && (gv.sf.isMeleeAttack(pc)))
+                                    {
+                                        attResult = doActualCombatAttack(pc, crt, i);
+                                        if (attResult == 2) //2=killed, 1=hit, 0=missed
+                                        {
+                                            for (int j = 0; j < numCleave; j++)
+                                            {
+                                                Creature crt2 = GetNextAdjacentCreature(pc);
+                                                if (crt2 != null)
+                                                {
+                                                    crtLocX = crt2.combatLocX;
+                                                    crtLocY = crt2.combatLocY;
+                                                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
+                                                    int attResult2 = doActualCombatAttack(pc, crt2, i);
+                                                    if (attResult2 != 2)
+                                                    {
+                                                        //didn't kill this creature so stop with the cleaves
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            break; //do not try and attack same creature that was just killed
+                                        }
+                                    }
+                                    else
+                                    {
+                                        attResult = doActualCombatAttack(pc, crt, i);
+                                        if (attResult == 2) //2=killed, 1=hit, 0=missed
+                                        {
+                                            break; //do not try and attack same creature that was just killed
+                                        }
+                                    }
+
+                                }
                             }
                             if (attResult > 0) //2=killed, 1=hit, 0=missed
                             {
@@ -2366,7 +2406,21 @@ namespace IceBlink2mini
                             checkEndEncounter();
                             gv.touchEnabled = true;
                             animationState = AnimationState.None;
-                            endPcTurn(true);
+                            if (dontEndTurn)
+                            {
+                                //don't end turn just yet..probably called from a trait that is meant to be used right away like Power Attack or Set Trap
+                                dontEndTurn = false;
+                                currentCombatMode = "move";
+                                //update all player stats in case their was a recently added spell or trait effect that would change them
+                                foreach (Player p in mod.playerList)
+                                {
+                                    gv.sf.UpdateStats(p);
+                                }
+                            }
+                            else
+                            {
+                                endPcTurn(true);
+                            }
                         }
                         else
                         {
@@ -2821,7 +2875,7 @@ namespace IceBlink2mini
         public void drawLosTrail()
         {
             Player p = mod.playerList[currentPlayerIndex];
-            if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+            if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")) || (currentCombatMode.Equals("usetrait")))
             {
                 //Uses the Screen Pixel Locations
                 int endX = getPixelLocX(targetHighlightCenterLocation.X) + (gv.squareSize / 2);
@@ -3033,6 +3087,54 @@ namespace IceBlink2mini
                         int startX3 = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
                         int startY3 = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
                         if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX3, startY3))))
+                        {
+                            hl_green = true;
+                        }
+                        else
+                        {
+                            hl_green = false;
+                        }
+                    }
+
+                    int x = getPixelLocX(coor.X);
+                    int y = getPixelLocY(coor.Y);
+                    IbRect src = new IbRect(0, 0, gv.cc.highlight_green.PixelSize.Width, gv.cc.highlight_green.PixelSize.Height);
+                    IbRect dst = new IbRect(x, y, gv.squareSize, gv.squareSize);
+                    if (hl_green)
+                    {
+                        gv.DrawBitmap(gv.cc.highlight_green, src, dst);
+                    }
+                    else
+                    {
+                        gv.DrawBitmap(gv.cc.highlight_red, src, dst);
+                    }
+                }
+            }
+            else if (currentCombatMode.Equals("usetrait"))
+            {
+                //set squares list
+                gv.sf.CreateAoeSquaresList(pc, targetHighlightCenterLocation, gv.cc.currentSelectedTrait.aoeShape, gv.cc.currentSelectedTrait.aoeRadius);
+                foreach (Coordinate coor in gv.sf.AoeSquaresList)
+                {
+                    bool hl_green = true;
+                    int endX2 = coor.X * gv.squareSize + (gv.squareSize / 2);
+                    int endY2 = coor.Y * gv.squareSize + (gv.squareSize / 2);
+                    int startX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+                    int startY2 = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+
+                    if ((isValidUseTraitTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2))))
+                    {
+                        hl_green = true;
+                    }
+                    else
+                    {
+                        hl_green = false;
+                    }
+                    if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
+                    {
+                        int startX3 = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                        int startY3 = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                        if ((isValidUseTraitTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX3, startY3))))
                         {
                             hl_green = true;
                         }
@@ -3416,7 +3518,16 @@ namespace IceBlink2mini
                     return;
                 }
             }
-            if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+            if (currentCombatMode.Equals("usetrait"))
+            {
+                Player pc = mod.playerList[currentPlayerIndex];
+                if (keyData == Keys.NumPad5)
+                {
+                    TargetUseTraitPressed(pc);
+                    return;
+                }
+            }
+            if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")) || (currentCombatMode.Equals("usetrait")))
             {
                 if (keyData == Keys.NumPad7)
                 {
@@ -3704,7 +3815,7 @@ namespace IceBlink2mini
                     gv.cc.floatyText = "";
                     gv.cc.floatyText2 = "";
                     gv.cc.floatyText3 = "";
-                    if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                    if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")) || (currentCombatMode.Equals("usetrait")))
                     {
                         if (IsInCombatWindow(eX, eY))
                         {
@@ -3718,6 +3829,10 @@ namespace IceBlink2mini
                                 else if (currentCombatMode.Equals("cast"))
                                 {
                                     TargetCastPressed(pc);
+                                }
+                                else if (currentCombatMode.Equals("usetrait"))
+                                {
+                                    TargetUseTraitPressed(pc);
                                 }
                             }
                             targetHighlightCenterLocation.Y = gridy;
@@ -3875,6 +3990,21 @@ namespace IceBlink2mini
                             //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
                         }
                     }
+                    else if (rtn.Equals("btnTraitUse"))
+                    {
+                        if (pc.knownTraitsTags.Count > 0)
+                        {
+                            currentCombatMode = "traitUseSelector";
+                            gv.screenType = "combatTraitUse";
+                            gv.screenTraitUseSelector.traitUsingPlayerIndex = currentPlayerIndex;
+                            traitUseSelectorIndex = 0;
+                            setTargetHighlightStartLocation(pc);
+                        }
+                        else
+                        {
+                            //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                     else if (rtn.Equals("btnSkipTurn"))
                     {
                         gv.screenType = "combat";
@@ -3934,8 +4064,8 @@ namespace IceBlink2mini
                     #endregion
             }
         }
-
         #endregion
+
         public bool IsInCombatWindow(int mouseX, int mouseY)
         {
             //all coordinates in screen location pixels
@@ -4387,6 +4517,71 @@ namespace IceBlink2mini
                 animationsOn = true;
             }
         }
+        public void TargetUseTraitPressed(Player pc)
+        {
+            //Uses Map Pixel Locations
+            int endX = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+            int endY = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+            int startX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+            int startY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+
+            if ((isValidUseTraitTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
+            {
+                if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
+                {
+                    pc.combatFacingLeft = true;
+                }
+                else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
+                {
+                    pc.combatFacingLeft = false;
+                }
+                doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
+                gv.touchEnabled = false;
+                creatureToAnimate = null;
+                playerToAnimate = pc;
+                //set attack animation and do a delay
+                attackAnimationTimeElapsed = 0;
+                attackAnimationLengthInMilliseconds = (int)(5f * mod.combatAnimationSpeed);
+                AnimationSequence newSeq = new AnimationSequence();
+                animationSeqStack.Add(newSeq);
+                //add projectile animation
+                gv.PlaySound(gv.cc.currentSelectedTrait.traitStartSound);
+                startX = getPixelLocX(pc.combatLocX);
+                startY = getPixelLocY(pc.combatLocY);
+                endX = getPixelLocX(targetHighlightCenterLocation.X);
+                endY = getPixelLocY(targetHighlightCenterLocation.Y);
+                string filename = gv.cc.currentSelectedTrait.spriteFilename;
+                AnimationStackGroup newGroup = new AnimationStackGroup();
+                newSeq.AnimationSeq.Add(newGroup);
+                launchProjectile(filename, startX, startY, endX, endY, newGroup);
+                //gv.PlaySound(gv.cc.currentSelectedSpell.spellEndSound);
+                object target = getUseTraitTarget(pc);
+                gv.cc.doTraitBasedOnScriptOrEffectTag(gv.cc.currentSelectedTrait, pc, target, false);
+                //add ending projectile animation
+                newGroup = new AnimationStackGroup();
+                animationSeqStack[0].AnimationSeq.Add(newGroup);
+                filename = gv.cc.currentSelectedTrait.spriteEndingFilename;
+                foreach (Coordinate coor in gv.sf.AoeSquaresList)
+                {
+                    addEndingAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)), filename);
+                }
+                //add floaty text
+                //add death animations
+                newGroup = new AnimationStackGroup();
+                animationSeqStack[0].AnimationSeq.Add(newGroup);
+                foreach (Coordinate coor in deathAnimationLocations)
+                {
+                    addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                }
+                animationsOn = true;
+
+                //if this is a trait that is meant to not consume a turn then set the flag
+                if (!gv.cc.currentSelectedTrait.usesTurnToActivate)
+                {
+                    dontEndTurn = true;
+                }
+            }
+        }
         public void launchProjectile(string filename, int startX, int startY, int endX, int endY, AnimationStackGroup group)
         {
             //calculate angle from start to end point
@@ -4560,6 +4755,46 @@ namespace IceBlink2mini
             }
             return false;
         }
+        public bool isValidUseTraitTarget(Player pc)
+        {
+            if (isInRange(pc))
+            {
+                //check to see if is AoE or Point Target else needs a target PC or Creature
+                if ((gv.cc.currentSelectedTrait.aoeRadius > 0) || (gv.cc.currentSelectedTrait.traitTargetType.Equals("PointLocation")))
+                {
+                    return true;
+                }
+                //is not an AoE ranged attack, is a PC or Creature
+                else
+                {
+                    //check to see if target is a friend or self
+                    if ((gv.cc.currentSelectedTrait.traitTargetType.Equals("Friend")) || (gv.cc.currentSelectedTrait.traitTargetType.Equals("Self")))
+                    {
+                        foreach (Player p in mod.playerList)
+                        {
+                            if ((p.combatLocX == targetHighlightCenterLocation.X) && (p.combatLocY == targetHighlightCenterLocation.Y))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    else //target is a creature
+                    {
+                        foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                        {
+                            foreach (Coordinate coor in crt.tokenCoveredSquares)
+                            {
+                                if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
         public object getCastTarget(Player pc)
         {
             if (isInRange(pc))
@@ -4574,6 +4809,46 @@ namespace IceBlink2mini
                 {
                     //check to see if target is a friend or self
                     if ((gv.cc.currentSelectedSpell.spellTargetType.Equals("Friend")) || (gv.cc.currentSelectedSpell.spellTargetType.Equals("Self")))
+                    {
+                        foreach (Player p in mod.playerList)
+                        {
+                            if ((p.combatLocX == targetHighlightCenterLocation.X) && (p.combatLocY == targetHighlightCenterLocation.Y))
+                            {
+                                return p;
+                            }
+                        }
+                    }
+                    else //target is a creature
+                    {
+                        foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                        {
+                            foreach (Coordinate coor in crt.tokenCoveredSquares)
+                            {
+                                if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
+                                {
+                                    return crt;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        public object getUseTraitTarget(Player pc)
+        {
+            if (isInRange(pc))
+            {
+                //check to see if is AoE or Point Target else needs a target PC or Creature
+                if ((gv.cc.currentSelectedTrait.aoeRadius > 0) || (gv.cc.currentSelectedTrait.traitTargetType.Equals("PointLocation")))
+                {
+                    return new Coordinate(targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
+                }
+                //is not an AoE ranged attack, is a PC or Creature
+                else
+                {
+                    //check to see if target is a friend or self
+                    if ((gv.cc.currentSelectedTrait.traitTargetType.Equals("Friend")) || (gv.cc.currentSelectedTrait.traitTargetType.Equals("Self")))
                     {
                         foreach (Player p in mod.playerList)
                         {
@@ -4624,6 +4899,13 @@ namespace IceBlink2mini
             else if (currentCombatMode.Equals("cast"))
             {
                 if (getDistance(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation) <= gv.cc.currentSelectedSpell.range)
+                {
+                    return true;
+                }
+            }
+            else if (currentCombatMode.Equals("usetrait"))
+            {
+                if (getDistance(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation) <= gv.cc.currentSelectedTrait.range)
                 {
                     return true;
                 }
@@ -5042,20 +5324,41 @@ namespace IceBlink2mini
         public int CalcPcAttackModifier(Player pc, Creature crt)
         {
             int modifier = 0;
-            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
-                    || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
-                    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            if (gv.sf.isMeleeAttack(pc))
             {
-                modifier = (pc.strength - 10) / 2;
+                modifier = gv.sf.CalcPcMeleeAttackAttributeModifier(pc);
+                /*modifier = (pc.strength - 10) / 2;
+                bool useDexModifier = false;
+                //go through all traits and see if has passive criticalstrike type trait
+                foreach (string taTag in pc.knownTraitsTags)
+                {
+                    Trait ta = mod.getTraitByTag(taTag);
+                    foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                    {
+                        Effect ef = mod.getEffectByTag(efTag.tag);
+                        if ((ef.useDexterityForMeleeAttackModifierIfGreaterThanStrength) && (ta.isPassive))
+                        {
+                            useDexModifier = true;
+                        }
+                    }
+                }
+                //go through each effect and see if has a buff type like criticalstrike
+                foreach (Effect ef in pc.effectsList)
+                {
+                    if (ef.useDexterityForMeleeAttackModifierIfGreaterThanStrength)
+                    {
+                        useDexModifier = true;
+                    }
+                }
                 //if has critical strike trait use dexterity for attack modifier in melee if greater than strength modifier
-                if (pc.knownTraitsTags.Contains("criticalstrike"))
+                if ((pc.knownTraitsTags.Contains("criticalstrike")) || (useDexModifier))
                 {
                     int modifierDex = (pc.dexterity - 10) / 2;
                     if (modifierDex > modifier)
                     {
                         modifier = (pc.dexterity - 10) / 2;
                     }
-                }
+                }*/
                 //if doing sneak attack, bonus to hit roll
                 if (pc.steathModeOn)
                 {
@@ -5083,9 +5386,9 @@ namespace IceBlink2mini
                 //factor in penalty for adjacent enemies when using ranged weapon
                 if (isAdjacentEnemy(pc))
                 {
-                    if (gv.sf.hasTrait(pc, "pointblankshot"))
+                    if (gv.sf.canNegateAdjacentAttackPenalty(pc))
                     {
-                        //has point blank shot trait, no penalty
+                        //can ignore attack penalty due to PC having a pointblankshot type of trait or effect
                     }
                     else
                     {
@@ -5095,15 +5398,25 @@ namespace IceBlink2mini
                         gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "-4 att", "yellow");
                     }
                 }
-                if (gv.sf.hasTrait(pc, "preciseshot2"))
+                int preciseShotAdder = 0;
+                preciseShotAdder = gv.sf.CalcPcRangedAttackModifier(pc);
+                if (preciseShotAdder > 0)
                 {
-                    modifier += 2;
-                    gv.cc.addLogText("<gn> PreciseShotL2: +2 to hit</gn><BR>");
+                    modifier += preciseShotAdder;
+                    gv.cc.addLogText("<gn>Bonus: +" + preciseShotAdder + " to hit</gn><BR>");
                 }
-                else if (gv.sf.hasTrait(pc, "preciseshot"))
+                else
                 {
-                    modifier++;
-                    gv.cc.addLogText("<gn> PreciseShotL1: +1 to hit</gn><BR>");
+                    if (gv.sf.hasTrait(pc, "preciseshot2"))
+                    {
+                        modifier += 2;
+                        gv.cc.addLogText("<gn> PreciseShotL2: +2 to hit</gn><BR>");
+                    }
+                    else if (gv.sf.hasTrait(pc, "preciseshot"))
+                    {
+                        modifier++;
+                        gv.cc.addLogText("<gn> PreciseShotL1: +1 to hit</gn><BR>");
+                    }
                 }
             }
             if (gv.sf.hasTrait(pc, "hardtokill"))
@@ -5134,23 +5447,10 @@ namespace IceBlink2mini
         {
             int damModifier = 0;
             int adder = 0;
-            bool melee = false;
-            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
-                    || (pc.MainHandRefs.name.Equals("none"))
-                    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            if (gv.sf.isMeleeAttack(pc))
             {
-                melee = true;
-                damModifier = (pc.strength - 10) / 2;
-                //if has critical strike trait use dexterity for damage modifier in melee if greater than strength modifier
-                if (gv.sf.hasTrait(pc, "criticalstrike"))
-                {
-                    int damModifierDex = (pc.dexterity - 10) / 4;
-                    if (damModifierDex > damModifier)
-                    {
-                        damModifier = (pc.dexterity - 10) / 2;
-                    }
-                }
-
+                damModifier = gv.sf.CalcPcMeleeDamageAttributeModifier(pc);
+                damModifier += gv.sf.CalcPcMeleeDamageModifier(pc);
                 if (IsAttackFromBehind(pc, crt))
                 {
                     damModifier += mod.attackFromBehindDamageModifier;
@@ -5159,23 +5459,30 @@ namespace IceBlink2mini
                         gv.cc.addLogText("<gn> Attack from behind: +" + mod.attackFromBehindDamageModifier.ToString() + " damage." + "</gn><BR>");
                     }
                 }
-
-
             }
             else //ranged weapon used
             {
                 damModifier = 0;
-                if (gv.sf.hasTrait(pc, "preciseshot2"))
+                int preciseShotAdder = 0;
+                preciseShotAdder = gv.sf.CalcPcRangedDamageModifier(pc);
+                if (preciseShotAdder > 0)
                 {
-                    damModifier += 2;
-                    gv.cc.addLogText("<gn> PreciseShotL2: +2 damage</gn><BR>");
+                    damModifier += preciseShotAdder;
+                    gv.cc.addLogText("<gn>Bonus: +" + preciseShotAdder + " damage</gn><BR>");
                 }
-                else if (gv.sf.hasTrait(pc, "preciseshot"))
+                else
                 {
-                    damModifier++;
-                    gv.cc.addLogText("<gn> PreciseShotL1: +1 damage</gn><BR>");
+                    if (gv.sf.hasTrait(pc, "preciseshot2"))
+                    {
+                        damModifier += 2;
+                        gv.cc.addLogText("<gn> PreciseShotL2: +2 damage</gn><BR>");
+                    }
+                    else if (gv.sf.hasTrait(pc, "preciseshot"))
+                    {
+                        damModifier++;
+                        gv.cc.addLogText("<gn> PreciseShotL1: +1 damage</gn><BR>");
+                    }
                 }
-
             }
 
             int dDam = mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageDie;
@@ -5192,9 +5499,7 @@ namespace IceBlink2mini
 
             float resist = 0;
 
-            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
-                    || (pc.MainHandRefs.name.Equals("none"))
-                    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            if (gv.sf.isMeleeAttack(pc))
             {
                 if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
                 {
@@ -5263,7 +5568,7 @@ namespace IceBlink2mini
                 totalDam = 0;
             }
             //if doing sneak attack, does extra damage
-            if ((pc.steathModeOn) && (melee) && (IsAttackFromBehind(pc, crt)))
+            if ((pc.steathModeOn) && (gv.sf.isMeleeAttack(pc)) && (IsAttackFromBehind(pc, crt)))
             {
                 if (pc.knownTraitsTags.Contains("sneakattack"))
                 {
@@ -5284,10 +5589,8 @@ namespace IceBlink2mini
         {
             if ((crt.cr_category.Equals("Ranged")) && (isAdjacentPc(crt)))
             {
-                gv.cc.addLogText("<yl>" + "-4 ranged attack penalty" + "</yl>" +
-                        "<BR>");
-                gv.cc.addLogText("<yl>" + "with enemies in melee range" + "</yl>" +
-                        "<BR>");
+                gv.cc.addLogText("<yl>-4 ranged attack penalty</yl><BR>");
+                gv.cc.addLogText("<yl>with enemies in melee range</yl><BR>");
                 gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "-4 att", "yellow");
                 return crt.cr_att - 4;
             }
@@ -5597,12 +5900,19 @@ namespace IceBlink2mini
             }
             return returnCrt;
         }
+        public List<string> alreadyTargetedCreatureTagsList = new List<string>();
         public Creature GetNextAdjacentCreature(Player pc)
         {
             foreach (Creature nextCrt in mod.currentEncounter.encounterCreatureList)
             {
+                if (alreadyTargetedCreatureTagsList.Contains(nextCrt.cr_tag))
+                {
+                    //already targeted this creature once so skip
+                    continue;
+                }
                 if ((CalcDistance(nextCrt, nextCrt.combatLocX, nextCrt.combatLocY, pc.combatLocX, pc.combatLocY) < 2) && (nextCrt.hp > 0))
                 {
+                    alreadyTargetedCreatureTagsList.Add(nextCrt.cr_tag);     
                     return nextCrt;
                 }
             }

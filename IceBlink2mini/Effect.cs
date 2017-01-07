@@ -23,16 +23,16 @@ namespace IceBlink2mini
         public int currentDurationInUnits = 0;
 	    public int startingTimeInUnits = 0;
 	    public int babModifier = 0; //for Creatures modifies cr_att, for PCs modifies baseAttBonus
+        public int babModifierForRangedAttack = 0;
+        public int damageModifierForMeleeAttack = 0;
+        public int damageModifierForRangedAttack = 0;
         public int acModifier = 0;
         public bool isStackableEffect = false;
 	    public bool isStackableDuration = false;
-	    public bool usedForUpdateStats = false;
-	    public string effectLetter = "A";
-	    public string effectLetterColor = "White";
+	    public bool usedForUpdateStats = false;	    
 	    public string effectScript = "none";
         public string saveCheckType = "none"; //none, reflex, will, fortitude
         public int saveCheckDC = 10;
-        //public bool isCombatSquareEffect = false;
         public int combatLocX = 0; //used in combat for effects on squares
         public int combatLocY = 0; //used in combat for effects on squares
 
@@ -60,6 +60,7 @@ namespace IceBlink2mini
 
         //HEAL (hp)
         public bool doHeal = false;
+        public bool healHP = true; //if true, heals HP. If false, heals SP
         public string healType = "Organic"; //Organic (living things), NonOrganic (robots, constructs)
         //(for reference) HealActions: AdB+C for every D levels after level E up to F levels total
         public int healNumOfDice = 0; //(A)how many dice to roll
@@ -89,6 +90,8 @@ namespace IceBlink2mini
         public int modifyHpMax = 0;
         public int modifySpMax = 0;
         public int modifySp = 0;
+        public int modifyHpInCombat = 0;
+        public int modifySpInCombat = 0;
         public int modifyDamageTypeResistanceAcid = 0;
         public int modifyDamageTypeResistanceCold = 0;
         public int modifyDamageTypeResistanceNormal = 0;
@@ -98,6 +101,12 @@ namespace IceBlink2mini
         public int modifyDamageTypeResistancePoison = 0;
         public int modifyNumberOfMeleeAttacks = 0;
         public int modifyNumberOfRangedAttacks = 0;
+        public int modifyNumberOfEnemiesAttackedOnCleave = 0; //(melee only) cleave attacks are only made if previous attacked enemy goes down.
+        public int modifyNumberOfEnemiesAttackedOnSweepAttack = 0; //(melee only) sweep attack simultaneously attacks multiple enemies in range
+        public bool useDexterityForMeleeAttackModifierIfGreaterThanStrength = false;
+        public bool useDexterityForMeleeDamageModifierIfGreaterThanStrength = false;
+        public bool negateAttackPenaltyForAdjacentEnemyWithRangedAttack = false;
+        public bool useEvasion = false; //if true, do half damage on failed DC check and no damage with successful DC check against spells/traits
 
         public Effect()
 	    {
@@ -116,12 +125,13 @@ namespace IceBlink2mini
             copy.currentDurationInUnits = this.currentDurationInUnits;
 		    copy.startingTimeInUnits = this.startingTimeInUnits;
 		    copy.babModifier = this.babModifier;
-		    copy.acModifier = this.acModifier;
+            copy.babModifierForRangedAttack = this.babModifierForRangedAttack;
+            copy.damageModifierForMeleeAttack = this.damageModifierForMeleeAttack;
+            copy.damageModifierForRangedAttack = this.damageModifierForRangedAttack;
+            copy.acModifier = this.acModifier;
 		    copy.isStackableEffect = this.isStackableEffect;
 		    copy.isStackableDuration = this.isStackableDuration;
 		    copy.usedForUpdateStats = this.usedForUpdateStats;
-		    copy.effectLetter = this.effectLetter;
-		    copy.effectLetterColor = this.effectLetterColor;
 		    copy.effectScript = this.effectScript;
             copy.saveCheckType = this.saveCheckType;
             copy.saveCheckDC = this.saveCheckDC;
@@ -132,6 +142,7 @@ namespace IceBlink2mini
             copy.doDamage = this.doDamage;
             copy.doDeBuff = this.doDeBuff;
             copy.doHeal = this.doHeal;
+            copy.healHP = this.healHP;
             copy.damType = this.damType;
             copy.damNumOfDice = this.damNumOfDice;
             copy.damDie = this.damDie;
@@ -165,6 +176,8 @@ namespace IceBlink2mini
             copy.modifyHpMax = this.modifyHpMax;
             copy.modifySpMax = this.modifySpMax;
             copy.modifySp = this.modifySp;
+            copy.modifyHpInCombat = this.modifyHpInCombat;
+            copy.modifySpInCombat = this.modifySpInCombat;
             copy.modifyDamageTypeResistanceAcid = this.modifyDamageTypeResistanceAcid;
             copy.modifyDamageTypeResistanceCold = this.modifyDamageTypeResistanceCold;
             copy.modifyDamageTypeResistanceNormal = this.modifyDamageTypeResistanceNormal;
@@ -174,6 +187,12 @@ namespace IceBlink2mini
             copy.modifyDamageTypeResistancePoison = this.modifyDamageTypeResistancePoison;
             copy.modifyNumberOfMeleeAttacks = this.modifyNumberOfMeleeAttacks;
             copy.modifyNumberOfRangedAttacks = this.modifyNumberOfRangedAttacks;
+            copy.modifyNumberOfEnemiesAttackedOnCleave = this.modifyNumberOfEnemiesAttackedOnCleave;
+            copy.modifyNumberOfEnemiesAttackedOnSweepAttack = this.modifyNumberOfEnemiesAttackedOnSweepAttack;
+            copy.useDexterityForMeleeAttackModifierIfGreaterThanStrength = this.useDexterityForMeleeAttackModifierIfGreaterThanStrength;
+            copy.useDexterityForMeleeDamageModifierIfGreaterThanStrength = this.useDexterityForMeleeDamageModifierIfGreaterThanStrength;
+            copy.negateAttackPenaltyForAdjacentEnemyWithRangedAttack = this.negateAttackPenaltyForAdjacentEnemyWithRangedAttack;
+            copy.useEvasion = this.useEvasion;
 		    return copy;
 	    }
     }

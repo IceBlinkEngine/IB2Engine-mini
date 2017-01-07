@@ -1518,6 +1518,10 @@ namespace IceBlink2mini
                     {
                         doCastSelectorSetup();                        
                     }
+                    else if (rtn.Equals("btnTraitUseOnMainMap"))
+                    {
+                        doTraitUserSelectorSetup();
+                    }
                     else if (rtn.Equals("btnToggleArrows"))
                     {
                         foreach (IB2Panel pnl in mainUiLayout.panelList)
@@ -1598,6 +1602,77 @@ namespace IceBlink2mini
                     gv.screenCastSelector.castingPlayerIndex = pcIndex[selectedIndex - 1]; // pcIndex.get(item - 1);
                     gv.screenCombat.spellSelectorIndex = 0;
                     gv.screenType = "mainMapCast";
+                }
+                catch (Exception ex)
+                {
+                    gv.sf.MessageBoxHtml("error with Pc Selector screen: " + ex.ToString());
+                    gv.errorLog(ex.ToString());
+                    //print error
+                }
+            }
+            else if (selectedIndex == 0) // selected "cancel"
+            {
+                //do nothing
+            }
+        }
+        public void doTraitUserSelectorSetup()
+        {
+            List<int> pcIndex = new List<int>();
+            //If only one PC, do not show select PC dialog...just go to cast selector
+            if (pcIndex.Count == 1)
+            {
+                try
+                {
+                    gv.screenTraitUseSelector.traitUsingPlayerIndex = pcIndex[0];
+                    gv.screenCombat.traitUseSelectorIndex = 0;
+                    gv.screenType = "mainMapTraitUse";
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    //print error
+                    gv.sf.MessageBoxHtml("error with Pc Selector screen: " + ex.ToString());
+                    gv.errorLog(ex.ToString());
+                    return;
+                }
+            }
+
+            List<string> pcNames = new List<string>();
+            pcNames.Add("cancel");
+
+            int cnt = 0;
+            foreach (Player p in mod.playerList)
+            {
+                if (hasMainMapTypeTrait(p))
+                {
+                    pcNames.Add(p.name);
+                    pcIndex.Add(cnt);
+                }
+                cnt++;
+            }
+
+            gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, "Select Trait User", "mainmapselecttraituser");
+            gv.itemListSelector.showIBminiItemListSelector = true;
+        }
+        public void doTraitUserSelector(int selectedIndex)
+        {
+            if (selectedIndex > 0)
+            {
+                List<int> pcIndex = new List<int>();
+                int cnt = 0;
+                foreach (Player p in mod.playerList)
+                {
+                    if (hasMainMapTypeTrait(p))
+                    {
+                        pcIndex.Add(cnt);
+                    }
+                    cnt++;
+                }
+                try
+                {
+                    gv.screenTraitUseSelector.traitUsingPlayerIndex = pcIndex[selectedIndex - 1]; // pcIndex.get(item - 1);
+                    gv.screenCombat.traitUseSelectorIndex = 0;
+                    gv.screenType = "mainMapTraitUse";
                 }
                 catch (Exception ex)
                 {
@@ -2210,6 +2285,18 @@ namespace IceBlink2mini
             {
                 Spell sp = mod.getSpellByTag(s);
                 if ((sp.useableInSituation.Equals("Always")) || (sp.useableInSituation.Equals("OutOfCombat")))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool hasMainMapTypeTrait(Player pc)
+        {
+            foreach (string s in pc.knownTraitsTags)
+            {
+                Trait tr = mod.getTraitByTag(s);
+                if ((tr.useableInSituation.Equals("Always")) || (tr.useableInSituation.Equals("OutOfCombat")))
                 {
                     return true;
                 }

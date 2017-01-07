@@ -131,6 +131,10 @@ namespace IceBlink2mini
                             {
                                 gv.screenCastSelector.doSpellTarget(selectedIndex);
                             }
+                            else if (currentSender.Equals("traituseselectortraittarget"))
+                            {
+                                gv.screenTraitUseSelector.doTraitTarget(selectedIndex);
+                            }
                             else if (currentSender.Equals("inventoryitemaction"))
                             {
                                 gv.screenInventory.doItemAction(selectedIndex);
@@ -142,6 +146,10 @@ namespace IceBlink2mini
                             else if (currentSender.Equals("mainmapselectcaster"))
                             {
                                 gv.screenMainMap.doCastSelector(selectedIndex);
+                            }
+                            else if (currentSender.Equals("mainmapselecttraituser"))
+                            {
+                                gv.screenMainMap.doTraitUserSelector(selectedIndex);
                             }
                             else if (currentSender.Equals("partyscreenlevelup"))
                             {
