@@ -14,6 +14,7 @@ namespace IceBlink2mini
 	    private GameView gv;
 	
 	    public int castingPlayerIndex = 0;
+        public int spellToLearnIndex = 1;
 	    private int spellSlotIndex = 0;
 	    private int slotsPerPage = 48;
 	    private List<IbbButton> btnSpellSlots = new List<IbbButton>();
@@ -128,7 +129,7 @@ namespace IceBlink2mini
             {
                 //DRAW TEXT		
                 locY = (gv.squareSize * 0) + (pH * 2);
-                gv.DrawText("Select One " + mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Learn", noticeX, pH * 1, "gy");
+                gv.DrawText("Select " + spellToLearnIndex + " of " + mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel] + " " + mod.getPlayerClass(pc.classTag).spellLabelPlural + " to Learn", noticeX, pH * 1, "gy");
                 gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 50, pH * 1, "yl");
 
                 //DRAW NOTIFICATIONS
@@ -384,21 +385,30 @@ namespace IceBlink2mini
 		    {
 			    Spell sp = GetCurrentlySelectedSpell();
 			    if (isAvailableToLearn(sp.tag))
-			    {
+			    {                    
 				    Player pc = getCastingPlayer();		
 				    pc.knownSpellsTags.Add(sp.tag);
-				    if (inPcCreation)
-				    {
-					    gv.screenPcCreation.SaveCharacter(pc);
-			    	    gv.screenPartyBuild.pcList.Add(pc);
-			    	    gv.screenType = "partyBuild";
-				    }
-				    else
-				    {
-					    gv.screenType = "party";
-					    gv.screenParty.spellGained += sp.name + ", ";
-					    gv.screenParty.doLevelUpSummary();
-				    }
+                    //check to see if there are more spells to learn at this level
+                    spellToLearnIndex++;
+                    if (spellToLearnIndex <= mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel])
+                    {
+                        gv.screenParty.spellGained += sp.name + ", ";
+                    }
+                    else //finished learning all spells available for this level
+                    {
+                        if (inPcCreation)
+                        {
+                            gv.screenPcCreation.SaveCharacter(pc);
+                            gv.screenPartyBuild.pcList.Add(pc);
+                            gv.screenType = "partyBuild";
+                        }
+                        else
+                        {
+                            gv.screenType = "party";
+                            gv.screenParty.spellGained += sp.name + ", ";
+                            gv.screenParty.doLevelUpSummary();
+                        }
+                    }                    
 			    }
 			    else
 			    {

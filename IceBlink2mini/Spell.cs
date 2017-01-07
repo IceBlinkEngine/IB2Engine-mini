@@ -31,6 +31,7 @@ namespace IceBlink2mini
 	    public int range = 2;	
 	    public string spellScript = "none";
         public string spellEffectTag = "none";
+        public List<EffectTagForDropDownList> spellEffectTagList = new List<EffectTagForDropDownList>();
         public List<EffectTagForDropDownList> removeEffectTagList = new List<EffectTagForDropDownList>();
     
 	    public Spell()
