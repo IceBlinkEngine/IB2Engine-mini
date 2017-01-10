@@ -121,6 +121,7 @@
     <Compile Include="LocalInt.cs" />
     <Compile Include="LocalString.cs" />
     <Compile Include="Module.cs" />
+    <Compile Include="ModuleInfo.cs" />
     <Compile Include="MouseEventType.cs" />
     <Compile Include="MoveOrder.cs" />
     <Compile Include="PathFinderAreas.cs" />

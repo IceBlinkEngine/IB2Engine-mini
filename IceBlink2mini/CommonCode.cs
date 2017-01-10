@@ -932,6 +932,187 @@ namespace IceBlink2mini
             }
             return toReturn;
         }
+        public Module LoadModule(string folderAndFilename)
+        {
+            Module toReturn = null;
+            try
+            {
+                //used for opening the entire module files
+                using (StreamReader sr = File.OpenText(GetModulePath() + "\\" + folderAndFilename))
+                {
+                    string s = "";
+                    string keyword = "";
+                    commonBitmapList.Clear();
+                    ImageData imd;
+                    //toReturn.moduleAreasObjects.Clear();
+                    Area ar;
+                    //toReturn.moduleEncountersList.Clear();
+                    Encounter enc;
+                    //toReturn.moduleConvoList.Clear();
+                    Convo cnv;
+
+                    for (int i = 0; i < 99999; i++)
+                    {
+                        s = sr.ReadLine();
+
+                        #region Look for keyword line
+                        if (s == null)
+                        {
+                            break;
+                        }
+                        else if (s.Equals("END"))
+                        {
+                            break;
+                        }
+                        else if (s.Equals(""))
+                        {
+                            continue;
+                        }
+                        else if (s.Equals("MODULEINFO"))
+                        {
+                            keyword = "MODULEINFO";
+                            continue;
+                        }
+                        else if (s.Equals("TITLEIMAGE"))
+                        {
+                            keyword = "TITLEIMAGE";
+                            continue;
+                        }
+                        else if (s.Equals("MODULE"))
+                        {
+                            keyword = "MODULE";
+                            continue;
+                        }
+                        else if (s.Equals("AREAS"))
+                        {
+                            keyword = "AREAS";
+                            continue;
+                        }
+                        else if (s.Equals("ENCOUNTERS"))
+                        {
+                            keyword = "ENCOUNTERS";
+                            continue;
+                        }
+                        else if (s.Equals("CONVOS"))
+                        {
+                            keyword = "CONVOS";
+                            continue;
+                        }
+                        else if (s.Equals("IMAGES"))
+                        {
+                            keyword = "IMAGES";
+                            continue;
+                        }
+                        #endregion
+
+                        #region Process line if not a keyword line
+                        if (keyword.Equals("MODULEINFO"))
+                        {
+                            continue;
+                        }
+                        else if (keyword.Equals("TITLEIMAGE"))
+                        {
+                            imd = (ImageData)JsonConvert.DeserializeObject(s, typeof(ImageData));
+                            commonBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
+                        }
+                        else if (keyword.Equals("MODULE"))
+                        {
+                            toReturn = (Module)JsonConvert.DeserializeObject(s, typeof(Module));
+                        }
+                        else if (keyword.Equals("AREAS"))
+                        {
+                            ar = (Area)JsonConvert.DeserializeObject(s, typeof(Area));
+                            toReturn.moduleAreasObjects.Add(ar);
+                        }
+                        else if (keyword.Equals("ENCOUNTERS"))
+                        {
+                            enc = (Encounter)JsonConvert.DeserializeObject(s, typeof(Encounter));
+                            toReturn.moduleEncountersList.Add(enc);
+                        }
+                        else if (keyword.Equals("CONVOS"))
+                        {
+                            cnv = (Convo)JsonConvert.DeserializeObject(s, typeof(Convo));
+                            toReturn.moduleConvoList.Add(cnv);
+                        }
+                        else if (keyword.Equals("IMAGES"))
+                        {
+                            imd = (ImageData)JsonConvert.DeserializeObject(s, typeof(ImageData));
+                            if (!commonBitmapList.ContainsKey(imd.name))
+                            {
+                                commonBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
+                            }
+                        }
+                        #endregion
+                    }                    
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to read Module for " + folderAndFilename + ": " + ex.ToString());
+            }
+
+            return toReturn;
+        }
+        public ModuleInfo LoadModuleFileInfo(string folderAndFilename)
+        {
+            ModuleInfo toReturn = null;
+            try
+            {
+                //used for loading up the launcher screen only
+                using (StreamReader sr = File.OpenText(folderAndFilename))
+                {
+                    string s = "";
+                    string keyword = "";
+                    commonBitmapList.Clear();
+                    ImageData imd;
+
+                    for (int i = 0; i < 99999; i++)
+                    {
+                        s = sr.ReadLine();
+
+                        if (s == null)
+                        {
+                            break;
+                        }
+                        else if (s.Equals(""))
+                        {
+                            continue;
+                        }
+                        else if (s.Equals("MODULEINFO"))
+                        {
+                            keyword = "MODULEINFO";
+                            continue;
+                        }
+                        else if (s.Equals("TITLEIMAGE"))
+                        {
+                            keyword = "TITLEIMAGE";
+                            continue;
+                        }
+                        else if (s.Equals("MODULE"))
+                        {
+                            keyword = "MODULE";
+                            break;
+                        }
+
+                        if (keyword.Equals("MODULEINFO"))
+                        {
+                            toReturn = (ModuleInfo)JsonConvert.DeserializeObject(s, typeof(ModuleInfo));
+                        }
+                        else if (keyword.Equals("TITLEIMAGE"))
+                        {
+                            imd = (ImageData)JsonConvert.DeserializeObject(s, typeof(ImageData));
+                            commonBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to open ModuleInfo for " + folderAndFilename + ": " + ex.ToString());
+            }  
+            
+            return toReturn;
+        }
         
         public string GetModulePath()
         {

@@ -18,8 +18,9 @@ namespace IceBlink2mini
 	    private IbbButton btnRight = null;
 	    private IbbButton btnModuleName = null;
         private IBminiTextBox description;
-	    private List<Module> moduleList = new List<Module>();
-	    private List<Bitmap> titleList = new List<Bitmap>();
+	    //private List<Module> moduleList = new List<Module>();
+        private List<ModuleInfo> moduleInfoList = new List<ModuleInfo>();
+        private List<Bitmap> titleList = new List<Bitmap>();
 	    private int moduleIndex = 0;
 	
 	
@@ -37,7 +38,7 @@ namespace IceBlink2mini
             description.showBoxBorder = false;
 	    }
 	
-        public void loadModuleFiles()
+        /*public void loadModuleFiles()
         {
             string[] files;
 
@@ -57,9 +58,29 @@ namespace IceBlink2mini
                     titleList.Add(gv.cc.GetFromBitmapList(mod.titleImageName));
                 }
             }
+        }*/
+        public void loadModuleInfoFiles()
+        {
+            string[] files;
+
+            files = Directory.GetFiles(gv.mainDirectory + "\\modules", "*.mod", SearchOption.AllDirectories);
+            foreach (string file in files)
+            {
+                if (Path.GetFileName(file) != "NewModule.mod")
+                {
+                    // Process each file
+                    ModuleInfo modinfo = gv.cc.LoadModuleFileInfo(file);
+                    if (modinfo == null)
+                    {
+                        gv.sf.MessageBox("returned a null module");
+                    }
+                    moduleInfoList.Add(modinfo);
+                    titleList.Add(gv.cc.GetFromBitmapList(modinfo.titleImageName));
+                }
+            }
         }
-        	    	
-	    public void setControlsStart()
+
+        public void setControlsStart()
 	    {		
 		    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -115,7 +136,7 @@ namespace IceBlink2mini
 		    }
             	
     	    //DRAW DESCRIPTION BOX
-            if ((moduleList.Count > 0) && (moduleIndex < moduleList.Count))
+            if ((moduleInfoList.Count > 0) && (moduleIndex < moduleInfoList.Count))
 		    {
                 
                 string textToSpan = "<gn>Module Description</gn>" + "<br>";
@@ -123,12 +144,12 @@ namespace IceBlink2mini
                 description.tbYloc = 6 * gv.squareSize;
                 description.tbWidth = 18 * gv.squareSize;
                 description.tbHeight = 6 * gv.squareSize;
-                textToSpan += moduleList[moduleIndex].moduleDescription;
+                textToSpan += moduleInfoList[moduleIndex].moduleDescription;
                 description.linesList.Clear();
                 description.AddFormattedTextToTextBox(textToSpan);
                 description.onDrawTextBox();
                 
-                btnModuleName.Text = moduleList[moduleIndex].moduleLabelName;
+                btnModuleName.Text = moduleInfoList[moduleIndex].moduleLabelName;
 	    	    drawLauncherControls();
 		    }
         }
@@ -159,21 +180,23 @@ namespace IceBlink2mini
                         if (moduleIndex > 0)
 				        {
 					        moduleIndex--;
-					        btnModuleName.Text = moduleList[moduleIndex].moduleName;
+					        btnModuleName.Text = moduleInfoList[moduleIndex].moduleName;
 				        }
 			        }
 			        else if (btnRight.getImpact(x, y))
 			        {
-                        if (moduleIndex < moduleList.Count-1)
+                        if (moduleIndex < moduleInfoList.Count-1)
 				        {
 					        moduleIndex++;
-					        btnModuleName.Text = moduleList[moduleIndex].moduleName;
+					        btnModuleName.Text = moduleInfoList[moduleIndex].moduleName;
 				        }
 			        }	    	
 			        else if (btnModuleName.getImpact(x, y))
 			        {
-				        gv.mod = moduleList[moduleIndex];
-				        gv.resetGame();
+                        //TODO load the mod since we only have the ModuleInfo
+				        //gv.mod = moduleInfoList[moduleIndex];
+                        gv.mod = gv.cc.LoadModule(moduleInfoList[moduleIndex].moduleName + ".mod");
+                        gv.resetGame();
 				        gv.cc.LoadSaveListItems();
 				        gv.screenType = "title";
 			        }

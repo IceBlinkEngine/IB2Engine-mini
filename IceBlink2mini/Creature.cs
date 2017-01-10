@@ -46,6 +46,7 @@ namespace IceBlink2mini
 	    public string cr_attackSound = "none"; //Filename of sound to play when the creature attacks (no extension)
 	    public int cr_numberOfAttacks = 1;
 	    public string cr_ai = "BasicAttacker";
+        public int percentChanceToCastSpell = 100; //for GeneralCaster, this is the % chance that they will try and cast a spell on each turn (100 = 100%, 80 = 80%, etc.)
 	    public int fortitude = 0;
 	    public int will = 0;
 	    public int reflex = 0; 
@@ -102,6 +103,7 @@ namespace IceBlink2mini
 		    copy.cr_attackSound = this.cr_attackSound;
 		    copy.cr_numberOfAttacks = this.cr_numberOfAttacks;
 		    copy.cr_ai = this.cr_ai;
+            copy.percentChanceToCastSpell = this.percentChanceToCastSpell;
 		    copy.fortitude = this.fortitude;
 		    copy.will = this.will;
 		    copy.reflex = this.reflex;

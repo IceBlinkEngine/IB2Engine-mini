@@ -237,12 +237,13 @@ namespace IceBlink2mini
             if (fixedModule.Equals("")) //this is the IceBlink Engine app
             {
                 screenLauncher = new ScreenLauncher(mod, this);
-                screenLauncher.loadModuleFiles();
+                //TODO make sure this works
+                screenLauncher.loadModuleInfoFiles();
                 screenType = "launcher";
             }
             else //this is a fixed module
             {
-                mod = cc.LoadModule(fixedModule + "/" + fixedModule + ".mod", false);
+                mod = cc.LoadModule(fixedModule + "/" + fixedModule + ".mod");
                 resetGame();
                 cc.LoadSaveListItems();
                 screenType = "title";
@@ -321,7 +322,7 @@ namespace IceBlink2mini
         }	
 	    public void resetGame()
 	    {
-		    mod = cc.LoadModule(mod.moduleName + ".mod", false);
+		    mod = cc.LoadModule(mod.moduleName + ".mod");
             //reset log number of lines based on the value from the Module's mod file
             log.numberOfLinesToShow = mod.logNumberOfLines;            
                         
