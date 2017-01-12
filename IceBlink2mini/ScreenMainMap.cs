@@ -42,7 +42,7 @@ namespace IceBlink2mini
             floatyTextBox = new IBminiTextBox(gv);
             floatyTextBox.showShadow = true;
         }
-        public void loadMainUILayout()
+        public void loadMainUILayoutold()
         {
             try
             {
@@ -107,7 +107,591 @@ namespace IceBlink2mini
                 gv.errorLog(ex.ToString());
             }
         }
-        
+        public void loadMainUILayout()
+        {
+            try
+            {
+                mainUiLayout = new IB2UILayout(gv);
+                createLogPanel();
+                createButtonsPanel();
+                createTogglesPanel();
+                createPortraitsPanel();
+                createArrowsPanel();
+                mainUiLayout.setupIB2UILayout(gv);
+
+                IB2ToggleButton tgl = mainUiLayout.GetToggleByTag("tglMiniMap");
+                if (tgl != null)
+                {
+                    showMiniMap = tgl.toggleOn;
+                }
+                IB2ToggleButton tgl2 = mainUiLayout.GetToggleByTag("tglClock");
+                if (tgl2 != null)
+                {
+                    showClock = tgl2.toggleOn;
+                }
+                IB2ToggleButton tgl3 = mainUiLayout.GetToggleByTag("tglFullParty");
+                if (tgl3 != null)
+                {
+                    showFullParty = tgl3.toggleOn;
+                }
+                float sqrW = (float)gv.screenWidth / (gv.squaresInWidth);
+                float sqrH = (float)gv.screenHeight / (gv.squaresInHeight);
+                gv.cc.addLogText("red", "screenDensity: " + gv.screenDensity);
+                gv.cc.addLogText("fuchsia", "screenWidth: " + gv.screenWidth);
+                gv.cc.addLogText("lime", "screenHeight: " + gv.screenHeight);
+                gv.cc.addLogText("yellow", "squareSize: " + gv.squareSize);
+                gv.cc.addLogText("yellow", "sqrW: " + sqrW);
+                gv.cc.addLogText("yellow", "sqrH: " + sqrH);
+                gv.cc.addLogText("yellow", "fontWidth: " + gv.fontWidth);
+                gv.cc.addLogText("yellow", "");
+                gv.cc.addLogText("red", "Welcome to " + mod.moduleLabelName);
+                gv.cc.addLogText("fuchsia", "Swipe up/down to scroll this message log box");
+                
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("Error Loading MainUILayout.json: " + ex.ToString());
+                //gv.errorLog(ex.ToString());
+            }
+        }
+        public void createLogPanel()
+        {
+            //create log panel
+            IB2Panel newPanel = new IB2Panel(gv);
+            newPanel.tag = "logPanel";
+            newPanel.backgroundImageFilename = "ui_bg_log";
+            newPanel.shownLocX = 0;
+            newPanel.shownLocY = 0;
+            newPanel.Width = 192;
+            newPanel.Height = 360;
+            IB2HtmlLogBox newLog = gv.log;
+            newLog.tbXloc = 10;
+            newLog.tbYloc = 10;
+            newLog.tbWidth = 186;
+            newLog.tbHeight = 354;
+            newLog.numberOfLinesToShow = 28;
+            newPanel.logList.Add(newLog);
+            mainUiLayout.panelList.Add(newPanel);
+        }
+        public void createButtonsPanel()
+        {
+            //create buttons panel
+            IB2Panel newPanel = new IB2Panel(gv);
+            newPanel.tag = "BottomPanel";
+            newPanel.backgroundImageFilename = "ui_bg_arrows";
+            newPanel.shownLocX = 0;
+            newPanel.shownLocY = 360;
+            newPanel.Width = 192;
+            newPanel.Height = 168;
+
+            //button
+            IB2Button newButton = new IB2Button(gv);
+            newButton.tag = "btnParty";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "btnparty";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "P";
+            newButton.X = 12;
+            newButton.Y = 6;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 1.0f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            //button
+            newButton = new IB2Button(gv);
+            newButton.tag = "btnInventory";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "btninventory";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "I";
+            newButton.X = 72;
+            newButton.Y = 6;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 1.0f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            //button
+            newButton = new IB2Button(gv);
+            newButton.tag = "btnJournal";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "btnjournal";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "J";
+            newButton.X = 132;
+            newButton.Y = 6;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 1.0f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            //button
+            newButton = new IB2Button(gv);
+            newButton.tag = "btnSettings";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "btnsettings";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "";
+            newButton.X = 12;
+            newButton.Y = 114;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 1.0f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            //button
+            newButton = new IB2Button(gv);
+            newButton.tag = "btnCastOnMainMap";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "btnspell";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "C";
+            newButton.X = 72;
+            newButton.Y = 60;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 1.0f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            //button
+            newButton = new IB2Button(gv);
+            newButton.tag = "btnTraitUseOnMainMap";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "btntrait";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "";
+            newButton.X = 12;
+            newButton.Y = 60;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 1.0f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            //button
+            newButton = new IB2Button(gv);
+            newButton.tag = "btnSave";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "btndisk";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "";
+            newButton.X = 132;
+            newButton.Y = 60;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 1.0f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            //toggle
+            IB2ToggleButton newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglFullParty";
+            newToggle.ImgOnFilename = "tgl_fullparty_on";
+            newToggle.ImgOffFilename = "tgl_fullparty_off";
+            newToggle.toggleOn = false;
+            newToggle.X = 72;
+            newToggle.Y = 114;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglMiniMap";
+            newToggle.ImgOnFilename = "tgl_minimap_on";
+            newToggle.ImgOffFilename = "tgl_minimap_off";
+            newToggle.toggleOn = false;
+            newToggle.X = 132;
+            newToggle.Y = 114;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            mainUiLayout.panelList.Add(newPanel);
+        }
+        public void createTogglesPanel()
+        {
+            //create buttons panel
+            IB2Panel newPanel = new IB2Panel(gv);
+            newPanel.tag = "TogglePanel";
+            newPanel.backgroundImageFilename = "ui_bg_toggles";
+            newPanel.shownLocX = 192;
+            newPanel.shownLocY = 468;
+            newPanel.hiddenLocX = 192;
+            newPanel.hiddenLocY = 540;
+            newPanel.hidingXIncrement = 0;
+            newPanel.hidingYIncrement = 3;
+            newPanel.Width = 528;
+            newPanel.Height = 60;
+
+            //toggle
+            IB2ToggleButton newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglGrid";
+            newToggle.ImgOnFilename = "tgl_grid_on";
+            newToggle.ImgOffFilename = "tgl_grid_off";
+            newToggle.toggleOn = false;
+            newToggle.X = 6;
+            newToggle.Y = 6;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglClock";
+            newToggle.ImgOnFilename = "tgl_clock_on";
+            newToggle.ImgOffFilename = "tgl_clock_off";
+            newToggle.toggleOn = true;
+            newToggle.X = 60;
+            newToggle.Y = 6;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglSound";
+            newToggle.ImgOnFilename = "tgl_sound_on";
+            newToggle.ImgOffFilename = "tgl_sound_off";
+            newToggle.toggleOn = false;
+            newToggle.X = 114;
+            newToggle.Y = 6;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglDebugMode";
+            newToggle.ImgOnFilename = "tgl_debugmode_on";
+            newToggle.ImgOffFilename = "tgl_debugmode_off";
+            newToggle.toggleOn = false;
+            newToggle.X = 168;
+            newToggle.Y = 6;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            mainUiLayout.panelList.Add(newPanel);
+        }
+        public void createPortraitsPanel()
+        {
+            //create buttons panel
+            IB2Panel newPanel = new IB2Panel(gv);
+            newPanel.tag = "portraitPanel";
+            newPanel.backgroundImageFilename = "ui_bg_log";
+            newPanel.shownLocX = 720;
+            newPanel.shownLocY = 0;
+            newPanel.Width = 192;
+            newPanel.Height = 360;
+
+            //portrait
+            IB2Portrait newPort = new IB2Portrait(gv);
+            newPort.tag = "port0";
+            newPort.ImgBGFilename = "item_slot";
+            newPort.ImgFilename = "ptr_adela";
+            newPort.ImgLUFilename = "btnLevelUpPlus";
+            newPort.GlowFilename = "btn_ptr_glow";
+            newPort.X = 20;
+            newPort.Y = 16;
+            newPort.Width = 68;
+            newPort.Height = 104;
+            newPort.scaler = 0.8f;
+            newPanel.portraitList.Add(newPort);
+
+            //portrait
+            newPort = new IB2Portrait(gv);
+            newPort.tag = "port1";
+            newPort.ImgBGFilename = "item_slot";
+            newPort.ImgFilename = "ptr_adela";
+            newPort.ImgLUFilename = "btnLevelUpPlus";
+            newPort.GlowFilename = "btn_ptr_glow";
+            newPort.X = 110;
+            newPort.Y = 16;
+            newPort.Width = 68;
+            newPort.Height = 104;
+            newPort.scaler = 0.8f;
+            newPanel.portraitList.Add(newPort);
+
+            //portrait
+            newPort = new IB2Portrait(gv);
+            newPort.tag = "port2";
+            newPort.ImgBGFilename = "item_slot";
+            newPort.ImgFilename = "ptr_adela";
+            newPort.ImgLUFilename = "btnLevelUpPlus";
+            newPort.GlowFilename = "btn_ptr_glow";
+            newPort.X = 20;
+            newPort.Y = 128;
+            newPort.Width = 68;
+            newPort.Height = 104;
+            newPort.scaler = 0.8f;
+            newPanel.portraitList.Add(newPort);
+
+            //portrait
+            newPort = new IB2Portrait(gv);
+            newPort.tag = "port3";
+            newPort.ImgBGFilename = "item_slot";
+            newPort.ImgFilename = "ptr_adela";
+            newPort.ImgLUFilename = "btnLevelUpPlus";
+            newPort.GlowFilename = "btn_ptr_glow";
+            newPort.X = 110;
+            newPort.Y = 128;
+            newPort.Width = 68;
+            newPort.Height = 104;
+            newPort.scaler = 0.8f;
+            newPanel.portraitList.Add(newPort);
+
+            //portrait
+            newPort = new IB2Portrait(gv);
+            newPort.tag = "port4";
+            newPort.ImgBGFilename = "item_slot";
+            newPort.ImgFilename = "ptr_adela";
+            newPort.ImgLUFilename = "btnLevelUpPlus";
+            newPort.GlowFilename = "btn_ptr_glow";
+            newPort.X = 20;
+            newPort.Y = 240;
+            newPort.Width = 68;
+            newPort.Height = 104;
+            newPort.scaler = 0.8f;
+            newPanel.portraitList.Add(newPort);
+
+            //portrait
+            newPort = new IB2Portrait(gv);
+            newPort.tag = "port5";
+            newPort.ImgBGFilename = "item_slot";
+            newPort.ImgFilename = "ptr_adela";
+            newPort.ImgLUFilename = "btnLevelUpPlus";
+            newPort.GlowFilename = "btn_ptr_glow";
+            newPort.X = 110;
+            newPort.Y = 240;
+            newPort.Width = 68;
+            newPort.Height = 104;
+            newPort.scaler = 0.8f;
+            newPanel.portraitList.Add(newPort);
+
+            mainUiLayout.panelList.Add(newPanel);
+        }
+        public void createArrowsPanel()
+        {
+            //create buttons panel
+            IB2Panel newPanel = new IB2Panel(gv);
+            newPanel.tag = "arrowPanel";
+            newPanel.backgroundImageFilename = "ui_bg_arrows";
+            newPanel.shownLocX = 720;
+            newPanel.shownLocY = 360;
+            newPanel.Width = 192;
+            newPanel.Height = 168;
+
+            //button
+            IB2Button newButton = new IB2Button(gv);
+            newButton.tag = "ctrlUpArrow";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "ctrl_up_arrow";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "";
+            newButton.X = 72;
+            newButton.Y = 6;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 0.8f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            //button
+            newButton = new IB2Button(gv);
+            newButton.tag = "ctrlLeftArrow";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "ctrl_left_arrow";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "";
+            newButton.X = 12;
+            newButton.Y = 60;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 0.8f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            //button
+            newButton = new IB2Button(gv);
+            newButton.tag = "ctrlRightArrow";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "ctrl_right_arrow";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "";
+            newButton.X = 132;
+            newButton.Y = 60;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 0.8f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            //button
+            newButton = new IB2Button(gv);
+            newButton.tag = "ctrlDownArrow";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "ctrl_down_arrow";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "";
+            newButton.X = 72;
+            newButton.Y = 114;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 0.8f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            //button
+            newButton = new IB2Button(gv);
+            newButton.tag = "btnWait";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "btnwait";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "";
+            newButton.X = 72;
+            newButton.Y = 60;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 0.8f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            mainUiLayout.panelList.Add(newPanel);
+        }
+
         //MAIN SCREEN UPDATE
         public void Update(int elapsed)
         {

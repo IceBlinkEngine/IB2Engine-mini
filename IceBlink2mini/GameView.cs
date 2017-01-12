@@ -21,18 +21,18 @@ namespace IceBlink2mini
         public float screenDensity;
         public int screenWidth;
         public int screenHeight;
-        public int squareSizeInPixels = 24;
+        public int squareSizeInPixels = 48;
         public int tileSizeInPixels = 48;
-        public int standardTokenSize = 24;
+        public int standardTokenSize = 48;
         public int squareSize; //in dp (squareSizeInPixels * screenDensity)
         public int pS; // = squareSize / 10 ... used for small UI and text location adjustments based on squaresize
         public int squaresInWidth = 19;
         public int squaresInHeight = 11;
-        public int ibbwidthL = 120;
-        public int ibbwidthR = 25;
-        public int ibbheight = 25;
-        public int ibpwidth = 27;
-        public int ibpheight = 42;
+        public int ibbwidthL = 240;
+        public int ibbwidthR = 48;
+        public int ibbheight = 48;
+        public int ibpwidth = 55;
+        public int ibpheight = 85;
         public int playerOffset = 5;
         public int playerOffsetX = 5;
         public int playerOffsetY = 5;
@@ -218,21 +218,21 @@ namespace IceBlink2mini
 
             //setup messageBox defaults
             messageBox = new IBminiMessageBox(this);
-            messageBox.currentLocX = 100;
+            messageBox.currentLocX = 200;
             messageBox.currentLocY = 25;
             messageBox.numberOfLinesToShow = 17;
-            messageBox.tbWidth = 250;
-            messageBox.Width = 250;
-            messageBox.Height = 195;
-            messageBox.tbHeight = 187;
+            messageBox.tbWidth = 500;
+            messageBox.Width = 500;
+            messageBox.Height = 390;
+            messageBox.tbHeight = 382;
             messageBox.setupIBminiMessageBox();
             
             //setup itemListSelector defaults
             itemListSelector = new IBminiItemListSelector();
-            itemListSelector.currentLocX = 73;
+            itemListSelector.currentLocX = 146;
             itemListSelector.currentLocY = 25;
-            itemListSelector.Width = 310;
-            itemListSelector.Height = 220;
+            itemListSelector.Width = 620;
+            itemListSelector.Height = 440;
             
             if (fixedModule.Equals("")) //this is the IceBlink Engine app
             {

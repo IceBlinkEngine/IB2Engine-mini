@@ -106,10 +106,10 @@ namespace IceBlink2mini
                 IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
 
                 IbRect srcGlow = new IbRect(0, 0, gv.cc.GetFromBitmapList(GlowFilename).PixelSize.Width, gv.cc.GetFromBitmapList(GlowFilename).PixelSize.Height);
-                IbRect dstGlow = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(2 * gv.screenDensity),
-                                            (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity) - (int)(2 * gv.screenDensity),
-                                            (int)((float)Width * gv.screenDensity) + (int)(4 * gv.screenDensity),
-                                            (int)((float)Height * gv.screenDensity) + (int)(4 * gv.screenDensity));
+                IbRect dstGlow = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(4 * gv.screenDensity),
+                                            (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity) - (int)(4 * gv.screenDensity),
+                                            (int)((float)Width * gv.screenDensity) + (int)(8 * gv.screenDensity),
+                                            (int)((float)Height * gv.screenDensity) + (int)(8 * gv.screenDensity));
 
                 //draw glow first if on
                 if (glowOn)

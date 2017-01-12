@@ -1,0 +1,3 @@
+<yl>TRAIT SELECTION SCREEN</yl>
+<gn>1. Trait Selection:</gn> Tap on a trait once to select it.
+<gn>2. Use Selected Trait:</gn> Tap on the "USE SELECTED TRAIT" button to use the currently selected trait.
