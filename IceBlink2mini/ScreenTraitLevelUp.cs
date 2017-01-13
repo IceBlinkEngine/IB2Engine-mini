@@ -24,6 +24,7 @@ namespace IceBlink2mini
 	    List<string> traitsToLearnTagsList = new List<string>();
 	    private Player pc;
         public bool infoOnly = false; //set to true when called for info only
+        public bool inCombat = false;
         private string stringMessageTraitLevelUp = "";
         private IbbHtmlTextBox description;
 	
@@ -37,10 +38,11 @@ namespace IceBlink2mini
 		    stringMessageTraitLevelUp = gv.cc.loadTextToString("MessageTraitLevelUp.txt");
 	    }
 	
-	    public void resetPC(bool info_only, Player p)
+	    public void resetPC(bool info_only, bool in_Combat, Player p)
 	    {
 		    pc = p;
             infoOnly = info_only;
+            inCombat = in_Combat;
         }
 	
 	    public void setControlsStart()
@@ -334,7 +336,14 @@ namespace IceBlink2mini
                     gv.PlaySound("btn_click");
                     if (infoOnly)
                     {
-                        gv.screenType = "party";
+                        if (inCombat)
+                        {
+                            gv.screenType = "combatParty";
+                        }
+                        else
+                        {
+                            gv.screenType = "party";
+                        }
                     }
                     else
                     {
@@ -385,7 +394,7 @@ namespace IceBlink2mini
                             spellTagsList = pc.getSpellsToLearn();
                             if (spellTagsList.Count > 0)
                             {
-                                gv.screenSpellLevelUp.resetPC(false, pc);
+                                gv.screenSpellLevelUp.resetPC(false, false, pc);
                                 gv.screenType = "learnSpellCreation";
                             }
                             else //no spells to learn
@@ -403,7 +412,7 @@ namespace IceBlink2mini
                             spellTagsList = pc.getSpellsToLearn();
                             if (spellTagsList.Count > 0)
                             {
-                                gv.screenSpellLevelUp.resetPC(false, pc);
+                                gv.screenSpellLevelUp.resetPC(false, false, pc);
                                 gv.screenType = "learnSpellLevelUp";
                             }
                             else //no spells or traits to learn

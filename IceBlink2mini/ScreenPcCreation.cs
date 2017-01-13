@@ -685,13 +685,13 @@ namespace IceBlink2mini
 
                             if (traitTagsList.Count > 0)
                             {
-                                gv.screenTraitLevelUp.resetPC(false, pc);
+                                gv.screenTraitLevelUp.resetPC(false, false, pc);
                                 gv.screenType = "learnTraitCreation";
                             }
 
                             else if (spellTagsList.Count > 0)
                             {
-                                gv.screenSpellLevelUp.resetPC(false, pc);
+                                gv.screenSpellLevelUp.resetPC(false, false, pc);
                                 gv.screenType = "learnSpellCreation";
                             }
                             else

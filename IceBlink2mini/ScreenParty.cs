@@ -779,12 +779,12 @@ namespace IceBlink2mini
                     }
                     else if (btnSpells.getImpact(x, y))
                     {
-                        gv.screenSpellLevelUp.resetPC(true, pc);
+                        gv.screenSpellLevelUp.resetPC(true, inCombat, pc);
                         gv.screenType = "learnSpellLevelUp";
                     }
                     else if (btnTraits.getImpact(x, y))
                     {
-                        gv.screenTraitLevelUp.resetPC(true, pc);
+                        gv.screenTraitLevelUp.resetPC(true, inCombat, pc);
                         gv.screenType = "learnTraitLevelUp";
                     }
                     else if (btnEffects.getImpact(x, y))
@@ -1224,12 +1224,12 @@ namespace IceBlink2mini
                 //if so then ask which one
                 if (traitTagsList.Count > 0)
                 {
-                    gv.screenTraitLevelUp.resetPC(false, pc);
+                    gv.screenTraitLevelUp.resetPC(false, false, pc);
                     gv.screenType = "learnTraitLevelUp";
                 }
                 else if (spellTagsList.Count > 0)
                 {
-                    gv.screenSpellLevelUp.resetPC(false, pc);
+                    gv.screenSpellLevelUp.resetPC(false, false, pc);
                     gv.screenType = "learnSpellLevelUp";
                 }
                 else //no spells or traits to learn
