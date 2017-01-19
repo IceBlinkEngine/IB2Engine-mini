@@ -43,6 +43,7 @@ namespace IceBlink2mini
 		    pc = p;
             infoOnly = info_only;
             inCombat = in_Combat;
+            spellToLearnIndex = 1;
         }
 	
 	    public void setControlsStart()
@@ -140,7 +141,7 @@ namespace IceBlink2mini
                     Spell sp = GetCurrentlySelectedSpell();                    
 
                     //check to see if already known
-                    if (pc.knownSpellsTags.Contains(sp.tag))
+                    if ((pc.knownSpellsTags.Contains(sp.tag)) || (pc.learningSpellsTags.Contains(sp.tag)))
                     {
                         //say that you already know this one
                         gv.DrawText("Already Known", noticeX, noticeY, "yl");
@@ -373,6 +374,12 @@ namespace IceBlink2mini
 			    {
                     if (!infoOnly)
                     {
+                        gv.screenParty.traitGained = "";
+                        gv.screenParty.spellGained = "";
+                        pc.learningTraitsTags.Clear();
+                        pc.learningSpellsTags.Clear();
+                        spellToLearnIndex = 1;
+
                         gv.PlaySound("btn_click");
                         if (inPcCreation)
                         {
@@ -396,7 +403,8 @@ namespace IceBlink2mini
 			    if (isAvailableToLearn(sp.tag))
 			    {                    
 				    Player pc = getCastingPlayer();		
-				    pc.knownSpellsTags.Add(sp.tag);
+				    //pc.knownSpellsTags.Add(sp.tag);
+                    pc.learningSpellsTags.Add(sp.tag);
                     //check to see if there are more spells to learn at this level
                     spellToLearnIndex++;
                     if (spellToLearnIndex <= mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel])
@@ -407,6 +415,19 @@ namespace IceBlink2mini
                     {
                         if (inPcCreation)
                         {
+                            foreach (string s in pc.learningTraitsTags)
+                            {
+                                pc.knownTraitsTags.Add(s);
+                            }
+                            pc.learningTraitsTags.Clear();
+
+                            foreach (string s in pc.learningSpellsTags)
+                            {
+                                pc.knownSpellsTags.Add(s);
+                            }
+                            pc.learningTraitsTags.Clear();
+                            pc.learningSpellsTags.Clear();
+
                             gv.screenPcCreation.SaveCharacter(pc);
                             gv.screenPartyBuild.pcList.Add(pc);
                             gv.screenType = "partyBuild";

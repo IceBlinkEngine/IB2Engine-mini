@@ -34,6 +34,8 @@ namespace IceBlink2mini
 	    public PlayerClass playerClass = new PlayerClass();
 	    public List<string> knownSpellsTags = new List<string>();
         public List<string> knownTraitsTags = new List<string>();
+        public List<string> learningSpellsTags = new List<string>();
+        public List<string> learningTraitsTags = new List<string>();
         public List<Effect> effectsList = new List<Effect>();
 	    public int classLevel = 1;
 	    public bool isMale = true;
@@ -282,15 +284,10 @@ namespace IceBlink2mini
 	    }	
 	    public bool hasSpellAlready(SpellAllowed sa)
 	    {
-		    foreach (string s in this.knownSpellsTags)
-            {
-                if (sa.tag.Equals(s))
-                {
-                    return true;
-                }
-            }
+            if (this.knownSpellsTags.Contains(sa.tag)) { return true; }
+            if (this.learningSpellsTags.Contains(sa.tag)) { return true; }
             return false;
-	    }
+        }
 	    public List<string> getTraitsToLearn(Module mod)
 	    {
 		    List<string> traitTagsList = new List<string>();
@@ -324,7 +321,9 @@ namespace IceBlink2mini
 	    }
 	    public bool hasTraitAlready(TraitAllowed ta)
 	    {
-		    return this.knownTraitsTags.Contains(ta.tag);
+            if (this.knownTraitsTags.Contains(ta.tag)) { return true; }
+            if (this.learningTraitsTags.Contains(ta.tag)) { return true; }
+		    return false;
 	    }
 	
 	    public Effect getEffectByTag(string tag)

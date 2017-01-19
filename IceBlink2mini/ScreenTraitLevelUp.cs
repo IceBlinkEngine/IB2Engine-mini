@@ -43,6 +43,7 @@ namespace IceBlink2mini
 		    pc = p;
             infoOnly = info_only;
             inCombat = in_Combat;
+            traitToLearnIndex = 1;
         }
 	
 	    public void setControlsStart()
@@ -135,7 +136,7 @@ namespace IceBlink2mini
                     Trait tr = GetCurrentlySelectedTrait();
                     
                     //check to see if already known
-                    if (pc.knownTraitsTags.Contains(tr.tag))
+                    if ((pc.knownTraitsTags.Contains(tr.tag)) || (pc.learningTraitsTags.Contains(tr.tag)))
                     {
                         //say that you already know this one
                         gv.DrawText("Already Known", noticeX, noticeY, "yl");
@@ -354,6 +355,12 @@ namespace IceBlink2mini
 			    {
                     if (!infoOnly)
                     {
+                        gv.screenParty.traitGained = "";
+                        gv.screenParty.spellGained = "";
+                        pc.learningTraitsTags.Clear();
+                        pc.learningSpellsTags.Clear();
+                        traitToLearnIndex = 1;
+
                         gv.PlaySound("btn_click");
                         if (inPcCreation)
                         {
@@ -376,8 +383,9 @@ namespace IceBlink2mini
 			    Trait tr = GetCurrentlySelectedTrait();
 			    if (isAvailableToLearn(tr.tag))
 			    {
-				    //add trait
-				    pc.knownTraitsTags.Add(tr.tag);
+                    //add trait
+                    //pc.knownTraitsTags.Add(tr.tag);
+                    pc.learningTraitsTags.Add(tr.tag);
                     //check to see if there are more traits to learn at this level
                     traitToLearnIndex++;
                     if (traitToLearnIndex <= mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel])
@@ -400,6 +408,11 @@ namespace IceBlink2mini
                             else //no spells to learn
                             {
                                 //save character, add them to the pcList of screenPartyBuild, and go back to build screen
+                                foreach (string s in pc.learningTraitsTags)
+                                {
+                                    pc.knownTraitsTags.Add(s);
+                                }
+                                pc.learningTraitsTags.Clear();
                                 gv.screenPcCreation.SaveCharacter(pc);
                                 gv.screenPartyBuild.pcList.Add(pc);
                                 gv.screenType = "partyBuild";
