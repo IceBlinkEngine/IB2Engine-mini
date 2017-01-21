@@ -405,11 +405,12 @@ namespace IceBlink2mini
 				    Player pc = getCastingPlayer();		
 				    //pc.knownSpellsTags.Add(sp.tag);
                     pc.learningSpellsTags.Add(sp.tag);
+                    gv.screenParty.spellGained += sp.name + ", ";
                     //check to see if there are more spells to learn at this level
                     spellToLearnIndex++;
                     if (spellToLearnIndex <= mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel])
                     {
-                        gv.screenParty.spellGained += sp.name + ", ";
+                        //more to learn, keep going
                     }
                     else //finished learning all spells available for this level
                     {
@@ -434,8 +435,21 @@ namespace IceBlink2mini
                         }
                         else
                         {
+                            foreach (string s in pc.learningTraitsTags)
+                            {
+                                pc.knownTraitsTags.Add(s);
+                            }
+                            pc.learningTraitsTags.Clear();
+
+                            foreach (string s in pc.learningSpellsTags)
+                            {
+                                pc.knownSpellsTags.Add(s);
+                            }
+                            pc.learningTraitsTags.Clear();
+                            pc.learningSpellsTags.Clear();
+
                             gv.screenType = "party";
-                            gv.screenParty.spellGained += sp.name + ", ";
+                            //gv.screenParty.spellGained += sp.name + ", ";
                             gv.screenParty.doLevelUpSummary();
                         }
                     }                    

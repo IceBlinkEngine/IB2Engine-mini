@@ -386,11 +386,12 @@ namespace IceBlink2mini
                     //add trait
                     //pc.knownTraitsTags.Add(tr.tag);
                     pc.learningTraitsTags.Add(tr.tag);
+                    gv.screenParty.traitGained += tr.name + ", ";
                     //check to see if there are more traits to learn at this level
                     traitToLearnIndex++;
                     if (traitToLearnIndex <= mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel])
                     {
-                        gv.screenParty.traitGained += tr.name + ", ";
+                        //more to learn, keep going
                     }
                     else //finished learning all traits available for this level
                     {
@@ -430,8 +431,13 @@ namespace IceBlink2mini
                             }
                             else //no spells or traits to learn
                             {
+                                foreach (string s in pc.learningTraitsTags)
+                                {
+                                    pc.knownTraitsTags.Add(s);
+                                }
+                                pc.learningTraitsTags.Clear();
                                 gv.screenType = "party";
-                                gv.screenParty.traitGained += tr.name + ", ";
+                                //gv.screenParty.traitGained += tr.name + ", ";
                                 gv.screenParty.doLevelUpSummary();
                             }
                         }
