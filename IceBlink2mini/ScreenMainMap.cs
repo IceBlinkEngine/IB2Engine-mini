@@ -1131,9 +1131,9 @@ namespace IceBlink2mini
 	            //draw a location marker square RED
                 int x2 = mod.PlayerLocationX * minimapSquareSizeInPixels;
                 int y2 = mod.PlayerLocationY * minimapSquareSizeInPixels;
-                src = new IbRect(0, 0, gv.cc.pc_dead.PixelSize.Width, gv.cc.pc_dead.PixelSize.Height);
+                src = new IbRect(0, 0, gv.cc.map_marker.PixelSize.Width, gv.cc.map_marker.PixelSize.Height);
                 dst = new IbRect(pW + x2, pH + y2, minimapSquareSizeInPixels, minimapSquareSizeInPixels);
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(mod.playerList[mod.selectedPartyLeader].tokenFilename), src, dst);	            
+                gv.DrawBitmap(gv.cc.map_marker, src, dst);	            
             }
         }
         public void drawPlayer()

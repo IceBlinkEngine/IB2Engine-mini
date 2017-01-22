@@ -290,6 +290,7 @@ namespace IceBlink2mini
             cc.black_tile = cc.LoadBitmap("black_tile");
             //cc.black_tile2 = cc.LoadBitmap("black_tile2");
             cc.turn_marker = cc.LoadBitmap("turn_marker");
+            cc.map_marker = cc.LoadBitmap("map_marker");
             cc.pc_dead = cc.LoadBitmap("pcdead");
             cc.pc_stealth = cc.LoadBitmap("pc_stealth");
             //cc.offScreen = cc.LoadBitmap("offScreen");

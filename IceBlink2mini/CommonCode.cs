@@ -46,6 +46,7 @@ namespace IceBlink2mini
         public Bitmap highlight_red;
         public Bitmap black_tile;
         public Bitmap turn_marker;
+        public Bitmap map_marker;
         public Bitmap pc_dead;
         public Bitmap pc_stealth;
         public Bitmap tint_dawn;
