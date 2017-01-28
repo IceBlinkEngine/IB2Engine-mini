@@ -175,7 +175,7 @@ namespace IceBlink2mini
             }
             return false;
         }
-        public int getDamageTypeResistanceValueMagic()
+        public int getterDamageTypeResistanceValueMagic()
         {
             int modifier = 0;
             int highestNonStackable = -99;
@@ -203,7 +203,7 @@ namespace IceBlink2mini
             }
             return returnValue;
         }
-        public int getDamageTypeResistanceValueAcid()
+        public int getterDamageTypeResistanceValueAcid()
         {
             int modifier = 0;
             int highestNonStackable = -99;
@@ -231,7 +231,7 @@ namespace IceBlink2mini
             }
             return returnValue;
         }
-        public int getDamageTypeResistanceValueNormal()
+        public int getterDamageTypeResistanceValueNormal()
         {
             int modifier = 0;
             int highestNonStackable = -99;
@@ -259,7 +259,7 @@ namespace IceBlink2mini
             }
             return returnValue;
         }
-        public int getDamageTypeResistanceValueCold()
+        public int getterDamageTypeResistanceValueCold()
         {
             int modifier = 0;
             int highestNonStackable = -99;
@@ -287,7 +287,7 @@ namespace IceBlink2mini
             }
             return returnValue;
         }
-        public int getDamageTypeResistanceValueElectricity()
+        public int getterDamageTypeResistanceValueElectricity()
         {
             int modifier = 0;
             int highestNonStackable = -99;
@@ -315,7 +315,7 @@ namespace IceBlink2mini
             }
             return returnValue;
         }
-        public int getDamageTypeResistanceValueFire()
+        public int getterDamageTypeResistanceValueFire()
         {
             int modifier = 0;
             int highestNonStackable = -99;
@@ -343,7 +343,7 @@ namespace IceBlink2mini
             }
             return returnValue;
         }
-        public int getDamageTypeResistanceValuePoison()
+        public int getterDamageTypeResistanceValuePoison()
         {
             int modifier = 0;
             int highestNonStackable = -99;
@@ -371,7 +371,7 @@ namespace IceBlink2mini
             }
             return returnValue;
         }
-        public int getMoveDistance()
+        public int getterMoveDistance()
         {
             int moveBonuses = 0;
             int highestNonStackable = -99;
@@ -395,7 +395,7 @@ namespace IceBlink2mini
             if (moveDist < 0) { moveDist = 0; }
             return moveDist;
         }
-        public int getAc()
+        public int getterAc()
         {
             int adder = 0;
             int highestNonStackable = -99;
@@ -417,7 +417,7 @@ namespace IceBlink2mini
             int ac = this.AC + adder;
             return ac;
         }
-        public int getAttackBonus()
+        public int getterAttackBonus()
         {
             int adder = 0;
             int highestNonStackable = -99;
@@ -439,7 +439,7 @@ namespace IceBlink2mini
             int att = this.cr_att + adder;
             return adder;
         }
-        public int getNumberOfAttacks()
+        public int getterNumberOfAttacks()
         {
             if (this.cr_category.Equals("Melee"))
             {
@@ -560,7 +560,7 @@ namespace IceBlink2mini
                 return numAtt;
             }
         }
-        public int getFortitude()
+        public int getterFortitude()
         {
             int savBonuses = 0;
             int highestNonStackable = -99;
@@ -582,7 +582,7 @@ namespace IceBlink2mini
             int fort = this.fortitude + savBonuses;
             return fort;
         }
-        public int getWill()
+        public int getterWill()
         {
             int savBonuses = 0;
             int highestNonStackable = -99;
@@ -604,7 +604,7 @@ namespace IceBlink2mini
             int wil = this.will + savBonuses;
             return wil;
         }
-        public int getReflex()
+        public int getterReflex()
         {
             int savBonuses = 0;
             int highestNonStackable = -99;
