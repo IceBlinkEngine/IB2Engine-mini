@@ -4989,7 +4989,7 @@ namespace IceBlink2mini
             {
                 numOfPos = numOfAdditionalPositiveStackableMeleeAttacks;
             }
-            if (numOfAdditionalNegativeMeleeAttacks > numOfAdditionalNegativeStackableMeleeAttacks)
+            if (numOfAdditionalNegativeMeleeAttacks < numOfAdditionalNegativeStackableMeleeAttacks)
             {
                 numOfNeg = numOfAdditionalNegativeMeleeAttacks;
             }
@@ -5083,7 +5083,7 @@ namespace IceBlink2mini
             {
                 numOfPos = numOfAdditionalPositiveStackableRangedAttacks;
             }
-            if (numOfAdditionalNegativeRangedAttacks > numOfAdditionalNegativeStackableRangedAttacks)
+            if (numOfAdditionalNegativeRangedAttacks < numOfAdditionalNegativeStackableRangedAttacks)
             {
                 numOfNeg = numOfAdditionalNegativeRangedAttacks;
             }
@@ -5648,13 +5648,13 @@ namespace IceBlink2mini
                     #region Do Damage
                     #region Get Resistances
                     float resist = 0;
-                    if (ef.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f)); }
-                    else if (ef.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f)); }
-                    else if (ef.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f)); }
-                    else if (ef.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f)); }
-                    else if (ef.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f)); }
-                    else if (ef.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f)); }
-                    else if (ef.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f)); }
+                    if (ef.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f)); }
+                    else if (ef.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid() / 100f)); }
+                    else if (ef.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f)); }
+                    else if (ef.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f)); }
+                    else if (ef.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f)); }
+                    else if (ef.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f)); }
+                    else if (ef.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f)); }
                     #endregion
                     int damageTotal = 0;
                     #region Calculate Number of Attacks
@@ -5700,15 +5700,15 @@ namespace IceBlink2mini
                         int saveChkAdder = 0;
                         if (ef.saveCheckType.Equals("will"))
                         {
-                            saveChkAdder = crt.will;
+                            saveChkAdder = crt.getWill();
                         }
                         else if (ef.saveCheckType.Equals("reflex"))
                         {
-                            saveChkAdder = crt.reflex;
+                            saveChkAdder = crt.getReflex();
                         }
                         else if (ef.saveCheckType.Equals("fortitude"))
                         {
-                            saveChkAdder = crt.fortitude;
+                            saveChkAdder = crt.getFortitude();
                         }
                         else
                         {
@@ -6348,13 +6348,13 @@ namespace IceBlink2mini
                             #region Do Damage
                             #region Get Resistances
                             float resist = 0;
-                            if (thisSpellEffect.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f)); }
-                            else if (thisSpellEffect.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f)); }
+                            if (thisSpellEffect.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f)); }
+                            else if (thisSpellEffect.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid() / 100f)); }
+                            else if (thisSpellEffect.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f)); }
+                            else if (thisSpellEffect.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f)); }
+                            else if (thisSpellEffect.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f)); }
+                            else if (thisSpellEffect.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f)); }
+                            else if (thisSpellEffect.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f)); }
                             #endregion
                             int damageTotal = 0;
                             #region Calculate Number of Attacks
@@ -6401,15 +6401,15 @@ namespace IceBlink2mini
                                 int saveChkAdder = 0;
                                 if (thisSpellEffect.saveCheckType.Equals("will"))
                                 {
-                                    saveChkAdder = crt.will;
+                                    saveChkAdder = crt.getWill();
                                 }
                                 else if (thisSpellEffect.saveCheckType.Equals("reflex"))
                                 {
-                                    saveChkAdder = crt.reflex;
+                                    saveChkAdder = crt.getReflex();
                                 }
                                 else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
                                 {
-                                    saveChkAdder = crt.fortitude;
+                                    saveChkAdder = crt.getFortitude();
                                 }
                                 else
                                 {
@@ -6506,15 +6506,15 @@ namespace IceBlink2mini
                             int saveChkAdder = 0;
                             if (thisSpellEffect.saveCheckType.Equals("will"))
                             {
-                                saveChkAdder = crt.will;
+                                saveChkAdder = crt.getWill();
                             }
                             else if (thisSpellEffect.saveCheckType.Equals("reflex"))
                             {
-                                saveChkAdder = crt.reflex;
+                                saveChkAdder = crt.getReflex();
                             }
                             else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
                             {
-                                saveChkAdder = crt.fortitude;
+                                saveChkAdder = crt.getFortitude();
                             }
                             else
                             {
@@ -6912,13 +6912,13 @@ namespace IceBlink2mini
                                 #region Do Damage
                                 #region Get Resistances
                                 float resist = 0;
-                                if (thisTraitEffect.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f)); }
-                                else if (thisTraitEffect.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f)); }
-                                else if (thisTraitEffect.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f)); }
-                                else if (thisTraitEffect.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f)); }
-                                else if (thisTraitEffect.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f)); }
-                                else if (thisTraitEffect.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f)); }
-                                else if (thisTraitEffect.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f)); }
+                                if (thisTraitEffect.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid() / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f)); }
+                                else if (thisTraitEffect.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f)); }
                                 #endregion
                                 int damageTotal = 0;
                                 #region Calculate Number of Attacks
@@ -6965,15 +6965,15 @@ namespace IceBlink2mini
                                     int saveChkAdder = 0;
                                     if (thisTraitEffect.saveCheckType.Equals("will"))
                                     {
-                                        saveChkAdder = crt.will;
+                                        saveChkAdder = crt.getWill();
                                     }
                                     else if (thisTraitEffect.saveCheckType.Equals("reflex"))
                                     {
-                                        saveChkAdder = crt.reflex;
+                                        saveChkAdder = crt.getReflex();
                                     }
                                     else if (thisTraitEffect.saveCheckType.Equals("fortitude"))
                                     {
-                                        saveChkAdder = crt.fortitude;
+                                        saveChkAdder = crt.getFortitude();
                                     }
                                     else
                                     {
@@ -7070,15 +7070,15 @@ namespace IceBlink2mini
                                 int saveChkAdder = 0;
                                 if (thisTraitEffect.saveCheckType.Equals("will"))
                                 {
-                                    saveChkAdder = crt.will;
+                                    saveChkAdder = crt.getWill();
                                 }
                                 else if (thisTraitEffect.saveCheckType.Equals("reflex"))
                                 {
-                                    saveChkAdder = crt.reflex;
+                                    saveChkAdder = crt.getReflex();
                                 }
                                 else if (thisTraitEffect.saveCheckType.Equals("fortitude"))
                                 {
-                                    saveChkAdder = crt.fortitude;
+                                    saveChkAdder = crt.getFortitude();
                                 }
                                 else
                                 {

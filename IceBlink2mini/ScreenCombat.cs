@@ -2107,7 +2107,7 @@ namespace IceBlink2mini
             }
             else if (gv.sf.ActionToTake.Equals("Move"))
             {
-                if ((creatureMoves + 0.5f) < crt.moveDistance)
+                if ((creatureMoves + 0.5f) < crt.getMoveDistance())
                 {
                     CreatureMoves();
                 }
@@ -2127,7 +2127,7 @@ namespace IceBlink2mini
         public void CreatureMoves()
         {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-            if (creatureMoves + 0.5f < crt.moveDistance)
+            if (creatureMoves + 0.5f < crt.getMoveDistance())
             {
                 Player pc = targetClosestPC(crt);
                 //run pathFinder to get new location
@@ -2217,7 +2217,7 @@ namespace IceBlink2mini
                     if ((crt.combatLocX != newCoor.X) && (crt.combatLocY != newCoor.Y))
                     {
                         //enough  move points availbale to do the diagonal move
-                        if ((crt.moveDistance - creatureMoves) >= mod.diagonalMoveCost)
+                        if ((crt.getMoveDistance() - creatureMoves) >= mod.diagonalMoveCost)
                         {
                             if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
                             {
@@ -2239,7 +2239,7 @@ namespace IceBlink2mini
                         }
 
                         //try to move horizontally or vertically instead if most points are not enough for diagonal move
-                        else if ((crt.moveDistance - creatureMoves) >= 1)
+                        else if ((crt.getMoveDistance() - creatureMoves) >= 1)
                         {
                             //don't move horizontally/vertically, just give up
                             gv.Render();
@@ -2669,7 +2669,7 @@ namespace IceBlink2mini
             Player pc = (Player)gv.sf.CombatTarget;
 
             bool hit = false;
-            for (int i = 0; i < crt.cr_numberOfAttacks; i++)
+            for (int i = 0; i < crt.getNumberOfAttacks(); i++)
             {
                 //this reduces the to hit bonus for each further creature attack by an additional -5
                 //creatureMultAttackPenalty = 5 * i;            
@@ -2799,15 +2799,15 @@ namespace IceBlink2mini
                         {
                             //attempt to hold PC
                             int saveChkRoll = gv.sf.RandInt(20);
-                            int saveChk = saveChkRoll + crt.fortitude;
+                            int saveChk = saveChkRoll + crt.getFortitude();
                             int DC = 15;
                             if (saveChk >= DC) //passed save check
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids stun (" + saveChkRoll + " + " + crt.fortitude + " >= " + DC + ")</font><BR>");
+                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids stun (" + saveChkRoll + " + " + crt.getFortitude() + " >= " + DC + ")</font><BR>");
                             }
                             else
                             {
-                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is stunned by mace (" + saveChkRoll + " + " + crt.fortitude + " < " + DC + ")</font><BR>");
+                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is stunned by mace (" + saveChkRoll + " + " + crt.getFortitude() + " < " + DC + ")</font><BR>");
                                 crt.cr_status = "Held";
                                 Effect ef = mod.getEffectByTag("hold");
                                 crt.AddEffectByObject(ef, 1);
@@ -2851,7 +2851,7 @@ namespace IceBlink2mini
                     }
                     else if (filename.Equals("onHitOneFire.cs"))
                     {
-                        float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                        float resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f));
                         float damage = 1.0f;
                         int fireDam = (int)(damage * resist);
 
@@ -2870,7 +2870,7 @@ namespace IceBlink2mini
                     }
                     else if (filename.Equals("onHitOneTwoFire.cs"))
                     {
-                        float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                        float resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f));
                         float damage = (1 * gv.sf.RandInt(2)) + 0;
                         int fireDam = (int)(damage * resist);
 
@@ -2889,7 +2889,7 @@ namespace IceBlink2mini
                     }
                     else if (filename.Equals("onHitTwoThreeFire.cs"))
                     {
-                        float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                        float resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f));
                         float damage = (1 * gv.sf.RandInt(2)) + 1;
                         int fireDam = (int)(damage * resist);
 
@@ -4371,7 +4371,7 @@ namespace IceBlink2mini
                                 {
                                     gv.cc.floatyText = crt.cr_name;
                                     gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
-                                    gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                    gv.cc.floatyText3 = "AC:" + crt.getAc() + " " + crt.cr_status;
                                     gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                                 }
                             }
@@ -4383,7 +4383,7 @@ namespace IceBlink2mini
                                 {
                                     gv.cc.floatyText = crt.cr_name;
                                     gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
-                                    gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                    gv.cc.floatyText3 = "AC:" + crt.getAc() + " " + crt.cr_status;
                                     gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                                 }
                             }
@@ -4395,7 +4395,7 @@ namespace IceBlink2mini
                                 {
                                     gv.cc.floatyText = crt.cr_name;
                                     gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
-                                    gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                    gv.cc.floatyText3 = "AC:" + crt.getAc() + " " + crt.cr_status;
                                     gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                                 }
                             }
@@ -4409,7 +4409,7 @@ namespace IceBlink2mini
                                 {
                                     gv.cc.floatyText = crt.cr_name;
                                     gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
-                                    gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                                    gv.cc.floatyText3 = "AC:" + crt.getAc() + " " + crt.cr_status;
                                     gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                                 }
                             }
@@ -6194,7 +6194,7 @@ namespace IceBlink2mini
         }
         public int CalcCreatureDefense(Player pc, Creature crt)
         {
-            int defense = crt.AC;
+            int defense = crt.getAc();
             if (crt.isHeld())
             {
                 defense -= 4;
@@ -6262,62 +6262,62 @@ namespace IceBlink2mini
             {
                 if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Cold"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Electricity"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Fire"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Magic"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Poison"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f));
                 }
             }
             else //ranged weapon so use ammo mods
             {
                 if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Acid"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Normal"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Cold"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Electricity"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Fire"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Magic"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f));
                 }
                 else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Poison"))
                 {
-                    resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f));
+                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f));
                 }
             }
 
@@ -6351,7 +6351,7 @@ namespace IceBlink2mini
                 gv.cc.addLogText("<yl>-4 ranged attack penalty</yl><BR>");
                 gv.cc.addLogText("<yl>with enemies in melee range</yl><BR>");
                 gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "-4 att", "yellow");
-                return crt.cr_att - 4;
+                return crt.getAttackBonus() - 4;
             }
             else //melee weapon used
             {
@@ -6362,7 +6362,7 @@ namespace IceBlink2mini
                     modifier += 2;
                     gv.cc.addLogText("<yl>" + crt.cr_name + " attacks from behind: +2 att</yl><BR>");
                 }
-                return crt.cr_att + modifier;
+                return crt.getAttackBonus() + modifier;
             }
         }
         public int CalcPcDefense(Player pc, Creature crt)
