@@ -393,6 +393,14 @@ namespace IceBlink2mini
                         gv.screenShop.currentShop = gv.mod.getShopByTag(p1);
                         gv.screenType = "shop";
                     }
+                    else if (filename.Equals("gaModifiyShopBuyBackPercentage.cs"))
+                    {
+                        ModifyBuyBack(p1, prm2, p3);
+                    }
+                    else if (filename.Equals("gaModifiyShopSellPercentage.cs"))
+                    {
+                        ModifySellPrice(p1, prm2, p3);
+                    }
                     else if (filename.Equals("gaGetPlayerIndexThatIsUsingItem.cs"))
                     {
                         //String val = gv.cc.currentPlayerIndexUsingItem + "";
@@ -3264,6 +3272,92 @@ namespace IceBlink2mini
                 }
             }
         }
+        public void ModifyBuyBack(string shoptag, string opertr, string value)
+        {
+            Shop shp = gv.mod.getShopByTag(shoptag);
+            if (shp == null)
+            {
+                if (mod.debugMode) //SD_20131102
+                {
+                    gv.cc.addLogText("<yl>Could not find Shop: " + shoptag + ", aborting</yl><BR>");
+                }
+                return;                
+            }
+            try
+            {
+                if (opertr.Equals("+"))
+                {
+                    shp.buybackPercent += Convert.ToInt32(value);
+                }
+                else if (opertr.Equals("-"))
+                {
+                    shp.buybackPercent -= Convert.ToInt32(value);
+                }
+                else if (opertr.Equals("/"))
+                {
+                    shp.buybackPercent /= Convert.ToInt32(value);
+                }
+                else if (opertr.Equals("*"))
+                {
+                    shp.buybackPercent *= Convert.ToInt32(value);
+                }
+                else
+                {
+                    shp.buybackPercent = Convert.ToInt32(value);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (mod.debugMode) //SD_20131102
+                {
+                    gv.cc.addLogText("<yl>Error modifying shop buyback: " + ex.ToString() + ", aborting</yl><BR>");
+                }
+                return;
+            }
+        }
+        public void ModifySellPrice(string shoptag, string opertr, string value)
+        {
+            Shop shp = gv.mod.getShopByTag(shoptag);
+            if (shp == null)
+            {
+                if (mod.debugMode) //SD_20131102
+                {
+                    gv.cc.addLogText("<yl>Could not find Shop: " + shoptag + ", aborting</yl><BR>");
+                }
+                return;
+            }
+            try
+            {
+                if (opertr.Equals("+"))
+                {
+                    shp.sellPercent += Convert.ToInt32(value);
+                }
+                else if (opertr.Equals("-"))
+                {
+                    shp.sellPercent -= Convert.ToInt32(value);
+                }
+                else if (opertr.Equals("/"))
+                {
+                    shp.sellPercent /= Convert.ToInt32(value);
+                }
+                else if (opertr.Equals("*"))
+                {
+                    shp.sellPercent *= Convert.ToInt32(value);
+                }
+                else
+                {
+                    shp.sellPercent = Convert.ToInt32(value);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (mod.debugMode) //SD_20131102
+                {
+                    gv.cc.addLogText("<yl>Error modifying shop buyback: " + ex.ToString() + ", aborting</yl><BR>");
+                }
+                return;
+            }
+        }
 
         public bool CheckForItem(string resref, int quantity)
         {
@@ -5408,6 +5502,170 @@ namespace IceBlink2mini
                 }
             }
             return adder;
+        }
+        public int CalcShopBuyBackModifier(Player pc)
+        {
+            int positiveMod = 0;
+            int positiveStackableMod = 0;
+            int negativeMod = 0;
+            int negativeStackableMod = 0;
+            //go through all traits and see if has passive rapidshot type trait, use largest, not cumulative
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    //replace non-stackable positive with highest value
+                    if ((ef.modifyShopBuyBackPrice > positiveMod) && (ta.isPassive) && (!ef.isStackableEffect))
+                    {
+                        positiveMod = ef.modifyShopBuyBackPrice;
+                    }
+                    //replace non-stackable negative with lowest value
+                    if ((ef.modifyShopBuyBackPrice < negativeMod) && (ta.isPassive) && (!ef.isStackableEffect))
+                    {
+                        negativeMod = ef.modifyShopBuyBackPrice;
+                    }
+                    //if isStackable positive then pile on
+                    if ((ef.modifyShopBuyBackPrice > 0) && (ta.isPassive) && (ef.isStackableEffect))
+                    {
+                        positiveStackableMod += ef.modifyShopBuyBackPrice;
+                    }
+                    //if isStackable negative then pile on
+                    if ((ef.modifyShopBuyBackPrice < 0) && (ta.isPassive) && (ef.isStackableEffect))
+                    {
+                        negativeStackableMod += ef.modifyShopBuyBackPrice;
+                    }
+                }
+            }
+            //go through each effect and see if has a buff type like rapidshot, use largest, not cumulative
+            foreach (Effect ef in pc.effectsList)
+            {
+                //replace non-stackable positive with highest value
+                if ((ef.modifyShopBuyBackPrice > positiveMod) && (!ef.isStackableEffect))
+                {
+                    positiveMod = ef.modifyShopBuyBackPrice;
+                }
+                //replace non-stackable negative with lowest value
+                if ((ef.modifyShopBuyBackPrice < negativeMod) && (!ef.isStackableEffect))
+                {
+                    negativeMod = ef.modifyShopBuyBackPrice;
+                }
+                //if isStackable positive then pile on
+                if ((ef.modifyShopBuyBackPrice > 0) && (ef.isStackableEffect))
+                {
+                    positiveStackableMod += ef.modifyShopBuyBackPrice;
+                }
+                //if isStackable negative then pile on
+                if ((ef.modifyShopBuyBackPrice < 0) && (ef.isStackableEffect))
+                {
+                    negativeStackableMod += ef.modifyShopBuyBackPrice;
+                }
+            }
+
+            int numOfPos = 0;
+            int numOfNeg = 0;
+            //check to see if stackable is greater than non-stackable and combine the highest positive and negative effect
+            if (positiveMod > positiveStackableMod)
+            {
+                numOfPos = positiveMod;
+            }
+            else
+            {
+                numOfPos = positiveStackableMod;
+            }
+            if (negativeMod < negativeStackableMod)
+            {
+                numOfNeg = negativeMod;
+            }
+            else
+            {
+                numOfNeg = negativeStackableMod;
+            }
+
+            return numOfPos + numOfNeg;
+        }
+        public int CalcShopSellModifier(Player pc)
+        {
+            int positiveMod = 0;
+            int positiveStackableMod = 0;
+            int negativeMod = 0;
+            int negativeStackableMod = 0;
+            //go through all traits and see if has passive rapidshot type trait, use largest, not cumulative
+            foreach (string taTag in pc.knownTraitsTags)
+            {
+                Trait ta = mod.getTraitByTag(taTag);
+                foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
+                {
+                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    //replace non-stackable positive with highest value
+                    if ((ef.modifyShopSellPrice > positiveMod) && (ta.isPassive) && (!ef.isStackableEffect))
+                    {
+                        positiveMod = ef.modifyShopSellPrice;
+                    }
+                    //replace non-stackable negative with lowest value
+                    if ((ef.modifyShopSellPrice < negativeMod) && (ta.isPassive) && (!ef.isStackableEffect))
+                    {
+                        negativeMod = ef.modifyShopSellPrice;
+                    }
+                    //if isStackable positive then pile on
+                    if ((ef.modifyShopSellPrice > 0) && (ta.isPassive) && (ef.isStackableEffect))
+                    {
+                        positiveStackableMod += ef.modifyShopSellPrice;
+                    }
+                    //if isStackable negative then pile on
+                    if ((ef.modifyShopSellPrice < 0) && (ta.isPassive) && (ef.isStackableEffect))
+                    {
+                        negativeStackableMod += ef.modifyShopSellPrice;
+                    }
+                }
+            }
+            //go through each effect and see if has a buff type like rapidshot, use largest, not cumulative
+            foreach (Effect ef in pc.effectsList)
+            {
+                //replace non-stackable positive with highest value
+                if ((ef.modifyShopSellPrice > positiveMod) && (!ef.isStackableEffect))
+                {
+                    positiveMod = ef.modifyShopSellPrice;
+                }
+                //replace non-stackable negative with lowest value
+                if ((ef.modifyShopSellPrice < negativeMod) && (!ef.isStackableEffect))
+                {
+                    negativeMod = ef.modifyShopSellPrice;
+                }
+                //if isStackable positive then pile on
+                if ((ef.modifyShopSellPrice > 0) && (ef.isStackableEffect))
+                {
+                    positiveStackableMod += ef.modifyShopSellPrice;
+                }
+                //if isStackable negative then pile on
+                if ((ef.modifyShopSellPrice < 0) && (ef.isStackableEffect))
+                {
+                    negativeStackableMod += ef.modifyShopSellPrice;
+                }
+            }
+
+            int numOfPos = 0;
+            int numOfNeg = 0;
+            //check to see if stackable is greater than non-stackable and combine the highest positive and negative effect
+            if (positiveMod > positiveStackableMod)
+            {
+                numOfPos = positiveMod;
+            }
+            else
+            {
+                numOfPos = positiveStackableMod;
+            }
+            if (negativeMod < negativeStackableMod)
+            {
+                numOfNeg = negativeMod;
+            }
+            else
+            {
+                numOfNeg = negativeStackableMod;
+            }
+
+            return numOfPos + numOfNeg;
         }
 
         //DEFAULT SCRIPTS

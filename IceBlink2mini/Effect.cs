@@ -107,6 +107,9 @@ namespace IceBlink2mini
         public bool useDexterityForMeleeDamageModifierIfGreaterThanStrength = false;
         public bool negateAttackPenaltyForAdjacentEnemyWithRangedAttack = false;
         public bool useEvasion = false; //if true, do half damage on failed DC check and no damage with successful DC check against spells/traits
+        public int modifyShopBuyBackPrice = 0;
+        public int modifyShopSellPrice = 0;
+
 
         public Effect()
 	    {
@@ -193,6 +196,8 @@ namespace IceBlink2mini
             copy.useDexterityForMeleeDamageModifierIfGreaterThanStrength = this.useDexterityForMeleeDamageModifierIfGreaterThanStrength;
             copy.negateAttackPenaltyForAdjacentEnemyWithRangedAttack = this.negateAttackPenaltyForAdjacentEnemyWithRangedAttack;
             copy.useEvasion = this.useEvasion;
+            copy.modifyShopBuyBackPrice = this.modifyShopBuyBackPrice;
+            copy.modifyShopSellPrice = this.modifyShopSellPrice;
 		    return copy;
 	    }
     }
