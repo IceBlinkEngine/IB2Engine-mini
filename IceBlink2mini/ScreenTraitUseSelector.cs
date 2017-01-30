@@ -111,10 +111,21 @@ namespace IceBlink2mini
                     {
                         if (isInCombat) //all spells can be used in combat
                         {
-                            btn.btnState = buttonState.Normal;
+                            if (tr.isPassive)
+                            {
+                                btn.btnState = buttonState.Off;
+                            }
+                            else
+                            {
+                                btn.btnState = buttonState.Normal;
+                            }
+                        }
+                        else if (tr.isPassive)
+                        {
+                            btn.btnState = buttonState.Off;
                         }
                         //not in combat so check if spell can be used on adventure maps
-                        else if ((tr.useableInSituation.Equals("Always")) || (tr.useableInSituation.Equals("OutOfCombat")))
+                        else if ((tr.useableInSituation.Equals("Always")) || (tr.useableInSituation.Equals("OutOfCombat")) || (!tr.isPassive))
                         {
                             btn.btnState = buttonState.Normal;
                         }
@@ -182,44 +193,51 @@ namespace IceBlink2mini
                 {
                     if (inCombat) //all spells can be used in combat
                     {
-                        //if currently selected is usable say "Available to Cast" in lime
-                        if (pc.sp >= GetCurrentlySelectedTrait().costSP)
+                        if (!tr.isPassive)
                         {
-                            //gv.mSheetTextPaint.setColor(Color.GREEN);
-                            gv.DrawText("Available to Cast", noticeX, noticeY, "gn");
+                            //if currently selected is usable say "Available to Cast" in lime
+                            if (pc.sp >= GetCurrentlySelectedTrait().costSP)
+                            {
+                                gv.DrawText("Available to Use", noticeX, noticeY, "gn");
+                            }
+                            else //if known but not enough spell points, "Insufficient SP to Cast" in yellow
+                            {
+                                gv.DrawText("Insufficient SP", noticeX, noticeY, "yl");
+                            }
                         }
-                        else //if known but not enough spell points, "Insufficient SP to Cast" in yellow
+                        else //is passive
                         {
-                            //gv.mSheetTextPaint.setColor(Color.YELLOW);
-                            gv.DrawText("Insufficient SP", noticeX, noticeY, "yl");
+                            gv.DrawText("Passive Trait, Always On", noticeX, noticeY, "yl");
                         }
                     }
                     //not in combat so check if spell can be used on adventure maps
                     else if ((tr.useableInSituation.Equals("Always")) || (tr.useableInSituation.Equals("OutOfCombat")))
                     {
-                        //if currently selected is usable say "Available to Cast" in lime
-                        if (pc.sp >= GetCurrentlySelectedTrait().costSP)
+                        if (!tr.isPassive)
                         {
-                            //gv.mSheetTextPaint.setColor(Color.GREEN);
-                            gv.DrawText("Available to Cast", noticeX, noticeY, "gn");
+                            //if currently selected is usable say "Available to Cast" in lime
+                            if (pc.sp >= GetCurrentlySelectedTrait().costSP)
+                            {
+                                gv.DrawText("Available to Use", noticeX, noticeY, "gn");
+                            }
+                            else //if known but not enough spell points, "Insufficient SP to Cast" in yellow
+                            {
+                                gv.DrawText("Insufficient SP", noticeX, noticeY, "yl");
+                            }
                         }
-                        else //if known but not enough spell points, "Insufficient SP to Cast" in yellow
+                        else //is passive
                         {
-                            //gv.mSheetTextPaint.setColor(Color.YELLOW);
-                            gv.DrawText("Insufficient SP", noticeX, noticeY, "yl");
+                            gv.DrawText("Passive Trait, Always On", noticeX, noticeY, "yl");
                         }
                     }
                     else //can't be used on adventure map
                     {
-                        //gv.mSheetTextPaint.setColor(Color.YELLOW);
                         gv.DrawText("Not Available Here", noticeX, noticeY, "yl");
                     }
                 }
                 else //spell not known
                 {
-                    //if unknown spell, "Spell Not Known Yet" in red
-                    //gv.mSheetTextPaint.setColor(Color.RED);
-                    gv.DrawText(mod.getPlayerClass(pc.classTag).spellLabelSingular + " Not Known Yet", noticeX, noticeY, "rd");
+                    gv.DrawText("Trait Not Known Yet", noticeX, noticeY, "rd");
                 }
             }
 
@@ -388,56 +406,69 @@ namespace IceBlink2mini
                 {
                     if (inCombat) //Combat Map
                     {
-
-                        if (getTraitUsingPlayer().sp >= GetCurrentlySelectedTrait().costSP)
-                        {
-                            gv.cc.currentSelectedTrait = GetCurrentlySelectedTrait();
-                            gv.screenType = "combat";
-                            gv.screenCombat.currentCombatMode = "usetrait";
-                            doCleanUp();
-                        }
-                        else
-                        {
-                            //Toast.makeText(gv.gameContext, "Not Enough SP for that spell", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    else //Adventure Map
-                    {
-                        //only cast if useable on adventure maps
-                        if ((GetCurrentlySelectedTrait().useableInSituation.Equals("Always")) || (GetCurrentlySelectedTrait().useableInSituation.Equals("OutOfCombat")))
+                        if (!GetCurrentlySelectedTrait().isPassive)
                         {
                             if (getTraitUsingPlayer().sp >= GetCurrentlySelectedTrait().costSP)
                             {
                                 gv.cc.currentSelectedTrait = GetCurrentlySelectedTrait();
-                                //ask for target
-                                // selected to USE ITEM
-
-                                List<string> pcNames = new List<string>();
-                                pcNames.Add("cancel");
-                                foreach (Player p in mod.playerList)
+                                gv.screenType = "combat";
+                                gv.screenCombat.currentCombatMode = "usetrait";
+                                doCleanUp();
+                            }
+                            else
+                            {
+                                //Toast.makeText(gv.gameContext, "Not Enough SP for that spell", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                    else //Adventure Map
+                    {
+                        if (GetCurrentlySelectedTrait().isPassive)
+                        {
+                            //do nothing, it is passive
+                        }
+                        //only cast if useable on adventure maps
+                        else if ((GetCurrentlySelectedTrait().useableInSituation.Equals("Always")) || (GetCurrentlySelectedTrait().useableInSituation.Equals("OutOfCombat")))
+                        {
+                            if (getTraitUsingPlayer().sp >= GetCurrentlySelectedTrait().costSP)
+                            {
+                                gv.cc.currentSelectedTrait = GetCurrentlySelectedTrait();
+                                //if target is SELF then just do doTraitTarget(self)
+                                if (gv.cc.currentSelectedTrait.traitTargetType.Equals("Self"))
                                 {
-                                    pcNames.Add(p.name);
+                                    doTraitTarget(getTraitUsingPlayer(), getTraitUsingPlayer());
                                 }
-
-                                //If only one PC, do not show select PC dialog...just go to cast selector
-                                if (mod.playerList.Count == 1)
+                                else
                                 {
-                                    try
+                                    //ask for target
+                                    // selected to USE ITEM
+                                    List<string> pcNames = new List<string>();
+                                    pcNames.Add("cancel");
+                                    foreach (Player p in mod.playerList)
                                     {
-                                        Player target = mod.playerList[0];
-                                        gv.cc.doTraitBasedOnScriptOrEffectTag(gv.cc.currentSelectedTrait, target, target, true);
-                                        gv.screenType = "main";
-                                        doCleanUp();
-                                        return;
+                                        pcNames.Add(p.name);
                                     }
-                                    catch (Exception ex)
-                                    {
-                                        gv.errorLog(ex.ToString());
-                                    }
-                                }
 
-                                gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, mod.getPlayerClass(getTraitUsingPlayer().classTag).spellLabelSingular + " Target", "traituseselectortraittarget");
-                                gv.itemListSelector.showIBminiItemListSelector = true;
+                                    //If only one PC, do not show select PC dialog...just go to cast selector
+                                    if (mod.playerList.Count == 1)
+                                    {
+                                        try
+                                        {
+                                            Player target = mod.playerList[0];
+                                            gv.cc.doTraitBasedOnScriptOrEffectTag(gv.cc.currentSelectedTrait, target, target, true);
+                                            gv.screenType = "main";
+                                            doCleanUp();
+                                            return;
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            gv.errorLog(ex.ToString());
+                                        }
+                                    }
+
+                                    gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, mod.getPlayerClass(getTraitUsingPlayer().classTag).spellLabelSingular + " Target", "traituseselectortraittarget");
+                                    gv.itemListSelector.showIBminiItemListSelector = true;
+                                }
                             }
                             else
                             {
@@ -453,22 +484,26 @@ namespace IceBlink2mini
             Player pc = getTraitUsingPlayer();
             if (selectedIndex > 0)
             {
-                try
-                {
-                    Player target = mod.playerList[selectedIndex - 1];
-                    gv.cc.doTraitBasedOnScriptOrEffectTag(gv.cc.currentSelectedTrait, pc, target, !isInCombat);
-                    gv.screenType = "main";
-                    doCleanUp();
-                }
-                catch (Exception ex)
-                {
-                    gv.sf.MessageBoxHtml("error with Pc Selector screen: " + ex.ToString());
-                    gv.errorLog(ex.ToString());
-                }
+                Player target = mod.playerList[selectedIndex - 1];
+                doTraitTarget(pc, target);                
             }
             else if (selectedIndex == 0) // selected "cancel"
             {
                 //do nothing
+            }
+        }
+        public void doTraitTarget(Player pc, Player target)
+        {
+            try
+            {
+                gv.cc.doTraitBasedOnScriptOrEffectTag(gv.cc.currentSelectedTrait, pc, target, !isInCombat);
+                gv.screenType = "main";
+                doCleanUp();
+            }
+            catch (Exception ex)
+            {
+                gv.sf.MessageBoxHtml("error with Pc Selector screen: " + ex.ToString());
+                gv.errorLog(ex.ToString());
             }
         }
 
