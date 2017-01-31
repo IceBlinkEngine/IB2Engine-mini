@@ -452,7 +452,7 @@ namespace IceBlink2mini
 
             if (highestNonStackable > -99) { adder = highestNonStackable; }
 
-            int totalSellPerc = currentShop.sellPercent + adder;
+            int totalSellPerc = currentShop.sellPercent + currentShop.sellModifier + adder;
 
             int sellPrice = (int)(it.value * ((float)totalSellPerc / 100f));            
             if (sellPrice < 1) { sellPrice = 1; }
@@ -473,7 +473,7 @@ namespace IceBlink2mini
 
             if (highestNonStackable > -99) { adder = highestNonStackable; }
 
-            int totalBuyPerc = currentShop.buybackPercent + adder;
+            int totalBuyPerc = currentShop.buybackPercent + currentShop.buybackModifier + adder;
 
             int buyPrice = (int)(it.value * ((float)totalBuyPerc / 100f));
             if (buyPrice < 1) { buyPrice = 1; }
