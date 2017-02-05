@@ -12,6 +12,7 @@ namespace IceBlink2mini
         public string titleImageName = "title";
         public int moduleVersion = 1;
         public string moduleDescription = "";
+        public string buttonText = "PLAY";
 
         public ModuleInfo()
 	    {

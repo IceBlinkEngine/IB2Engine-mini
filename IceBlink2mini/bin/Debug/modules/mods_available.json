@@ -1,0 +1,23 @@
+[
+  {
+    "moduleName": "Hearkenwold",
+    "moduleLabelName": "Hearkenwold",
+    "titleImageName": "title",
+    "moduleVersion": 21,
+    "moduleDescription": "The adventure begins with the party fleeing an attack on a feudal manor, and seeking refuge in Castle Hearkenwold. From there, they can be enlisted into service of the Kingdom, or try to explore on their own. This is designed an open world sandbox style campaign."
+  },
+  {
+    "moduleName": "Lanterna",
+    "moduleLabelName": "Lanterna",
+    "titleImageName": "title",
+    "moduleVersion": 4,
+    "moduleDescription": "Welcome to Lanterna - The Exile"
+  },
+  {
+    "moduleName": "The Elderin Stone",
+    "moduleLabelName": "The Elderin Stone",
+    "titleImageName": "title",
+    "moduleVersion": 3,
+    "moduleDescription": "A 3-4hr dungeon crawl for up to six level one characters."
+  }
+]

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
@@ -17,9 +19,11 @@ namespace IceBlink2mini
 	    private IbbButton btnLeft = null;
 	    private IbbButton btnRight = null;
 	    private IbbButton btnModuleName = null;
+        private IbbButton btnGetUpdates = null;
         private IBminiTextBox description;
 	    //private List<Module> moduleList = new List<Module>();
         private List<ModuleInfo> moduleInfoList = new List<ModuleInfo>();
+        public List<ModuleInfo> modsAvailableList = new List<ModuleInfo>();
         private List<Bitmap> titleList = new List<Bitmap>();
 	    private int moduleIndex = 0;
 	
@@ -38,6 +42,71 @@ namespace IceBlink2mini
             description.showBoxBorder = false;
 	    }
 	
+        //when click on "Get Updates"
+        //download mod_available.json from server
+        public void downloadFile(string filename, string outFolder)
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                try
+                {
+                    webClient.DownloadFile("http://www.iceblinkengine.com/ibmini_modules/" + filename, outFolder + "\\" + filename);
+                    MessageBox.Show("Completed Downloading: " + filename);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error Downloading: " + ex.ToString());
+                }
+            }
+        }
+        //convert to object
+        public void loadModsAvailableList()
+        {
+            modsAvailableList.Clear();
+            try
+            {
+                // deserialize JSON directly from a file
+                using (StreamReader file = File.OpenText(gv.mainDirectory + "\\modules\\mods_available.json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    modsAvailableList = (List<ModuleInfo>)serializer.Deserialize(file, typeof(List<ModuleInfo>));
+                }
+            }
+            catch { }
+        }
+        //compare to moduleInfoList and add any that are not there and assign button name
+        public void setupModuleInfoListAndButtonText()
+        {
+            //go through all moduleInfoList items and set buttonText to PLAY
+            foreach (ModuleInfo modInfo in moduleInfoList)
+            {
+                modInfo.buttonText = "PLAY";
+            }
+            //go through each item in modsAvailableList and see if is in moduleInfoList
+            foreach (ModuleInfo modAvail in modsAvailableList)
+            {
+                bool foundOne = false;
+                foreach (ModuleInfo modInfo in moduleInfoList)
+                {
+                    if (modAvail.moduleName.Equals(modInfo.moduleName))
+                    {
+                        foundOne = true;
+                        //if is there check versions and set to UPDATE or PLAY
+                        if (modAvail.moduleVersion > modInfo.moduleVersion)
+                        {
+                            modInfo.buttonText = "UPDATE";
+                        }
+                    }
+                }
+                if (!foundOne)
+                {
+                    //if not there, add to list and set to DOWNLOAD
+                    modAvail.buttonText = "DOWNLOAD";
+                    moduleInfoList.Add(modAvail);
+                }
+            }            
+        }
+        
         /*public void loadModuleFiles()
         {
             string[] files;
@@ -61,6 +130,8 @@ namespace IceBlink2mini
         }*/
         public void loadModuleInfoFiles()
         {
+            moduleInfoList.Clear();
+            titleList.Clear();
             string[] files;
 
             files = Directory.GetFiles(gv.mainDirectory + "\\modules", "*.mod", SearchOption.AllDirectories);
@@ -77,7 +148,7 @@ namespace IceBlink2mini
                     moduleInfoList.Add(modinfo);
                     titleList.Add(gv.cc.GetFromBitmapList(modinfo.titleImageName));
                 }
-            }
+            }            
         }
 
         public void setControlsStart()
@@ -87,7 +158,8 @@ namespace IceBlink2mini
             int wideX = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2);
             int smallLeftX = wideX - (int)(gv.ibbwidthR * gv.screenDensity);
             int smallRightX = wideX + (int)(gv.ibbwidthL * gv.screenDensity);
-		    int padW = gv.squareSize/6;
+            int largeRightX = wideX + (int)(gv.ibbwidthL * gv.screenDensity) + (int)(gv.ibbwidthR * gv.screenDensity) + (int)(gv.ibbwidthR * gv.screenDensity / 2);
+            int padW = gv.squareSize/6;
 		
 		    if (btnLeft == null)
 		    {
@@ -121,8 +193,19 @@ namespace IceBlink2mini
 			    btnRight.Y = (5 * gv.squareSize) - (pH * 2);
                 btnRight.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }	
-	    }
+		    }
+            if (btnGetUpdates == null)
+            {
+                btnGetUpdates = new IbbButton(gv, 1.0f);
+                btnGetUpdates.Img = "btn_large";
+                btnGetUpdates.Glow = "btn_large_glow";
+                btnGetUpdates.Text = "GET UPDATES";
+                btnGetUpdates.X = largeRightX;
+                btnGetUpdates.Y = (5 * gv.squareSize) - (pH * 2);
+                btnGetUpdates.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnGetUpdates.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+            }
+        }
 
 	    //TITLE SCREEN  
         public void redrawLauncher()
@@ -139,7 +222,7 @@ namespace IceBlink2mini
             if ((moduleInfoList.Count > 0) && (moduleIndex < moduleInfoList.Count))
 		    {
                 
-                string textToSpan = "<gn>Module Description</gn>" + "<br>";
+                string textToSpan = "<gn>" + moduleInfoList[moduleIndex].moduleLabelName + "</gn><br>";
                 description.tbXloc = 1 * gv.squareSize;
                 description.tbYloc = 6 * gv.squareSize;
                 description.tbWidth = 18 * gv.squareSize;
@@ -149,7 +232,7 @@ namespace IceBlink2mini
                 description.AddFormattedTextToTextBox(textToSpan);
                 description.onDrawTextBox();
                 
-                btnModuleName.Text = moduleInfoList[moduleIndex].moduleLabelName;
+                btnModuleName.Text = moduleInfoList[moduleIndex].buttonText + " MODULE";
 	    	    drawLauncherControls();
 		    }
         }
@@ -158,12 +241,14 @@ namespace IceBlink2mini
 		    btnLeft.Draw();		
 		    btnRight.Draw();
 		    btnModuleName.Draw();
+            btnGetUpdates.Draw();
 	    }
         public void onTouchLauncher(int eX, int eY, MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
     	    btnLeft.glowOn = false;
     	    btnRight.glowOn = false;	
     	    btnModuleName.glowOn = false;
+            btnGetUpdates.glowOn = false;
 		
 		    switch (eventType)
 		    {
@@ -174,8 +259,9 @@ namespace IceBlink2mini
 			        btnLeft.glowOn = false;
 	    	        btnRight.glowOn = false;	
 	    	        btnModuleName.glowOn = false;
-			
-	    	        if (btnLeft.getImpact(x, y))
+                    btnGetUpdates.glowOn = false;
+
+                    if (btnLeft.getImpact(x, y))
 			        {
                         if (moduleIndex > 0)
 				        {
@@ -193,14 +279,40 @@ namespace IceBlink2mini
 			        }	    	
 			        else if (btnModuleName.getImpact(x, y))
 			        {
-                        //TODO load the mod since we only have the ModuleInfo
-				        //gv.mod = moduleInfoList[moduleIndex];
-                        gv.mod = gv.cc.LoadModule(moduleInfoList[moduleIndex].moduleName + ".mod");
-                        gv.resetGame();
-				        gv.cc.LoadSaveListItems();
-				        gv.screenType = "title";
-			        }
-			        break;
+                        if (moduleInfoList[moduleIndex].buttonText.Equals("PLAY"))
+                        {
+                            //load the mod since we only have the ModuleInfo
+                            gv.mod = gv.cc.LoadModule(moduleInfoList[moduleIndex].moduleName + ".mod");
+                            gv.resetGame();
+                            gv.cc.LoadSaveListItems();
+                            gv.screenType = "title";
+                        }
+                        else if (moduleInfoList[moduleIndex].buttonText.Equals("UPDATE"))
+                        {
+                            //download and replace existing file
+                            downloadFile(moduleInfoList[moduleIndex].moduleName + ".mod", gv.mainDirectory + "\\modules");
+                            //once download is complete, do the "Get Updates" button stuff
+                            loadModuleInfoFiles();
+                            loadModsAvailableList();
+                            setupModuleInfoListAndButtonText();
+                        }
+                        else if (moduleInfoList[moduleIndex].buttonText.Equals("DOWNLOAD"))
+                        {
+                            //download file
+                            downloadFile(moduleInfoList[moduleIndex].moduleName + ".mod", gv.mainDirectory + "\\modules");
+                            //once download is complete, do the "Get Updates" button stuff
+                            loadModuleInfoFiles();
+                            loadModsAvailableList();
+                            setupModuleInfoListAndButtonText();
+                        }
+                    }
+                    else if (btnGetUpdates.getImpact(x, y))
+                    {
+                        downloadFile("mods_available.json", gv.mainDirectory + "\\modules");
+                        loadModsAvailableList();
+                        setupModuleInfoListAndButtonText();
+                    }
+                    break;
 		
 		        case MouseEventType.EventType.MouseMove:
 		        case MouseEventType.EventType.MouseDown:
@@ -219,7 +331,11 @@ namespace IceBlink2mini
 			        {
 				        btnModuleName.glowOn = true;
 			        }
-			        break;		
+                    else if (btnGetUpdates.getImpact(x, y))
+                    {
+                        btnGetUpdates.glowOn = true;
+                    }
+                    break;		
 		    }
 	    }
     }
