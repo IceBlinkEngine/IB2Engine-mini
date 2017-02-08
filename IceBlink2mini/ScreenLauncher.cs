@@ -168,7 +168,7 @@ namespace IceBlink2mini
 			    btnLeft.Img2 = "ctrl_left_arrow";
 			    btnLeft.Glow = "btn_small_glow";
 			    btnLeft.X = smallLeftX;
-                btnLeft.Y = (5 * gv.squareSize) - (pH * 2);
+                btnLeft.Y = (4 * gv.squareSize) + (gv.squareSize / 6);
                 btnLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnLeft.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
@@ -179,7 +179,7 @@ namespace IceBlink2mini
 			    btnModuleName.Glow = "btn_large_glow";
 			    btnModuleName.Text = "";
                 btnModuleName.X = wideX;
-			    btnModuleName.Y = (5 * gv.squareSize) - (pH * 2);
+			    btnModuleName.Y = (4 * gv.squareSize) + (gv.squareSize / 6);
                 btnModuleName.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnModuleName.Width = (int)(gv.ibbwidthL * gv.screenDensity);
 		    }
@@ -190,7 +190,7 @@ namespace IceBlink2mini
 			    btnRight.Img2 = "ctrl_right_arrow";
 			    btnRight.Glow = "btn_small_glow";
 			    btnRight.X = smallRightX;
-			    btnRight.Y = (5 * gv.squareSize) - (pH * 2);
+			    btnRight.Y = (4 * gv.squareSize) + (gv.squareSize / 6);
                 btnRight.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
@@ -200,8 +200,8 @@ namespace IceBlink2mini
                 btnGetUpdates.Img = "btn_large";
                 btnGetUpdates.Glow = "btn_large_glow";
                 btnGetUpdates.Text = "GET UPDATES";
-                btnGetUpdates.X = largeRightX;
-                btnGetUpdates.Y = (5 * gv.squareSize) - (pH * 2);
+                btnGetUpdates.X = wideX;
+                btnGetUpdates.Y = (10 * gv.squareSize) - (pH * 2);
                 btnGetUpdates.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnGetUpdates.Width = (int)(gv.ibbwidthL * gv.screenDensity);
             }
@@ -224,7 +224,7 @@ namespace IceBlink2mini
                 
                 string textToSpan = "<gn>" + moduleInfoList[moduleIndex].moduleLabelName + "</gn><br>";
                 description.tbXloc = 1 * gv.squareSize;
-                description.tbYloc = 6 * gv.squareSize;
+                description.tbYloc = 5 * gv.squareSize + (gv.squareSize / 6);
                 description.tbWidth = 18 * gv.squareSize;
                 description.tbHeight = 6 * gv.squareSize;
                 textToSpan += moduleInfoList[moduleIndex].moduleDescription;
@@ -281,7 +281,7 @@ namespace IceBlink2mini
 			        {
                         if (moduleInfoList[moduleIndex].buttonText.Equals("PLAY"))
                         {
-                            //load the mod since we only have the ModuleInfo
+                            //load the mod since we only have the ModuleInfo                            
                             gv.mod = gv.cc.LoadModule(moduleInfoList[moduleIndex].moduleName + ".mod");
                             gv.resetGame();
                             gv.cc.LoadSaveListItems();
@@ -329,7 +329,7 @@ namespace IceBlink2mini
 			        }
 			        else if (btnModuleName.getImpact(x, y))
 			        {
-				        btnModuleName.glowOn = true;
+                        btnModuleName.glowOn = true;
 			        }
                     else if (btnGetUpdates.getImpact(x, y))
                     {
