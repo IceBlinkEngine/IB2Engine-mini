@@ -138,8 +138,8 @@ namespace IceBlink2mini
             this.Height = Screen.PrimaryScreen.Bounds.Height;            
             //for testing other screen sizes, manually enter a resolution here
             //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792, 912x528, 456x264, 960x540,
-            //this.Width = 1196;
-            //this.Height = 720;
+            //this.Width = 800;
+            //this.Height = 480;
 
             screenWidth = this.Width;
             screenHeight = this.Height;
@@ -182,7 +182,21 @@ namespace IceBlink2mini
             fontLineSpacing = fontHeight / 2; //2
 
             //force font to best size if squareSize is near to multiple of 48px
-            if ((squareSize >= 40) && (squareSize < 60)) //48x48
+            if ((squareSize >= 20) && (squareSize < 30)) //24x24
+            {
+                fontWidth = 6; //8
+                fontHeight = 6; //8
+                fontCharSpacing = 1; //1
+                fontLineSpacing = 3; //4
+            }
+            else if ((squareSize >= 30) && (squareSize < 44)) //32x32
+            {
+                fontWidth = 10; //8
+                fontHeight = 10; //8
+                fontCharSpacing = 1; //1
+                fontLineSpacing = 5; //4
+            }
+            else if ((squareSize >= 44) && (squareSize < 60)) //48x48
             {
                 fontWidth = 12; //8
                 fontHeight = 12; //8
