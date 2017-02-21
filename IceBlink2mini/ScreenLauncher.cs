@@ -152,51 +152,55 @@ namespace IceBlink2mini
         }
 
         public void setControlsStart()
-	    {		
-		    int pW = (int)((float)gv.screenWidth / 100.0f);
-		    int pH = (int)((float)gv.screenHeight / 100.0f);
+        {
+            int pW = (int)((float)gv.screenWidth / 100.0f);
+            int pH = (int)((float)gv.screenHeight / 100.0f);
             int wideX = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2);
             int smallLeftX = wideX - (int)(gv.ibbwidthR * gv.screenDensity);
             int smallRightX = wideX + (int)(gv.ibbwidthL * gv.screenDensity);
             int largeRightX = wideX + (int)(gv.ibbwidthL * gv.screenDensity) + (int)(gv.ibbwidthR * gv.screenDensity) + (int)(gv.ibbwidthR * gv.screenDensity / 2);
-            int padW = gv.squareSize/6;
-		
-		    if (btnLeft == null)
-		    {
-			    btnLeft = new IbbButton(gv, 1.0f);
-			    btnLeft.Img = "btn_small";
-			    btnLeft.Img2 = "ctrl_left_arrow";
-			    btnLeft.Glow = "btn_small_glow";
-			    btnLeft.X = smallLeftX;
+            int padW = gv.squareSize / 6;
+
+            if (btnLeft == null)
+            {
+                btnLeft = new IbbButton(gv, 1.0f);
+            }
+                btnLeft.Img = "btn_small";
+                btnLeft.Img2 = "ctrl_left_arrow";
+                btnLeft.Glow = "btn_small_glow";
+                btnLeft.X = smallLeftX;
                 btnLeft.Y = (4 * gv.squareSize) + (gv.squareSize / 6);
                 btnLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnLeft.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (btnModuleName == null)
-		    {
-			    btnModuleName = new IbbButton(gv, 1.0f);
-			    btnModuleName.Img = "btn_large";
-			    btnModuleName.Glow = "btn_large_glow";
-			    btnModuleName.Text = "";
+
+            if (btnModuleName == null)
+            {
+                btnModuleName = new IbbButton(gv, 1.0f);
+            }
+                btnModuleName.Img = "btn_large";
+                btnModuleName.Glow = "btn_large_glow";
+                btnModuleName.Text = "";
                 btnModuleName.X = wideX;
-			    btnModuleName.Y = (4 * gv.squareSize) + (gv.squareSize / 6);
+                btnModuleName.Y = (4 * gv.squareSize) + (gv.squareSize / 6);
                 btnModuleName.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnModuleName.Width = (int)(gv.ibbwidthL * gv.screenDensity);
-		    }
-		    if (btnRight == null)
-		    {
-			    btnRight = new IbbButton(gv, 1.0f);
-			    btnRight.Img = "btn_small";
-			    btnRight.Img2 = "ctrl_right_arrow";
-			    btnRight.Glow = "btn_small_glow";
-			    btnRight.X = smallRightX;
-			    btnRight.Y = (4 * gv.squareSize) + (gv.squareSize / 6);
+
+            if (btnRight == null)
+            {
+                btnRight = new IbbButton(gv, 1.0f);
+            }
+                btnRight.Img = "btn_small";
+                btnRight.Img2 = "ctrl_right_arrow";
+                btnRight.Glow = "btn_small_glow";
+                btnRight.X = smallRightX;
+                btnRight.Y = (4 * gv.squareSize) + (gv.squareSize / 6);
                 btnRight.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
+
             if (btnGetUpdates == null)
             {
                 btnGetUpdates = new IbbButton(gv, 1.0f);
+            }
                 btnGetUpdates.Img = "btn_large";
                 btnGetUpdates.Glow = "btn_large_glow";
                 btnGetUpdates.Text = "GET UPDATES";
@@ -204,12 +208,12 @@ namespace IceBlink2mini
                 btnGetUpdates.Y = (10 * gv.squareSize) - (pH * 2);
                 btnGetUpdates.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnGetUpdates.Width = (int)(gv.ibbwidthL * gv.screenDensity);
-            }
+            
         }
-
-	    //TITLE SCREEN  
+        //TITLE SCREEN  
         public void redrawLauncher()
         {
+            setControlsStart();
             //DRAW TITLE SCREEN
     	    if ((titleList.Count > 0) && (moduleIndex < titleList.Count))
 		    {

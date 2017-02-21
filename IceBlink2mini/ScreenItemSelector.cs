@@ -341,6 +341,7 @@ namespace IceBlink2mini
                     {
                         gv.messageBox.btnReturn.glowOn = true;
                     }
+                    return;
                 }
 
                 if (btnInventoryLeft.getImpact(x, y))
@@ -389,8 +390,8 @@ namespace IceBlink2mini
                     {
                         gv.PlaySound("btn_click");
                         gv.showMessageBox = false;
-                        return;
                     }
+                    return;
                 }
 
                 if ((itemSelectorType.Equals("container")) || (itemSelectorType.Equals("equip")))

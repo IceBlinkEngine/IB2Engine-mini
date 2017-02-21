@@ -690,6 +690,7 @@ namespace IceBlink2mini
                         {
                             gv.messageBox.btnReturn.glowOn = true;
                         }
+                        return;
                     }
 
                     if (btnLevelUp.getImpact(x, y))
@@ -754,8 +755,8 @@ namespace IceBlink2mini
                         {
                             gv.PlaySound("btn_click");
                             gv.showMessageBox = false;
-                            return;
                         }
+                        return;
                     }
 
                     Player pc = mod.playerList[gv.cc.partyScreenPcIndex];

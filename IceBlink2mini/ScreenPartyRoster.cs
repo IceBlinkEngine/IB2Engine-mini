@@ -325,6 +325,7 @@ namespace IceBlink2mini
                     {
                         gv.messageBox.btnReturn.glowOn = true;
                     }
+                    return;
                 }
 
                 if (btnDown.getImpact(x, y))
@@ -364,8 +365,8 @@ namespace IceBlink2mini
                     {
                         gv.PlaySound("btn_click");
                         gv.showMessageBox = false;
-                        return;
                     }
+                    return;
                 }
 
                 if (btnUp.getImpact(x, y))

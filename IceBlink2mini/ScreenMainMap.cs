@@ -1669,6 +1669,7 @@ namespace IceBlink2mini
                         {
                             gv.messageBox.btnReturn.glowOn = true;
                         }
+                        return;
                     }
 
                     //NEW SYSTEM
@@ -1726,8 +1727,8 @@ namespace IceBlink2mini
                         {
                             gv.PlaySound("btn_click");
                             gv.showMessageBox = false;
-                            return;
                         }
+                        return;
                     }
 
                     //NEW SYSTEM FOR GLOW

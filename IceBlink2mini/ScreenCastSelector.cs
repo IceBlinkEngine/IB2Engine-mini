@@ -37,34 +37,44 @@ namespace IceBlink2mini
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int padW = gv.squareSize/6;
 
-            description = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
+            if (description == null)
+            {
+                description = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
+            }
+            description.tbXloc = 320;
+            description.tbYloc = 100;
+            description.tbWidth = 500;
+            description.tbHeight = 300;
             description.showBoxBorder = false;
-		
-		    if (btnSelect == null)
-		    {
-			    btnSelect = new IbbButton(gv, 0.8f);	
+
+            if (btnSelect == null)
+            {
+                btnSelect = new IbbButton(gv, 0.8f);
+            }
 			    btnSelect.Text = "CAST SELECTED SPELL";
 			    btnSelect.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnSelect.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnSelect.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
 			    btnSelect.Y = 9 * gv.squareSize + pH * 2;
                 btnSelect.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnSelect.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
-		    }
-		    if (btnHelp == null)
-		    {
-			    btnHelp = new IbbButton(gv, 0.8f);	
+                btnSelect.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+
+            if (btnHelp == null)
+            {
+                btnHelp = new IbbButton(gv, 0.8f);
+            }
 			    btnHelp.Text = "HELP";
 			    btnHelp.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnHelp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnHelp.X = 5 * gv.squareSize + padW * 1;
 			    btnHelp.Y = 9 * gv.squareSize + pH * 2;
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
-		    }
-		    if (btnExit == null)
-		    {
-			    btnExit = new IbbButton(gv, 0.8f);	
+                btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+
+            if (btnExit == null)
+            {
+                btnExit = new IbbButton(gv, 0.8f);
+            }
 			    btnExit.Text = "EXIT";
 			    btnExit.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnExit.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
@@ -72,7 +82,7 @@ namespace IceBlink2mini
 			    btnExit.Y = 9 * gv.squareSize + pH * 2;
                 btnExit.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnExit.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
-		    }
+		    
 		    for (int y = 0; y < slotsPerPage; y++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
@@ -292,6 +302,7 @@ namespace IceBlink2mini
                     {
                         gv.messageBox.btnReturn.glowOn = true;
                     }
+                    return;
                 }
 
                 if (btnHelp.getImpact(x, y))
@@ -327,8 +338,8 @@ namespace IceBlink2mini
                     {
                         gv.PlaySound("btn_click");
                         gv.showMessageBox = false;
-                        return;
                     }
+                    return;
                 }
 
                 for (int j = 0; j < slotsPerPage; j++)
