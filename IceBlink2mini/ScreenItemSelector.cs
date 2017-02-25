@@ -49,43 +49,47 @@ namespace IceBlink2mini
             description = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
             description.showBoxBorder = false;
 
-		    if (btnInventoryLeft == null)
-		    {
-			    btnInventoryLeft = new IbbButton(gv, 1.0f);
+            if (btnInventoryLeft == null)
+            {
+                btnInventoryLeft = new IbbButton(gv, 1.0f);
+            }
 			    btnInventoryLeft.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnInventoryLeft.Img2 = "ctrl_left_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
 			    btnInventoryLeft.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnInventoryLeft.X = 8 * gv.squareSize;
-			    btnInventoryLeft.Y = (1 * gv.squareSize) - (pH * 2);
+                btnInventoryLeft.X = 3 * gv.squareSize + (pW * 3);
+                btnInventoryLeft.Y = (0 * gv.squareSize) + (pH * 2);
                 btnInventoryLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInventoryLeft.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (btnPageIndex == null)
-		    {
-			    btnPageIndex = new IbbButton(gv, 1.0f);
+
+            if (btnPageIndex == null)
+            {
+                btnPageIndex = new IbbButton(gv, 1.0f);
+            }
 			    btnPageIndex.Img = "btn_small_off"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
 			    btnPageIndex.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnPageIndex.Text = "1/10";
-			    btnPageIndex.X = 9 * gv.squareSize;
-			    btnPageIndex.Y = (1 * gv.squareSize) - (pH * 2);
+                btnPageIndex.X = 4 * gv.squareSize + (pW * 4);
+                btnPageIndex.Y = (0 * gv.squareSize) + (pH * 2);
                 btnPageIndex.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnPageIndex.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (btnInventoryRight == null)
-		    {
-			    btnInventoryRight = new IbbButton(gv, 1.0f);
+
+            if (btnInventoryRight == null)
+            {
+                btnInventoryRight = new IbbButton(gv, 1.0f);
+            }
 			    btnInventoryRight.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnInventoryRight.Img2 = "ctrl_right_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
 			    btnInventoryRight.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnInventoryRight.X = 10 * gv.squareSize;
-			    btnInventoryRight.Y = (1 * gv.squareSize) - (pH * 2);
+                btnInventoryRight.X = 5 * gv.squareSize + (pW * 5);
+                btnInventoryRight.Y = (0 * gv.squareSize) + (pH * 2);
                 btnInventoryRight.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInventoryRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		
-		    if (btnAction == null)
-		    {
-			    btnAction = new IbbButton(gv, 1.0f);
+
+
+            if (btnAction == null)
+            {
+                btnAction = new IbbButton(gv, 1.0f);
+            }
                 if (itemSelectorType.Equals("container"))
                 {
                     btnAction.Text = "TAKE ALL";
@@ -96,14 +100,15 @@ namespace IceBlink2mini
                 }
 			    btnAction.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnAction.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-                btnAction.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f) - (gv.squareSize * 6);
-			    btnAction.Y = 9 * gv.squareSize + pH * 2;
+                btnAction.X = (gv.squaresInWidth * gv.squareSize / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f) - (gv.squareSize * 3);
+			    btnAction.Y = 6 * gv.squareSize - pH * 2;
                 btnAction.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnAction.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
-		    }
+                btnAction.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+
             if (btnAction2 == null)
             {
                 btnAction2 = new IbbButton(gv, 1.0f);
+            }
                 if (itemSelectorType.Equals("container"))
                 {
                     btnAction2.Text = "TAKE SELECTED";
@@ -114,33 +119,35 @@ namespace IceBlink2mini
                 }
                 btnAction2.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnAction2.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-                btnAction2.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f) + (gv.squareSize * 6);
-                btnAction2.Y = 9 * gv.squareSize + pH * 2;
+                btnAction2.X = (gv.squaresInWidth * gv.squareSize / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f) + (gv.squareSize * 3);
+                btnAction2.Y = 6 * gv.squareSize - pH * 2;
                 btnAction2.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnAction2.Width = (int)(gv.ibbwidthL * gv.screenDensity);
-            }
+
             if (btnExit == null)
             {
                 btnExit = new IbbButton(gv, 1.0f);
+            }
                 btnExit.Text = "EXIT";
                 btnExit.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnExit.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-                btnExit.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-                btnExit.Y = 9 * gv.squareSize + pH * 2;
+                btnExit.X = (gv.squaresInWidth * gv.squareSize / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
+                btnExit.Y = 6 * gv.squareSize - pH * 2;
                 btnExit.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnExit.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+
+            if (btnInfo == null)
+            {
+                btnInfo = new IbbButton(gv, 0.8f);
             }
-		    if (btnInfo == null)
-		    {
-			    btnInfo = new IbbButton(gv, 0.8f);	
 			    btnInfo.Text = "INFO";
 			    btnInfo.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnInfo.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnInfo.X = (16 * gv.squareSize) - padW * 1;
-                btnInfo.Y = 8 * gv.squareSize - pH * 2;
+			    btnInfo.X = (9 * gv.squareSize) - padW * 1;
+                btnInfo.Y = 5 * gv.squareSize - pH * 6;
                 btnInfo.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnInfo.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
-		    }
+                btnInfo.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            
 		    for (int y = 0; y < slotsPerPage; y++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
@@ -149,23 +156,23 @@ namespace IceBlink2mini
 			
 			    if (y < 5)
 			    {
-				    btnNew.X = ((y + 2 + 4) * gv.squareSize) + (padW * (y+1));
-				    btnNew.Y = 2 * gv.squareSize;
+				    btnNew.X = ((y + 2) * gv.squareSize) + (padW * (y+1));
+				    btnNew.Y = 1 * gv.squareSize + padW;
 			    }
 			    else if ((y >=5 ) && (y < 10))
 			    {
-				    btnNew.X = ((y-5 + 2 + 4) * gv.squareSize) + (padW * ((y-5)+1));
-				    btnNew.Y = 3 * gv.squareSize + padW;
+				    btnNew.X = ((y-5 + 2) * gv.squareSize) + (padW * ((y-5)+1));
+				    btnNew.Y = 2 * gv.squareSize + (padW * 2);
 			    }
 			    else if ((y >=10 ) && (y < 15))
 			    {
-				    btnNew.X = ((y-10 + 2 + 4) * gv.squareSize) + (padW * ((y-10)+1));
-				    btnNew.Y = 4 * gv.squareSize + (padW * 2);
+				    btnNew.X = ((y-10 + 2) * gv.squareSize) + (padW * ((y-10)+1));
+				    btnNew.Y = 3 * gv.squareSize + (padW * 3);
 			    }
 			    else
 			    {
-				    btnNew.X = ((y-15 + 2 + 4) * gv.squareSize) + (padW * ((y-15)+1));
-				    btnNew.Y = 5 * gv.squareSize + (padW * 3);
+				    btnNew.X = ((y-15 + 2) * gv.squareSize) + (padW * ((y-15)+1));
+				    btnNew.Y = 4 * gv.squareSize + (padW * 4);
 			    }
 
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -177,7 +184,7 @@ namespace IceBlink2mini
 	
 	    //INVENTORY SCREEN (COMBAT and MAIN)
         public void redrawItemSelector()
-        {
+        {            
     	    //IF CONTROLS ARE NULL, CREATE THEM
     	    if (btnAction == null)
     	    {
@@ -209,7 +216,7 @@ namespace IceBlink2mini
     	
             //DRAW TEXT		
 		    locY = (pH * 2);
-		    gv.DrawText("Item Selection", locX + (gv.squareSize * 8), locY, "wh");
+		    gv.DrawText("Item Selection", locX + (gv.squareSize * 7), locY, "wh");
 		    
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX
 		    btnPageIndex.Draw();
@@ -254,31 +261,31 @@ namespace IceBlink2mini
 
                 //Description
 		        string textToSpan = "";
-                textToSpan = "<u>Description</u>" + "<BR>";
-	            textToSpan += "<b><i><big>" + it.name + "</big></i></b><BR>";
-	            if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
-	            {
-	        	    textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
-	                textToSpan += "Attack Bonus: " + it.attackBonus + "<BR>";
-	                textToSpan += "Attack Range: " + it.attackRange + "<BR>";
-	                textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	                textToSpan += "Tap 'INFO' for Full Description<BR>";
-	            }    
-	            else if (!it.category.Equals("General"))
-	            {
-	        	    textToSpan += "AC Bonus: " + it.armorBonus + "<BR>";
-	                textToSpan += "Max Dex Bonus: " + it.maxDexBonus + "<BR>";
-	                textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	                textToSpan += "Tap 'INFO' for Full Description<BR>";
-	            }
-	            else if (it.category.Equals("General"))
-	            {
-	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	        	    textToSpan += "Tap 'INFO' for Full Description<BR>";
-	            }
-                description.tbXloc = (11 * gv.squareSize) + (pW * 5);
-                description.tbYloc = 2 * gv.squareSize;
-                description.tbWidth = 7 * gv.squareSize;
+                textToSpan = "<gy>Description</gy>" + "<BR>";
+                textToSpan += "<gn>" + it.name + "</gn><BR>";
+                if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
+                {
+                    textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
+                    textToSpan += "Attack Bonus: " + it.attackBonus + "<BR>";
+                    textToSpan += "Attack Range: " + it.attackRange + "<BR>";
+                    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
+                    textToSpan += "Tap 'INFO' for Full Description<BR>";
+                }
+                else if (!it.category.Equals("General"))
+                {
+                    textToSpan += "AC Bonus: " + it.armorBonus + "<BR>";
+                    textToSpan += "Max Dex Bonus: " + it.maxDexBonus + "<BR>";
+                    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
+                    textToSpan += "Tap 'INFO' for Full Description<BR>";
+                }
+                else if (it.category.Equals("General"))
+                {
+                    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
+                    textToSpan += "Tap 'INFO' for Full Description<BR>";
+                }
+                description.tbXloc = (8 * gv.squareSize);
+                description.tbYloc = 1 * gv.squareSize;
+                description.tbWidth = 3 * gv.squareSize;
                 description.tbHeight = 8 * gv.squareSize;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);

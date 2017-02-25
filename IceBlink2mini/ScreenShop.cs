@@ -48,95 +48,104 @@ namespace IceBlink2mini
 
             description = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
             description.showBoxBorder = false;
-		
-		    if (btnInventoryLeft == null)
-		    {
-			    btnInventoryLeft = new IbbButton(gv, 1.0f);
+
+            if (btnInventoryLeft == null)
+            {
+                btnInventoryLeft = new IbbButton(gv, 1.0f);
+            }
 			    btnInventoryLeft.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnInventoryLeft.Img2 = "ctrl_left_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
 			    btnInventoryLeft.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnInventoryLeft.X = 7 * gv.squareSize;
-			    btnInventoryLeft.Y = (5 * gv.squareSize) - (pH * 2);
+			    btnInventoryLeft.X = 1 * gv.squareSize;
+			    btnInventoryLeft.Y = (int)(3 * gv.squareSize);
                 btnInventoryLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInventoryLeft.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (btnPageIndex == null)
-		    {
-			    btnPageIndex = new IbbButton(gv, 1.0f);
+
+            if (btnPageIndex == null)
+            {
+                btnPageIndex = new IbbButton(gv, 1.0f);
+            }
 			    btnPageIndex.Img = "btn_small_off"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
 			    btnPageIndex.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnPageIndex.Text = "1";
-			    btnPageIndex.X = 8 * gv.squareSize;
-			    btnPageIndex.Y = (5 * gv.squareSize) - (pH * 2);
+			    btnPageIndex.X = 2 * gv.squareSize;
+			    btnPageIndex.Y = (int)(3 * gv.squareSize);
                 btnPageIndex.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnPageIndex.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (btnInventoryRight == null)
-		    {
-			    btnInventoryRight = new IbbButton(gv, 1.0f);
+
+            if (btnInventoryRight == null)
+            {
+                btnInventoryRight = new IbbButton(gv, 1.0f);
+            }
 			    btnInventoryRight.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnInventoryRight.Img2 = "ctrl_right_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
 			    btnInventoryRight.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnInventoryRight.X = 9 * gv.squareSize;
-			    btnInventoryRight.Y = (5 * gv.squareSize) - (pH * 2);
+			    btnInventoryRight.X = 3 * gv.squareSize;
+			    btnInventoryRight.Y = (int)(3 * gv.squareSize);
                 btnInventoryRight.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInventoryRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (btnShopLeft == null)
-		    {
-			    btnShopLeft = new IbbButton(gv, 1.0f);
+
+            if (btnShopLeft == null)
+            {
+                btnShopLeft = new IbbButton(gv, 1.0f);
+            }
 			    btnShopLeft.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnShopLeft.Img2 = "ctrl_left_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
 			    btnShopLeft.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnShopLeft.X = 7 * gv.squareSize;
-			    btnShopLeft.Y = (1 * gv.squareSize) - (pH * 2);
+			    btnShopLeft.X = 1 * gv.squareSize;
+			    btnShopLeft.Y = (int)(0 * gv.squareSize);
                 btnShopLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnShopLeft.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (btnShopPageIndex == null)
-		    {
-			    btnShopPageIndex = new IbbButton(gv, 1.0f);
+
+            if (btnShopPageIndex == null)
+            {
+                btnShopPageIndex = new IbbButton(gv, 1.0f);
+            }
 			    btnShopPageIndex.Img = "btn_small_off"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
 			    btnShopPageIndex.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnShopPageIndex.Text = "1";
-			    btnShopPageIndex.X = 8 * gv.squareSize;
-			    btnShopPageIndex.Y = (1 * gv.squareSize) - (pH * 2);
+			    btnShopPageIndex.X = 2 * gv.squareSize;
+			    btnShopPageIndex.Y = (int)(0 * gv.squareSize);
                 btnShopPageIndex.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnShopPageIndex.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (btnShopRight == null)
-		    {
-			    btnShopRight = new IbbButton(gv, 1.0f);
+
+            if (btnShopRight == null)
+            {
+                btnShopRight = new IbbButton(gv, 1.0f);
+            }
 			    btnShopRight.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnShopRight.Img2 = "ctrl_right_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
 			    btnShopRight.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnShopRight.X = 9 * gv.squareSize;
-			    btnShopRight.Y = (1 * gv.squareSize) - (pH * 2);
+			    btnShopRight.X = 3 * gv.squareSize;
+			    btnShopRight.Y = (int)(0 * gv.squareSize);
                 btnShopRight.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnShopRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (btnReturn == null)
-		    {
-			    btnReturn = new IbbButton(gv, 1.2f);	
+
+            if (btnReturn == null)
+            {
+                btnReturn = new IbbButton(gv, 1.2f);
+            }
 			    btnReturn.Text = "EXIT SHOP";
 			    btnReturn.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnReturn.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnReturn.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-			    btnReturn.Y = 9 * gv.squareSize + pH * 2;
+			    btnReturn.Y = 6 * gv.squareSize;
                 btnReturn.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnReturn.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
-		    }
-		    if (btnHelp == null)
-		    {
-			    btnHelp = new IbbButton(gv, 0.8f);	
+                btnReturn.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+
+            if (btnHelp == null)
+            {
+                btnHelp = new IbbButton(gv, 0.8f);
+            }
 			    btnHelp.Text = "HELP";
 			    btnHelp.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnHelp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnHelp.X = 0 * gv.squareSize + padW * 1;
-			    btnHelp.Y = 9 * gv.squareSize + pH * 2;
+			    btnHelp.X = 3 * gv.squareSize + padW * 1;
+			    btnHelp.Y = 6 * gv.squareSize;
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
-		    }
+                btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+
+            
 		    for (int j = 0; j < 10; j++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
@@ -144,19 +153,20 @@ namespace IceBlink2mini
 			    btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    if (j < 5)
 			    {
-				    btnNew.X = ((j+2+4) * gv.squareSize) + (padW * (j+1));
-				    btnNew.Y = 6 * gv.squareSize;
+				    btnNew.X = ((j+1) * gv.squareSize);
+				    btnNew.Y = 4 * gv.squareSize;
 			    }
 			    else
 			    {
-				    btnNew.X = ((j-5+2+4) * gv.squareSize) + (padW * ((j-5)+1));
-				    btnNew.Y = 7 * gv.squareSize + padW;
+				    btnNew.X = ((j-5+1) * gv.squareSize);
+				    btnNew.Y = 5 * gv.squareSize;
 			    }
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);	
 			
 			    btnInventorySlot.Add(btnNew);
 		    }
+           
 		    for (int j = 0; j < 10; j++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
@@ -164,13 +174,13 @@ namespace IceBlink2mini
 			    btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    if (j < 5)
 			    {
-				    btnNew.X = ((j+2+4) * gv.squareSize) + (padW * (j+1));
-				    btnNew.Y = 2 * gv.squareSize;
+				    btnNew.X = ((j+1) * gv.squareSize);
+				    btnNew.Y = 1 * gv.squareSize;
 			    }
 			    else
 			    {
-				    btnNew.X = ((j-5+2+4) * gv.squareSize) + (padW * ((j-5)+1));
-				    btnNew.Y = 3 * gv.squareSize + padW;
+				    btnNew.X = ((j-5+1) * gv.squareSize);
+				    btnNew.Y = 2 * gv.squareSize;
 			    }
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);	
@@ -181,6 +191,7 @@ namespace IceBlink2mini
 
         public void redrawShop()
         {
+            
     	    this.doItemStackingParty();
     	    
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
@@ -196,7 +207,7 @@ namespace IceBlink2mini
     	    int tabStartY = 9 * gv.squareSize + pH * 2;
     	    int tabShopStartY = 4 * gv.squareSize + pH * 2;
     	
-    	    gv.DrawText(currentShop.shopName, 7 * gv.squareSize, locY, "gy");
+    	    gv.DrawText(currentShop.shopName, 5 * gv.squareSize, locY + pH, "gy");
 		
 	
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX of SHOP
@@ -255,29 +266,30 @@ namespace IceBlink2mini
 		    {
                 //DRAW DESCRIPTION BOX
 			    Item it = mod.getItemByResRefForInfo(currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)].resref);
-			    string textToSpan = "<b><i><big>" + it.name + "</big></i></b><BR>";
-	            if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
-	            {
-	        	    textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<br>";
-	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	                textToSpan += "Attack Bonus: " + it.attackBonus + "<br>";
-	                textToSpan += "Attack Range: " + it.attackRange + "<BR>";	        	
-	            }    
-	            else if (!it.category.Equals("General"))
-	            {
-	        	    textToSpan += "AC Bonus: " + it.armorBonus + "<br>";
-	                textToSpan += "Max Dex Bonus: " + it.maxDexBonus + "<BR>";	       
-	                textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	            }
-	            else if (it.category.Equals("General"))
-	            {
-	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	            }
-                
-                description.tbXloc = 13 * gv.squareSize;
-                description.tbYloc = 2 * gv.squareSize;
-                description.tbWidth = pW * 40;
-                description.tbHeight = pH * 50;
+
+                string textToSpan = "<gn>" + it.name + "</gn><BR>";
+                if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
+                {
+                    textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
+                    textToSpan += "Attack Bonus: " + it.attackBonus + "<BR>";
+                    textToSpan += "Attack Range: " + it.attackRange + "<BR>";
+                    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
+                }
+                else if (!it.category.Equals("General"))
+                {
+                    textToSpan += "AC Bonus: " + it.armorBonus + "<BR>";
+                    textToSpan += "Max Dex Bonus: " + it.maxDexBonus + "<BR>";
+                    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
+                }
+                else if (it.category.Equals("General"))
+                {
+                    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
+                }
+                                
+                description.tbXloc = 6 * gv.squareSize + pW;
+                description.tbYloc = 1 * gv.squareSize;
+                description.tbWidth = 5 * gv.squareSize;
+                description.tbHeight = 4 * gv.squareSize;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);
                 description.onDrawLogBox();
@@ -289,12 +301,12 @@ namespace IceBlink2mini
 		    btnInventoryRight.Draw();		
 		
 		    //DRAW TEXT		
-		    locY = (5 * gv.squareSize) + (pH * 2);
+		    locY = (3 * gv.squareSize) + (pH * 3);
 		    gv.DrawText("Party", locX + gv.squareSize * 4, locY, "gy");
             gv.DrawText("Inventory", locX + gv.squareSize * 4, locY += spacing, "gy");
-		    locY = (5 * gv.squareSize) + (pH * 2);
-		    gv.DrawText("Party", tabX2 + gv.squareSize * 5, locY, "yl");
-            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + gv.squareSize * 5, locY += spacing, "yl");
+		    locY = (int)(3.5 * gv.squareSize) + (pH * 2);
+		    gv.DrawText("Party", locX + gv.squareSize * 4, locY, "yl");
+            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, locX + gv.squareSize * 4, locY += spacing, "yl");
 		
 		    //DRAW ALL PARTY INVENTORY SLOTS		
 		    cntSlot = 0;
@@ -346,29 +358,29 @@ namespace IceBlink2mini
 		    {
 			    ItemRefs itr = mod.partyInventoryRefsList[inventorySlotIndex + (inventoryPageIndex * 10)];
 			    Item it = mod.getItemByResRefForInfo(itr.resref);
-			    string textToSpan = "<b><i><big>" + it.name + "</big></i></b><BR>";
-	            if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
-	            {
-	        	    textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<br>";
-	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	                textToSpan += "Attack Bonus: " + it.attackBonus + "<br>";
-	                textToSpan += "Attack Range: " + it.attackRange + "<BR>";	            
-	            }    
-	            else if (!it.category.Equals("General"))
-	            {
-	        	    textToSpan += "AC Bonus: " + it.armorBonus + "<br>";
-	                textToSpan += "Max Dex Bonus: " + it.maxDexBonus + "<BR>";	 
-	                textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	            }
-	            else if (it.category.Equals("General"))
-	            {
-	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	            }
-                
-                description.tbXloc = 13 * gv.squareSize;
-                description.tbYloc = 6 * gv.squareSize;
-                description.tbWidth = pW * 40;
-                description.tbHeight = pH * 50;
+                string textToSpan = "<gn>" + it.name + "</gn><BR>";
+                if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
+                {
+                    textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
+                    textToSpan += "Attack Bonus: " + it.attackBonus + "<BR>";
+                    textToSpan += "Attack Range: " + it.attackRange + "<BR>";
+                    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
+                }
+                else if (!it.category.Equals("General"))
+                {
+                    textToSpan += "AC Bonus: " + it.armorBonus + "<BR>";
+                    textToSpan += "Max Dex Bonus: " + it.maxDexBonus + "<BR>";
+                    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
+                }
+                else if (it.category.Equals("General"))
+                {
+                    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
+                }
+
+                description.tbXloc = 6 * gv.squareSize + pW;
+                description.tbYloc = 4 * gv.squareSize;
+                description.tbWidth = 5 * gv.squareSize;
+                description.tbHeight = 4 * gv.squareSize;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);
                 description.onDrawLogBox();
@@ -692,17 +704,18 @@ namespace IceBlink2mini
 		    {
                 //check to see if have enough gold
 	            Item it = mod.getItemByResRef(currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)].resref);
-                if (it != null)
-                {
-                    if (mod.partyGold < storeSellValueForItem(it))
-                    {
-                        gv.sf.MessageBoxHtml("Your party does not have enough gold to purchase this item.");
-                        return;
-                    }
-                }
+                
                 //DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to buy this item?", enumMessageButton.YesNo);
                 if (selectedIndex == 0)
                 {
+                    if (it != null)
+                    {
+                        if (mod.partyGold < storeSellValueForItem(it))
+                        {
+                            gv.sf.MessageBoxHtml("Your party does not have enough gold to purchase this item.");
+                            return;
+                        }
+                    }
                     //buy item
                     ItemRefs itr = currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)];
                     it = mod.getItemByResRef(itr.resref);

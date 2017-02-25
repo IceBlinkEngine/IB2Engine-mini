@@ -69,7 +69,7 @@ namespace IceBlink2mini
         {
             mod = m;
             gv = g;
-            mapStartLocXinPixels = 4 * gv.squareSize;
+            mapStartLocXinPixels = 1 * gv.squareSize;
             loadMainUILayout();
         }
 
@@ -161,10 +161,15 @@ namespace IceBlink2mini
             IB2Panel newPanel = new IB2Panel(gv);
             newPanel.tag = "logPanel";
             newPanel.backgroundImageFilename = "ui_bg_log";
-            newPanel.shownLocX = 0;
+            newPanel.shownLocX = 48;
             newPanel.shownLocY = 0;
+            newPanel.hiddenLocX = -288;
+            newPanel.hiddenLocY = 0;
+            newPanel.hidingXIncrement = 3;
+            newPanel.hidingYIncrement = 0;
             newPanel.Width = 192;
             newPanel.Height = 360;
+
             IB2HtmlLogBox newLog = gv.log;
             newLog.tbXloc = 10;
             newLog.tbYloc = 10;
@@ -179,64 +184,27 @@ namespace IceBlink2mini
             //create buttons panel
             IB2Panel newPanel = new IB2Panel(gv);
             newPanel.tag = "BottomPanel";
-            newPanel.backgroundImageFilename = "ui_bg_arrows";
+            newPanel.backgroundImageFilename = "none";
             newPanel.shownLocX = 0;
-            newPanel.shownLocY = 360;
-            newPanel.Width = 192;
-            newPanel.Height = 168;
+            newPanel.shownLocY = 0;
+            newPanel.Width = 48;
+            newPanel.Height = 336;
+
+            //toggle
+            IB2ToggleButton newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglLog";
+            newToggle.ImgOnFilename = "tgl_log_on";
+            newToggle.ImgOffFilename = "tgl_log_off";
+            newToggle.toggleOn = true;
+            newToggle.X = 0;
+            newToggle.Y = 0;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
 
             //button
             IB2Button newButton = new IB2Button(gv);
-            newButton.tag = "btnSwitchWeapon";
-            newButton.ImgFilename = "btn_small";
-            newButton.ImgOffFilename = "btn_small_off";
-            newButton.ImgOnFilename = "btn_small_on";
-            newButton.Img2Filename = "btnparty";
-            newButton.Img2OffFilename = "";
-            newButton.Img3Filename = "";
-            newButton.GlowFilename = "btn_small_glow";
-            newButton.btnState = buttonState.Normal;
-            newButton.btnNotificationOn = false;
-            newButton.glowOn = false;
-            newButton.Text = "";
-            newButton.Quantity = "";
-            newButton.HotKey = "P";
-            newButton.X = 12;
-            newButton.Y = 6;
-            newButton.IBScript = "none";
-            newButton.Width = 48;
-            newButton.Height = 48;
-            newButton.scaler = 1.0f;
-            newButton.show = true;
-            newPanel.buttonList.Add(newButton);
-
-            //button
-            newButton = new IB2Button(gv);
-            newButton.tag = "btnInventory";
-            newButton.ImgFilename = "btn_small";
-            newButton.ImgOffFilename = "btn_small_off";
-            newButton.ImgOnFilename = "btn_small_on";
-            newButton.Img2Filename = "btninventory";
-            newButton.Img2OffFilename = "";
-            newButton.Img3Filename = "";
-            newButton.GlowFilename = "btn_small_glow";
-            newButton.btnState = buttonState.Normal;
-            newButton.btnNotificationOn = false;
-            newButton.glowOn = false;
-            newButton.Text = "";
-            newButton.Quantity = "";
-            newButton.HotKey = "I";
-            newButton.X = 72;
-            newButton.Y = 6;
-            newButton.IBScript = "none";
-            newButton.Width = 48;
-            newButton.Height = 48;
-            newButton.scaler = 1.0f;
-            newButton.show = true;
-            newPanel.buttonList.Add(newButton);
-
-            //button
-            newButton = new IB2Button(gv);
             newButton.tag = "btnSkipTurn";
             newButton.ImgFilename = "btn_small";
             newButton.ImgOffFilename = "btn_small_off";
@@ -251,8 +219,58 @@ namespace IceBlink2mini
             newButton.Text = "";
             newButton.Quantity = "";
             newButton.HotKey = "S";
-            newButton.X = 132;
-            newButton.Y = 6;
+            newButton.X = 0;
+            newButton.Y = 48;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 0.8f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            //button
+            newButton = new IB2Button(gv);
+            newButton.tag = "btnTraitUse";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "btntrait";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "";
+            newButton.X = 0;
+            newButton.Y = 96;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 1.0f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            //button
+            newButton = new IB2Button(gv);
+            newButton.tag = "btnCast";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "btnspell";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "C";
+            newButton.X = 0;
+            newButton.Y = 144;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -276,8 +294,8 @@ namespace IceBlink2mini
             newButton.Text = "";
             newButton.Quantity = "";
             newButton.HotKey = "M";
-            newButton.X = 12;
-            newButton.Y = 60;
+            newButton.X = 0;
+            newButton.Y = 192;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -301,33 +319,8 @@ namespace IceBlink2mini
             newButton.Text = "";
             newButton.Quantity = "";
             newButton.HotKey = "A";
-            newButton.X = 72;
-            newButton.Y = 60;
-            newButton.IBScript = "none";
-            newButton.Width = 48;
-            newButton.Height = 48;
-            newButton.scaler = 0.8f;
-            newButton.show = true;
-            newPanel.buttonList.Add(newButton);
-
-            //button
-            newButton = new IB2Button(gv);
-            newButton.tag = "btnCast";
-            newButton.ImgFilename = "btn_small";
-            newButton.ImgOffFilename = "btn_small_off";
-            newButton.ImgOnFilename = "btn_small_on";
-            newButton.Img2Filename = "btnspell";
-            newButton.Img2OffFilename = "";
-            newButton.Img3Filename = "";
-            newButton.GlowFilename = "btn_small_glow";
-            newButton.btnState = buttonState.Normal;
-            newButton.btnNotificationOn = false;
-            newButton.glowOn = false;
-            newButton.Text = "";
-            newButton.Quantity = "";
-            newButton.HotKey = "C";
-            newButton.X = 132;
-            newButton.Y = 60;
+            newButton.X = 0;
+            newButton.Y = 240;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -351,8 +344,251 @@ namespace IceBlink2mini
             newButton.Text = "";
             newButton.Quantity = "";
             newButton.HotKey = "";
-            newButton.X = 12;
-            newButton.Y = 114;
+            newButton.X = 0;
+            newButton.Y = 288;
+            newButton.IBScript = "none";
+            newButton.Width = 48;
+            newButton.Height = 48;
+            newButton.scaler = 1.0f;
+            newButton.show = true;
+            newPanel.buttonList.Add(newButton);
+
+            combatUiLayout.panelList.Add(newPanel);
+        }
+        public void createTogglesPanel()
+        {
+            //create buttons panel
+            IB2Panel newPanel = new IB2Panel(gv);
+            newPanel.tag = "TogglePanel";
+            newPanel.backgroundImageFilename = "none";
+            newPanel.shownLocX = 48;
+            newPanel.shownLocY = 288;
+            newPanel.hiddenLocX = 48;
+            newPanel.hiddenLocY = 384;
+            newPanel.hidingXIncrement = 0;
+            newPanel.hidingYIncrement = 3;
+            newPanel.Width = 336;
+            newPanel.Height = 48;
+
+            //toggle
+            IB2ToggleButton newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglHP";
+            newToggle.ImgOnFilename = "tgl_hp_on";
+            newToggle.ImgOffFilename = "tgl_hp_off";
+            newToggle.toggleOn = false;
+            newToggle.X = 0;
+            newToggle.Y = 0;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglSP";
+            newToggle.ImgOnFilename = "tgl_sp_on";
+            newToggle.ImgOffFilename = "tgl_sp_off";
+            newToggle.toggleOn = false;
+            newToggle.X = 48;
+            newToggle.Y = 0;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglMoveOrder";
+            newToggle.ImgOnFilename = "tgl_mo_on";
+            newToggle.ImgOffFilename = "tgl_mo_off";
+            newToggle.toggleOn = false;
+            newToggle.X = 96;
+            newToggle.Y = 0;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglSpeed";
+            newToggle.ImgOnFilename = "tgl_speed_1";
+            newToggle.ImgOffFilename = "tgl_speed_1";
+            newToggle.toggleOn = false;
+            newToggle.X = 144;
+            newToggle.Y = 0;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglSoundFx";
+            newToggle.ImgOnFilename = "tgl_sound_on";
+            newToggle.ImgOffFilename = "tgl_sound_off";
+            newToggle.toggleOn = false;
+            newToggle.X = 192;
+            newToggle.Y = 0;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglGrid";
+            newToggle.ImgOnFilename = "tgl_grid_on";
+            newToggle.ImgOffFilename = "tgl_grid_off";
+            newToggle.toggleOn = false;
+            newToggle.X = 240;
+            newToggle.Y = 0;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglHelp";
+            newToggle.ImgOnFilename = "tgl_help_on";
+            newToggle.ImgOffFilename = "tgl_help_on";
+            newToggle.toggleOn = false;
+            newToggle.X = 288;
+            newToggle.Y = 0;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglKill";
+            newToggle.ImgOnFilename = "tgl_kill_on";
+            newToggle.ImgOffFilename = "tgl_kill_on";
+            newToggle.toggleOn = false;
+            newToggle.X = 336;
+            newToggle.Y = 0;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = false;
+            newPanel.toggleList.Add(newToggle);
+
+            combatUiLayout.panelList.Add(newPanel);
+        }
+        public void createPortraitsPanel()
+        {
+            //create buttons panel
+            IB2Panel newPanel = new IB2Panel(gv);
+            newPanel.tag = "portraitPanel";
+            newPanel.backgroundImageFilename = "ui_bg_log";
+            newPanel.shownLocX = 384;
+            newPanel.shownLocY = 0;
+            newPanel.Width = 144;
+            newPanel.Height = 196;
+
+            //portrait
+            IB2Portrait newPort = new IB2Portrait(gv);
+            newPort.tag = "port0";
+            newPort.ImgBGFilename = "item_slot";
+            newPort.ImgFilename = "ptr_adela";
+            newPort.ImgLUFilename = "btnLevelUpPlus";
+            newPort.GlowFilename = "btn_ptr_glow";
+            newPort.X = 3;
+            newPort.Y = 3;
+            newPort.Width = 42;
+            newPort.Height = 65;
+            newPort.scaler = 0.8f;
+            newPanel.portraitList.Add(newPort);
+
+            //portrait
+            newPort = new IB2Portrait(gv);
+            newPort.tag = "port1";
+            newPort.ImgBGFilename = "item_slot";
+            newPort.ImgFilename = "ptr_adela";
+            newPort.ImgLUFilename = "btnLevelUpPlus";
+            newPort.GlowFilename = "btn_ptr_glow";
+            newPort.X = 51;
+            newPort.Y = 3;
+            newPort.Width = 42;
+            newPort.Height = 65;
+            newPort.scaler = 0.8f;
+            newPanel.portraitList.Add(newPort);
+
+            //portrait
+            newPort = new IB2Portrait(gv);
+            newPort.tag = "port2";
+            newPort.ImgBGFilename = "item_slot";
+            newPort.ImgFilename = "ptr_adela";
+            newPort.ImgLUFilename = "btnLevelUpPlus";
+            newPort.GlowFilename = "btn_ptr_glow";
+            newPort.X = 99;
+            newPort.Y = 3;
+            newPort.Width = 42;
+            newPort.Height = 65;
+            newPort.scaler = 0.8f;
+            newPanel.portraitList.Add(newPort);
+
+            //portrait
+            newPort = new IB2Portrait(gv);
+            newPort.tag = "port3";
+            newPort.ImgBGFilename = "item_slot";
+            newPort.ImgFilename = "ptr_adela";
+            newPort.ImgLUFilename = "btnLevelUpPlus";
+            newPort.GlowFilename = "btn_ptr_glow";
+            newPort.X = 3;
+            newPort.Y = 74;
+            newPort.Width = 42;
+            newPort.Height = 65;
+            newPort.scaler = 0.8f;
+            newPanel.portraitList.Add(newPort);
+
+            //portrait
+            newPort = new IB2Portrait(gv);
+            newPort.tag = "port4";
+            newPort.ImgBGFilename = "item_slot";
+            newPort.ImgFilename = "ptr_adela";
+            newPort.ImgLUFilename = "btnLevelUpPlus";
+            newPort.GlowFilename = "btn_ptr_glow";
+            newPort.X = 51;
+            newPort.Y = 74;
+            newPort.Width = 42;
+            newPort.Height = 65;
+            newPort.scaler = 0.8f;
+            newPanel.portraitList.Add(newPort);
+
+            //portrait
+            newPort = new IB2Portrait(gv);
+            newPort.tag = "port5";
+            newPort.ImgBGFilename = "item_slot";
+            newPort.ImgFilename = "ptr_adela";
+            newPort.ImgLUFilename = "btnLevelUpPlus";
+            newPort.GlowFilename = "btn_ptr_glow";
+            newPort.X = 99;
+            newPort.Y = 74;
+            newPort.Width = 42;
+            newPort.Height = 65;
+            newPort.scaler = 0.8f;
+            newPanel.portraitList.Add(newPort);
+
+            //button
+            IB2Button newButton = new IB2Button(gv);
+            newButton.tag = "btnSwitchWeapon";
+            newButton.ImgFilename = "btn_small";
+            newButton.ImgOffFilename = "btn_small_off";
+            newButton.ImgOnFilename = "btn_small_on";
+            newButton.Img2Filename = "btnparty";
+            newButton.Img2OffFilename = "";
+            newButton.Img3Filename = "";
+            newButton.GlowFilename = "btn_small_glow";
+            newButton.btnState = buttonState.Normal;
+            newButton.btnNotificationOn = false;
+            newButton.glowOn = false;
+            newButton.Text = "";
+            newButton.Quantity = "";
+            newButton.HotKey = "P";
+            newButton.X = 0;
+            newButton.Y = 144;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -362,11 +598,11 @@ namespace IceBlink2mini
 
             //button
             newButton = new IB2Button(gv);
-            newButton.tag = "btnTraitUse";
+            newButton.tag = "btnInventory";
             newButton.ImgFilename = "btn_small";
             newButton.ImgOffFilename = "btn_small_off";
             newButton.ImgOnFilename = "btn_small_on";
-            newButton.Img2Filename = "btntrait";
+            newButton.Img2Filename = "btninventory";
             newButton.Img2OffFilename = "";
             newButton.Img3Filename = "";
             newButton.GlowFilename = "btn_small_glow";
@@ -375,9 +611,9 @@ namespace IceBlink2mini
             newButton.glowOn = false;
             newButton.Text = "";
             newButton.Quantity = "";
-            newButton.HotKey = "";
-            newButton.X = 72;
-            newButton.Y = 114;
+            newButton.HotKey = "I";
+            newButton.X = 48;
+            newButton.Y = 144;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -401,8 +637,8 @@ namespace IceBlink2mini
             newButton.Text = "0";
             newButton.Quantity = "";
             newButton.HotKey = "";
-            newButton.X = 132;
-            newButton.Y = 114;
+            newButton.X = 96;
+            newButton.Y = 144;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -412,234 +648,16 @@ namespace IceBlink2mini
 
             combatUiLayout.panelList.Add(newPanel);
         }
-        public void createTogglesPanel()
-        {
-            //create buttons panel
-            IB2Panel newPanel = new IB2Panel(gv);
-            newPanel.tag = "TogglePanel";
-            newPanel.backgroundImageFilename = "ui_bg_toggles";
-            newPanel.shownLocX = 192;
-            newPanel.shownLocY = 468;
-            newPanel.hiddenLocX = 192;
-            newPanel.hiddenLocY = 540;
-            newPanel.hidingXIncrement = 0;
-            newPanel.hidingYIncrement = 3;
-            newPanel.Width = 528;
-            newPanel.Height = 60;
-
-            //toggle
-            IB2ToggleButton newToggle = new IB2ToggleButton(gv);
-            newToggle.tag = "tglHP";
-            newToggle.ImgOnFilename = "tgl_hp_on";
-            newToggle.ImgOffFilename = "tgl_hp_off";
-            newToggle.toggleOn = false;
-            newToggle.X = 6;
-            newToggle.Y = 6;
-            newToggle.Width = 48;
-            newToggle.Height = 48;
-            newToggle.show = true;
-            newPanel.toggleList.Add(newToggle);
-
-            //toggle
-            newToggle = new IB2ToggleButton(gv);
-            newToggle.tag = "tglSP";
-            newToggle.ImgOnFilename = "tgl_sp_on";
-            newToggle.ImgOffFilename = "tgl_sp_off";
-            newToggle.toggleOn = false;
-            newToggle.X = 60;
-            newToggle.Y = 6;
-            newToggle.Width = 48;
-            newToggle.Height = 48;
-            newToggle.show = true;
-            newPanel.toggleList.Add(newToggle);
-
-            //toggle
-            newToggle = new IB2ToggleButton(gv);
-            newToggle.tag = "tglMoveOrder";
-            newToggle.ImgOnFilename = "tgl_mo_on";
-            newToggle.ImgOffFilename = "tgl_mo_off";
-            newToggle.toggleOn = false;
-            newToggle.X = 114;
-            newToggle.Y = 6;
-            newToggle.Width = 48;
-            newToggle.Height = 48;
-            newToggle.show = true;
-            newPanel.toggleList.Add(newToggle);
-
-            //toggle
-            newToggle = new IB2ToggleButton(gv);
-            newToggle.tag = "tglSpeed";
-            newToggle.ImgOnFilename = "tgl_speed_1";
-            newToggle.ImgOffFilename = "tgl_speed_1";
-            newToggle.toggleOn = false;
-            newToggle.X = 168;
-            newToggle.Y = 6;
-            newToggle.Width = 48;
-            newToggle.Height = 48;
-            newToggle.show = true;
-            newPanel.toggleList.Add(newToggle);
-
-            //toggle
-            newToggle = new IB2ToggleButton(gv);
-            newToggle.tag = "tglSoundFx";
-            newToggle.ImgOnFilename = "tgl_sound_on";
-            newToggle.ImgOffFilename = "tgl_sound_off";
-            newToggle.toggleOn = false;
-            newToggle.X = 222;
-            newToggle.Y = 6;
-            newToggle.Width = 48;
-            newToggle.Height = 48;
-            newToggle.show = true;
-            newPanel.toggleList.Add(newToggle);
-
-            //toggle
-            newToggle = new IB2ToggleButton(gv);
-            newToggle.tag = "tglGrid";
-            newToggle.ImgOnFilename = "tgl_grid_on";
-            newToggle.ImgOffFilename = "tgl_grid_off";
-            newToggle.toggleOn = false;
-            newToggle.X = 276;
-            newToggle.Y = 6;
-            newToggle.Width = 48;
-            newToggle.Height = 48;
-            newToggle.show = true;
-            newPanel.toggleList.Add(newToggle);
-
-            //toggle
-            newToggle = new IB2ToggleButton(gv);
-            newToggle.tag = "tglHelp";
-            newToggle.ImgOnFilename = "tgl_help_on";
-            newToggle.ImgOffFilename = "tgl_help_on";
-            newToggle.toggleOn = false;
-            newToggle.X = 330;
-            newToggle.Y = 6;
-            newToggle.Width = 48;
-            newToggle.Height = 48;
-            newToggle.show = true;
-            newPanel.toggleList.Add(newToggle);
-
-            //toggle
-            newToggle = new IB2ToggleButton(gv);
-            newToggle.tag = "tglKill";
-            newToggle.ImgOnFilename = "tgl_kill_on";
-            newToggle.ImgOffFilename = "tgl_kill_on";
-            newToggle.toggleOn = false;
-            newToggle.X = 384;
-            newToggle.Y = 6;
-            newToggle.Width = 48;
-            newToggle.Height = 48;
-            newToggle.show = false;
-            newPanel.toggleList.Add(newToggle);
-
-            combatUiLayout.panelList.Add(newPanel);
-        }
-        public void createPortraitsPanel()
-        {
-            //create buttons panel
-            IB2Panel newPanel = new IB2Panel(gv);
-            newPanel.tag = "portraitPanel";
-            newPanel.backgroundImageFilename = "ui_bg_log";
-            newPanel.shownLocX = 720;
-            newPanel.shownLocY = 0;
-            newPanel.Width = 192;
-            newPanel.Height = 360;
-
-            //portrait
-            IB2Portrait newPort = new IB2Portrait(gv);
-            newPort.tag = "port0";
-            newPort.ImgBGFilename = "item_slot";
-            newPort.ImgFilename = "ptr_adela";
-            newPort.ImgLUFilename = "btnLevelUpPlus";
-            newPort.GlowFilename = "btn_ptr_glow";
-            newPort.X = 20;
-            newPort.Y = 16;
-            newPort.Width = 68;
-            newPort.Height = 104;
-            newPort.scaler = 0.8f;
-            newPanel.portraitList.Add(newPort);
-
-            //portrait
-            newPort = new IB2Portrait(gv);
-            newPort.tag = "port1";
-            newPort.ImgBGFilename = "item_slot";
-            newPort.ImgFilename = "ptr_adela";
-            newPort.ImgLUFilename = "btnLevelUpPlus";
-            newPort.GlowFilename = "btn_ptr_glow";
-            newPort.X = 110;
-            newPort.Y = 16;
-            newPort.Width = 68;
-            newPort.Height = 104;
-            newPort.scaler = 0.8f;
-            newPanel.portraitList.Add(newPort);
-
-            //portrait
-            newPort = new IB2Portrait(gv);
-            newPort.tag = "port2";
-            newPort.ImgBGFilename = "item_slot";
-            newPort.ImgFilename = "ptr_adela";
-            newPort.ImgLUFilename = "btnLevelUpPlus";
-            newPort.GlowFilename = "btn_ptr_glow";
-            newPort.X = 20;
-            newPort.Y = 128;
-            newPort.Width = 68;
-            newPort.Height = 104;
-            newPort.scaler = 0.8f;
-            newPanel.portraitList.Add(newPort);
-
-            //portrait
-            newPort = new IB2Portrait(gv);
-            newPort.tag = "port3";
-            newPort.ImgBGFilename = "item_slot";
-            newPort.ImgFilename = "ptr_adela";
-            newPort.ImgLUFilename = "btnLevelUpPlus";
-            newPort.GlowFilename = "btn_ptr_glow";
-            newPort.X = 110;
-            newPort.Y = 128;
-            newPort.Width = 68;
-            newPort.Height = 104;
-            newPort.scaler = 0.8f;
-            newPanel.portraitList.Add(newPort);
-
-            //portrait
-            newPort = new IB2Portrait(gv);
-            newPort.tag = "port4";
-            newPort.ImgBGFilename = "item_slot";
-            newPort.ImgFilename = "ptr_adela";
-            newPort.ImgLUFilename = "btnLevelUpPlus";
-            newPort.GlowFilename = "btn_ptr_glow";
-            newPort.X = 20;
-            newPort.Y = 240;
-            newPort.Width = 68;
-            newPort.Height = 104;
-            newPort.scaler = 0.8f;
-            newPanel.portraitList.Add(newPort);
-
-            //portrait
-            newPort = new IB2Portrait(gv);
-            newPort.tag = "port5";
-            newPort.ImgBGFilename = "item_slot";
-            newPort.ImgFilename = "ptr_adela";
-            newPort.ImgLUFilename = "btnLevelUpPlus";
-            newPort.GlowFilename = "btn_ptr_glow";
-            newPort.X = 110;
-            newPort.Y = 240;
-            newPort.Width = 68;
-            newPort.Height = 104;
-            newPort.scaler = 0.8f;
-            newPanel.portraitList.Add(newPort);
-
-            combatUiLayout.panelList.Add(newPanel);
-        }
         public void createArrowsPanel()
         {
             //create buttons panel
             IB2Panel newPanel = new IB2Panel(gv);
             newPanel.tag = "arrowPanel";
             newPanel.backgroundImageFilename = "ui_bg_arrows";
-            newPanel.shownLocX = 720;
-            newPanel.shownLocY = 360;
-            newPanel.Width = 192;
-            newPanel.Height = 168;
+            newPanel.shownLocX = 384;
+            newPanel.shownLocY = 192;
+            newPanel.Width = 144;
+            newPanel.Height = 144;
 
             //button
             IB2Button newButton = new IB2Button(gv);
@@ -657,8 +675,8 @@ namespace IceBlink2mini
             newButton.Text = "";
             newButton.Quantity = "";
             newButton.HotKey = "";
-            newButton.X = 72;
-            newButton.Y = 6;
+            newButton.X = 48;
+            newButton.Y = 0;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -682,8 +700,8 @@ namespace IceBlink2mini
             newButton.Text = "";
             newButton.Quantity = "";
             newButton.HotKey = "";
-            newButton.X = 12;
-            newButton.Y = 60;
+            newButton.X = 0;
+            newButton.Y = 48;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -707,8 +725,8 @@ namespace IceBlink2mini
             newButton.Text = "";
             newButton.Quantity = "";
             newButton.HotKey = "";
-            newButton.X = 132;
-            newButton.Y = 60;
+            newButton.X = 96;
+            newButton.Y = 48;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -732,8 +750,8 @@ namespace IceBlink2mini
             newButton.Text = "";
             newButton.Quantity = "";
             newButton.HotKey = "";
-            newButton.X = 72;
-            newButton.Y = 114;
+            newButton.X = 48;
+            newButton.Y = 96;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -757,8 +775,8 @@ namespace IceBlink2mini
             newButton.Text = "";
             newButton.Quantity = "";
             newButton.HotKey = "";
-            newButton.X = 132;
-            newButton.Y = 6;
+            newButton.X = 96;
+            newButton.Y = 0;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -782,8 +800,8 @@ namespace IceBlink2mini
             newButton.Text = "";
             newButton.Quantity = "";
             newButton.HotKey = "";
-            newButton.X = 12;
-            newButton.Y = 6;
+            newButton.X = 0;
+            newButton.Y = 0;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -807,8 +825,8 @@ namespace IceBlink2mini
             newButton.Text = "";
             newButton.Quantity = "";
             newButton.HotKey = "";
-            newButton.X = 132;
-            newButton.Y = 114;
+            newButton.X = 96;
+            newButton.Y = 96;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -832,8 +850,8 @@ namespace IceBlink2mini
             newButton.Text = "";
             newButton.Quantity = "";
             newButton.HotKey = "";
-            newButton.X = 12;
-            newButton.Y = 114;
+            newButton.X = 0;
+            newButton.Y = 96;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -857,8 +875,8 @@ namespace IceBlink2mini
             newButton.Text = "";
             newButton.Quantity = "";
             newButton.HotKey = "";
-            newButton.X = 72;
-            newButton.Y = 60;
+            newButton.X = 48;
+            newButton.Y = 48;
             newButton.IBScript = "none";
             newButton.Width = 48;
             newButton.Height = 48;
@@ -4818,6 +4836,37 @@ namespace IceBlink2mini
                                     pnl.hiding = true;
                                 }
                             }
+                        }
+                    }
+                    else if (rtn.Equals("tglLog"))
+                    {
+                        //gv.cc.doSettingsDialogs();
+                        foreach (IB2Panel pnl in combatUiLayout.panelList)
+                        {
+                            if (pnl.tag.Equals("logPanel"))
+                            {
+                                //hides left
+                                if (pnl.currentLocX < pnl.shownLocX)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    pnl.hiding = true;
+                                }
+                            }
+                        }
+                        IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
+                        {
+                            tgl.toggleOn = false;
+                            gv.cc.addLogText("lime", "Hide Log");
+                        }
+                        else
+                        {
+                            tgl.toggleOn = true;
+                            gv.cc.addLogText("lime", "Show Log");
                         }
                     }
                     break;

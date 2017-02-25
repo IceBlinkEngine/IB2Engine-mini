@@ -40,71 +40,76 @@ namespace IceBlink2mini
             description = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
             description.showBoxBorder = false;
 
-		    if (ctrlUpArrow == null)
-		    {
-			    ctrlUpArrow = new IbbButton(gv, 1.0f);
+            if (ctrlUpArrow == null)
+            {
+                ctrlUpArrow = new IbbButton(gv, 1.0f);
+            }
 			    ctrlUpArrow.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    ctrlUpArrow.Img2 = "ctrl_up_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_up_arrow);
 			    ctrlUpArrow.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.arrow_glow);
-			    ctrlUpArrow.X = 15 * gv.squareSize;
-			    ctrlUpArrow.Y = 1 * gv.squareSize + pH * 2;
+			    ctrlUpArrow.X = 9 * gv.squareSize;
+			    ctrlUpArrow.Y = (int)(0.5 * gv.squareSize);
                 ctrlUpArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlUpArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (ctrlDownArrow == null)
-		    {
-			    ctrlDownArrow = new IbbButton(gv, 1.0f);	
+
+            if (ctrlDownArrow == null)
+            {
+                ctrlDownArrow = new IbbButton(gv, 1.0f);
+            }
 			    ctrlDownArrow.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    ctrlDownArrow.Img2 = "ctrl_down_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_down_arrow);
 			    ctrlDownArrow.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.arrow_glow);
-			    ctrlDownArrow.X = 15 * gv.squareSize;
-			    ctrlDownArrow.Y = 2 * gv.squareSize + pH * 3;
+			    ctrlDownArrow.X = 9 * gv.squareSize;
+			    ctrlDownArrow.Y = (int)(1.5 * gv.squareSize) + pH * 1;
                 ctrlDownArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlDownArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (ctrlLeftArrow == null)
-		    {
-			    ctrlLeftArrow = new IbbButton(gv, 1.0f);
+
+            if (ctrlLeftArrow == null)
+            {
+                ctrlLeftArrow = new IbbButton(gv, 1.0f);
+            }
 			    ctrlLeftArrow.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    ctrlLeftArrow.Img2 = "ctrl_left_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
 			    ctrlLeftArrow.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.arrow_glow);
-			    ctrlLeftArrow.X = 13 * gv.squareSize + xShift;
-			    ctrlLeftArrow.Y = pH * 34;
+			    ctrlLeftArrow.X = 6 * gv.squareSize + xShift;
+			    ctrlLeftArrow.Y = (int)(1.75 * gv.squareSize) + pH * 1;
                 ctrlLeftArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlLeftArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (ctrlRightArrow == null)
-		    {
-			    ctrlRightArrow = new IbbButton(gv, 1.0f);
+
+            if (ctrlRightArrow == null)
+            {
+                ctrlRightArrow = new IbbButton(gv, 1.0f);
+            }
 			    ctrlRightArrow.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    ctrlRightArrow.Img2 = "ctrl_right_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
 			    ctrlRightArrow.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.arrow_glow);
-			    ctrlRightArrow.X = 14 * gv.squareSize + pW * 2 + xShift;
-			    ctrlRightArrow.Y = pH * 34;
+			    ctrlRightArrow.X = 7 * gv.squareSize + pW * 2 + xShift;
+			    ctrlRightArrow.Y = (int)(1.75 * gv.squareSize) + pH * 1;
                 ctrlRightArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
-                ctrlRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
-		    }				
-		    if (btnReturnJournal == null)
-		    {
-			    btnReturnJournal = new IbbButton(gv, 1.2f);	
+                ctrlRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+
+            if (btnReturnJournal == null)
+            {
+                btnReturnJournal = new IbbButton(gv, 1.2f);
+            }
 			    btnReturnJournal.Text = "RETURN";
 			    btnReturnJournal.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnReturnJournal.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-                btnReturnJournal.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-			    btnReturnJournal.Y = 9 * gv.squareSize + pH * 2;
+                btnReturnJournal.X = ((gv.squaresInWidth * gv.squareSize / 2)) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
+			    btnReturnJournal.Y = 6 * gv.squareSize - pH * 2;
                 btnReturnJournal.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnReturnJournal.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
-		    }
+		    
 		
 	    }
 
         public void redrawJournal()
-        {
+        {            
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		
     	    int locY = pH * 5;
-            int locX = 4 * gv.squareSize;
+            int locX = 1 * gv.squareSize;
             int spacing = (int)gv.fontHeight + pH;
             int leftStartY = pH * 4;
     	    int tabStartY = pH * 40;
@@ -116,7 +121,7 @@ namespace IceBlink2mini
     	
     	    //DRAW BACKGROUND IMAGE
             IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList("journalback").PixelSize.Width, gv.cc.GetFromBitmapList("journalback").PixelSize.Height);
-            IbRect dst = new IbRect(2 * gv.squareSize, 0, (gv.squaresInWidth - 4) * gv.squareSize, (gv.squaresInHeight) * gv.squareSize);
+            IbRect dst = new IbRect(0, 0, (gv.squaresInWidth) * gv.squareSize, (gv.squaresInHeight) * gv.squareSize);
             gv.DrawBitmap(gv.cc.GetFromBitmapList("journalback"), src, dst);
         
             //MAKE SURE NO OUT OF INDEX ERRORS
@@ -162,8 +167,8 @@ namespace IceBlink2mini
 
                 description.tbXloc = locX;
                 description.tbYloc = locY + spacing;
-                description.tbWidth = 12 * gv.squareSize;
-                description.tbHeight = pH * 50;
+                description.tbWidth = 9 * gv.squareSize;
+                description.tbHeight = pH * 80;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);
                 description.onDrawLogBox();

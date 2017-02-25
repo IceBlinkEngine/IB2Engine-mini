@@ -155,7 +155,7 @@ namespace IceBlink2mini
         {
             int pW = (int)((float)gv.screenWidth / 100.0f);
             int pH = (int)((float)gv.screenHeight / 100.0f);
-            int wideX = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2);
+            int wideX = (gv.squaresInWidth * gv.squareSize / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2);
             int smallLeftX = wideX - (int)(gv.ibbwidthR * gv.screenDensity);
             int smallRightX = wideX + (int)(gv.ibbwidthL * gv.screenDensity);
             int largeRightX = wideX + (int)(gv.ibbwidthL * gv.screenDensity) + (int)(gv.ibbwidthR * gv.screenDensity) + (int)(gv.ibbwidthR * gv.screenDensity / 2);
@@ -169,7 +169,7 @@ namespace IceBlink2mini
                 btnLeft.Img2 = "ctrl_left_arrow";
                 btnLeft.Glow = "btn_small_glow";
                 btnLeft.X = smallLeftX;
-                btnLeft.Y = (4 * gv.squareSize) + (gv.squareSize / 6);
+                btnLeft.Y = (2 * gv.squareSize) + (gv.squareSize / 6);                
                 btnLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnLeft.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 
@@ -181,7 +181,7 @@ namespace IceBlink2mini
                 btnModuleName.Glow = "btn_large_glow";
                 btnModuleName.Text = "";
                 btnModuleName.X = wideX;
-                btnModuleName.Y = (4 * gv.squareSize) + (gv.squareSize / 6);
+                btnModuleName.Y = (2 * gv.squareSize) + (gv.squareSize / 6);                
                 btnModuleName.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnModuleName.Width = (int)(gv.ibbwidthL * gv.screenDensity);
 
@@ -193,7 +193,7 @@ namespace IceBlink2mini
                 btnRight.Img2 = "ctrl_right_arrow";
                 btnRight.Glow = "btn_small_glow";
                 btnRight.X = smallRightX;
-                btnRight.Y = (4 * gv.squareSize) + (gv.squareSize / 6);
+                btnRight.Y = (2 * gv.squareSize) + (gv.squareSize / 6);
                 btnRight.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 
@@ -205,7 +205,7 @@ namespace IceBlink2mini
                 btnGetUpdates.Glow = "btn_large_glow";
                 btnGetUpdates.Text = "GET UPDATES";
                 btnGetUpdates.X = wideX;
-                btnGetUpdates.Y = (10 * gv.squareSize) - (pH * 2);
+                btnGetUpdates.Y = (6 * gv.squareSize) - (pH * 2);
                 btnGetUpdates.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnGetUpdates.Width = (int)(gv.ibbwidthL * gv.screenDensity);
             
@@ -213,31 +213,34 @@ namespace IceBlink2mini
         //TITLE SCREEN  
         public void redrawLauncher()
         {
-            setControlsStart();
+            int titleW = gv.squareSize * 4;
+            int titleH = gv.squareSize * 2;
+            int titleX = (gv.squaresInWidth * gv.squareSize / 2) - (gv.squareSize * 2);
             //DRAW TITLE SCREEN
     	    if ((titleList.Count > 0) && (moduleIndex < titleList.Count))
 		    {
                 IbRect src = new IbRect(0, 0, titleList[moduleIndex].PixelSize.Width, titleList[moduleIndex].PixelSize.Height);
-                IbRect dst = new IbRect((gv.screenWidth / 2) - (gv.squareSize * 4), 0, gv.squareSize * 8, gv.squareSize * 4);
+                IbRect dst = new IbRect(titleX, 0, titleW, titleH);
                 gv.DrawBitmap(titleList[moduleIndex], src, dst);
 		    }
-            	
-    	    //DRAW DESCRIPTION BOX
+
+            
+
+            //DRAW DESCRIPTION BOX
             if ((moduleInfoList.Count > 0) && (moduleIndex < moduleInfoList.Count))
 		    {
-                
+                btnModuleName.Text = moduleInfoList[moduleIndex].buttonText + " MODULE";
+                drawLauncherControls();
+
                 string textToSpan = "<gn>" + moduleInfoList[moduleIndex].moduleLabelName + "</gn><br>";
-                description.tbXloc = 1 * gv.squareSize;
-                description.tbYloc = 5 * gv.squareSize + (gv.squareSize / 6);
-                description.tbWidth = 18 * gv.squareSize;
+                description.tbXloc = 1 * gv.squareSize / 2;
+                description.tbYloc = 3 * gv.squareSize + (gv.squareSize / 4);
+                description.tbWidth = 10 * gv.squareSize + gv.squareSize / 2;
                 description.tbHeight = 6 * gv.squareSize;
                 textToSpan += moduleInfoList[moduleIndex].moduleDescription;
                 description.linesList.Clear();
                 description.AddFormattedTextToTextBox(textToSpan);
-                description.onDrawTextBox();
-                
-                btnModuleName.Text = moduleInfoList[moduleIndex].buttonText + " MODULE";
-	    	    drawLauncherControls();
+                description.onDrawTextBox();                	    	    
 		    }
         }
         public void drawLauncherControls()

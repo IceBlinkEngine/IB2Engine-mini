@@ -40,74 +40,80 @@ namespace IceBlink2mini
             description = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
             description.showBoxBorder = false;
 
-		    if (btnInventoryLeft == null)
-		    {
-			    btnInventoryLeft = new IbbButton(gv, 1.0f);
+            if (btnInventoryLeft == null)
+            {
+                btnInventoryLeft = new IbbButton(gv, 1.0f);
+            }
 			    btnInventoryLeft.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnInventoryLeft.Img2 = "ctrl_left_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
 			    btnInventoryLeft.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnInventoryLeft.X = 8 * gv.squareSize;
-			    btnInventoryLeft.Y = (1 * gv.squareSize) - (pH * 2);
+			    btnInventoryLeft.X = 3 * gv.squareSize + (pW * 3);
+			    btnInventoryLeft.Y = (0 * gv.squareSize) + (pH * 2);
                 btnInventoryLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInventoryLeft.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (btnPageIndex == null)
-		    {
-			    btnPageIndex = new IbbButton(gv, 1.0f);
+
+            if (btnPageIndex == null)
+            {
+                btnPageIndex = new IbbButton(gv, 1.0f);
+            }
 			    btnPageIndex.Img = "btn_small_off"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
 			    btnPageIndex.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnPageIndex.Text = "1";
-			    btnPageIndex.X = 9 * gv.squareSize;
-			    btnPageIndex.Y = (1 * gv.squareSize) - (pH * 2);
+			    btnPageIndex.X = 4 * gv.squareSize + (pW * 4);
+                btnPageIndex.Y = (0 * gv.squareSize) + (pH * 2);
                 btnPageIndex.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnPageIndex.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (btnInventoryRight == null)
-		    {
-			    btnInventoryRight = new IbbButton(gv, 1.0f);
+
+            if (btnInventoryRight == null)
+            {
+                btnInventoryRight = new IbbButton(gv, 1.0f);
+            }
 			    btnInventoryRight.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnInventoryRight.Img2 = "ctrl_right_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
 			    btnInventoryRight.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnInventoryRight.X = 10 * gv.squareSize;
-			    btnInventoryRight.Y = (1 * gv.squareSize) - (pH * 2);
+			    btnInventoryRight.X = 5 * gv.squareSize + (pW * 5);
+                btnInventoryRight.Y = (0 * gv.squareSize) + (pH * 2);
                 btnInventoryRight.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInventoryRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		
-		    if (btnReturn == null)
-		    {
-			    btnReturn = new IbbButton(gv, 1.2f);	
+
+
+            if (btnReturn == null)
+            {
+                btnReturn = new IbbButton(gv, 1.2f);
+            }
 			    btnReturn.Text = "RETURN";
 			    btnReturn.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnReturn.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-                btnReturn.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-			    btnReturn.Y = 9 * gv.squareSize + pH * 2;
+                btnReturn.X = (gv.squaresInWidth * gv.squareSize / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
+			    btnReturn.Y = 6 * gv.squareSize - pH * 2;
                 btnReturn.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnReturn.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
-		    }
-		    if (btnHelp == null)
-		    {
-			    btnHelp = new IbbButton(gv, 0.8f);	
+                btnReturn.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+
+            if (btnHelp == null)
+            {
+                btnHelp = new IbbButton(gv, 0.8f);
+            }
 			    btnHelp.Text = "HELP";
 			    btnHelp.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnHelp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnHelp.X = (gv.screenWidth / 2) - (int)((gv.ibbwidthL / 2) * gv.screenDensity) - (int)(gv.squareSize * 1.5);
-                btnHelp.Y = 9 * gv.squareSize + pH * 2;
+			    btnHelp.X = (gv.squaresInWidth * gv.squareSize / 2) - (int)((gv.ibbwidthL / 2) * gv.screenDensity) - (int)(gv.squareSize * 1.5);
+                btnHelp.Y = 6 * gv.squareSize - pH * 2;
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
-		    }
-		    if (btnInfo == null)
-		    {
-			    btnInfo = new IbbButton(gv, 0.8f);	
+                btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+
+            if (btnInfo == null)
+            {
+                btnInfo = new IbbButton(gv, 0.8f);
+            }
 			    btnInfo.Text = "INFO";
 			    btnInfo.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnInfo.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnInfo.X = (gv.screenWidth / 2) + (int)((gv.ibbwidthL / 2) * gv.screenDensity) + (int)(gv.squareSize * 0.5);
-                btnInfo.Y = 9 * gv.squareSize + pH * 2;
+			    btnInfo.X = (gv.squaresInWidth * gv.squareSize / 2) + (int)((gv.ibbwidthL / 2) * gv.screenDensity) + (int)(gv.squareSize * 0.5);
+                btnInfo.Y = 6 * gv.squareSize - pH * 2;
                 btnInfo.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnInfo.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
-		    }
-		    for (int y = 0; y < slotsPerPage; y++)
+                btnInfo.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+
+            for (int y = 0; y < slotsPerPage; y++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
 			    btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
@@ -115,23 +121,23 @@ namespace IceBlink2mini
 			
 			    if (y < 5)
 			    {
-				    btnNew.X = ((y+2+4) * gv.squareSize) + (padW * (y+1));
-				    btnNew.Y = 2 * gv.squareSize;
+				    btnNew.X = ((y+2) * gv.squareSize) + (padW * (y+1));
+				    btnNew.Y = 1 * gv.squareSize + padW;
 			    }
 			    else if ((y >=5 ) && (y < 10))
 			    {
-				    btnNew.X = ((y-5+2+4) * gv.squareSize) + (padW * ((y-5)+1));
-				    btnNew.Y = 3 * gv.squareSize + padW;
+				    btnNew.X = ((y-5+2) * gv.squareSize) + (padW * ((y-5)+1));
+				    btnNew.Y = 2 * gv.squareSize + padW * 2;
 			    }
 			    else if ((y >=10 ) && (y < 15))
 			    {
-				    btnNew.X = ((y-10+2+4) * gv.squareSize) + (padW * ((y-10)+1));
-				    btnNew.Y = 4 * gv.squareSize + (padW * 2);
+				    btnNew.X = ((y-10+2) * gv.squareSize) + (padW * ((y-10)+1));
+				    btnNew.Y = 3 * gv.squareSize + (padW * 3);
 			    }
 			    else
 			    {
-				    btnNew.X = ((y-15+2+4) * gv.squareSize) + (padW * ((y-15)+1));
-				    btnNew.Y = 5 * gv.squareSize + (padW * 3);
+				    btnNew.X = ((y-15+2) * gv.squareSize) + (padW * ((y-15)+1));
+				    btnNew.Y = 4 * gv.squareSize + (padW * 4);
 			    }
 
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -177,7 +183,7 @@ namespace IceBlink2mini
 	    //INVENTORY SCREEN (COMBAT and MAIN)
         public void redrawInventory()
         {
-    	    //IF CONTROLS ARE NULL, CREATE THEM
+            //IF CONTROLS ARE NULL, CREATE THEM
     	    if (btnReturn == null)
     	    {
     		    setControlsStart();
@@ -198,12 +204,12 @@ namespace IceBlink2mini
     	    int tabStartY = 5 * gv.squareSize + pW * 10;
     	
             //DRAW TEXT		
-		    locY = gv.squareSize + (pH * 2);
-		    gv.DrawText("Party", locX + (gv.squareSize * 4) + pW * 2, locY, "wh");
-            gv.DrawText("Inventory", locX + (gv.squareSize * 4) + pW * 2, locY += spacing, "wh");
-		    locY = gv.squareSize + (pH * 2);
-		    gv.DrawText("Party", tabX2 + (gv.squareSize * 6), locY, "yl");
-            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + (gv.squareSize * 6), locY += spacing, "yl");
+		    locY = gv.squareSize / 2;
+		    gv.DrawText("Party", locX + (gv.squareSize * 1) + pW * 2, locY, "wh");
+            gv.DrawText("Inventory", locX + (gv.squareSize * 1) + pW * 2, locY += spacing, "wh");
+		    locY = gv.squareSize / 2;
+            gv.DrawText("Party", tabX2 + (gv.squareSize * 2), locY, "yl");
+            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + (gv.squareSize * 2), locY += spacing, "yl");
 
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX
 		    btnPageIndex.Draw();
@@ -254,9 +260,9 @@ namespace IceBlink2mini
 	        	    textToSpan += "Tap 'INFO' for Full Description<BR>";
 	            }
                 
-                description.tbXloc = (11 * gv.squareSize) + (pW * 5);
-                description.tbYloc = 2 * gv.squareSize;
-                description.tbWidth = 6 * gv.squareSize;
+                description.tbXloc = (8 * gv.squareSize);
+                description.tbYloc = 1 * gv.squareSize + gv.squareSize / 6;
+                description.tbWidth = 3 * gv.squareSize;
                 description.tbHeight = 8 * gv.squareSize;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);

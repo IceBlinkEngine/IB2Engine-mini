@@ -14,7 +14,7 @@ namespace IceBlink2mini
 
         public int traitUsingPlayerIndex = 0;
         private int traitSlotIndex = 0;
-        private int slotsPerPage = 48;
+        private int slotsPerPage = 24;
         private List<IbbButton> btnTraitSlots = new List<IbbButton>();
         private IbbButton btnHelp = null;
         private IbbButton btnSelect = null;
@@ -45,8 +45,8 @@ namespace IceBlink2mini
                 btnSelect.Text = "USE SELECTED TRAIT";
                 btnSelect.Img = "btn_large";
                 btnSelect.Glow = "btn_large_glow";
-                btnSelect.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-                btnSelect.Y = 9 * gv.squareSize + pH * 2;
+                btnSelect.X = 2 * gv.squareSize + padW * 2;
+                btnSelect.Y = 6 * gv.squareSize - pH * 2;
                 btnSelect.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSelect.Width = (int)(gv.ibbwidthL * gv.screenDensity);
             }
@@ -56,8 +56,8 @@ namespace IceBlink2mini
                 btnHelp.Text = "HELP";
                 btnHelp.Img = "btn_small";
                 btnHelp.Glow = "btn_small_glow";
-                btnHelp.X = 5 * gv.squareSize + padW * 1;
-                btnHelp.Y = 9 * gv.squareSize + pH * 2;
+                btnHelp.X = 1 * gv.squareSize + padW * 1;
+                btnHelp.Y = 6 * gv.squareSize - pH * 2;
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -67,8 +67,8 @@ namespace IceBlink2mini
                 btnExit.Text = "EXIT";
                 btnExit.Img = "btn_small";
                 btnExit.Glow = "btn_small_glow";
-                btnExit.X = (15 * gv.squareSize) - padW * 1;
-                btnExit.Y = 9 * gv.squareSize + pH * 2;
+                btnExit.X = (5 * gv.squareSize) + padW * 5;
+                btnExit.Y = 6 * gv.squareSize - pH * 2;
                 btnExit.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnExit.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -79,9 +79,9 @@ namespace IceBlink2mini
                 btnNew.ImgOff = "btn_small_off";
                 btnNew.Glow = "btn_small_glow";
 
-                int x = y % 8;
-                int yy = y / 8;
-                btnNew.X = ((x + 1) * gv.squareSize) + (padW * (x + 1));
+                int x = y % 6;
+                int yy = y / 6;
+                btnNew.X = ((x) * gv.squareSize) + (padW * (x + 1));
                 btnNew.Y = (1 + yy) * gv.squareSize + (padW * yy);
 
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -153,7 +153,7 @@ namespace IceBlink2mini
         public void redrawTraitUseSelector(bool inCombat)
         {
             Player pc = getTraitUsingPlayer();
-
+            
             isInCombat = inCombat;
             //IF CONTROLS ARE NULL, CREATE THEM
             if (btnSelect == null)
@@ -269,9 +269,9 @@ namespace IceBlink2mini
                 textToSpan += "<BR>";
                 textToSpan += tr.description;
 
-                description.tbXloc = 11 * gv.squareSize;
+                description.tbXloc = 7 * gv.squareSize + pW;
                 description.tbYloc = 1 * gv.squareSize;
-                description.tbWidth = pW * 40;
+                description.tbWidth = 4 * gv.squareSize;
                 description.tbHeight = pH * 80;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);

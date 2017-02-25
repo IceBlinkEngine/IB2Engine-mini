@@ -40,16 +40,16 @@ namespace IceBlink2mini
             int pW = (int)((float)gv.screenWidth / 100.0f);
             int pH = (int)((float)gv.screenHeight / 100.0f);
             int padW = gv.squareSize / 6;
-
+            
             for (int y = 0; y < itemList.Count; y++)
             {
                 IbbButton btnNew = new IbbButton(gv, 1.0f);
                 btnNew.Img = "btn_large";
                 btnNew.Glow = "btn_large_glow";
                 btnNew.X = (int)(currentLocX * gv.screenDensity) + padW;
-                btnNew.Y = (int)(currentLocY * gv.screenDensity) + ((y + 1) * gv.squareSize) + (y * padW);
-                btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnNew.Width = (int)(gv.ibbwidthL * gv.screenDensity * 2.5f);
+                btnNew.Y = (int)(currentLocY * gv.screenDensity) + ((y + 1) * (int)(gv.squareSize * 0.65f)) + (y * padW);
+                btnNew.Height = (int)(gv.ibbheight * gv.screenDensity * 0.75f);
+                btnNew.Width = (int)(gv.ibbwidthL * gv.screenDensity * 2.88f);
                 btnNew.Text = itemList[y];
                 btnSelections.Add(btnNew);
             }

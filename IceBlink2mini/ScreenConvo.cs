@@ -51,8 +51,8 @@ namespace IceBlink2mini
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
 			    btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
 			    btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnNew.X = ((x+5) * gv.squareSize) + (padW * (x+1));
-			    btnNew.Y = 9 * gv.squareSize + (pH * 2);
+			    btnNew.X = ((x+2) * gv.squareSize) + (padW * (x+1));
+			    btnNew.Y = 6 * gv.squareSize - (pH * 2);
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);	
 			
@@ -86,20 +86,20 @@ namespace IceBlink2mini
 	    public void drawPortrait()
 	    {
             int pH = (int)((float)gv.screenHeight / 100.0f);
-		    int sX = gv.squareSize * 1;
+		    int sX = gv.squareSize * 0 + gv.squareSize / 4;
 		    int sY = pH * 4;
             IbRect src = new IbRect(0, 0, convoBitmap.PixelSize.Width, convoBitmap.PixelSize.Height);
-            IbRect dst = new IbRect(sX, sY, (int)(gv.ibpwidth * 2 * gv.screenDensity), (int)(gv.ibpheight * 2 * gv.screenDensity));
+            IbRect dst = new IbRect(sX, sY, (int)(gv.ibpwidth * 1.3 * gv.screenDensity), (int)(gv.ibpheight * 1.3 * gv.screenDensity));
 
             if (convoBitmap.PixelSize.Width == convoBitmap.PixelSize.Height)
             {
-                dst = new IbRect(sX, sY, (int)(gv.squareSize * 2), (int)(gv.squareSize * 2));
+                dst = new IbRect(sX, sY, (int)(gv.squareSize * 1.3), (int)(gv.squareSize * 1.3));
             }
 		    if (currentConvo.Narration)
             {
                 if (!currentConvo.NpcPortraitBitmap.Equals("")) //Narration with image
                 {
-                    dst = new IbRect((gv.screenWidth / 2) - (gv.squareSize * 4), gv.squareSize / 2, gv.squareSize * 8, gv.squareSize * 4);
+                    dst = new IbRect((gv.squaresInWidth * gv.squareSize / 2) - (gv.squareSize * 2), gv.squareSize / 4, gv.squareSize * 4, gv.squareSize * 2);
                 }
                 else //Narration without image
                 {
@@ -124,17 +124,17 @@ namespace IceBlink2mini
 	    {
             int pW = (int)((float)gv.screenWidth / 100.0f);
             int pH = (int)((float)gv.screenHeight / 100.0f);
-            int startX = gv.squareSize * 3 + (pW * 3);
+            int startX = gv.squareSize * 2 + (pW * 3);
             int startY = pH * 4;
-            int width = gv.screenWidth - startX - (pW * 10);
+            int width = gv.screenWidth - startX - (pW * 5);
 		
 		    if (currentConvo.Narration)
             {
                 if (!currentConvo.NpcPortraitBitmap.Equals("")) //Narration with image
                 {
                     //do narration with image setup
-                    startX = gv.squareSize * 1;
-                    startY = gv.squareSize * 5;
+                    startX = (int)(gv.squareSize * 0.5);
+                    startY = (int)(gv.squareSize * 2.5);
                     width = gv.screenWidth - startX - startX;
                 }
                 else //Narration without image
@@ -166,9 +166,9 @@ namespace IceBlink2mini
 
             int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int pad = (int)((float)gv.screenHeight / 100.0f);
-		    int startX = gv.squareSize * 1;
-		    int sY = (int)((float)gv.screenHeight / 100.0f) * 4;
-		    int startY = gv.squareSize * 4 + (pH * 5);		
+		    int startX = gv.squareSize * 0 + gv.squareSize / 4;
+            int sY = (int)((float)gv.screenHeight / 100.0f) * 4;
+		    int startY = (int)(gv.squareSize * 2.5) + (pH * 5);		
 		    int width = gv.screenWidth - startX - startX;
 
 		    if (currentConvo.Narration)

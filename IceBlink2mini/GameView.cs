@@ -26,16 +26,16 @@ namespace IceBlink2mini
         public int standardTokenSize = 48;
         public int squareSize; //in dp (squareSizeInPixels * screenDensity)
         public int pS; // = squareSize / 10 ... used for small UI and text location adjustments based on squaresize
-        public int squaresInWidth = 19;
-        public int squaresInHeight = 11;
-        public int ibbwidthL = 240;
+        public int squaresInWidth = 11; //19 or 11
+        public int squaresInHeight = 7; //11 or 7
+        public int ibbwidthL = 144;
         public int ibbwidthR = 48;
         public int ibbheight = 48;
         public int ibpwidth = 55;
         public int ibpheight = 85;
-        public int playerOffset = 5;
-        public int playerOffsetX = 5;
-        public int playerOffsetY = 5;
+        public int playerOffset = 3;
+        public int playerOffsetX = 3;
+        public int playerOffsetY = 3;
         public int oXshift = 0;
         public int oYshift = 0;
         public string mainDirectory;
@@ -138,8 +138,8 @@ namespace IceBlink2mini
             //this.Height = Screen.PrimaryScreen.Bounds.Height;            
             //for testing other screen sizes, manually enter a resolution here
             //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792, 912x528, 456x264, 960x540,
-            this.Width = 1280;
-            this.Height = 720;
+            this.Width = 800; //785
+            this.Height = 480; //480
 
             screenWidth = this.Width;
             screenHeight = this.Height;
@@ -153,11 +153,12 @@ namespace IceBlink2mini
             {
                 squareSize = (int)(sqrW);
             }
+                        
             if ((squareSize >= 96) && (squareSize < 102))
             {
                 squareSize = 96;
             }
-            else if ((squareSize >= 68) && (squareSize < 76))
+            else if ((squareSize >= 72) && (squareSize < 76))
             {
                 squareSize = 72;
             }
@@ -165,6 +166,7 @@ namespace IceBlink2mini
             {
                 squareSize = 48;
             }
+            
             screenDensity = (float)squareSize / (float)squareSizeInPixels;
             oXshift = (screenWidth - (squareSize * squaresInWidth)) / 2;
             oYshift = (screenHeight - (squareSize * squaresInHeight)) / 2;
@@ -176,54 +178,7 @@ namespace IceBlink2mini
             //CREATES A FONTFAMILY
             fillCharList();
 
-            fontWidth = (int)(6 * screenDensity); //4
-            fontHeight = (int)(6 * screenDensity); //4
-            fontCharSpacing = fontWidth / 8; //8
-            fontLineSpacing = fontHeight / 2; //2
-
-            //force font to best size if squareSize is near to multiple of 48px
-            if ((squareSize >= 20) && (squareSize < 30)) //24x24
-            {
-                fontWidth = 6; //8
-                fontHeight = 6; //8
-                fontCharSpacing = 1; //1
-                fontLineSpacing = 3; //4
-            }
-            else if ((squareSize >= 30) && (squareSize < 44)) //32x32
-            {
-                fontWidth = 10; //8
-                fontHeight = 10; //8
-                fontCharSpacing = 1; //1
-                fontLineSpacing = 5; //4
-            }
-            else if ((squareSize >= 44) && (squareSize < 60)) //48x48
-            {
-                fontWidth = 12; //8
-                fontHeight = 12; //8
-                fontCharSpacing = 1; //1
-                fontLineSpacing = 6; //4
-            }
-            else if ((squareSize >= 60) && (squareSize < 82)) //72x72
-            {
-                fontWidth = 16;
-                fontHeight = 16;
-                fontCharSpacing = 1;
-                fontLineSpacing = 8;
-            }
-            else if ((squareSize >= 82) && (squareSize < 118)) //96x96
-            {
-                fontWidth = 24;
-                fontHeight = 24;
-                fontCharSpacing = 2;
-                fontLineSpacing = 12;
-            }
-            else if ((squareSize >= 118) && (squareSize < 160)) //144x144
-            {
-                fontWidth = 32;
-                fontHeight = 32;
-                fontCharSpacing = 2;
-                fontLineSpacing = 16;
-            }
+            setupFonts();
 
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
 
@@ -232,22 +187,22 @@ namespace IceBlink2mini
 
             //setup messageBox defaults
             messageBox = new IBminiMessageBox(this);
-            messageBox.currentLocX = 200;
-            messageBox.currentLocY = 25;
+            messageBox.currentLocX = 50;
+            messageBox.currentLocY = 10;
             messageBox.numberOfLinesToShow = 17;
-            messageBox.tbWidth = 500;
-            messageBox.Width = 500;
-            messageBox.Height = 390;
-            messageBox.tbHeight = 382;
+            messageBox.tbWidth = 430;
+            messageBox.Width = 430;
+            messageBox.Height = 308;
+            messageBox.tbHeight = 300;
             messageBox.setupIBminiMessageBox();
-            
-            //setup itemListSelector defaults
+
+            //setup itemListSelector defaults   
             itemListSelector = new IBminiItemListSelector();
-            itemListSelector.currentLocX = 146;
-            itemListSelector.currentLocY = 25;
-            itemListSelector.Width = 620;
-            itemListSelector.Height = 440;
-            
+            itemListSelector.currentLocX = 50;
+            itemListSelector.currentLocY = 10;
+            itemListSelector.Width = 430;
+            itemListSelector.Height = 320;
+
             if (fixedModule.Equals("")) //this is the IceBlink Engine app
             {
                 screenLauncher = new ScreenLauncher(mod, this);
@@ -262,13 +217,72 @@ namespace IceBlink2mini
                 cc.LoadSaveListItems();
                 screenType = "title";
             }
+
             gameTimer.Interval = 16; //~60 fps
             gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             gameTimerStopwatch.Start();
             previousTime = gameTimerStopwatch.ElapsedMilliseconds;
             gameTimer.Start();
         }
-
+        public void setupFonts()
+        {            
+            fontWidth = (int)(squareSize / 7); //6
+            fontHeight = (int)(squareSize / 7); //6
+            fontCharSpacing = fontWidth / 8; //8
+            fontLineSpacing = fontHeight / 2; //2
+                
+            //force font to best size if squareSize is near to multiple of 48px
+            if ((squareSize >= 52) && (squareSize < 60)) //48x48 320=46
+            {
+                fontWidth = 6; //12
+                fontHeight = 6; //12
+                fontCharSpacing = 1; //1
+                fontLineSpacing = 3; //6
+            }
+            else if ((squareSize >= 66) && (squareSize < 74)) //72x72 480=68
+            {
+                fontWidth = 10; //16
+                fontHeight = 10; //16
+                fontCharSpacing = 1; //1
+                fontLineSpacing = 5; //8
+            }
+            else if ((squareSize >= 80) && (squareSize < 88)) //48x48 600=85
+            {
+                fontWidth = 12; //24
+                fontHeight = 12; //24
+                fontCharSpacing = 1; //2
+                fontLineSpacing = 6; //12
+            }
+            else if ((squareSize >= 102) && (squareSize < 118)) //48x48 720=102
+            {
+                fontWidth = 16; //24
+                fontHeight = 16; //24
+                fontCharSpacing = 1; //2
+                fontLineSpacing = 8; //12
+            }
+            else if ((squareSize >= 136) && (squareSize < 146)) //144x144 860=122
+            {
+                fontWidth = 20; //32
+                fontHeight = 20; //32
+                fontCharSpacing = 2; //2
+                fontLineSpacing = 9; //16
+            }
+            else if ((squareSize >= 150) && (squareSize < 174)) //144x144 1080=154
+            {
+                fontWidth = 24; //32
+                fontHeight = 24; //32
+                fontCharSpacing = 2; //2
+                fontLineSpacing = 12; //16
+            }
+            else if ((squareSize >= 204) && (squareSize < 232)) //144x144 1440=205
+            {
+                fontWidth = 32; //32
+                fontHeight = 32; //32
+                fontCharSpacing = 2; //2
+                fontLineSpacing = 16; //16
+            }
+        }
+        
         public void createScreens()
 	    {
 		    sf = new ScriptFunctions(mod, this);

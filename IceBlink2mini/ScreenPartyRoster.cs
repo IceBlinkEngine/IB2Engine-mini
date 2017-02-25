@@ -72,7 +72,7 @@ namespace IceBlink2mini
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int padW = gv.squareSize/6;
-		
+            
 		    for (int x = 0; x < mod.MaxPartySize; x++)
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);
@@ -80,7 +80,7 @@ namespace IceBlink2mini
                 btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
                 //gv.cc.DisposeOfBitmap(ref btnNew.Glow);
                 btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnNew.X = ((x+5) * gv.squareSize) + (padW * (x+1));
+			    btnNew.X = ((x+2) * gv.squareSize) + (padW * (x+1));
 			    btnNew.Y = (gv.squareSize / 2) + (pH * 1);
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);	
@@ -94,7 +94,7 @@ namespace IceBlink2mini
                 btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
                 //gv.cc.DisposeOfBitmap(ref btnNew.Glow);
                 btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnNew.X = ((x+5) * gv.squareSize) + (padW * (x+1));
+                btnNew.X = ((x+2) * gv.squareSize) + (padW * (x+1));
                 btnNew.Y = (3 * gv.squareSize) + (pH * 2);
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -107,61 +107,65 @@ namespace IceBlink2mini
                 btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
                 //gv.cc.DisposeOfBitmap(ref btnNew.Glow);
                 btnNew.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-                btnNew.X = ((x+5) * gv.squareSize) + (padW * (x + 1));
+                btnNew.X = ((x+2) * gv.squareSize) + (padW * (x + 1));
                 btnNew.Y = (4 * gv.squareSize) + (pH * 3);
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);
                 btnPartyRosterIndex.Add(btnNew);
             }
-		    if (btnDown == null)
-		    {
-			    btnDown = new IbbButton(gv, 1.0f);
+            if (btnDown == null)
+            {
+                btnDown = new IbbButton(gv, 1.0f);
+            }
                 btnDown.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnDown.Img2 = "ctrl_down_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
                 btnDown.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnDown.X = 7 * gv.squareSize + (gv.squareSize/2) - (pW * 1);
+			    btnDown.X = 4 * gv.squareSize + (gv.squareSize/2) - (pW * 1);
 			    btnDown.Y = 2 * gv.squareSize - (pH * 2);
                 btnDown.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnDown.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (btnUp == null)
-		    {
-			    btnUp = new IbbButton(gv, 1.0f);
+
+            if (btnUp == null)
+            {
+                btnUp = new IbbButton(gv, 1.0f);
+            }
                 btnUp.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnUp.Img2 = "ctrl_up_arrow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
 			    btnUp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnUp.X = 8 * gv.squareSize + (gv.squareSize/2) + (pW * 1);
+			    btnUp.X = 5 * gv.squareSize + (gv.squareSize/2) + (pW * 1);
 			    btnUp.Y = 2 * gv.squareSize - (pH * 2);
                 btnUp.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnUp.Width = (int)(gv.ibbwidthR * gv.screenDensity);
-		    }
-		    if (btnHelp == null)
-		    {
-			    btnHelp = new IbbButton(gv, 0.8f);	
+
+            if (btnHelp == null)
+            {
+                btnHelp = new IbbButton(gv, 0.8f);
+            }
 			    btnHelp.Text = "HELP";
 			    btnHelp.Img = "btn_small"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnHelp.Glow = "btn_small_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnHelp.X = 5 * gv.squareSize + padW * 1;
-			    btnHelp.Y = 9 * gv.squareSize + (pH * 2);
+			    btnHelp.X = 8 * gv.squareSize + padW * 1;
+			    btnHelp.Y = 6 * gv.squareSize - (pH * 2);
                 btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
-		    }
-		    if (btnReturn == null)
-		    {
-			    btnReturn = new IbbButton(gv, 1.2f);	
+                btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+
+            if (btnReturn == null)
+            {
+                btnReturn = new IbbButton(gv, 1.2f);
+            }
 			    btnReturn.Text = "RETURN";
 			    btnReturn.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnReturn.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-                btnReturn.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-			    btnReturn.Y = 9 * gv.squareSize + (pH * 2);
+                btnReturn.X = ((gv.squaresInWidth * gv.squareSize / 2)) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
+			    btnReturn.Y = 6 * gv.squareSize - (pH * 2);
                 btnReturn.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnReturn.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
-		    }
+		    
 	    }
 	
 	    //PARTY SCREEN
         public void redrawPartyRoster()
-        {    	
+        {            
     	    if (partyScreenPcIndex >= mod.playerList.Count)
     	    {
     		    partyScreenPcIndex = 0;
@@ -188,12 +192,12 @@ namespace IceBlink2mini
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int padH = gv.squareSize/6;
     	    int locY = 0;
-    	    int locX = pW * 4;
+    	    int locX = gv.squareSize;
     	    int textH = (int)gv.fontHeight;
             int spacing = textH;
-    	    int tabX = pW * 50;
-    	    int tabX2 = pW * 70;
-    	    int leftStartY = 5 * gv.squareSize + (pH * 6);
+    	    int tabX = gv.squareSize * 5;
+    	    int tabX2 = gv.squareSize * 7;
+    	    int leftStartY = 4 * gv.squareSize + (pH * 6);
 
             //Draw screen title name
             string strg = "Current Party Members [" + mod.MaxPartySize + " Maximum]";

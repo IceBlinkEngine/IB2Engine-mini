@@ -36,8 +36,8 @@ namespace IceBlink2mini
 			    btnNewGame.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnNewGame.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnNewGame.Text = "New Game";
-                btnNewGame.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-                btnNewGame.Y = (1 * gv.squareSize) + (2 * pH);
+                btnNewGame.X = (gv.squareSize * gv.squaresInWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
+                btnNewGame.Y = (1 * gv.squareSize) + (2 * pH) - (gv.squareSize / 2);
                 btnNewGame.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNewGame.Width = (int)(gv.ibbwidthL * gv.screenDensity);
 
@@ -48,8 +48,8 @@ namespace IceBlink2mini
 			    btnLoadSavedGame.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnLoadSavedGame.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnLoadSavedGame.Text = "Load Saved Game";
-                btnLoadSavedGame.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-                btnLoadSavedGame.Y = (2 * gv.squareSize) + (4 * pH);
+                btnLoadSavedGame.X = (gv.squareSize * gv.squaresInWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
+                btnLoadSavedGame.Y = (2 * gv.squareSize) + (4 * pH) - (gv.squareSize / 2);
                 btnLoadSavedGame.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnLoadSavedGame.Width = (int)(gv.ibbwidthL * gv.screenDensity);
 
@@ -60,8 +60,8 @@ namespace IceBlink2mini
 			    btnPlayerGuide.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnPlayerGuide.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnPlayerGuide.Text = "Player's Guide";
-                btnPlayerGuide.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-                btnPlayerGuide.Y = (3 * gv.squareSize) + (6 * pH);
+                btnPlayerGuide.X = (gv.squareSize * gv.squaresInWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
+                btnPlayerGuide.Y = (3 * gv.squareSize) + (6 * pH) - (gv.squareSize / 2);
                 btnPlayerGuide.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnPlayerGuide.Width = (int)(gv.ibbwidthL * gv.screenDensity);
 
@@ -72,8 +72,8 @@ namespace IceBlink2mini
 			    btnBeginnerGuide.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnBeginnerGuide.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnBeginnerGuide.Text = "Beginner's Guide";
-                btnBeginnerGuide.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-                btnBeginnerGuide.Y = (4 * gv.squareSize) + (8 * pH);
+                btnBeginnerGuide.X = (gv.squareSize * gv.squaresInWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
+                btnBeginnerGuide.Y = (4 * gv.squareSize) + (8 * pH) - (gv.squareSize / 2);
                 btnBeginnerGuide.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnBeginnerGuide.Width = (int)(gv.ibbwidthL * gv.screenDensity);
 
@@ -84,8 +84,8 @@ namespace IceBlink2mini
 			    btnAbout.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnAbout.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnAbout.Text = "Credits";
-                btnAbout.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-                btnAbout.Y = (5 * gv.squareSize) + (10 * pH);
+                btnAbout.X = (gv.squareSize * gv.squaresInWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
+                btnAbout.Y = (5 * gv.squareSize) + (10 * pH) - (gv.squareSize / 2);
                 btnAbout.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnAbout.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
 		    
@@ -103,16 +103,16 @@ namespace IceBlink2mini
             gv.DrawBitmap(gv.cc.GetFromBitmapList(gv.mod.titleImageName), src, dst);
 
             //Draw This Module's Version Number
-            int xLoc = (gv.screenWidth / 2) - (2 * gv.fontWidth);
+            int xLoc = (gv.squareSize * gv.squaresInWidth / 2) - (1 * gv.fontWidth);
             int pH = (int)((float)gv.screenHeight / 100.0f);
             for (int x = 0; x <= 2; x++)
             {
                 for (int y = 0; y <= 2; y++)
                 {
-                    gv.DrawText("v" + mod.moduleVersion, xLoc + x, (7 * gv.squareSize) + (pH * 4) + y, "bk");
+                    gv.DrawText("v" + mod.moduleVersion, xLoc + x, (6 * gv.squareSize) + (pH * 4) + y, "bk");
                 }
             }
-            gv.DrawText("v" + mod.moduleVersion, xLoc, (7 * gv.squareSize) + (pH * 4), "wh");
+            gv.DrawText("v" + mod.moduleVersion, xLoc, (6 * gv.squareSize) + (pH * 4), "wh");
             
             drawTitleControls();
             if (gv.showMessageBox)
