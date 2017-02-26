@@ -277,7 +277,7 @@ namespace IceBlink2mini
                 btnName.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnName.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnName.X = 1 * gv.squareSize;
-                btnName.Y = 0 * gv.squareSize + gv.squareSize / 2;
+                btnName.Y = (int)(0.5 * gv.squareSize);
                 btnName.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnName.Width = (int)(gv.ibbwidthL * gv.screenDensity);
 
@@ -288,7 +288,7 @@ namespace IceBlink2mini
                 btnRace.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnRace.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnRace.X = 1 * gv.squareSize;
-                btnRace.Y = 1 * gv.squareSize + gv.squareSize / 2;
+                btnRace.Y = (int)(1.5 * gv.squareSize) + gv.squareSize / 8;
                 btnRace.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnRace.Width = (int)(gv.ibbwidthL * gv.screenDensity);
 
@@ -299,7 +299,7 @@ namespace IceBlink2mini
                 btnGender.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnGender.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnGender.X = 1 * gv.squareSize;
-                btnGender.Y = 2 * gv.squareSize + gv.squareSize / 2;
+                btnGender.Y = (int)(2.5 * gv.squareSize) + gv.squareSize / 4;
                 btnGender.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnGender.Width = (int)(gv.ibbwidthL * gv.screenDensity);
 
@@ -310,7 +310,7 @@ namespace IceBlink2mini
                 btnClass.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnClass.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnClass.X = 1 * gv.squareSize;
-                btnClass.Y = 3 * gv.squareSize + gv.squareSize / 2;
+                btnClass.Y = (int)(3.5 * gv.squareSize) + 3 * gv.squareSize / 8;
                 btnClass.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnClass.Width = (int)(gv.ibbwidthL * gv.screenDensity);
                         
@@ -322,7 +322,7 @@ namespace IceBlink2mini
                 btnRollStats.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnRollStats.Text = "Roll Stats";
                 btnRollStats.X = 1 * gv.squareSize;
-                btnRollStats.Y = 5 * gv.squareSize - gv.squareSize / 4;
+                btnRollStats.Y = 6 * gv.squareSize - gv.squareSize / 4;
                 btnRollStats.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnRollStats.Width = (int)(gv.ibbwidthL * gv.screenDensity);
 
@@ -333,7 +333,7 @@ namespace IceBlink2mini
                 btnFinished.Img = "btn_large"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnFinished.Glow = "btn_large_glow"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnFinished.Text = "Finished";
-                btnFinished.X = 1 * gv.squareSize;
+                btnFinished.X = 7 * gv.squareSize;
                 btnFinished.Y = 6 * gv.squareSize - gv.squareSize / 4;
                 btnFinished.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnFinished.Width = (int)(gv.ibbwidthL * gv.screenDensity);

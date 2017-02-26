@@ -102,13 +102,13 @@ namespace IceBlink2mini
             newPanel.hidingXIncrement = 3;
             newPanel.hidingYIncrement = 0;
             newPanel.Width = 192;
-            newPanel.Height = 360;
+            newPanel.Height = 336;
 
             IB2HtmlLogBox newLog = gv.log;
             newLog.tbXloc = 10;
             newLog.tbYloc = 10;
             newLog.tbWidth = 186;
-            newLog.tbHeight = 354;
+            newLog.tbHeight = 330;
             newLog.numberOfLinesToShow = 28;
             newPanel.logList.Add(newLog);
             mainUiLayout.panelList.Add(newPanel);
@@ -1085,7 +1085,7 @@ namespace IceBlink2mini
                 int x2 = mod.PlayerLocationX * minimapSquareSizeInPixels + gv.squareSize;
                 int y2 = mod.PlayerLocationY * minimapSquareSizeInPixels;
                 src = new IbRect(0, 0, gv.cc.map_marker.PixelSize.Width, gv.cc.map_marker.PixelSize.Height);
-                dst = new IbRect(x2, y2, minimapSquareSizeInPixels, minimapSquareSizeInPixels);
+                dst = new IbRect(x2, y2 + pH, minimapSquareSizeInPixels, minimapSquareSizeInPixels);
                 gv.DrawBitmap(gv.cc.map_marker, src, dst);	            
             }
         }
@@ -1407,7 +1407,7 @@ namespace IceBlink2mini
             }
 
             int txtH = (int)gv.fontHeight;
-            int xLoc = (gv.playerOffsetX - 1) * gv.squareSize;
+            int xLoc = (gv.playerOffsetX - 2) * gv.squareSize;
             int yLoc = (gv.playerOffsetY * 2) * gv.squareSize + gv.squareSize - gv.fontHeight - gv.fontHeight;
             if (showTogglePanel)
             {

@@ -39,7 +39,7 @@ namespace IceBlink2mini
         public void setupIB2HtmlLogBox(GameView g)
         {
             gv = g;
-            numberOfLinesToShow = (int)((tbHeight * gv.screenDensity) / (gv.fontHeight + gv.fontLineSpacing));
+            numberOfLinesToShow = (int)((tbHeight * gv.screenDensity) / (gv.fontHeight + gv.fontLineSpacing)) - 1;
         }
 
         public void DrawString(string text, float x, float y, string fontColor)
@@ -77,6 +77,7 @@ namespace IceBlink2mini
         }
         public void onDrawLogBox(IB2Panel parentPanel)
         {
+            numberOfLinesToShow = (int)((tbHeight * gv.screenDensity) / (gv.fontHeight + gv.fontLineSpacing)) - 1;
             //ratio of #lines to #pixels
             float ratio = (float)(logLinesList.Count) / (float)(tbHeight * gv.screenDensity);
             if (ratio < 1.0f) { ratio = 1.0f; }
