@@ -1253,6 +1253,11 @@ namespace IceBlink2mini
             int txtH = (int)gv.fontHeight;
             int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2)) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
+            if (gv.screenType.Equals("combat"))
+            {
+                x = ((coorInSquares.X * (int)(gv.squareSize * gv.screenCombat.sqrScale)) + ((int)(gv.squareSize * gv.screenCombat.sqrScale) / 2)) - (txtH / 2);
+                y = ((coorInSquares.Y * (int)(gv.squareSize * gv.screenCombat.sqrScale)) + ((int)(gv.squareSize * gv.screenCombat.sqrScale) / 2) + txtH) - (txtH / 2);
+            }
             Coordinate coor = new Coordinate(x, y);
             floatyTextList.Add(new FloatyText(coor, value));
         }
@@ -1261,6 +1266,11 @@ namespace IceBlink2mini
             int txtH = (int)gv.fontHeight;
             int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2)) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
+            if (gv.screenType.Equals("combat"))
+            {
+                x = ((coorInSquares.X * (int)(gv.squareSize * gv.screenCombat.sqrScale)) + ((int)(gv.squareSize * gv.screenCombat.sqrScale) / 2)) - (txtH / 2);
+                y = ((coorInSquares.Y * (int)(gv.squareSize * gv.screenCombat.sqrScale)) + ((int)(gv.squareSize * gv.screenCombat.sqrScale) / 2) + txtH) - (txtH / 2);
+            }
             Coordinate coor = new Coordinate(x, y);
             floatyTextList.Add(new FloatyText(coor, value, color));
         }
@@ -1269,6 +1279,11 @@ namespace IceBlink2mini
             int txtH = (int)gv.fontHeight;
             int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2)) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2) - shiftUp;
+            if (gv.screenType.Equals("combat"))
+            {
+                x = ((coorInSquares.X * (int)(gv.squareSize * gv.screenCombat.sqrScale)) + ((int)(gv.squareSize * gv.screenCombat.sqrScale) / 2)) - (txtH / 2);
+                y = ((coorInSquares.Y * (int)(gv.squareSize * gv.screenCombat.sqrScale)) + ((int)(gv.squareSize * gv.screenCombat.sqrScale) / 2) + txtH) - (txtH / 2) - shiftUp;
+            }
             Coordinate coor = new Coordinate(x, y);
             floatyTextList.Add(new FloatyText(coor, value));
         }

@@ -36,6 +36,7 @@ namespace IceBlink2mini
         public int playerOffset = 3;
         public int playerOffsetX = 3;
         public int playerOffsetY = 3;
+        public int playerOffsetZoom = 5;
         public int oXshift = 0;
         public int oYshift = 0;
         public string mainDirectory;
@@ -132,10 +133,33 @@ namespace IceBlink2mini
             catch (Exception ex) { errorLog(ex.ToString()); }
 
             this.MinimumSize = new Size(100, 100);
+
+            #region screen size selection
+            using (Config itSel = new Config())
+            {
+                var ret = itSel.ShowDialog();
+
+                if (ret == DialogResult.OK)
+                {
+                    if (itSel.width == -1)
+                    {
+                        this.WindowState = FormWindowState.Maximized;
+                        this.Width = Screen.PrimaryScreen.Bounds.Width;
+                        this.Height = Screen.PrimaryScreen.Bounds.Height;
+                    }
+                    else
+                    {
+                        this.Width = itSel.width;
+                        this.Height = itSel.height;
+                    }
+                }
+            }
+            #endregion
+
             //this is the standard way, comment out the next 3 lines if manually forcing a screen resolution for testing UI layouts
-            this.WindowState = FormWindowState.Maximized;
-            this.Width = Screen.PrimaryScreen.Bounds.Width;
-            this.Height = Screen.PrimaryScreen.Bounds.Height;            
+            //this.WindowState = FormWindowState.Maximized;
+            //this.Width = Screen.PrimaryScreen.Bounds.Width;
+            //this.Height = Screen.PrimaryScreen.Bounds.Height;            
             //for testing other screen sizes, manually enter a resolution here
             //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900, 1280x720, 640x360, 427x240, 1368x792, 912x528, 456x264, 960x540,
             //this.Width = 785; //785
@@ -238,6 +262,13 @@ namespace IceBlink2mini
                 fontHeight = 6; //12
                 fontCharSpacing = 1; //1
                 fontLineSpacing = 3; //6
+            }
+            else if ((squareSize >= 60) && (squareSize < 66)) //64x64 720x450
+            {
+                fontWidth = 8; //16
+                fontHeight = 8; //16
+                fontCharSpacing = 1; //1
+                fontLineSpacing = 4; //8
             }
             else if ((squareSize >= 66) && (squareSize < 74)) //72x72 480=68
             {

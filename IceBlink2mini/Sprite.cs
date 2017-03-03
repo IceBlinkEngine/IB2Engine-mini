@@ -130,7 +130,10 @@ namespace IceBlink2mini
                 src = new IbRect(0, 0, 150, 150);
             }
             dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scaleX), (int)(gv.squareSize * this.scaleY));
-
+            if (gv.screenType.Equals("combat"))
+            {
+                dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)((int)(gv.squareSize * gv.screenCombat.sqrScale) * this.scaleX), (int)((int)(gv.squareSize * gv.screenCombat.sqrScale) * this.scaleY));
+            }
             if (numberOFFramesForAnimationsMadeFromSeveralBitmaps == 0)
             {
                 gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false);
