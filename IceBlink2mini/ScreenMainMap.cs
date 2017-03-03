@@ -32,6 +32,8 @@ namespace IceBlink2mini
         private bool finishedMove = true;
         public Bitmap minimap = null;
         public List<Sprite> spriteList = new List<Sprite>();
+        public float sqrScale = 1.0f; //1.0 or 0.6364
+        public bool use11x11 = false;
 
         public ScreenMainMap(Module m, GameView g)
         {
@@ -321,11 +323,24 @@ namespace IceBlink2mini
 
             //toggle
             newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglZoom";
+            newToggle.ImgOnFilename = "tgl_zoom_on";
+            newToggle.ImgOffFilename = "tgl_zoom_off";
+            newToggle.toggleOn = true;
+            newToggle.X = 144;
+            newToggle.Y = 0;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
             newToggle.tag = "tglDebugMode";
             newToggle.ImgOnFilename = "tgl_debugmode_on";
             newToggle.ImgOffFilename = "tgl_debugmode_off";
             newToggle.toggleOn = false;
-            newToggle.X = 144;
+            newToggle.X = 192;
             newToggle.Y = 0;
             newToggle.Width = 48;
             newToggle.Height = 48;
@@ -817,10 +832,15 @@ namespace IceBlink2mini
             int maxY = mod.PlayerLocationY + gv.playerOffset + 1; // use 2 so that extends down to bottom of screen
             if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
             */
-            #region Draw Layer 1
-            for (int x = mod.PlayerLocationX - gv.playerOffset; x <= mod.PlayerLocationX + gv.playerOffset; x++)
+            int offset = gv.playerOffset;
+            if (use11x11)
             {
-                for (int y = mod.PlayerLocationY - gv.playerOffset; y <= mod.PlayerLocationY + gv.playerOffset; y++)
+                offset = gv.playerOffsetZoom;
+            }
+            #region Draw Layer 1
+            for (int x = mod.PlayerLocationX - offset; x <= mod.PlayerLocationX + offset; x++)
+            {
+                for (int y = mod.PlayerLocationY - offset; y <= mod.PlayerLocationY + offset; y++)
                 {
                     //check if valid map location
                     if (x < 0) { continue; }
@@ -829,14 +849,14 @@ namespace IceBlink2mini
                     if (y > this.mod.currentArea.MapSizeY - 1) { continue; }
 
                     string tile = mod.currentArea.Layer1Filename[y * mod.currentArea.MapSizeX + x];
-                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
+                    int tlX = (x - mod.PlayerLocationX + offset) * (int)(gv.squareSize * sqrScale);
+                    int tlY = (y - mod.PlayerLocationY + offset) * (int)(gv.squareSize * sqrScale);
                     float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / gv.tileSizeInPixels;
                     if (scalerX == 0) { scalerX = 1.0f; }
                     float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / gv.tileSizeInPixels;
                     if (scalerY == 0) { scalerY = 1.0f; }
-                    int brX = (int)(gv.squareSize * scalerX);
-                    int brY = (int)(gv.squareSize * scalerY);
+                    int brX = (int)((int)(gv.squareSize * sqrScale) * scalerX);
+                    int brY = (int)((int)(gv.squareSize * sqrScale) * scalerY);
 
                     try
                     {
@@ -851,9 +871,9 @@ namespace IceBlink2mini
             }
             #endregion
             #region Draw Layer 2
-            for (int x = mod.PlayerLocationX - gv.playerOffset; x <= mod.PlayerLocationX + gv.playerOffset; x++)
+            for (int x = mod.PlayerLocationX - offset; x <= mod.PlayerLocationX + offset; x++)
             {
-                for (int y = mod.PlayerLocationY - gv.playerOffset; y <= mod.PlayerLocationY + gv.playerOffset; y++)
+                for (int y = mod.PlayerLocationY - offset; y <= mod.PlayerLocationY + offset; y++)
                 {
                     //check if valid map location
                     if (x < 0) { continue; }
@@ -862,14 +882,14 @@ namespace IceBlink2mini
                     if (y > this.mod.currentArea.MapSizeY - 1) { continue; }
 
                     string tile = mod.currentArea.Layer2Filename[y * mod.currentArea.MapSizeX + x];
-                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
+                    int tlX = (x - mod.PlayerLocationX + offset) * (int)(gv.squareSize * sqrScale);
+                    int tlY = (y - mod.PlayerLocationY + offset) * (int)(gv.squareSize * sqrScale);
                     float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / gv.tileSizeInPixels;
                     if (scalerX == 0) { scalerX = 1.0f; }
                     float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / gv.tileSizeInPixels;
                     if (scalerY == 0) { scalerY = 1.0f; }
-                    int brX = (int)(gv.squareSize * scalerX);
-                    int brY = (int)(gv.squareSize * scalerY);
+                    int brX = (int)((int)(gv.squareSize * sqrScale) * scalerX);
+                    int brY = (int)((int)(gv.squareSize * sqrScale) * scalerY);
 
                     try
                     {
@@ -886,9 +906,9 @@ namespace IceBlink2mini
             #region Draw Layer 3
             if (mod.currentArea.Layer3Filename.Count > 0)
             {
-                for (int x = mod.PlayerLocationX - gv.playerOffset; x <= mod.PlayerLocationX + gv.playerOffset; x++)
+                for (int x = mod.PlayerLocationX - offset; x <= mod.PlayerLocationX + offset; x++)
                 {
-                    for (int y = mod.PlayerLocationY - gv.playerOffset; y <= mod.PlayerLocationY + gv.playerOffset; y++)
+                    for (int y = mod.PlayerLocationY - offset; y <= mod.PlayerLocationY + offset; y++)
                     {
                         //check if valid map location
                         if (x < 0) { continue; }
@@ -897,14 +917,14 @@ namespace IceBlink2mini
                         if (y > this.mod.currentArea.MapSizeY - 1) { continue; }
 
                         string tile = mod.currentArea.Layer3Filename[y * mod.currentArea.MapSizeX + x];
-                        int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                        int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
+                        int tlX = (x - mod.PlayerLocationX + offset) * (int)(gv.squareSize * sqrScale);
+                        int tlY = (y - mod.PlayerLocationY + offset) * (int)(gv.squareSize * sqrScale);
                         float scalerX = gv.cc.GetFromTileBitmapList(tile).PixelSize.Width / gv.tileSizeInPixels;
                         if (scalerX == 0) { scalerX = 1.0f; }
                         float scalerY = gv.cc.GetFromTileBitmapList(tile).PixelSize.Height / gv.tileSizeInPixels;
                         if (scalerY == 0) { scalerY = 1.0f; }
-                        int brX = (int)(gv.squareSize * scalerX);
-                        int brY = (int)(gv.squareSize * scalerY);
+                        int brX = (int)((int)(gv.squareSize * sqrScale) * scalerX);
+                        int brY = (int)((int)(gv.squareSize * sqrScale) * scalerY);
 
                         try
                         {
@@ -922,24 +942,29 @@ namespace IceBlink2mini
         }
         public void drawProps()
         {
+            int offset = gv.playerOffset;
+            if (use11x11)
+            {
+                offset = gv.playerOffsetZoom;
+            }
             foreach (Prop p in mod.currentArea.Props)
             {
                 if ((p.isShown) && (!p.isMover))
                 {
-                    if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffsetX)
-                        && (p.LocationY >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffsetY))
+                    if ((p.LocationX >= mod.PlayerLocationX - offset) && (p.LocationX <= mod.PlayerLocationX + offset)
+                        && (p.LocationY >= mod.PlayerLocationY - offset) && (p.LocationY <= mod.PlayerLocationY + offset))
                     {
                         //prop X - playerX
-                        int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
-                        int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
-                        int dstW = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
-                        int dstH = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        int x = ((p.LocationX - mod.PlayerLocationX) * (int)(gv.squareSize * sqrScale)) + (offset * (int)(gv.squareSize * sqrScale));
+                        int y = ((p.LocationY - mod.PlayerLocationY) * (int)(gv.squareSize * sqrScale)) + (offset * (int)(gv.squareSize * sqrScale));
+                        int dstW = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width / (float)(gv.squareSizeInPixels) * (float)(gv.squareSize * sqrScale)));
+                        int dstH = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / (float)(gv.squareSizeInPixels) * (float)(gv.squareSize * sqrScale)));
                         if (p.ImageFileName.StartsWith("tkn_"))
                         {
-                            dstH = (int)(((float)(gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / 2) / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                            dstH = (int)(((float)(gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / 2) / (float)(gv.squareSizeInPixels) * (float)(gv.squareSize * sqrScale)));
                         }
-                        int dstXshift = (dstW - gv.squareSize) / 2;
-                        int dstYshift = (dstH - gv.squareSize) / 2;
+                        int dstXshift = (dstW - (int)(gv.squareSize * sqrScale)) / 2;
+                        int dstYshift = (dstH - (int)(gv.squareSize * sqrScale)) / 2;
                         IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width, gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width);
                         IbRect dst = new IbRect(x + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
                                                 
@@ -980,24 +1005,29 @@ namespace IceBlink2mini
         }
         public void drawMovingProps()
         {
+            int offset = gv.playerOffset;
+            if (use11x11)
+            {
+                offset = gv.playerOffsetZoom;
+            }
             foreach (Prop p in mod.currentArea.Props)
             {
                 if ((p.isShown) && (p.isMover))
                 {
-                    if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffsetX)
-                        && (p.LocationY >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffsetY))
+                    if ((p.LocationX >= mod.PlayerLocationX - offset) && (p.LocationX <= mod.PlayerLocationX + offset)
+                        && (p.LocationY >= mod.PlayerLocationY - offset) && (p.LocationY <= mod.PlayerLocationY + offset))
                     {
                         //prop X - playerX
-                        int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
-                        int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
-                        int dstW = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
-                        int dstH = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        int x = ((p.LocationX - mod.PlayerLocationX) * (int)(gv.squareSize * sqrScale)) + (offset * (int)(gv.squareSize * sqrScale));
+                        int y = ((p.LocationY - mod.PlayerLocationY) * (int)(gv.squareSize * sqrScale)) + (offset * (int)(gv.squareSize * sqrScale));
+                        int dstW = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width / (float)(gv.squareSizeInPixels) * (float)(gv.squareSize * sqrScale)));
+                        int dstH = (int)(((float)gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / (float)(gv.squareSizeInPixels) * (float)(gv.squareSize * sqrScale)));
                         if (p.ImageFileName.StartsWith("tkn_"))
                         {
-                            dstH = (int)(((float)(gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / 2) / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                            dstH = (int)(((float)(gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Height / 2) / (float)(gv.squareSizeInPixels) * (float)(gv.squareSize * sqrScale)));
                         }
-                        int dstXshift = (dstW - gv.squareSize) / 2;
-                        int dstYshift = (dstH - gv.squareSize) / 2;
+                        int dstXshift = (dstW - (int)(gv.squareSize * sqrScale)) / 2;
+                        int dstYshift = (dstH - (int)(gv.squareSize * sqrScale)) / 2;
                         IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width, gv.cc.GetFromBitmapList(p.ImageFileName).PixelSize.Width);
                         IbRect dst = new IbRect(x + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
                         gv.DrawBitmap(gv.cc.GetFromBitmapList(p.ImageFileName), src, dst);
@@ -1091,15 +1121,20 @@ namespace IceBlink2mini
         }
         public void drawPlayer()
         {
+            int offset = gv.playerOffset;
+            if (use11x11)
+            {
+                offset = gv.playerOffsetZoom;
+            }
             if (mod.selectedPartyLeader >= mod.playerList.Count)
             {
                 mod.selectedPartyLeader = 0;
             }
-            int x = gv.playerOffsetX * gv.squareSize;
-            int y = gv.playerOffsetY * gv.squareSize;
-            int shift = gv.squareSize / 3;
+            int x = offset * (int)(gv.squareSize * sqrScale);
+            int y = offset * (int)(gv.squareSize * sqrScale);
+            int shift = (int)(gv.squareSize * sqrScale) / 3;
             IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(mod.playerList[mod.selectedPartyLeader].tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(mod.playerList[mod.selectedPartyLeader].tokenFilename).PixelSize.Width);
-            IbRect dst = new IbRect(x + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+            IbRect dst = new IbRect(x + mapStartLocXinPixels, y, (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
             if (mod.showPartyToken)
             {
                 gv.DrawBitmap(gv.cc.GetFromBitmapList(mod.partyTokenFilename), src, dst, !mod.playerList[0].combatFacingLeft);
@@ -1116,7 +1151,7 @@ namespace IceBlink2mini
                     {
                         //gv.oXshift = gv.oXshift - shift / 2;
                     }
-                    int reducedSquareSize = gv.squareSize * 2 / 3;
+                    int reducedSquareSize = (int)(gv.squareSize * sqrScale) * 2 / 3;
                     for (int i = mod.playerList.Count - 1; i >= 0; i--)
                     {
                         if ((i == 0) && (i != mod.selectedPartyLeader))
@@ -1236,66 +1271,66 @@ namespace IceBlink2mini
                 {
                     if (showFullParty)
                     {
-                        dst = new IbRect(x + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        dst = new IbRect(x + mapStartLocXinPixels, y, (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
                     }
                     else
                     {
-                        dst = new IbRect(x + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        dst = new IbRect(x + mapStartLocXinPixels, y, (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
                     }
                 }
                 else if (mod.selectedPartyLeader == 1)
                 {
                     if (showFullParty)
                     {
-                        dst = new IbRect(x + shift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        dst = new IbRect(x + shift + mapStartLocXinPixels, y, (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
                     }
                     else
                     {
-                        dst = new IbRect(x + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        dst = new IbRect(x + mapStartLocXinPixels, y, (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
                     }
                 }
                 else if (mod.selectedPartyLeader == 2)
                 {
                     if (showFullParty)
                     {
-                        dst = new IbRect(x - shift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        dst = new IbRect(x - shift + mapStartLocXinPixels, y, (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
                     }
                     else
                     {
-                        dst = new IbRect(x + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        dst = new IbRect(x + mapStartLocXinPixels, y, (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
                     }
                 }
                 else if (mod.selectedPartyLeader == 3)
                 {
                     if (showFullParty)
                     {
-                        dst = new IbRect(x + (shift * 2) + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        dst = new IbRect(x + (shift * 2) + mapStartLocXinPixels, y, (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
                     }
                     else
                     {
-                        dst = new IbRect(x + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        dst = new IbRect(x + mapStartLocXinPixels, y, (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
                     }
                 }
                 else if (mod.selectedPartyLeader == 4)
                 {
                     if (showFullParty)
                     {
-                        dst = new IbRect(x - (shift * 2) + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        dst = new IbRect(x - (shift * 2) + mapStartLocXinPixels, y, (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
                     }
                     else
                     {
-                        dst = new IbRect(x + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        dst = new IbRect(x + mapStartLocXinPixels, y, (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
                     }
                 }
                 else if (mod.selectedPartyLeader == 5)
                 {
                     if (showFullParty)
                     {
-                        dst = new IbRect(x - (shift * 3) + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        dst = new IbRect(x - (shift * 3) + mapStartLocXinPixels, y, (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
                     }
                     else
                     {
-                        dst = new IbRect(x + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        dst = new IbRect(x + mapStartLocXinPixels, y, (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
                     }
                 }                
                 gv.DrawBitmap(gv.cc.GetFromBitmapList(mod.playerList[mod.selectedPartyLeader].tokenFilename), src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft);
@@ -1304,24 +1339,30 @@ namespace IceBlink2mini
         }
         public void drawGrid()
         {
-            int minX = mod.PlayerLocationX - gv.playerOffsetX;
+            int offset = gv.playerOffset;
+            if (use11x11)
+            {
+                offset = gv.playerOffsetZoom;
+            }
+
+            int minX = mod.PlayerLocationX - offset;
             if (minX < 0) { minX = 0; }
-            int minY = mod.PlayerLocationY - gv.playerOffsetY;
+            int minY = mod.PlayerLocationY - offset;
             if (minY < 0) { minY = 0; }
 
-            int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
+            int maxX = mod.PlayerLocationX + offset + 1;
             if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
-            int maxY = mod.PlayerLocationY + gv.playerOffsetY + 1;
+            int maxY = mod.PlayerLocationY + offset + 1;
             if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
 
             for (int x = minX; x < maxX; x++)
             {
                 for (int y = minY; y < maxY; y++)
                 {
-                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                    int brX = gv.squareSize;
-                    int brY = gv.squareSize;
+                    int tlX = (x - mod.PlayerLocationX + offset) * (int)(gv.squareSize * sqrScale);
+                    int tlY = (y - mod.PlayerLocationY + offset) * (int)(gv.squareSize * sqrScale);
+                    int brX = (int)(gv.squareSize * sqrScale);
+                    int brY = (int)(gv.squareSize * sqrScale);
                     IbRect src = new IbRect(0, 0, gv.cc.walkBlocked.PixelSize.Width, gv.cc.walkBlocked.PixelSize.Height);
                     IbRect dst = new IbRect(tlX + mapStartLocXinPixels, tlY, brX, brY);
                     if (mod.currentArea.LoSBlocked[y * mod.currentArea.MapSizeX + x] == 1)
@@ -1358,9 +1399,15 @@ namespace IceBlink2mini
         }
         public void drawOverlayTints()
         {
+            int offset = gv.playerOffset;
+            if (use11x11)
+            {
+                offset = gv.playerOffsetZoom;
+            }
+
             IbRect src = new IbRect(0, 0, gv.cc.tint_sunset.PixelSize.Width, gv.cc.tint_sunset.PixelSize.Height);
-            //IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, (gv.squareSize * (gv.playerOffsetX * 2 + 1)), (gv.squareSize * (gv.playerOffsetY * 2 + 2)));
-            IbRect dst = new IbRect(mapStartLocXinPixels, 0, (gv.squareSize * (gv.playerOffsetX * 2 + 1)) + gv.pS, (gv.squareSize * (gv.playerOffsetY * 2 + 2)) + gv.pS);
+            //IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, ((int)(gv.squareSize * sqrScale) * (gv.playerOffsetX * 2 + 1)), ((int)(gv.squareSize * sqrScale) * (gv.playerOffsetY * 2 + 2)));
+            IbRect dst = new IbRect(mapStartLocXinPixels, 0, ((int)(gv.squareSize * sqrScale) * (offset * 2 + 1)) + gv.pS, ((int)(gv.squareSize * sqrScale) * (offset * 2 + 2)) + gv.pS);
 
             int dawn = 5 * 60;
             int sunrise = 6 * 60;
@@ -1407,11 +1454,11 @@ namespace IceBlink2mini
             }
 
             int txtH = (int)gv.fontHeight;
-            int xLoc = (gv.playerOffsetX - 2) * gv.squareSize;
-            int yLoc = (gv.playerOffsetY * 2) * gv.squareSize + gv.squareSize - gv.fontHeight - gv.fontHeight;
+            int xLoc = 1 * gv.squareSize;
+            int yLoc = (gv.squaresInHeight - 1) * gv.squareSize + gv.squareSize - gv.fontHeight - gv.fontHeight;
             if (showTogglePanel)
             {
-                yLoc = (gv.playerOffsetY * 2) * gv.squareSize - gv.fontHeight - gv.fontHeight;
+                yLoc = (gv.squaresInHeight - 1) * gv.squareSize - gv.fontHeight - gv.fontHeight;
             }
                       
             for (int x = 0; x <= 2; x++)
@@ -1438,7 +1485,7 @@ namespace IceBlink2mini
             }
         }
         public void drawFogOfWar()
-        {            
+        {
             /*int minX = mod.PlayerLocationX - gv.playerOffsetX-1;
             if (minX < 0) { minX = 0; }
             int minY = mod.PlayerLocationY - gv.playerOffsetY-1;
@@ -1465,9 +1512,14 @@ namespace IceBlink2mini
                     }
                 }
             }*/
-            for (int x = mod.PlayerLocationX - gv.playerOffset; x <= mod.PlayerLocationX + gv.playerOffset; x++)
+            int offset = gv.playerOffset;
+            if (use11x11)
             {
-                for (int y = mod.PlayerLocationY - gv.playerOffset; y <= mod.PlayerLocationY + gv.playerOffset; y++)
+                offset = gv.playerOffsetZoom;
+            }
+            for (int x = mod.PlayerLocationX - offset; x <= mod.PlayerLocationX + offset; x++)
+            {
+                for (int y = mod.PlayerLocationY - offset; y <= mod.PlayerLocationY + offset; y++)
                 {
                     //check if valid map location
                     if (x < 0) { continue; }
@@ -1475,10 +1527,10 @@ namespace IceBlink2mini
                     if (x > this.mod.currentArea.MapSizeX - 1) { continue; }
                     if (y > this.mod.currentArea.MapSizeY - 1) { continue; }
 
-                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
-                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
-                    int brX = gv.squareSize;
-                    int brY = gv.squareSize;
+                    int tlX = (x - mod.PlayerLocationX + offset) * (int)(gv.squareSize * sqrScale);
+                    int tlY = (y - mod.PlayerLocationY + offset) * (int)(gv.squareSize * sqrScale);
+                    int brX = (int)(gv.squareSize * sqrScale);
+                    int brY = (int)(gv.squareSize * sqrScale);
 
                     try
                     {
@@ -1511,8 +1563,8 @@ namespace IceBlink2mini
 
                     /*
                     //location.X should be the the props actual map location in squares (not screen location)
-                    int xLoc = (ft.location.X + gv.playerOffsetX - mod.PlayerLocationX) * gv.squareSize;
-                    int yLoc = ((ft.location.Y + gv.playerOffsetY - mod.PlayerLocationY) * gv.squareSize) - (ft.z);
+                    int xLoc = (ft.location.X + gv.playerOffsetX - mod.PlayerLocationX) * (int)(gv.squareSize * sqrScale);
+                    int yLoc = ((ft.location.Y + gv.playerOffsetY - mod.PlayerLocationY) * (int)(gv.squareSize * sqrScale)) - (ft.z);
 
                     for (int x = 0; x <= 2; x++)
                     {
@@ -1593,7 +1645,7 @@ namespace IceBlink2mini
             floatyBox.tbWidth = 5 * gv.squareSize;
             floatyBox.AddFormattedTextToTextBox(value);
             //based on number of lines, pick YLoc
-            //floatyBox.location.Y = (gridy * gv.squareSize) - ((floatyTextBox.linesList.Count / 2) * (gv.fontHeight + gv.fontLineSpacing)) + (gv.squareSize / 2);
+            //floatyBox.location.Y = (gridy * (int)(gv.squareSize * sqrScale)) - ((floatyTextBox.linesList.Count / 2) * (gv.fontHeight + gv.fontLineSpacing)) + ((int)(gv.squareSize * sqrScale) / 2);
             floatyBox.tbHeight = (floatyBox.linesList.Count + 1) * (gv.fontHeight + gv.fontLineSpacing);
 
             floatyTextPool.Add(floatyBox);
@@ -1629,10 +1681,15 @@ namespace IceBlink2mini
                     mainUiLayout.setHover(x, y);
 
                     //Draw Floaty Text On Mouse Over Prop
-                    int gridx = (int)(eX) / gv.squareSize;
-                    int gridy = (int)(eY) / gv.squareSize;
-                    int actualX = mod.PlayerLocationX + (gridx - gv.playerOffsetX) - (mapStartLocXinPixels / gv.squareSize);
-                    int actualY = mod.PlayerLocationY + (gridy - gv.playerOffsetY);
+                    int offset = gv.playerOffset;
+                    if (use11x11)
+                    {
+                        offset = gv.playerOffsetZoom;
+                    }
+                    int gridx = (int)(eX) / (int)(gv.squareSize * sqrScale);
+                    int gridy = (int)(eY) / (int)(gv.squareSize * sqrScale);
+                    int actualX = mod.PlayerLocationX + (gridx - offset) - (mapStartLocXinPixels / (int)(gv.squareSize * sqrScale));
+                    int actualY = mod.PlayerLocationY + (gridy - offset);
                     //gv.cc.floatyText = "";
                     floatyTextBox.linesList.Clear();
                     if (IsTouchInMapWindow(gridx, gridy))
@@ -1665,10 +1722,15 @@ namespace IceBlink2mini
                 case MouseEventType.EventType.MouseUp:
                     x = (int)eX;
                     y = (int)eY;
-                    int gridX = (int)eX / gv.squareSize;
-                    int gridY = (int)eY / gv.squareSize;
-                    int actualx = mod.PlayerLocationX + (gridX - gv.playerOffsetX - (mapStartLocXinPixels / gv.squareSize));
-                    int actualy = mod.PlayerLocationY + (gridY - gv.playerOffsetY);
+                    offset = gv.playerOffset;
+                    if (use11x11)
+                    {
+                        offset = gv.playerOffsetZoom;
+                    }
+                    int gridX = (int)eX / (int)(gv.squareSize * sqrScale);
+                    int gridY = (int)eY / (int)(gv.squareSize * sqrScale);
+                    int actualx = mod.PlayerLocationX + (gridX - offset - (mapStartLocXinPixels / (int)(gv.squareSize * sqrScale)));
+                    int actualy = mod.PlayerLocationY + (gridY - offset);
 
                     if (gv.showMessageBox)
                     {
@@ -1718,6 +1780,26 @@ namespace IceBlink2mini
                             tgl.toggleOn = true;
                             mod.map_showGrid = true;
                         }
+                    }
+                    if (rtn.Equals("tglZoom"))
+                    {
+                        IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
+                        {
+                            tgl.toggleOn = false;
+                            use11x11 = true;
+                            sqrScale = 0.6364f;
+                            gv.cc.addLogText("lime", "zoom out to 11x11 map");
+                        }
+                        else
+                        {
+                            tgl.toggleOn = true;
+                            use11x11 = false;
+                            sqrScale = 1.0f;
+                            gv.cc.addLogText("lime", "zoom in to 7x7 map");
+                        }
+                        return;
                     }
                     /*if (rtn.Equals("tglInteractionState"))
                     {
@@ -2666,17 +2748,17 @@ namespace IceBlink2mini
         public bool IsLineOfSightForEachCorner(Coordinate s, Coordinate e)
         {
             //start is at the center of party location square
-            Coordinate start = new Coordinate((s.X * gv.squareSize) + (gv.squareSize / 2), (s.Y * gv.squareSize) + (gv.squareSize / 2));
+            Coordinate start = new Coordinate((s.X * (int)(gv.squareSize * sqrScale)) + ((int)(gv.squareSize * sqrScale) / 2), (s.Y * (int)(gv.squareSize * sqrScale)) + ((int)(gv.squareSize * sqrScale) / 2));
             //check center of all four sides of the end square
-            int halfSquare = (gv.squareSize / 2);
+            int halfSquare = ((int)(gv.squareSize * sqrScale) / 2);
             //left side center
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * (int)(gv.squareSize * sqrScale), e.Y * (int)(gv.squareSize * sqrScale) + halfSquare), e)) { return true; }
             //right side center
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * (int)(gv.squareSize * sqrScale) + (int)(gv.squareSize * sqrScale), e.Y * (int)(gv.squareSize * sqrScale) + halfSquare), e)) { return true; }
             //top side center
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * (int)(gv.squareSize * sqrScale) + halfSquare, e.Y * (int)(gv.squareSize * sqrScale)), e)) { return true; }
             //bottom side center
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * (int)(gv.squareSize * sqrScale) + halfSquare, e.Y * (int)(gv.squareSize * sqrScale) + (int)(gv.squareSize * sqrScale)), e)) { return true; }
 
             return false;
         }
@@ -2716,8 +2798,8 @@ namespace IceBlink2mini
                             error += deltax;
                         }
                         //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
+                        gridx = nextPoint.X / (int)(gv.squareSize * sqrScale);
+                        gridy = nextPoint.Y / (int)(gv.squareSize * sqrScale);
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (mod.currentArea.MapSizeX - 1)) { gridx = (mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
@@ -2748,8 +2830,8 @@ namespace IceBlink2mini
                             error += deltax;
                         }
                         //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
+                        gridx = nextPoint.X / (int)(gv.squareSize * sqrScale);
+                        gridy = nextPoint.Y / (int)(gv.squareSize * sqrScale);
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (mod.currentArea.MapSizeX - 1)) { gridx = (mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
@@ -2791,8 +2873,8 @@ namespace IceBlink2mini
                             error += deltay;
                         }
                         //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
+                        gridx = nextPoint.X / (int)(gv.squareSize * sqrScale);
+                        gridy = nextPoint.Y / (int)(gv.squareSize * sqrScale);
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (mod.currentArea.MapSizeX - 1)) { gridx = (mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
@@ -2823,8 +2905,8 @@ namespace IceBlink2mini
                             error += deltay;
                         }
                         //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
+                        gridx = nextPoint.X / (int)(gv.squareSize * sqrScale);
+                        gridy = nextPoint.Y / (int)(gv.squareSize * sqrScale);
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (mod.currentArea.MapSizeX - 1)) { gridx = (mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
