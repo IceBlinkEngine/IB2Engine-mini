@@ -17,7 +17,14 @@
     "moduleName": "TheElderinStone",
     "moduleLabelName": "The Elderin Stone",
     "titleImageName": "title",
-    "moduleVersion": 3,
+    "moduleVersion": 4,
     "moduleDescription": "A 3-4hr dungeon crawl for up to six level one characters."
+  },
+  {
+  		"moduleName":"Lanterna2",
+  		"moduleLabelName":"Lanterna 2 - Return to Charn",
+  		"titleImageName":"title",
+  		"moduleVersion":1,
+  		"moduleDescription":"(Early BETA Version) This adventure module currently contains the first chapter (of three) of Lanterna 2 - Return to Charn. The story was designed for a human male or female as your main character. Others may join your party during your adventure. Possible companions are a cleric, ranger, thief and a wizard."
   }
 ]

@@ -2223,10 +2223,13 @@ namespace IceBlink2mini
             int cnt = 0;
             foreach (Player p in mod.playerList)
             {
-                if (hasMainMapTypeSpell(p))
+                if (p.isAlive())
                 {
-                    pcNames.Add(p.name);
-                    pcIndex.Add(cnt);
+                    if (hasMainMapTypeSpell(p))
+                    {
+                        pcNames.Add(p.name);
+                        pcIndex.Add(cnt);
+                    }
                 }
                 cnt++;
             }
@@ -2294,10 +2297,13 @@ namespace IceBlink2mini
             int cnt = 0;
             foreach (Player p in mod.playerList)
             {
-                if (hasMainMapTypeTrait(p))
+                if (p.isAlive())
                 {
-                    pcNames.Add(p.name);
-                    pcIndex.Add(cnt);
+                    if (hasMainMapTypeTrait(p))
+                    {
+                        pcNames.Add(p.name);
+                        pcIndex.Add(cnt);
+                    }
                 }
                 cnt++;
             }
@@ -2935,6 +2941,7 @@ namespace IceBlink2mini
             foreach (string s in pc.knownSpellsTags)
             {
                 Spell sp = mod.getSpellByTag(s);
+                if (sp == null) { continue; }
                 if ((sp.useableInSituation.Equals("Always")) || (sp.useableInSituation.Equals("OutOfCombat")))
                 {
                     return true;
@@ -2947,6 +2954,7 @@ namespace IceBlink2mini
             foreach (string s in pc.knownTraitsTags)
             {
                 Trait tr = mod.getTraitByTag(s);
+                if (tr == null) { continue; }
                 if ((tr.useableInSituation.Equals("Always")) || (tr.useableInSituation.Equals("OutOfCombat")))
                 {
                     return true;
