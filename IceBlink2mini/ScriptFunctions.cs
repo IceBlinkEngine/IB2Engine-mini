@@ -6690,6 +6690,10 @@ namespace IceBlink2mini
                         }
                         if (thisSpellEffect.doHeal)
                         {
+                            if (src is Player) //PCs shouldn't heal creatures
+                            {
+                                continue;
+                            }
                             #region Do Heal
                             #region Calculate Heal
                             //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
@@ -6732,6 +6736,10 @@ namespace IceBlink2mini
                         }
                         if (thisSpellEffect.doBuff)
                         {
+                            if (src is Player) //PCs shouldn't buff creatures
+                            {
+                                continue;
+                            }
                             #region Do Buff
                             int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
                             gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
@@ -6904,6 +6912,10 @@ namespace IceBlink2mini
                         }
                         if (thisSpellEffect.doHeal)
                         {
+                            if (src is Creature) //Creatures shouldn't heal PCs
+                            {
+                                continue;
+                            }
                             #region Do Heal
                             if (pc.hp <= -20)
                             {
@@ -6962,6 +6974,10 @@ namespace IceBlink2mini
                         }
                         if (thisSpellEffect.doBuff)
                         {
+                            if (src is Creature) //Creatures shouldn't buff PCs
+                            {
+                                continue;
+                            }
                             #region Do Buff
                             int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
                             gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
@@ -7254,6 +7270,10 @@ namespace IceBlink2mini
                             }
                             if (thisTraitEffect.doHeal)
                             {
+                                if (src is Player) //PCs shouldn't heal creatures
+                                {
+                                    continue;
+                                }
                                 #region Do Heal
                                 #region Calculate Heal
                                 //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
@@ -7296,6 +7316,10 @@ namespace IceBlink2mini
                             }
                             if (thisTraitEffect.doBuff)
                             {
+                                if (src is Player) //PCs shouldn't buff creatures
+                                {
+                                    continue;
+                                }
                                 #region Do Buff
                                 int numberOfRounds = thisTraitEffect.durationInUnits / gv.mod.TimePerRound;
                                 gv.cc.addLogText("<font color='lime'>" + thisTraitEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
@@ -7468,6 +7492,10 @@ namespace IceBlink2mini
                             }
                             if (thisTraitEffect.doHeal)
                             {
+                                if (src is Creature) //Creatures shouldn't heal PCs
+                                {
+                                    continue;
+                                }
                                 #region Do Heal
                                 if (pc.hp <= -20)
                                 {
@@ -7526,6 +7554,10 @@ namespace IceBlink2mini
                             }
                             if (thisTraitEffect.doBuff)
                             {
+                                if (src is Creature) //Creatures shouldn't buff PCs
+                                {
+                                    continue;
+                                }
                                 #region Do Buff
                                 int numberOfRounds = thisTraitEffect.durationInUnits / gv.mod.TimePerRound;
                                 gv.cc.addLogText("<font color='lime'>" + thisTraitEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
