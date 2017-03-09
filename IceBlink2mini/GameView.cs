@@ -12,6 +12,7 @@ using SharpDX;
 using SharpDX.Windows;
 using Message = System.Windows.Forms.Message;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace IceBlink2mini
 {
@@ -94,6 +95,7 @@ namespace IceBlink2mini
         public ScreenPartyBuild screenPartyBuild;
         public ScreenPartyRoster screenPartyRoster;
         public bool touchEnabled = true;
+        public Settings toggleSettings;
         
         public SoundPlayer soundPlayer = new SoundPlayer();
         public Dictionary<string, Stream> oSoundStreams = new Dictionary<string, Stream>();
@@ -115,7 +117,8 @@ namespace IceBlink2mini
             cc = new CommonCode(this);
             mod = new Module();
             bsc = new BitmapStringConversion();
-            
+            toggleSettings = new Settings();
+
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseWheel);
             mainDirectory = Directory.GetCurrentDirectory();
 
@@ -422,6 +425,7 @@ namespace IceBlink2mini
             
 		    createScreens();
 		    initializeSounds();
+            loadSettings();
 		
 		    cc.LoadTestParty();
 		
@@ -434,7 +438,31 @@ namespace IceBlink2mini
 		    cc.stringMessageParty = cc.loadTextToString("MessageParty.txt");
 		    cc.stringMessageMainMap = cc.loadTextToString("MessageMainMap.txt");
 	    }
-
+        public void loadSettings()
+        {
+            toggleSettings = new Settings();
+            try
+            {
+                // deserialize JSON directly from a file
+                using (StreamReader file = File.OpenText(mainDirectory + "\\settings.json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    toggleSettings = (Settings)serializer.Deserialize(file, typeof(Settings));
+                }
+            }
+            catch { }
+        }
+        public void saveSettings()
+        {
+            //SAVE THE FILE
+            string filepath = mainDirectory + "\\settings.json";
+            cc.MakeDirectoryIfDoesntExist(filepath);
+            string json = JsonConvert.SerializeObject(toggleSettings, Newtonsoft.Json.Formatting.Indented);
+            using (StreamWriter sw = new StreamWriter(filepath))
+            {
+                sw.Write(json.ToString());
+            }
+        }
         private void fillCharList()
         {
             charList.Add('A', new SharpDX.RectangleF(fontWidth * 0, fontHeight * 0, fontWidth, fontHeight));
@@ -1230,6 +1258,7 @@ namespace IceBlink2mini
         {
             if (selectedIndex == 0)
             {
+                saveSettings();
                 this.Close();
             }
             if (selectedIndex == 1)

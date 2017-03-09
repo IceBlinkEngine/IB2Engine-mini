@@ -161,6 +161,7 @@
     <Compile Include="ScreenTraitLevelUp.cs" />
     <Compile Include="ScreenTraitUseSelector.cs" />
     <Compile Include="ScriptFunctions.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="Spell.cs" />
     <Compile Include="SpellAllowed.cs" />

@@ -105,6 +105,14 @@ namespace IceBlink2mini
             newPanel.hidingYIncrement = 0;
             newPanel.Width = 192;
             newPanel.Height = 336;
+            if (gv.toggleSettings.showLogPanel)
+            {
+                newPanel.showing = true;
+            }
+            else
+            {
+                newPanel.hiding = true;
+            }
 
             IB2HtmlLogBox newLog = gv.log;
             newLog.tbXloc = 10;
@@ -131,7 +139,7 @@ namespace IceBlink2mini
             newToggle.tag = "tglLog";
             newToggle.ImgOnFilename = "tgl_log_on";
             newToggle.ImgOffFilename = "tgl_log_off";
-            newToggle.toggleOn = true;
+            newToggle.toggleOn = gv.toggleSettings.showLogPanel;            
             newToggle.X = 0;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -144,7 +152,8 @@ namespace IceBlink2mini
             newToggle.tag = "tglMiniMap";
             newToggle.ImgOnFilename = "tgl_minimap_on";
             newToggle.ImgOffFilename = "tgl_minimap_off";
-            newToggle.toggleOn = false;
+            newToggle.toggleOn = gv.toggleSettings.showMiniMap;
+            showMiniMap = gv.toggleSettings.showMiniMap;
             newToggle.X = 0;
             newToggle.Y = 48;
             newToggle.Width = 48;
@@ -232,7 +241,8 @@ namespace IceBlink2mini
             newToggle.tag = "tglFullParty";
             newToggle.ImgOnFilename = "tgl_fullparty_on";
             newToggle.ImgOffFilename = "tgl_fullparty_off";
-            newToggle.toggleOn = false;
+            newToggle.toggleOn = gv.toggleSettings.showFullParty;
+            showFullParty = gv.toggleSettings.showFullParty;
             newToggle.X = 0;
             newToggle.Y = 240;
             newToggle.Width = 48;
@@ -281,13 +291,28 @@ namespace IceBlink2mini
             newPanel.hidingYIncrement = 3;
             newPanel.Width = 336;
             newPanel.Height = 48;
+            showTogglePanel = gv.toggleSettings.showTogglePanel;
+            if (gv.toggleSettings.showTogglePanel)
+            {
+                newPanel.currentLocX = 48;
+                newPanel.currentLocY = 288;
+                newPanel.showing = true;
+            }
+            else
+            {
+                newPanel.currentLocX = 48;
+                newPanel.currentLocY = 384;
+                newPanel.hiding = true;
+            }
+            
 
             //toggle
             IB2ToggleButton newToggle = new IB2ToggleButton(gv);
             newToggle.tag = "tglGrid";
             newToggle.ImgOnFilename = "tgl_grid_on";
             newToggle.ImgOffFilename = "tgl_grid_off";
-            newToggle.toggleOn = false;
+            newToggle.toggleOn = gv.toggleSettings.map_showGrid;
+            gv.mod.map_showGrid = gv.toggleSettings.map_showGrid;
             newToggle.X = 0;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -300,7 +325,8 @@ namespace IceBlink2mini
             newToggle.tag = "tglClock";
             newToggle.ImgOnFilename = "tgl_clock_on";
             newToggle.ImgOffFilename = "tgl_clock_off";
-            newToggle.toggleOn = true;
+            newToggle.toggleOn = gv.toggleSettings.showClock;
+            showClock = gv.toggleSettings.showClock;
             newToggle.X = 48;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -313,7 +339,8 @@ namespace IceBlink2mini
             newToggle.tag = "tglSound";
             newToggle.ImgOnFilename = "tgl_sound_on";
             newToggle.ImgOffFilename = "tgl_sound_off";
-            newToggle.toggleOn = false;
+            newToggle.toggleOn = gv.toggleSettings.playSoundFx;
+            gv.mod.playSoundFx = gv.toggleSettings.playSoundFx;
             newToggle.X = 96;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -326,7 +353,16 @@ namespace IceBlink2mini
             newToggle.tag = "tglZoom";
             newToggle.ImgOnFilename = "tgl_zoom_on";
             newToggle.ImgOffFilename = "tgl_zoom_off";
-            newToggle.toggleOn = true;
+            newToggle.toggleOn = !gv.toggleSettings.map_use11x11;
+            use11x11 = gv.toggleSettings.map_use11x11;
+            if (use11x11)
+            {
+                sqrScale = 0.6364f;
+            }
+            else
+            {
+                sqrScale = 1.0f;
+            }
             newToggle.X = 144;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -339,7 +375,8 @@ namespace IceBlink2mini
             newToggle.tag = "tglDebugMode";
             newToggle.ImgOnFilename = "tgl_debugmode_on";
             newToggle.ImgOffFilename = "tgl_debugmode_off";
-            newToggle.toggleOn = false;
+            newToggle.toggleOn = gv.toggleSettings.debugMode;
+            gv.mod.debugMode = gv.toggleSettings.debugMode;
             newToggle.X = 192;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -659,7 +696,7 @@ namespace IceBlink2mini
 
             mainUiLayout.panelList.Add(newPanel);
         }
-
+        
         //MAIN SCREEN UPDATE
         public void Update(int elapsed)
         {
@@ -1774,11 +1811,13 @@ namespace IceBlink2mini
                         {
                             tgl.toggleOn = false;
                             mod.map_showGrid = false;
+                            gv.toggleSettings.map_showGrid = mod.map_showGrid;
                         }
                         else
                         {
                             tgl.toggleOn = true;
                             mod.map_showGrid = true;
+                            gv.toggleSettings.map_showGrid = mod.map_showGrid;
                         }
                     }
                     if (rtn.Equals("tglZoom"))
@@ -1789,6 +1828,7 @@ namespace IceBlink2mini
                         {
                             tgl.toggleOn = false;
                             use11x11 = true;
+                            gv.toggleSettings.map_use11x11 = use11x11;
                             sqrScale = 0.6364f;
                             gv.cc.addLogText("lime", "zoom out to 11x11 map");
                         }
@@ -1796,52 +1836,19 @@ namespace IceBlink2mini
                         {
                             tgl.toggleOn = true;
                             use11x11 = false;
+                            gv.toggleSettings.map_use11x11 = use11x11;
                             sqrScale = 1.0f;
                             gv.cc.addLogText("lime", "zoom in to 7x7 map");
                         }
                         return;
                     }
-                    /*if (rtn.Equals("tglInteractionState"))
-                    {
-                        IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
-                        if (tgl == null) { return; }
-                        if (tgl.toggleOn)
-                        {
-                            tgl.toggleOn = false;
-                            mod.showInteractionState = false;
-                            gv.cc.addLogText("yellow", "Hide info about interaction state of NPC and creatures (encounter = red, mandatory conversation = orange and optional conversation = green");
-                        }
-                        else
-                        {
-                            tgl.toggleOn = true;
-                            mod.showInteractionState = true;
-                            gv.cc.addLogText("lime", "Show info about interaction state of NPC and creatures (encounter = red, mandatory conversation = orange and optional conversation = green");
-                        }
-                    }*/
-                    /*if (rtn.Equals("tglAvoidConversation"))
-                    {
-                        IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
-                        if (tgl == null) { return; }
-                        if (tgl.toggleOn)
-                        {
-                            tgl.toggleOn = false;
-                            mod.avoidInteraction = false;
-                            gv.cc.addLogText("lime", "Normal move mode: party does all possible conversations");
-                        }
-                        else
-                        {
-                            tgl.toggleOn = true;
-                            mod.avoidInteraction = true;
-                            gv.cc.addLogText("yellow", "In a hurry: Party is avoiding all conversations that are not mandatory");
-                        }
-                    }*/
-
                     if (rtn.Equals("tglClock"))
                     {
                         IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
                         if (tgl == null) { return; }
                         tgl.toggleOn = !tgl.toggleOn;
                         showClock = !showClock;
+                        gv.toggleSettings.showClock = showClock;
                     }
                     if (rtn.Equals("tglSound"))
                     {
@@ -1852,6 +1859,7 @@ namespace IceBlink2mini
                             tgl.toggleOn = false;
                             mod.playMusic = false;
                             mod.playSoundFx = false;
+                            gv.toggleSettings.playSoundFx = mod.playSoundFx;
                             gv.cc.addLogText("lime", "SoundFX Off");
                         }
                         else
@@ -1859,6 +1867,7 @@ namespace IceBlink2mini
                             tgl.toggleOn = true;
                             mod.playMusic = true;
                             mod.playSoundFx = true;
+                            gv.toggleSettings.playSoundFx = mod.playSoundFx;
                             gv.cc.addLogText("lime", "SoundFX On");
                         }
                     }
@@ -1870,12 +1879,14 @@ namespace IceBlink2mini
                         {
                             tgl.toggleOn = false;
                             mod.debugMode = false;
+                            gv.toggleSettings.debugMode = mod.debugMode;
                             gv.cc.addLogText("lime", "DebugMode Off");
                         }
                         else
                         {
                             tgl.toggleOn = true;
                             mod.debugMode = true;
+                            gv.toggleSettings.debugMode = mod.debugMode;
                             gv.cc.addLogText("lime", "DebugMode On");
                         }
                     }
@@ -1887,12 +1898,14 @@ namespace IceBlink2mini
                         {
                             tgl.toggleOn = false;
                             showFullParty = false;
+                            gv.toggleSettings.showFullParty = showFullParty;
                             gv.cc.addLogText("lime", "Show Party Leader");
                         }
                         else
                         {
                             tgl.toggleOn = true;
                             showFullParty = true;
+                            gv.toggleSettings.showFullParty = showFullParty;
                             gv.cc.addLogText("lime", "Show Full Party");
                         }
                     }
@@ -1904,12 +1917,14 @@ namespace IceBlink2mini
                         {
                             tgl.toggleOn = false;
                             showMiniMap = false;
+                            gv.toggleSettings.showMiniMap = showMiniMap;
                             gv.cc.addLogText("lime", "Hide Mini Map");
                         }
                         else
                         {
                             tgl.toggleOn = true;
                             showMiniMap = true;
+                            gv.toggleSettings.showMiniMap = showMiniMap;
                             gv.cc.addLogText("lime", "Show Mini Map");
                         }
                     }
@@ -2110,6 +2125,7 @@ namespace IceBlink2mini
                             if (pnl.tag.Equals("TogglePanel"))
                             {
                                 showTogglePanel = !showTogglePanel;
+                                gv.toggleSettings.showTogglePanel = showTogglePanel;
                                 //hides down
                                 if (pnl.currentLocY > pnl.shownLocY)
                                 {
@@ -2132,11 +2148,11 @@ namespace IceBlink2mini
                                 //hides left
                                 if (pnl.currentLocX < pnl.shownLocX)
                                 {
-                                    pnl.showing = true;
+                                    pnl.showing = true;                                    
                                 }
                                 else
                                 {
-                                    pnl.hiding = true;
+                                    pnl.hiding = true;                                    
                                 }
                             }
                         }
@@ -2145,11 +2161,13 @@ namespace IceBlink2mini
                         if (tgl.toggleOn)
                         {
                             tgl.toggleOn = false;
+                            gv.toggleSettings.showLogPanel = false;
                             gv.cc.addLogText("lime", "Hide Log");
                         }
                         else
                         {
                             tgl.toggleOn = true;
+                            gv.toggleSettings.showLogPanel = true;
                             gv.cc.addLogText("lime", "Show Log");
                         }
                     }

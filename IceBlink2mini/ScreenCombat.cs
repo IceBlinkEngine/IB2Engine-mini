@@ -138,59 +138,6 @@ namespace IceBlink2mini
             panRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
         }
 
-        public void loadMainUILayoutold()
-        {
-            try
-            {
-                if (File.Exists(gv.cc.GetModulePath() + "\\data\\CombatUILayout.json"))
-                {
-                    using (StreamReader file = File.OpenText(gv.cc.GetModulePath() + "\\data\\CombatUILayout.json"))
-                    {
-                        JsonSerializer serializer = new JsonSerializer();
-                        combatUiLayout = (IB2UILayout)serializer.Deserialize(file, typeof(IB2UILayout));
-                        combatUiLayout.setupIB2UILayout(gv);
-                    }
-                }
-                else
-                {
-                    using (StreamReader file = File.OpenText(gv.mainDirectory + "\\default\\NewModule\\data\\CombatUILayout.json"))
-                    {
-                        JsonSerializer serializer = new JsonSerializer();
-                        combatUiLayout = (IB2UILayout)serializer.Deserialize(file, typeof(IB2UILayout));
-                        combatUiLayout.setupIB2UILayout(gv);
-                    }
-                }
-
-                IB2ToggleButton tgl = combatUiLayout.GetToggleByTag("tglHP");
-                if (tgl != null)
-                {
-                    showHP = tgl.toggleOn;
-                }
-                IB2ToggleButton tgl2 = combatUiLayout.GetToggleByTag("tglSP");
-                if (tgl2 != null)
-                {
-                    showSP = tgl2.toggleOn;
-                }
-                foreach (IB2Panel pnlC in combatUiLayout.panelList)
-                {
-                    if (pnlC.tag.Equals("logPanel"))
-                    {
-                        foreach (IB2Panel pnlM in gv.screenMainMap.mainUiLayout.panelList)
-                        {
-                            if (pnlM.tag.Equals("logPanel"))
-                            {
-                                pnlC.logList[0] = pnlM.logList[0];
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error Loading CombatUILayout.json: " + ex.ToString());
-                gv.errorLog(ex.ToString());
-            }
-        }
         public void loadMainUILayout()
         {
             try
@@ -234,6 +181,14 @@ namespace IceBlink2mini
             newPanel.hidingYIncrement = 0;
             newPanel.Width = 192;
             newPanel.Height = 336;
+            if (gv.toggleSettings.showLogPanel)
+            {
+                newPanel.showing = true;
+            }
+            else
+            {
+                newPanel.hiding = true;
+            }
 
             IB2HtmlLogBox newLog = gv.log;
             newLog.tbXloc = 10;
@@ -260,7 +215,7 @@ namespace IceBlink2mini
             newToggle.tag = "tglLog";
             newToggle.ImgOnFilename = "tgl_log_on";
             newToggle.ImgOffFilename = "tgl_log_off";
-            newToggle.toggleOn = true;
+            newToggle.toggleOn = gv.toggleSettings.showLogPanel;
             newToggle.X = 0;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -434,13 +389,27 @@ namespace IceBlink2mini
             newPanel.hidingYIncrement = 3;
             newPanel.Width = 336;
             newPanel.Height = 48;
+            showTogglePanel = gv.toggleSettings.showTogglePanel;
+            if (gv.toggleSettings.showTogglePanel)
+            {
+                newPanel.currentLocX = 48;
+                newPanel.currentLocY = 288;
+                newPanel.showing = true;
+            }
+            else
+            {
+                newPanel.currentLocX = 48;
+                newPanel.currentLocY = 384;
+                newPanel.hiding = true;
+            }
 
             //toggle
             IB2ToggleButton newToggle = new IB2ToggleButton(gv);
             newToggle.tag = "tglHP";
             newToggle.ImgOnFilename = "tgl_hp_on";
             newToggle.ImgOffFilename = "tgl_hp_off";
-            newToggle.toggleOn = false;
+            newToggle.toggleOn = gv.toggleSettings.showHP;
+            showHP = gv.toggleSettings.showHP;
             newToggle.X = 0;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -453,7 +422,8 @@ namespace IceBlink2mini
             newToggle.tag = "tglSP";
             newToggle.ImgOnFilename = "tgl_sp_on";
             newToggle.ImgOffFilename = "tgl_sp_off";
-            newToggle.toggleOn = false;
+            newToggle.toggleOn = gv.toggleSettings.showSP;
+            showSP = gv.toggleSettings.showSP;
             newToggle.X = 48;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -466,7 +436,8 @@ namespace IceBlink2mini
             newToggle.tag = "tglMoveOrder";
             newToggle.ImgOnFilename = "tgl_mo_on";
             newToggle.ImgOffFilename = "tgl_mo_off";
-            newToggle.toggleOn = false;
+            newToggle.toggleOn = gv.toggleSettings.showMO;
+            showMoveOrder = gv.toggleSettings.showMO;
             newToggle.X = 96;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -480,6 +451,26 @@ namespace IceBlink2mini
             newToggle.ImgOnFilename = "tgl_speed_1";
             newToggle.ImgOffFilename = "tgl_speed_1";
             newToggle.toggleOn = false;
+            if (gv.toggleSettings.combatAnimationSpeed == 50)
+            {
+                mod.combatAnimationSpeed = 50;
+                newToggle.ImgOffFilename = "tgl_speed_2";
+            }
+            else if (gv.toggleSettings.combatAnimationSpeed == 25)
+            {
+                mod.combatAnimationSpeed = 25;
+                newToggle.ImgOffFilename = "tgl_speed_4";
+            }
+            else if (gv.toggleSettings.combatAnimationSpeed == 10)
+            {
+                mod.combatAnimationSpeed = 10;
+                newToggle.ImgOffFilename = "tgl_speed_10";
+            }
+            else if (gv.toggleSettings.combatAnimationSpeed == 100)
+            {
+                mod.combatAnimationSpeed = 100;
+                newToggle.ImgOffFilename = "tgl_speed_1";
+            }
             newToggle.X = 144;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -492,7 +483,8 @@ namespace IceBlink2mini
             newToggle.tag = "tglSoundFx";
             newToggle.ImgOnFilename = "tgl_sound_on";
             newToggle.ImgOffFilename = "tgl_sound_off";
-            newToggle.toggleOn = false;
+            newToggle.toggleOn = gv.toggleSettings.playSoundFx;
+            gv.mod.playSoundFx = gv.toggleSettings.playSoundFx;
             newToggle.X = 192;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -505,7 +497,8 @@ namespace IceBlink2mini
             newToggle.tag = "tglGrid";
             newToggle.ImgOnFilename = "tgl_grid_on";
             newToggle.ImgOffFilename = "tgl_grid_off";
-            newToggle.toggleOn = false;
+            newToggle.toggleOn = gv.toggleSettings.com_showGrid;
+            gv.mod.com_showGrid = gv.toggleSettings.com_showGrid;
             newToggle.X = 240;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -518,7 +511,16 @@ namespace IceBlink2mini
             newToggle.tag = "tglZoom";
             newToggle.ImgOnFilename = "tgl_zoom_on";
             newToggle.ImgOffFilename = "tgl_zoom_off";
-            newToggle.toggleOn = true;
+            newToggle.toggleOn = !gv.toggleSettings.com_use11x11;
+            use11x11 = gv.toggleSettings.com_use11x11;
+            if (use11x11)
+            {
+                sqrScale = 0.6364f;
+            }
+            else
+            {
+                sqrScale = 1.0f;
+            }
             newToggle.X = 288;
             newToggle.Y = 0;
             newToggle.Width = 48;
@@ -4718,7 +4720,7 @@ namespace IceBlink2mini
                     }
                     else if (panDown.getImpact(x, y))
                     {
-                        if (showTogglePanel)
+                        if (!showTogglePanel)
                         {
                             if (use11x11)
                             {
@@ -4780,6 +4782,7 @@ namespace IceBlink2mini
                         if (tgl == null) { return; }
                         tgl.toggleOn = !tgl.toggleOn;
                         showHP = !showHP;
+                        gv.toggleSettings.showHP = showHP;
                         return;
                     }
                     if (rtn.Equals("tglSP"))
@@ -4788,6 +4791,7 @@ namespace IceBlink2mini
                         if (tgl == null) { return; }
                         tgl.toggleOn = !tgl.toggleOn;
                         showSP = !showSP;
+                        gv.toggleSettings.showSP = showSP;
                         return;
                     }
                     if (rtn.Equals("tglMoveOrder"))
@@ -4796,6 +4800,7 @@ namespace IceBlink2mini
                         if (tgl == null) { return; }
                         tgl.toggleOn = !tgl.toggleOn;
                         showMoveOrder = !showMoveOrder;
+                        gv.toggleSettings.showMO = showMoveOrder;
                         return;
                     }
                     if (rtn.Equals("tglSpeed"))
@@ -4806,24 +4811,28 @@ namespace IceBlink2mini
                         if (mod.combatAnimationSpeed == 100)
                         {
                             mod.combatAnimationSpeed = 50;
+                            gv.toggleSettings.combatAnimationSpeed = mod.combatAnimationSpeed;
                             tgl.ImgOffFilename = "tgl_speed_2";
                             gv.cc.addLogText("lime", "combat speed: 2x");
                         }
                         else if (mod.combatAnimationSpeed == 50)
                         {
                             mod.combatAnimationSpeed = 25;
+                            gv.toggleSettings.combatAnimationSpeed = mod.combatAnimationSpeed;
                             tgl.ImgOffFilename = "tgl_speed_4";
                             gv.cc.addLogText("lime", "combat speed: 4x");
                         }
                         else if (mod.combatAnimationSpeed == 25)
                         {
                             mod.combatAnimationSpeed = 10;
+                            gv.toggleSettings.combatAnimationSpeed = mod.combatAnimationSpeed;
                             tgl.ImgOffFilename = "tgl_speed_10";
                             gv.cc.addLogText("lime", "combat speed: 10x");
                         }
                         else if (mod.combatAnimationSpeed == 10)
                         {
                             mod.combatAnimationSpeed = 100;
+                            gv.toggleSettings.combatAnimationSpeed = mod.combatAnimationSpeed;
                             tgl.ImgOffFilename = "tgl_speed_1";
                             gv.cc.addLogText("lime", "combat speed: 1x");
                         }
@@ -4837,6 +4846,7 @@ namespace IceBlink2mini
                         {
                             tgl.toggleOn = false;
                             use11x11 = true;
+                            gv.toggleSettings.com_use11x11 = true;
                             sqrScale = 0.6364f;
                             UpperLeftSquare.X = 0;
                             UpperLeftSquare.Y = 0;
@@ -4846,6 +4856,7 @@ namespace IceBlink2mini
                         {
                             tgl.toggleOn = true;
                             use11x11 = false;
+                            gv.toggleSettings.com_use11x11 = false;
                             sqrScale = 1.0f;
                             CalculateUpperLeft();
                             gv.cc.addLogText("lime", "zoom in to 7x7 map");
@@ -4860,12 +4871,14 @@ namespace IceBlink2mini
                         {
                             tgl.toggleOn = false;
                             mod.playSoundFx = false;
+                            gv.toggleSettings.playSoundFx = false;
                             gv.cc.addLogText("lime", "SoundFX Off");
                         }
                         else
                         {
                             tgl.toggleOn = true;
                             mod.playSoundFx = true;
+                            gv.toggleSettings.playSoundFx = true;
                             gv.cc.addLogText("lime", "SoundFX On");
                         }
                         return;
@@ -4878,11 +4891,13 @@ namespace IceBlink2mini
                         {
                             tgl.toggleOn = false;
                             mod.com_showGrid = false;
+                            gv.toggleSettings.com_showGrid = mod.com_showGrid;
                         }
                         else
                         {
                             tgl.toggleOn = true;
                             mod.com_showGrid = true;
+                            gv.toggleSettings.com_showGrid = mod.com_showGrid;
                         }
                         return;
                     }
@@ -5141,6 +5156,7 @@ namespace IceBlink2mini
                             if (pnl.tag.Equals("TogglePanel"))
                             {
                                 showTogglePanel = !showTogglePanel;
+                                gv.toggleSettings.showTogglePanel = showTogglePanel;
                                 //hides down
                                 if (pnl.currentLocY > pnl.shownLocY)
                                 {
@@ -5176,11 +5192,13 @@ namespace IceBlink2mini
                         if (tgl.toggleOn)
                         {
                             tgl.toggleOn = false;
+                            gv.toggleSettings.showLogPanel = false;
                             gv.cc.addLogText("lime", "Hide Log");
                         }
                         else
                         {
                             tgl.toggleOn = true;
+                            gv.toggleSettings.showLogPanel = true;
                             gv.cc.addLogText("lime", "Show Log");
                         }
                     }
