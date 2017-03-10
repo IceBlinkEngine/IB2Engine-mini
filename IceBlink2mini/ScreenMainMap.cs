@@ -1723,9 +1723,9 @@ namespace IceBlink2mini
                     {
                         offset = gv.playerOffsetZoom;
                     }
-                    int gridx = (int)(eX) / (int)(gv.squareSize * sqrScale);
-                    int gridy = (int)(eY) / (int)(gv.squareSize * sqrScale);
-                    int actualX = mod.PlayerLocationX + (gridx - offset) - (mapStartLocXinPixels / (int)(gv.squareSize * sqrScale));
+                    int gridx = ((eX - gv.squareSize) / (int)(gv.squareSize * sqrScale)) + 1;
+                    int gridy = (eY) / (int)(gv.squareSize * sqrScale);
+                    int actualX = mod.PlayerLocationX + (gridx - offset) - (mapStartLocXinPixels / (int)(gv.squareSize));
                     int actualY = mod.PlayerLocationY + (gridy - offset);
                     //gv.cc.floatyText = "";
                     floatyTextBox.linesList.Clear();
@@ -1739,10 +1739,10 @@ namespace IceBlink2mini
                                 {
                                     string text = p.MouseOverText;
                                     floatyTextBox.tbWidth = 5 * gv.squareSize;
-                                    floatyTextBox.tbXloc = ((gridx) * gv.squareSize);
+                                    floatyTextBox.tbXloc = ((gridx) * (int)(gv.squareSize * sqrScale));
                                     floatyTextBox.AddFormattedTextToTextBox(text);
                                     //based on number of lines, pick YLoc
-                                    floatyTextBox.tbYloc = (gridy * gv.squareSize) - ((floatyTextBox.linesList.Count / 2) * (gv.fontHeight + gv.fontLineSpacing)) + (gv.squareSize / 2);                                    
+                                    floatyTextBox.tbYloc = (gridy * (int)(gv.squareSize * sqrScale)) - ((floatyTextBox.linesList.Count / 2) * (gv.fontHeight + gv.fontLineSpacing)) + (gv.squareSize / 2);                                    
                                     floatyTextBox.tbHeight = (floatyTextBox.linesList.Count + 1) * (gv.fontHeight + gv.fontLineSpacing);
                                     //floatyTextBox.linesList.Clear();
                                     
@@ -1764,9 +1764,9 @@ namespace IceBlink2mini
                     {
                         offset = gv.playerOffsetZoom;
                     }
-                    int gridX = (int)eX / (int)(gv.squareSize * sqrScale);
+                    int gridX = ((eX - gv.squareSize) / (int)(gv.squareSize * sqrScale)) + 1;
                     int gridY = (int)eY / (int)(gv.squareSize * sqrScale);
-                    int actualx = mod.PlayerLocationX + (gridX - offset - (mapStartLocXinPixels / (int)(gv.squareSize * sqrScale)));
+                    int actualx = mod.PlayerLocationX + (gridX - offset - (mapStartLocXinPixels / (int)(gv.squareSize)));
                     int actualy = mod.PlayerLocationY + (gridY - offset);
 
                     if (gv.showMessageBox)

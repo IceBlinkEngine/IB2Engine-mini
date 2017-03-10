@@ -171,6 +171,10 @@ namespace IceBlink2mini
                             {
                                 gv.doVerifyClosing(selectedIndex);
                             }
+                            else if (currentSender.Equals("verifyreturntomain"))
+                            {
+                                gv.cc.doVerifyReturnToMain(selectedIndex);
+                            }
                             return;
                         }
                         index++;

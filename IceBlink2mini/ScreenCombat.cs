@@ -4600,7 +4600,7 @@ namespace IceBlink2mini
                     //NEW SYSTEM
                     combatUiLayout.setHover(x, y);
 
-                    int gridx = (int)(eX - mapStartLocXinPixels) / (int)(gv.squareSize * sqrScale);
+                    int gridx = (int)(eX - mapStartLocXinPixels) / (int)(gv.squareSize * sqrScale); 
                     int gridy = (int)(eY) / (int)(gv.squareSize * sqrScale);
 
                     #region FloatyText

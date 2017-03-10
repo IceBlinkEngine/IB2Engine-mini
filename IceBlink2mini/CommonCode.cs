@@ -224,13 +224,48 @@ namespace IceBlink2mini
                     gv.errorLog(ex.ToString());
                 }
             }
-            
+            else if (selectedIndex == 6)
+            {
+                //ask if they really want to exit, remind to save first
+                doVerifyReturnToMainSetup();
+            }
         }
         public void doSavesSetupDialog()
         {
-            List<string> saveList = new List<string> { slot0, slot1, slot2, slot3, slot4, slot5 };
+            List<string> saveList = new List<string> { slot0, slot1, slot2, slot3, slot4, slot5, "Return to Main Menu" };
             gv.itemListSelector.setupIBminiItemListSelector(gv, saveList, "Choose a slot to save game.", "savegame");
             gv.itemListSelector.showIBminiItemListSelector = true;
+        }
+        public void doVerifyReturnToMainSetup()
+        {
+            List<string> actionList = new List<string> { "Yes, Return To Main Menu", "No, Keep Playing" };
+            gv.itemListSelector.setupIBminiItemListSelector(gv, actionList, "Are you sure you wish to exit to Main Menu?", "verifyreturntomain");
+            gv.itemListSelector.showIBminiItemListSelector = true;
+        }
+        public void doVerifyReturnToMain(int selectedIndex)
+        {
+            if (selectedIndex == 0)
+            {
+                //go to launcher screen
+                if (gv.fixedModule.Equals("")) //this is the IceBlink Engine app
+                {
+                    gv.createScreens();
+                    //TODO make sure this works
+                    gv.screenLauncher.loadModuleInfoFiles();
+                    gv.screenType = "launcher";
+                }
+                else //this is a fixed module
+                {
+                    gv.mod = gv.cc.LoadModule(gv.fixedModule + "/" + gv.fixedModule + ".mod");
+                    gv.resetGame();
+                    gv.cc.LoadSaveListItems();
+                    gv.screenType = "title";
+                }
+            }
+            if (selectedIndex == 1)
+            {
+                //keep playing
+            }
         }
         public void doLoadSaveGameDialog(int selectedIndex)
         {
@@ -324,7 +359,7 @@ namespace IceBlink2mini
                 {
                     //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
                 }
-            }            
+            }
         }
         public void doLoadSaveGameSetupDialog()
         {
