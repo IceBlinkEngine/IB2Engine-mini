@@ -4224,6 +4224,10 @@ namespace IceBlink2mini
         {
             IbRect src = new IbRect(0, 0, gv.cc.tint_sunset.PixelSize.Width, gv.cc.tint_sunset.PixelSize.Height);
             IbRect dst = new IbRect(mapStartLocXinPixels, 0, (int)(gv.squareSize * sqrScale) * (gv.playerOffsetX + gv.playerOffsetX + 1), (int)(gv.squareSize * sqrScale) * (gv.playerOffsetY + gv.playerOffsetY + 2));
+            if (use11x11)
+            {
+                dst = new IbRect(mapStartLocXinPixels, 0, (int)(gv.squareSize * sqrScale) * (gv.playerOffsetZoom + gv.playerOffsetZoom + 1), (int)(gv.squareSize * sqrScale) * (gv.playerOffsetZoom + gv.playerOffsetZoom + 2));
+            }
             int dawn = 5 * 60;
             int sunrise = 6 * 60;
             int day = 7 * 60;
@@ -4266,7 +4270,7 @@ namespace IceBlink2mini
             float movesLeft = pc.moveDistance - currentMoves;
             if (movesLeft < 0) { movesLeft = 0; }
 
-            if (!showTogglePanel)
+            if (showTogglePanel)
             {
                 yLoc = (gv.playerOffsetY * 2) * gv.squareSize - gv.fontHeight - gv.fontHeight;
             }
