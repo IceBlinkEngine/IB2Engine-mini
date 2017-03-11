@@ -10,7 +10,7 @@ namespace IceBlink2mini
 {
     public class ScreenCastSelector 
     {
-	    private Module mod;
+	    //private Module gv.mod;
 	    private GameView gv;
 	
 	    public int castingPlayerIndex = 0;
@@ -26,7 +26,7 @@ namespace IceBlink2mini
 	
 	    public ScreenCastSelector(Module m, GameView g) 
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 		    stringMessageCastSelector = gv.cc.loadTextToString("MessageCastSelector.txt");
 	    }
@@ -114,7 +114,7 @@ namespace IceBlink2mini
                 if (cntSlot < pc.playerClass.spellsAllowed.Count)
                 {
                     SpellAllowed sa = pc.playerClass.spellsAllowed[cntSlot];
-                    Spell sp = mod.getSpellByTag(sa.tag);
+                    Spell sp = gv.mod.getSpellByTag(sa.tag);
 
                     btn.Img2 = sp.spellImage;
                     btn.Img2Off = sp.spellImage + "_off";
@@ -162,7 +162,7 @@ namespace IceBlink2mini
     		    setControlsStart();
     	    }
             
-            btnSelect.Text = "CAST SELECTED " + mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular.ToUpper();
+            btnSelect.Text = "CAST SELECTED " + gv.mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular.ToUpper();
 
             int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -182,7 +182,7 @@ namespace IceBlink2mini
             //DRAW TEXT		
 		    locY = (gv.squareSize * 0) + (pH * 2);
 		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-		    gv.DrawText("Select a " + mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Cast", noticeX, pH * 3, "wh");
+		    gv.DrawText("Select a " + gv.mod.getPlayerClass(pc.classTag).spellLabelSingular + " to Cast", noticeX, pH * 3, "wh");
 		    //gv.mSheetTextPaint.setColor(Color.YELLOW);
 		    gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY, "yl");
 		
@@ -232,7 +232,7 @@ namespace IceBlink2mini
 			    {
 				    //if unknown spell, "Spell Not Known Yet" in red
 				    //gv.mSheetTextPaint.setColor(Color.RED);
-                    gv.DrawText(mod.getPlayerClass(pc.classTag).spellLabelSingular + " Not Known Yet", noticeX, noticeY, "rd");
+                    gv.DrawText(gv.mod.getPlayerClass(pc.classTag).spellLabelSingular + " Not Known Yet", noticeX, noticeY, "rd");
 			    }
 		    }		
 		
@@ -435,17 +435,17 @@ namespace IceBlink2mini
 
                                     List<string> pcNames = new List<string>();
                                     pcNames.Add("cancel");
-                                    foreach (Player p in mod.playerList)
+                                    foreach (Player p in gv.mod.playerList)
                                     {
                                         pcNames.Add(p.name);
                                     }
 
                                     //If only one PC, do not show select PC dialog...just go to cast selector
-                                    if (mod.playerList.Count == 1)
+                                    if (gv.mod.playerList.Count == 1)
                                     {
                                         try
                                         {
-                                            Player target = mod.playerList[0];
+                                            Player target = gv.mod.playerList[0];
                                             gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, true);
                                             gv.screenType = "main";
                                             doCleanUp();
@@ -457,7 +457,7 @@ namespace IceBlink2mini
                                         }
                                     }
 
-                                    gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular + " Target", "castselectorspelltarget");
+                                    gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, gv.mod.getPlayerClass(getCastingPlayer().classTag).spellLabelSingular + " Target", "castselectorspelltarget");
                                     gv.itemListSelector.showIBminiItemListSelector = true;
                                 }
 						    }
@@ -475,7 +475,7 @@ namespace IceBlink2mini
             Player pc = getCastingPlayer();
             if (selectedIndex > 0)
             {
-                Player target = mod.playerList[selectedIndex - 1];
+                Player target = gv.mod.playerList[selectedIndex - 1];
                 doSpellTarget(pc, target);
             }
             else if (selectedIndex == 0) // selected "cancel"
@@ -501,7 +501,7 @@ namespace IceBlink2mini
         public Spell GetCurrentlySelectedSpell()
 	    {
     	    SpellAllowed sa = getCastingPlayer().playerClass.spellsAllowed[spellSlotIndex];
-		    return mod.getSpellByTag(sa.tag);
+		    return gv.mod.getSpellByTag(sa.tag);
 	    }
 	    public bool isSelectedSpellSlotInKnownSpellsRange()
 	    {
@@ -518,7 +518,7 @@ namespace IceBlink2mini
 	    }
 	    public Player getCastingPlayer()
 	    {
-		    return mod.playerList[castingPlayerIndex];
+		    return gv.mod.playerList[castingPlayerIndex];
 	    }
 	    public void tutorialMessageCastingScreen()
         {

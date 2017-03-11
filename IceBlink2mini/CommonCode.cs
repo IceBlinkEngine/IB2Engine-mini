@@ -111,7 +111,7 @@ namespace IceBlink2mini
             {
                 if (p.name.Equals(nameMinusJson))
                 {
-                    return p;
+                    return p.DeepCopy();
                 }
             }
             // deserialize JSON directly from a file
@@ -249,7 +249,22 @@ namespace IceBlink2mini
                 //go to launcher screen
                 if (gv.fixedModule.Equals("")) //this is the IceBlink Engine app
                 {
-                    gv.createScreens();
+                    if (gv.screenLauncher == null)
+                    {
+                        gv.screenLauncher = new ScreenLauncher(gv.mod, gv);
+                    }
+                    if (gv.screenPartyBuild == null)
+                    {
+                        gv.screenPartyBuild = new ScreenPartyBuild(gv.mod, gv);
+                    }
+                    if (gv.screenPcCreation == null)
+                    {
+                        gv.screenPcCreation = new ScreenPcCreation(gv.mod, gv);
+                    }
+                    if (gv.screenTitle == null)
+                    {
+                        gv.screenTitle = new ScreenTitle(gv.mod, gv);
+                    }
                     //TODO make sure this works
                     gv.screenLauncher.loadModuleInfoFiles();
                     gv.screenType = "launcher";

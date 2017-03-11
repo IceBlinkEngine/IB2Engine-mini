@@ -10,14 +10,14 @@
     "moduleName": "Lanterna",
     "moduleLabelName": "Lanterna",
     "titleImageName": "title",
-    "moduleVersion": 4,
+    "moduleVersion": 5,
     "moduleDescription": "Welcome to Lanterna - The Exile"
   },
   {
     "moduleName": "TheElderinStone",
     "moduleLabelName": "The Elderin Stone",
     "titleImageName": "title",
-    "moduleVersion": 4,
+    "moduleVersion": 5,
     "moduleDescription": "A 3-4hr dungeon crawl for up to six level one characters."
   },
   {

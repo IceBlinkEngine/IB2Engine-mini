@@ -9,7 +9,7 @@ namespace IceBlink2mini
 {
     public class ScreenTraitUseSelector
     {
-        private Module mod;
+        //private Module gv.mod;
         private GameView gv;
 
         public int traitUsingPlayerIndex = 0;
@@ -25,7 +25,7 @@ namespace IceBlink2mini
 
         public ScreenTraitUseSelector(Module m, GameView g)
         {
-            mod = m;
+            //gv.mod = m;
             gv = g;
             stringMessageTraitUseSelector = gv.cc.loadTextToString("MessageTraitUseSelector.txt");
         }
@@ -102,7 +102,7 @@ namespace IceBlink2mini
                 if (cntSlot < pc.playerClass.traitsAllowed.Count)
                 {
                     TraitAllowed ta = pc.playerClass.traitsAllowed[cntSlot];
-                    Trait tr = mod.getTraitByTag(ta.tag);
+                    Trait tr = gv.mod.getTraitByTag(ta.tag);
 
                     btn.Img2 = tr.traitImage;
                     btn.Img2Off = tr.traitImage + "_off";
@@ -160,7 +160,7 @@ namespace IceBlink2mini
             {
                 setControlsStart();
             }
-            //btnSelect.Text = "USE SELECTED " + mod.getPlayerClass(pc.classTag).spellLabelSingular.ToUpper();
+            //btnSelect.Text = "USE SELECTED " + gv.mod.getPlayerClass(pc.classTag).spellLabelSingular.ToUpper();
 
             int pW = (int)((float)gv.screenWidth / 100.0f);
             int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -445,17 +445,17 @@ namespace IceBlink2mini
                                     // selected to USE ITEM
                                     List<string> pcNames = new List<string>();
                                     pcNames.Add("cancel");
-                                    foreach (Player p in mod.playerList)
+                                    foreach (Player p in gv.mod.playerList)
                                     {
                                         pcNames.Add(p.name);
                                     }
 
                                     //If only one PC, do not show select PC dialog...just go to cast selector
-                                    if (mod.playerList.Count == 1)
+                                    if (gv.mod.playerList.Count == 1)
                                     {
                                         try
                                         {
-                                            Player target = mod.playerList[0];
+                                            Player target = gv.mod.playerList[0];
                                             gv.cc.doTraitBasedOnScriptOrEffectTag(gv.cc.currentSelectedTrait, target, target, true);
                                             gv.screenType = "main";
                                             doCleanUp();
@@ -467,7 +467,7 @@ namespace IceBlink2mini
                                         }
                                     }
 
-                                    gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, mod.getPlayerClass(getTraitUsingPlayer().classTag).spellLabelSingular + " Target", "traituseselectortraittarget");
+                                    gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, gv.mod.getPlayerClass(getTraitUsingPlayer().classTag).spellLabelSingular + " Target", "traituseselectortraittarget");
                                     gv.itemListSelector.showIBminiItemListSelector = true;
                                 }
                             }
@@ -485,7 +485,7 @@ namespace IceBlink2mini
             Player pc = getTraitUsingPlayer();
             if (selectedIndex > 0)
             {
-                Player target = mod.playerList[selectedIndex - 1];
+                Player target = gv.mod.playerList[selectedIndex - 1];
                 doTraitTarget(pc, target);                
             }
             else if (selectedIndex == 0) // selected "cancel"
@@ -511,7 +511,7 @@ namespace IceBlink2mini
         public Trait GetCurrentlySelectedTrait()
         {
             TraitAllowed ta = getTraitUsingPlayer().playerClass.traitsAllowed[traitSlotIndex];
-            return mod.getTraitByTag(ta.tag);
+            return gv.mod.getTraitByTag(ta.tag);
         }
         public bool isSelectedTraitSlotInKnownTraitsRange()
         {
@@ -528,7 +528,7 @@ namespace IceBlink2mini
         }
         public Player getTraitUsingPlayer()
         {
-            return mod.playerList[traitUsingPlayerIndex];
+            return gv.mod.playerList[traitUsingPlayerIndex];
         }
         public void tutorialMessageTraitUsingScreen()
         {

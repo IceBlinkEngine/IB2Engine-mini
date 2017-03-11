@@ -10,13 +10,13 @@ namespace IceBlink2mini
 {
     public class ScreenPortraitSelector
     {
-        public Module mod;
+        //public Module gv.mod;
 	    public GameView gv;
         public Player pc;
 	    private int ptrPageIndex = 0;
 	    private int ptrSlotIndex = 0;
 	    private int slotsPerPage = 10;
-        private int maxPages = 20;
+        private int maxPages = 40;
 	    private List<IbbPortrait> btnPortraitSlot = new List<IbbPortrait>();
 	    private IbbButton btnPortraitsLeft = null;
 	    private IbbButton btnPortraitsRight = null;
@@ -28,7 +28,7 @@ namespace IceBlink2mini
 
         public ScreenPortraitSelector(Module m, GameView g)
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 	    }
 
@@ -42,6 +42,7 @@ namespace IceBlink2mini
         public void LoadPlayerPortraitList()
         {
             playerPortraitList.Clear();
+            //OVERRIDE
             try
             {
                 //Load from module folder first
@@ -57,7 +58,10 @@ namespace IceBlink2mini
                             if (filename.StartsWith("pptr_"))
                             {
                                 string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
-                                playerPortraitList.Add(fileNameWithOutExt);
+                                if (!playerPortraitList.Contains(fileNameWithOutExt))
+                                {
+                                    playerPortraitList.Add(fileNameWithOutExt);
+                                }
                             }
                         }
                         catch (Exception ex)
@@ -73,6 +77,28 @@ namespace IceBlink2mini
                 MessageBox.Show(ex.ToString());
                 gv.errorLog(ex.ToString());
             }
+            //MODULE SPECIFIC
+            try
+            {
+                //foreach (Bitmap b in gv.cc.commonBitmapList)
+                foreach (KeyValuePair<string, SharpDX.Direct2D1.Bitmap> entry in gv.cc.commonBitmapList)
+                {
+                    // do something with entry.Value or entry.Key
+                    if (entry.Key.StartsWith("pptr_"))
+                    {
+                        if (!playerPortraitList.Contains(entry.Key))
+                        {
+                            playerPortraitList.Add(entry.Key);
+                        }
+                    }
+                }                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                gv.errorLog(ex.ToString());
+            }
+            //DEFAULTS
             try
             {
                 //Load from PlayerTokens folder last
@@ -301,9 +327,9 @@ namespace IceBlink2mini
                             //return to calling screen
                             if (callingScreen.Equals("party"))
                             {
-                                gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex].portraitFilename = playerPortraitList[GetIndex()];
+                                gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex].portraitFilename = playerPortraitList[GetIndex()];
                                 gv.screenType = "party";
-                                gv.screenParty.portraitLoad(gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex]);
+                                gv.screenParty.portraitLoad(gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex]);
                             }
                             else if (callingScreen.Equals("pcCreation"))
                             {
@@ -338,9 +364,9 @@ namespace IceBlink2mini
 				    //return to calling screen
                     if (callingScreen.Equals("party"))
                     {
-                        gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex].portraitFilename = playerPortraitList[GetIndex()];
+                        gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex].portraitFilename = playerPortraitList[GetIndex()];
                         gv.screenType = "party";
-                        gv.screenParty.portraitLoad(gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex]);
+                        gv.screenParty.portraitLoad(gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex]);
                     }
                     else if (callingScreen.Equals("pcCreation"))
                     {

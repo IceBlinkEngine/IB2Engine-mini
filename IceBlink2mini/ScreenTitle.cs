@@ -9,7 +9,7 @@ namespace IceBlink2mini
 {
     public class ScreenTitle 
     {
-	    public Module mod;
+	    //public Module gv.mod;
 	    public GameView gv;
 	
 	    private IbbButton btnNewGame = null;
@@ -20,7 +20,7 @@ namespace IceBlink2mini
 
         public ScreenTitle(Module m, GameView g)
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 		    setControlsStart();
 	    }
@@ -109,10 +109,10 @@ namespace IceBlink2mini
             {
                 for (int y = 0; y <= 2; y++)
                 {
-                    gv.DrawText("v" + mod.moduleVersion, xLoc + x, (6 * gv.squareSize) + (pH * 4) + y, "bk");
+                    gv.DrawText("v" + gv.mod.moduleVersion, xLoc + x, (6 * gv.squareSize) + (pH * 4) + y, "bk");
                 }
             }
-            gv.DrawText("v" + mod.moduleVersion, xLoc, (6 * gv.squareSize) + (pH * 4), "wh");
+            gv.DrawText("v" + gv.mod.moduleVersion, xLoc, (6 * gv.squareSize) + (pH * 4), "wh");
             
             drawTitleControls();
             if (gv.showMessageBox)

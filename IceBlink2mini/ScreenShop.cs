@@ -10,7 +10,7 @@ namespace IceBlink2mini
 {
     public class ScreenShop 
     {
-	    public Module mod;
+	    //public Module gv.mod;
 	    public GameView gv;
 
 	    public List<IbbButton> btnInventorySlot = new List<IbbButton>();
@@ -34,7 +34,7 @@ namespace IceBlink2mini
 	
         public ScreenShop(Module m, GameView g)
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 		    setControlsStart();
 		    stringMessageShop = gv.cc.loadTextToString("MessageShop.txt");
@@ -224,7 +224,7 @@ namespace IceBlink2mini
 			    if ((cntSlot + (shopPageIndex * 10)) < currentShop.shopItemRefs.Count)
 			    {
 				    ItemRefs itrs = currentShop.shopItemRefs[cntSlot + (shopPageIndex * 10)];
-				    Item it = mod.getItemByResRefForInfo(itrs.resref);
+				    Item it = gv.mod.getItemByResRefForInfo(itrs.resref);
                     //gv.cc.DisposeOfBitmap(ref btn.Img2);
                     btn.Img2 = it.itemImage;	
 				    if (itrs.quantity < it.groupSizeForSellingStackableItems)
@@ -265,7 +265,7 @@ namespace IceBlink2mini
 		    if ((shopSlotIndex + (shopPageIndex * 10)) < currentShop.shopItemRefs.Count)
 		    {
                 //DRAW DESCRIPTION BOX
-			    Item it = mod.getItemByResRefForInfo(currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)].resref);
+			    Item it = gv.mod.getItemByResRefForInfo(currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)].resref);
 
                 string textToSpan = "<gn>" + it.name + "</gn><BR>";
                 if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
@@ -306,7 +306,7 @@ namespace IceBlink2mini
             gv.DrawText("Inventory", locX + gv.squareSize * 4, locY += spacing, "gy");
 		    locY = (int)(3.5 * gv.squareSize) + (pH * 2);
 		    gv.DrawText("Party", locX + gv.squareSize * 4, locY, "yl");
-            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, locX + gv.squareSize * 4, locY += spacing, "yl");
+            gv.DrawText(gv.mod.goldLabelPlural + ": " + gv.mod.partyGold, locX + gv.squareSize * 4, locY += spacing, "yl");
 		
 		    //DRAW ALL PARTY INVENTORY SLOTS		
 		    cntSlot = 0;
@@ -314,10 +314,10 @@ namespace IceBlink2mini
 		    {
 			    if (cntSlot == inventorySlotIndex) {btn.glowOn = true;}
 			    else {btn.glowOn = false;}
-			    if ((cntSlot + (inventoryPageIndex * 10)) < mod.partyInventoryRefsList.Count)
+			    if ((cntSlot + (inventoryPageIndex * 10)) < gv.mod.partyInventoryRefsList.Count)
 			    {
-				    ItemRefs itr = mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * 10)];
-				    Item it = mod.getItemByResRefForInfo(itr.resref);
+				    ItemRefs itr = gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * 10)];
+				    Item it = gv.mod.getItemByResRefForInfo(itr.resref);
                     //gv.cc.DisposeOfBitmap(ref btn.Img2);
                     btn.Img2 = it.itemImage;	
 				    if (itr.quantity < it.groupSizeForSellingStackableItems)
@@ -354,10 +354,10 @@ namespace IceBlink2mini
 		
 		    //DRAW DESCRIPTION BOX
 		    locY = tabStartY;		
-		    if ((inventorySlotIndex + (inventoryPageIndex * 10)) < mod.partyInventoryRefsList.Count)
+		    if ((inventorySlotIndex + (inventoryPageIndex * 10)) < gv.mod.partyInventoryRefsList.Count)
 		    {
-			    ItemRefs itr = mod.partyInventoryRefsList[inventorySlotIndex + (inventoryPageIndex * 10)];
-			    Item it = mod.getItemByResRefForInfo(itr.resref);
+			    ItemRefs itr = gv.mod.partyInventoryRefsList[inventorySlotIndex + (inventoryPageIndex * 10)];
+			    Item it = gv.mod.getItemByResRefForInfo(itr.resref);
                 string textToSpan = "<gn>" + it.name + "</gn><BR>";
                 if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
                 {
@@ -397,7 +397,7 @@ namespace IceBlink2mini
         public string isUseableBy(Item it)
         {
     	    string strg = "";
-    	    foreach (PlayerClass cls in mod.modulePlayerClassList)
+    	    foreach (PlayerClass cls in gv.mod.modulePlayerClassList)
     	    {
     		    string firstLetter = cls.name.Substring(0,1);
     		    foreach (ItemRefs itr in cls.itemsAllowed)
@@ -412,20 +412,20 @@ namespace IceBlink2mini
         }
         public void doItemStackingParty()
 	    {
-		    for (int i = 0; i < mod.partyInventoryRefsList.Count; i++)
+		    for (int i = 0; i < gv.mod.partyInventoryRefsList.Count; i++)
 		    {
-			    ItemRefs itr = mod.partyInventoryRefsList[i];
-			    Item itm = mod.getItemByResRefForInfo(itr.resref);
+			    ItemRefs itr = gv.mod.partyInventoryRefsList[i];
+			    Item itm = gv.mod.getItemByResRefForInfo(itr.resref);
 			    if (itm.isStackable)
 			    {
-				    for (int j = mod.partyInventoryRefsList.Count - 1; j >= 0; j--)
+				    for (int j = gv.mod.partyInventoryRefsList.Count - 1; j >= 0; j--)
 				    {
-					    ItemRefs it = mod.partyInventoryRefsList[j];
+					    ItemRefs it = gv.mod.partyInventoryRefsList[j];
 					    //do check to see if same resref and then stack and delete
 					    if ((it.resref.Equals(itr.resref)) && (i != j))
 					    {
 						    itr.quantity += it.quantity;
-						    mod.partyInventoryRefsList.RemoveAt(j);
+						    gv.mod.partyInventoryRefsList.RemoveAt(j);
 					    }
 				    }
 			    }
@@ -453,7 +453,7 @@ namespace IceBlink2mini
         {
             int adder = 0;
             int highestNonStackable = -99;
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 int mod = gv.sf.CalcShopSellModifier(pc);
                 if (mod > highestNonStackable)
@@ -474,7 +474,7 @@ namespace IceBlink2mini
         {
             int adder = 0;
             int highestNonStackable = -99;
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 int mod = gv.sf.CalcShopBuyBackModifier(pc);
                 if (mod > highestNonStackable)
@@ -647,14 +647,14 @@ namespace IceBlink2mini
         }
         public void doShopInventoryActions(int selectedIndex)
 	    {
-		    if ((inventorySlotIndex + (inventoryPageIndex * 10)) < mod.partyInventoryRefsList.Count)
+		    if ((inventorySlotIndex + (inventoryPageIndex * 10)) < gv.mod.partyInventoryRefsList.Count)
 		    {
                 //DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to sell this item?", enumMessageButton.YesNo);
                 if (selectedIndex == 0)
                 {
                     //sell item
-                    ItemRefs itr = mod.partyInventoryRefsList[inventorySlotIndex + (inventoryPageIndex * 10)];
-                    Item it = mod.getItemByResRef(itr.resref);
+                    ItemRefs itr = gv.mod.partyInventoryRefsList[inventorySlotIndex + (inventoryPageIndex * 10)];
+                    Item it = gv.mod.getItemByResRef(itr.resref);
                     if (it != null)
                     {
                         if (!it.plotItem)
@@ -662,7 +662,7 @@ namespace IceBlink2mini
                             if (itr.quantity < it.groupSizeForSellingStackableItems)
                             {
                                 //less than the stack size for selling
-                                mod.partyGold += (itr.quantity * storeBuyBackValueForItem(it)) / it.groupSizeForSellingStackableItems;
+                                gv.mod.partyGold += (itr.quantity * storeBuyBackValueForItem(it)) / it.groupSizeForSellingStackableItems;
                                 ItemRefs itrCopy = itr.DeepCopy();
                                 itrCopy.quantity = itr.quantity;
                                 currentShop.shopItemRefs.Add(itrCopy);
@@ -671,7 +671,7 @@ namespace IceBlink2mini
                             }
                             else //have more than the stack size for selling
                             {
-                                mod.partyGold += storeBuyBackValueForItem(it);
+                                gv.mod.partyGold += storeBuyBackValueForItem(it);
                                 ItemRefs itrCopy = itr.DeepCopy();
                                 itrCopy.quantity = it.groupSizeForSellingStackableItems;
                                 currentShop.shopItemRefs.Add(itrCopy);
@@ -703,14 +703,14 @@ namespace IceBlink2mini
 		    if ((shopSlotIndex + (shopPageIndex * 10)) < currentShop.shopItemRefs.Count)
 		    {
                 //check to see if have enough gold
-	            Item it = mod.getItemByResRef(currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)].resref);
+	            Item it = gv.mod.getItemByResRef(currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)].resref);
                 
                 //DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to buy this item?", enumMessageButton.YesNo);
                 if (selectedIndex == 0)
                 {
                     if (it != null)
                     {
-                        if (mod.partyGold < storeSellValueForItem(it))
+                        if (gv.mod.partyGold < storeSellValueForItem(it))
                         {
                             gv.sf.MessageBoxHtml("Your party does not have enough gold to purchase this item.");
                             return;
@@ -718,24 +718,24 @@ namespace IceBlink2mini
                     }
                     //buy item
                     ItemRefs itr = currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)];
-                    it = mod.getItemByResRef(itr.resref);
+                    it = gv.mod.getItemByResRef(itr.resref);
                     if (it != null)
                     {
                         if (itr.quantity < it.groupSizeForSellingStackableItems)
                         {
                             //less than the stack size for selling
-                            mod.partyGold -= (itr.quantity * storeSellValueForItem(it)) / it.groupSizeForSellingStackableItems;
+                            gv.mod.partyGold -= (itr.quantity * storeSellValueForItem(it)) / it.groupSizeForSellingStackableItems;
                             //add item and tag to party inventory
-                            mod.partyInventoryRefsList.Add(itr.DeepCopy());
+                            gv.mod.partyInventoryRefsList.Add(itr.DeepCopy());
                             //remove tag from shop list
                             currentShop.shopItemRefs.Remove(itr);
                         }
                         else //have more than the stack size for selling
                         {
                             //subtract gold from party
-                            mod.partyGold -= storeSellValueForItem(it);
+                            gv.mod.partyGold -= storeSellValueForItem(it);
                             //add item and tag to party inventory
-                            mod.partyInventoryRefsList.Add(itr.DeepCopy());
+                            gv.mod.partyInventoryRefsList.Add(itr.DeepCopy());
                             //remove tag from shop list
                             currentShop.shopItemRefs.Remove(itr);
                         }

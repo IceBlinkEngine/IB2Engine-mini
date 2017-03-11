@@ -13,7 +13,7 @@ namespace IceBlink2mini
 {
     public class ScreenPartyBuild
     {
-        public Module mod;
+        //public Module gv.mod;
         public GameView gv;
 
         public List<IbbButton> btnPartyIndex = new List<IbbButton>();
@@ -34,7 +34,7 @@ namespace IceBlink2mini
 
         public ScreenPartyBuild(Module m, GameView g)
         {
-            mod = m;
+            //gv.mod = m;
             gv = g;
             setControlsStart();
             stringMessagePartyBuild = gv.cc.loadTextToString("MessagePartyBuild.txt");
@@ -46,10 +46,10 @@ namespace IceBlink2mini
             int cntPCs = 0;
             foreach (IbbButton btn in btnPartyIndex)
             {
-                if (cntPCs < mod.playerList.Count)
+                if (cntPCs < gv.mod.playerList.Count)
                 {
                     //gv.cc.DisposeOfBitmap(ref btn.Img2);
-                    btn.Img2 = mod.playerList[cntPCs].tokenFilename;
+                    btn.Img2 = gv.mod.playerList[cntPCs].tokenFilename;
                 }
                 else
                 {
@@ -86,8 +86,8 @@ namespace IceBlink2mini
                 Player newPc = LoadPlayer(filename); //ex: filename = "ezzbel.json"
                 //newPc.token = gv.cc.LoadBitmap(newPc.tokenFilename);
                 //newPc.portrait = gv.cc.LoadBitmap(newPc.portraitFilename);
-                newPc.playerClass = mod.getPlayerClass(newPc.classTag);
-                newPc.race = mod.getRace(newPc.raceTag);
+                newPc.playerClass = gv.mod.getPlayerClass(newPc.classTag);
+                newPc.race = gv.mod.getRace(newPc.raceTag);
                 //check to see if already in party before adding
                 bool foundOne = false;
                 foreach (Player pc in pcList)
@@ -132,7 +132,7 @@ namespace IceBlink2mini
             int padW = gv.squareSize / 6;
 
             btnPartyIndex.Clear();
-            for (int x = 0; x < mod.numberOfPlayerMadePcsAllowed; x++)
+            for (int x = 0; x < gv.mod.numberOfPlayerMadePcsAllowed; x++)
             {
                 IbbButton btnNew = new IbbButton(gv, 1.0f);
                 btnNew.Img = "item_slot"; // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
@@ -248,7 +248,7 @@ namespace IceBlink2mini
         //PARTY SCREEN
         public void redrawPartyBuild()
         {
-            if (partyScreenPcIndex >= mod.playerList.Count)
+            if (partyScreenPcIndex >= gv.mod.playerList.Count)
             {
                 partyScreenPcIndex = 0;
             }
@@ -257,9 +257,9 @@ namespace IceBlink2mini
                 pcIndex = 0;
             }
             Player pc = null;
-            if ((mod.playerList.Count > 0) && (lastClickedPlayerList))
+            if ((gv.mod.playerList.Count > 0) && (lastClickedPlayerList))
             {
-                pc = mod.playerList[partyScreenPcIndex];
+                pc = gv.mod.playerList[partyScreenPcIndex];
             }
             else if ((pcList.Count > 0) && (!lastClickedPlayerList))
             {
@@ -281,7 +281,7 @@ namespace IceBlink2mini
             int leftStartY = 5 * gv.squareSize;
             
             //Draw screen title name
-            string text = "Party Members [" + mod.numberOfPlayerMadePcsAllowed + " player made PC(s) Allowed]";
+            string text = "Party Members [" + gv.mod.numberOfPlayerMadePcsAllowed + " player made PC(s) Allowed]";
             //NEW WAY
             int stringSize = text.Length * (gv.fontWidth + gv.fontCharSpacing);
             //place in the center
@@ -294,7 +294,7 @@ namespace IceBlink2mini
             int cntPCs = 0;
             foreach (IbbButton btn in btnPartyIndex)
             {
-                if (cntPCs < mod.playerList.Count)
+                if (cntPCs < gv.mod.playerList.Count)
                 {
                     if (cntPCs == partyScreenPcIndex) { btn.glowOn = true; }
                     else { btn.glowOn = false; }
@@ -327,7 +327,7 @@ namespace IceBlink2mini
 
                 //DRAW LEFT STATS
                 gv.DrawText("Name: " + pc.name, locX, locY += leftStartY, "wh");
-                gv.DrawText("Race: " + mod.getRace(pc.raceTag).name, locX, locY += spacing, "wh");
+                gv.DrawText("Race: " + gv.mod.getRace(pc.raceTag).name, locX, locY += spacing, "wh");
                 if (pc.isMale)
                 {
                     gv.DrawText("Gender: Male", locX, locY += spacing, "wh");
@@ -336,7 +336,7 @@ namespace IceBlink2mini
                 {
                     gv.DrawText("Gender: Female", locX, locY += spacing, "wh");
                 }
-                gv.DrawText("Class: " + mod.getPlayerClass(pc.classTag).name, locX, locY += spacing, "wh");
+                gv.DrawText("Class: " + gv.mod.getPlayerClass(pc.classTag).name, locX, locY += spacing, "wh");
                 gv.DrawText("Level: " + pc.classLevel, locX, locY += spacing, "wh");
                 gv.DrawText("XP: " + pc.XP + "/" + pc.XPNeeded, locX, locY += spacing, "wh");
                 gv.DrawText("---------------", locX, locY += spacing, "wh");
@@ -345,23 +345,23 @@ namespace IceBlink2mini
                 string allSpells = "";
                 foreach (string s in pc.knownSpellsTags)
                 {
-                    Spell sp = mod.getSpellByTag(s);
+                    Spell sp = gv.mod.getSpellByTag(s);
                     allSpells += sp.name + ", ";
                 }
-                gv.DrawText(mod.getPlayerClass(pc.classTag).spellLabelPlural + ": " + allSpells, locX, locY += spacing, "wh");
+                gv.DrawText(gv.mod.getPlayerClass(pc.classTag).spellLabelPlural + ": " + allSpells, locX, locY += spacing, "wh");
 
                 //draw traits known list
                 string allTraits = "";
                 foreach (string s in pc.knownTraitsTags)
                 {
-                    Trait tr = mod.getTraitByTag(s);
+                    Trait tr = gv.mod.getTraitByTag(s);
                     allTraits += tr.name + ", ";
                 }
                 gv.DrawText("Traits: " + allTraits, locX, locY += spacing, "wh");
 
                 //DRAW RIGHT STATS
                 int actext = 0;
-                if (mod.ArmorClassAscending) { actext = pc.AC; }
+                if (gv.mod.ArmorClassAscending) { actext = pc.AC; }
                 else { actext = 20 - pc.AC; }
                 locY = 0;
                 int locY2 = 0;
@@ -479,14 +479,14 @@ namespace IceBlink2mini
                     {
                         gv.PlaySound("btn_click");
                         //add selected PC to partyList and remove from pcList
-                        if ((pcList.Count > 0) && (mod.playerList.Count < mod.numberOfPlayerMadePcsAllowed))
+                        if ((pcList.Count > 0) && (gv.mod.playerList.Count < gv.mod.numberOfPlayerMadePcsAllowed))
                         {
                             Player copyPC = pcList[pcIndex].DeepCopy();
                             //copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
                             //copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
-                            copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
-                            copyPC.race = mod.getRace(copyPC.raceTag);
-                            mod.playerList.Add(copyPC);
+                            copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
+                            copyPC.race = gv.mod.getRace(copyPC.raceTag);
+                            gv.mod.playerList.Add(copyPC);
                             pcList.RemoveAt(pcIndex);
                         }
                     }
@@ -494,15 +494,15 @@ namespace IceBlink2mini
                     {
                         gv.PlaySound("btn_click");
                         //remove selected from partyList and add to pcList
-                        if (mod.playerList.Count > 0)
+                        if (gv.mod.playerList.Count > 0)
                         {
-                            Player copyPC = mod.playerList[partyScreenPcIndex].DeepCopy();
+                            Player copyPC = gv.mod.playerList[partyScreenPcIndex].DeepCopy();
                             //copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
                             //copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
-                            copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
-                            copyPC.race = mod.getRace(copyPC.raceTag);
+                            copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
+                            copyPC.race = gv.mod.getRace(copyPC.raceTag);
                             pcList.Add(copyPC);
-                            mod.playerList.RemoveAt(partyScreenPcIndex);
+                            gv.mod.playerList.RemoveAt(partyScreenPcIndex);
                         }
                     }
                     else if (btnLeft.getImpact(x, y))
@@ -549,18 +549,18 @@ namespace IceBlink2mini
                     else if (btnReturn.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        if (mod.playerList.Count > 0)
+                        if (gv.mod.playerList.Count > 0)
                         {
                             gv.mod.PlayerLocationX = gv.mod.startingPlayerPositionX;
                             gv.mod.PlayerLocationY = gv.mod.startingPlayerPositionY;
-                            mod.playerList[0].mainPc = true;
+                            gv.mod.playerList[0].mainPc = true;
                             gv.showMessageBox = true;
                             gv.cc.tutorialMessageMainMap();
                             gv.screenType = "main";
                             gv.cc.doUpdate();
                         }
                     }
-                    for (int j = 0; j < mod.playerList.Count; j++)
+                    for (int j = 0; j < gv.mod.playerList.Count; j++)
                     {
                         if (btnPartyIndex[j].getImpact(x, y))
                         {

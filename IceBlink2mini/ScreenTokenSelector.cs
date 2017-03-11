@@ -10,13 +10,13 @@ namespace IceBlink2mini
 {
     public class ScreenTokenSelector
     {
-        public Module mod;
+        //public Module gv.mod;
 	    public GameView gv;
         public Player pc;
 	    private int tknPageIndex = 0;
 	    private int tknSlotIndex = 0;
 	    private int slotsPerPage = 15;
-        private int maxPages = 20;
+        private int maxPages = 40;
 	    private List<IbbButton> btnTokenSlot = new List<IbbButton>();
 	    private IbbButton btnTokensLeft = null;
 	    private IbbButton btnTokensRight = null;
@@ -28,7 +28,7 @@ namespace IceBlink2mini
 
         public ScreenTokenSelector(Module m, GameView g)
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 	    }
 
@@ -65,6 +65,27 @@ namespace IceBlink2mini
                         {
                             MessageBox.Show(ex.ToString());
                             gv.errorLog(ex.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                gv.errorLog(ex.ToString());
+            }
+            //MODULE SPECIFIC
+            try
+            {
+                //foreach (Bitmap b in gv.cc.commonBitmapList)
+                foreach (KeyValuePair<string, SharpDX.Direct2D1.Bitmap> entry in gv.cc.commonBitmapList)
+                {
+                    // do something with entry.Value or entry.Key
+                    if (entry.Key.StartsWith("pc_"))
+                    {
+                        if (!playerTokenList.Contains(entry.Key))
+                        {
+                            playerTokenList.Add(entry.Key);
                         }
                     }
                 }
@@ -311,9 +332,9 @@ namespace IceBlink2mini
                             //return to calling screen
                             if (callingScreen.Equals("party"))
                             {
-                                gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex].tokenFilename = playerTokenList[GetIndex()];
+                                gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex].tokenFilename = playerTokenList[GetIndex()];
                                 gv.screenType = "party";
-                                gv.screenParty.tokenLoad(gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex]);
+                                gv.screenParty.tokenLoad(gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex]);
                             }
                             else if (callingScreen.Equals("pcCreation"))
                             {
@@ -348,9 +369,9 @@ namespace IceBlink2mini
 				    //return to calling screen
                     if (callingScreen.Equals("party"))
                     {
-                        gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex].tokenFilename = playerTokenList[GetIndex()];
+                        gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex].tokenFilename = playerTokenList[GetIndex()];
                         gv.screenType = "party";
-                        gv.screenParty.tokenLoad(gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex]);
+                        gv.screenParty.tokenLoad(gv.screenParty.gv.mod.playerList[gv.cc.partyScreenPcIndex]);
                     }
                     else if (callingScreen.Equals("pcCreation"))
                     {

@@ -10,7 +10,7 @@ namespace IceBlink2mini
 {
     public class ScreenPcSelector
     {
-        public Module mod;
+        //public Module gv.mod;
         public GameView gv;
 
         public List<IbbButton> btnPartyIndex = new List<IbbButton>();
@@ -22,7 +22,7 @@ namespace IceBlink2mini
         
         public ScreenPcSelector(Module m, GameView g)
         {
-            mod = m;
+            //gv.mod = m;
             gv = g;
             setControlsStart();
         }
@@ -63,11 +63,11 @@ namespace IceBlink2mini
         public void redrawPcSelector()
         {
 
-            if (pcSelectorPcIndex >= mod.playerList.Count)
+            if (pcSelectorPcIndex >= gv.mod.playerList.Count)
             {
                 pcSelectorPcIndex = 0;
             }
-            Player pc = mod.playerList[pcSelectorPcIndex];
+            Player pc = gv.mod.playerList[pcSelectorPcIndex];
             gv.sf.UpdateStats(pc);
 
             int pW = (int)((float)gv.screenWidth / 100.0f);
@@ -85,7 +85,7 @@ namespace IceBlink2mini
             int cntPCs = 0;
             foreach (IbbButton btn in btnPartyIndex)
             {
-                if (cntPCs < mod.playerList.Count)
+                if (cntPCs < gv.mod.playerList.Count)
                 {
                     if (cntPCs == pcSelectorPcIndex) { btn.glowOn = true; }
                     else { btn.glowOn = false; }
@@ -99,7 +99,7 @@ namespace IceBlink2mini
             gv.DrawText("Name: " + pc.name, locX, locY += leftStartY, "wh");
 
             //race
-            gv.DrawText("Race: " + mod.getRace(pc.raceTag).name, locX, locY += spacing, "wh");
+            gv.DrawText("Race: " + gv.mod.getRace(pc.raceTag).name, locX, locY += spacing, "wh");
 
             //gender
             if (pc.isMale)
@@ -112,14 +112,14 @@ namespace IceBlink2mini
             }
 
             //class
-            gv.DrawText("Class: " + mod.getPlayerClass(pc.classTag).name, locX, locY += spacing, "wh");
+            gv.DrawText("Class: " + gv.mod.getPlayerClass(pc.classTag).name, locX, locY += spacing, "wh");
             gv.DrawText("Level: " + pc.classLevel, locX, locY += spacing, "wh");
             gv.DrawText("XP: " + pc.XP + "/" + pc.XPNeeded, locX, locY += spacing, "wh");
             gv.DrawText("---------------", locX, locY += spacing, "wh");
             
             //DRAW RIGHT STATS
             int actext = 0;
-            if (mod.ArmorClassAscending) { actext = pc.AC; }
+            if (gv.mod.ArmorClassAscending) { actext = pc.AC; }
             else { actext = 20 - pc.AC; }
             locY = 0;
             gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY, "wh");
@@ -158,7 +158,7 @@ namespace IceBlink2mini
 
                     btnReturn.glowOn = false;
 
-                    Player pc = mod.playerList[pcSelectorPcIndex];
+                    Player pc = gv.mod.playerList[pcSelectorPcIndex];
 
                     if (btnReturn.getImpact(x, y))
                     {
@@ -167,7 +167,7 @@ namespace IceBlink2mini
                             gv.screenType = "main";
                         }
                     }                    
-                    for (int j = 0; j < mod.playerList.Count; j++)
+                    for (int j = 0; j < gv.mod.playerList.Count; j++)
                     {
                         if (btnPartyIndex[j].getImpact(x, y))
                         {

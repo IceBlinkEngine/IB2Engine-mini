@@ -11,7 +11,7 @@ namespace IceBlink2mini
     public class ScreenTraitLevelUp 
     {
 
-	    private Module mod;
+	    //private Module gv.mod;
 	    private GameView gv;
 	
 	    private int traitSlotIndex = 0;
@@ -31,7 +31,7 @@ namespace IceBlink2mini
 	
 	    public ScreenTraitLevelUp(Module m, GameView g) 
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 		    setControlsStart();
 		    pc = new Player();
@@ -128,7 +128,7 @@ namespace IceBlink2mini
             {
                 //DRAW TEXT		
                 locY = (gv.squareSize * 0) + (pH * 2);
-                gv.DrawText("Select " + traitToLearnIndex + " of " + mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel] + " Traits to Learn", noticeX, pH * 1, "gy");
+                gv.DrawText("Select " + traitToLearnIndex + " of " + gv.mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel] + " Traits to Learn", noticeX, pH * 1, "gy");
                 
                 //DRAW NOTIFICATIONS
                 if (isSelectedTraitSlotInKnownTraitsRange())
@@ -171,7 +171,7 @@ namespace IceBlink2mini
 			    if (cntSlot < pc.playerClass.traitsAllowed.Count)
 			    {
 				    TraitAllowed ta = pc.playerClass.traitsAllowed[cntSlot];
-				    Trait tr = mod.getTraitByTag(ta.tag);
+				    Trait tr = gv.mod.getTraitByTag(ta.tag);
 
                     if (infoOnly)
                     {
@@ -390,7 +390,7 @@ namespace IceBlink2mini
                     gv.screenParty.traitGained += tr.name + ", ";
                     //check to see if there are more traits to learn at this level
                     traitToLearnIndex++;
-                    if (traitToLearnIndex <= mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel])
+                    if (traitToLearnIndex <= gv.mod.getPlayerClass(pc.classTag).traitsToLearnAtLevelTable[pc.classLevel])
                     {
                         //more to learn, keep going
                     }
@@ -466,7 +466,7 @@ namespace IceBlink2mini
         public Trait GetCurrentlySelectedTrait()
 	    {
     	    TraitAllowed ta = pc.playerClass.traitsAllowed[traitSlotIndex];
-		    return mod.getTraitByTag(ta.tag);
+		    return gv.mod.getTraitByTag(ta.tag);
 	    }
 	    public bool isSelectedTraitSlotInKnownTraitsRange()
 	    {

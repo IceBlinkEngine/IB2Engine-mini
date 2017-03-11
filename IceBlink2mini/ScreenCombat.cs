@@ -13,7 +13,7 @@ namespace IceBlink2mini
 {
     public class ScreenCombat 
     {
-        public Module mod;
+        //public Module mod;
         public GameView gv;
         public IB2UILayout combatUiLayout = null;
         public bool showHP = false;
@@ -74,7 +74,7 @@ namespace IceBlink2mini
 
         public ScreenCombat(Module m, GameView g)
         {
-            mod = m;
+            //gv.mod = m;
             gv = g;
             mapStartLocXinPixels = 1 * gv.squareSize;
             loadMainUILayout();
@@ -453,22 +453,22 @@ namespace IceBlink2mini
             newToggle.toggleOn = false;
             if (gv.toggleSettings.combatAnimationSpeed == 50)
             {
-                mod.combatAnimationSpeed = 50;
+                gv.mod.combatAnimationSpeed = 50;
                 newToggle.ImgOffFilename = "tgl_speed_2";
             }
             else if (gv.toggleSettings.combatAnimationSpeed == 25)
             {
-                mod.combatAnimationSpeed = 25;
+                gv.mod.combatAnimationSpeed = 25;
                 newToggle.ImgOffFilename = "tgl_speed_4";
             }
             else if (gv.toggleSettings.combatAnimationSpeed == 10)
             {
-                mod.combatAnimationSpeed = 10;
+                gv.mod.combatAnimationSpeed = 10;
                 newToggle.ImgOffFilename = "tgl_speed_10";
             }
             else if (gv.toggleSettings.combatAnimationSpeed == 100)
             {
-                mod.combatAnimationSpeed = 100;
+                gv.mod.combatAnimationSpeed = 100;
                 newToggle.ImgOffFilename = "tgl_speed_1";
             }
             newToggle.X = 144;
@@ -944,7 +944,7 @@ namespace IceBlink2mini
 
         public void tutorialMessageCombat(bool helpCall)
         {
-            if ((mod.showTutorialCombat) || (helpCall))
+            if ((gv.mod.showTutorialCombat) || (helpCall))
             {
                 string s =
                         "<big><b>COMBAT</b></big><br><br>" +
@@ -979,7 +979,7 @@ namespace IceBlink2mini
                 gv.messageBox.logLinesList.Clear();
                 gv.messageBox.AddHtmlTextToLog(s);
                 gv.messageBox.currentTopLineIndex = 0;
-                mod.showTutorialCombat = false;
+                gv.mod.showTutorialCombat = false;
                 gv.showMessageBox = true;
             }
         }
@@ -999,10 +999,10 @@ namespace IceBlink2mini
             {
                 creatureToAnimate = null;
                 playerToAnimate = null;
-                Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-                if (moveCost == mod.diagonalMoveCost)
+                Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
+                if (moveCost == gv.mod.diagonalMoveCost)
                 {
-                    creatureMoves += mod.diagonalMoveCost;
+                    creatureMoves += gv.mod.diagonalMoveCost;
                     moveCost = 1.0f;
                 }
                 else
@@ -1020,9 +1020,9 @@ namespace IceBlink2mini
         {
             gv.screenType = "combat";
             //Load up all creature stuff
-            foreach (CreatureRefs crf in mod.currentEncounter.encounterCreatureRefsList)
+            foreach (CreatureRefs crf in gv.mod.currentEncounter.encounterCreatureRefsList)
             {
-                //find this creatureRef in mod creature list
+                //find this creatureRef in gv.mod creature list
                 foreach (Creature c in gv.mod.moduleCreaturesList)
                 {
                     if (crf.creatureResRef.Equals(c.cr_resref))
@@ -1036,7 +1036,7 @@ namespace IceBlink2mini
                             //copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
                             copy.combatLocX = crf.creatureStartLocationX;
                             copy.combatLocY = crf.creatureStartLocationY;
-                            mod.currentEncounter.encounterCreatureList.Add(copy);
+                            gv.mod.currentEncounter.encounterCreatureList.Add(copy);
                         }
                         catch (Exception ex)
                         {
@@ -1046,10 +1046,10 @@ namespace IceBlink2mini
                 }
             }
             //Place all PCs
-            for (int index = 0; index < mod.playerList.Count; index++)
+            for (int index = 0; index < gv.mod.playerList.Count; index++)
             {
-                mod.playerList[index].combatLocX = mod.currentEncounter.encounterPcStartLocations[index].X;
-                mod.playerList[index].combatLocY = mod.currentEncounter.encounterPcStartLocations[index].Y;
+                gv.mod.playerList[index].combatLocX = gv.mod.currentEncounter.encounterPcStartLocations[index].X;
+                gv.mod.playerList[index].combatLocY = gv.mod.currentEncounter.encounterPcStartLocations[index].Y;
             }
             isPlayerTurn = true;
             currentPlayerIndex = 0;
@@ -1058,11 +1058,11 @@ namespace IceBlink2mini
             currentCombatMode = "info";
             drawDeathAnimation = false;
             encounterXP = 0;
-            foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
             {
                 encounterXP += crtr.cr_XP;
             }
-            pf = new PathFinderEncounters(gv, mod);
+            pf = new PathFinderEncounters(gv, gv.mod);
             //tutorialMessageCombat(false);            
             gv.cc.tutorialMessageCombat(false);
             //IBScript Setup Combat Hook (run only once)
@@ -1078,7 +1078,7 @@ namespace IceBlink2mini
         {
             moveOrderList.Clear();
             //go through each PC and creature and make initiative roll
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 int roll = gv.sf.RandInt(100) + (((pc.dexterity - 10) / 2) * 5);
                 MoveOrder newMO = new MoveOrder();
@@ -1087,7 +1087,7 @@ namespace IceBlink2mini
                 moveOrderList.Add(newMO);
 
             }
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 int roll = gv.sf.RandInt(100) + (crt.initiativeBonus * 5);
                 MoveOrder newMO = new MoveOrder();
@@ -1118,7 +1118,7 @@ namespace IceBlink2mini
         public void turnController()
         {
             //update all player stats in case their was a recently added spell or trait effect that would change them
-            foreach (Player p in mod.playerList)
+            foreach (Player p in gv.mod.playerList)
             {
                 gv.sf.UpdateStats(p);
             }
@@ -1130,7 +1130,7 @@ namespace IceBlink2mini
             }
             //get the next PC or Creature based on currentMoveOrderIndex and moveOrder property
             int idx = 0;
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 if (pc.moveOrder == currentMoveOrderIndex)
                 {
@@ -1192,7 +1192,7 @@ namespace IceBlink2mini
                 idx++;
             }
             idx = 0;
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if (crt.moveOrder == currentMoveOrderIndex)
                 {
@@ -1227,7 +1227,7 @@ namespace IceBlink2mini
         {
             currentMoveOrderIndex = 0;
             gv.sf.dsWorldTime();
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 RunAllItemCombatRegenerations(pc);
                 int regenSP = gv.sf.CalcPcSpRegenInCombat(pc);
@@ -1250,85 +1250,85 @@ namespace IceBlink2mini
         {
             try
             {
-                if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat);
+                }
+                if (gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat);
                 }
             }
             catch (Exception ex)
@@ -1354,7 +1354,7 @@ namespace IceBlink2mini
             try
             {
                 //maybe reorder all based on their order property            
-                foreach (Player pc in mod.playerList)
+                foreach (Player pc in gv.mod.playerList)
                 {
                     foreach (Effect ef in pc.effectsList)
                     {
@@ -1366,7 +1366,7 @@ namespace IceBlink2mini
                         }
                     }
                 }
-                foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+                foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
                 {
                     foreach (Effect ef in crtr.cr_effectsList)
                     {
@@ -1379,12 +1379,12 @@ namespace IceBlink2mini
                         }
                     }
                 }
-                foreach (Effect ef in mod.currentEncounter.effectsList)
+                foreach (Effect ef in gv.mod.currentEncounter.effectsList)
                 {
                     //decrement duration of all effects on the encounter map squares
                     ef.durationInUnits -= gv.mod.TimePerRound;
 
-                    foreach (Player pc in mod.playerList)
+                    foreach (Player pc in gv.mod.playerList)
                     {
                         if ((pc.combatLocX == ef.combatLocX) && (pc.combatLocY == ef.combatLocY))
                         {
@@ -1394,7 +1394,7 @@ namespace IceBlink2mini
                             }
                         }
                     }
-                    foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+                    foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
                     {
                         if ((crtr.combatLocX == ef.combatLocX) && (crtr.combatLocY == ef.combatLocY))
                         {
@@ -1407,7 +1407,7 @@ namespace IceBlink2mini
                 }
 
                 //if remaining duration <= 0, remove from list
-                foreach (Player pc in mod.playerList)
+                foreach (Player pc in gv.mod.playerList)
                 {
                     for (int i = pc.effectsList.Count; i > 0; i--)
                     {
@@ -1417,7 +1417,7 @@ namespace IceBlink2mini
                         }
                     }
                 }
-                foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+                foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
                 {
                     for (int i = crtr.cr_effectsList.Count; i > 0; i--)
                     {
@@ -1427,11 +1427,11 @@ namespace IceBlink2mini
                         }
                     }
                 }                
-                for (int i = mod.currentEncounter.effectsList.Count; i > 0; i--)
+                for (int i = gv.mod.currentEncounter.effectsList.Count; i > 0; i--)
                 {
-                    if (mod.currentEncounter.effectsList[i - 1].durationInUnits <= 0)
+                    if (gv.mod.currentEncounter.effectsList[i - 1].durationInUnits <= 0)
                     {
-                        mod.currentEncounter.effectsList.RemoveAt(i - 1);
+                        gv.mod.currentEncounter.effectsList.RemoveAt(i - 1);
                     }
                 }
                 
@@ -1459,14 +1459,14 @@ namespace IceBlink2mini
                 Prop prp = gv.mod.currentEncounter.getPropByLocation(0, 0);
                 if (isPlayerTurn)
                 {
-                    Player pc = mod.playerList[currentPlayerIndex];
+                    Player pc = gv.mod.playerList[currentPlayerIndex];
                     prp = gv.mod.currentEncounter.getPropByLocation(pc.combatLocX, pc.combatLocY);
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = pc.combatLocX;
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = pc.combatLocY;
                 }
                 else
                 {
-                    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                    Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
                     prp = gv.mod.currentEncounter.getPropByLocation(crt.combatLocX, crt.combatLocY);
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = crt.combatLocX;
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = crt.combatLocY;
@@ -1540,14 +1540,14 @@ namespace IceBlink2mini
                 Trigger trig = gv.mod.currentEncounter.getTriggerByLocation(0, 0);
                 if (isPlayerTurn)
                 {
-                    Player pc = mod.playerList[currentPlayerIndex];
+                    Player pc = gv.mod.playerList[currentPlayerIndex];
                     trig = gv.mod.currentEncounter.getTriggerByLocation(pc.combatLocX, pc.combatLocY);
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = pc.combatLocX;
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = pc.combatLocY;
                 }
                 else
                 {
-                    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                    Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
                     trig = gv.mod.currentEncounter.getTriggerByLocation(crt.combatLocX, crt.combatLocY);
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX = crt.combatLocX;
                     gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY = crt.combatLocY;
@@ -1761,10 +1761,10 @@ namespace IceBlink2mini
         #region PC Combat Stuff
         public void decrementAmmo(Player pc)
         {
-            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                    && (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                    && (!gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
             {
-                ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
+                ItemRefs itr = gv.mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
                 if (itr != null)
                 {
                     int numOfAtt = gv.sf.CalcNumberOfRangedAttacks(pc);
@@ -1777,14 +1777,14 @@ namespace IceBlink2mini
                     //if equal to zero, remove from party inventory and from all PCs ammo slot
                     if (itr.quantity < 1)
                     {
-                        foreach (Player p in mod.playerList)
+                        foreach (Player p in gv.mod.playerList)
                         {
                             if (p.AmmoRefs.resref.Equals(itr.resref))
                             {
                                 p.AmmoRefs = new ItemRefs();
                             }
                         }
-                        mod.partyInventoryRefsList.Remove(itr);
+                        gv.mod.partyInventoryRefsList.Remove(itr);
                     }
                 }
             }
@@ -1795,7 +1795,7 @@ namespace IceBlink2mini
             isPlayerTurn = true;
             gv.touchEnabled = true;
             currentCombatMode = "move";
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
             //do sp and hp regen if they have it
 
             gv.sf.UpdateStats(pc);
@@ -1817,16 +1817,16 @@ namespace IceBlink2mini
             if (isInRange(pc))
             {
 
-                Item itChk = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                Item itChk = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 if (itChk != null)
                 {
                     if (itChk.automaticallyHitsTarget) //if AoE type attack and automatically hits
                     {
                         //if using ranged and have ammo, use ammo properties
-                        if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                        && (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                        if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (!gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                         {
-                            itChk = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                            itChk = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                             if (itChk != null)
                             {
                                 //always decrement ammo by one whether a hit or miss
@@ -1853,7 +1853,7 @@ namespace IceBlink2mini
                     }
                 }
 
-                foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                 {
                     foreach (Coordinate coor in crt.tokenCoveredSquares)
                     {
@@ -1971,7 +1971,7 @@ namespace IceBlink2mini
             int damage = CalcPcDamageToCreature(pc, crt);
 
             bool automaticallyHits = false;
-            Item itChk = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+            Item itChk = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
             if (itChk != null)
             {
                 automaticallyHits = itChk.automaticallyHitsTarget;
@@ -1986,7 +1986,7 @@ namespace IceBlink2mini
                 gv.cc.addLogText("<gn>HITS (-" + damage + "hp)</gn><br>");
                 gv.cc.addLogText("<wh>" + attackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
 
-                Item it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 if (it != null)
                 {
                     //doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
@@ -1996,7 +1996,7 @@ namespace IceBlink2mini
                     }
                 }
 
-                it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 if (it != null)
                 {
                     //doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
@@ -2007,9 +2007,9 @@ namespace IceBlink2mini
                 }
 
                 //play attack sound for melee (not ranged)
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                 {
-                    gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                 }
 
                 //Draw floaty text showing damage above Creature
@@ -2034,9 +2034,9 @@ namespace IceBlink2mini
             else //MISSED
             {
                 //play attack sound for melee (not ranged)
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                 {
-                    gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                 }
                 gv.cc.addLogText("<bu>" + pc.name + "</bu><br>");
                 gv.cc.addLogText("<wh>attacks </wh><br>");
@@ -2056,7 +2056,7 @@ namespace IceBlink2mini
         {
             //gv.Render();
             //remove stealth if endStealthMode = true		
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
             if (endStealthMode)
             {
                 pc.steathModeOn = false;
@@ -2073,22 +2073,22 @@ namespace IceBlink2mini
             int skillMod = 0;
             if (pc.knownTraitsTags.Contains("stealth4"))
             {
-                Trait tr = mod.getTraitByTag("stealth4");
+                Trait tr = gv.mod.getTraitByTag("stealth4");
                 skillMod = tr.skillModifier;
             }
             else if (pc.knownTraitsTags.Contains("stealth3"))
             {
-                Trait tr = mod.getTraitByTag("stealth3");
+                Trait tr = gv.mod.getTraitByTag("stealth3");
                 skillMod = tr.skillModifier;
             }
             else if (pc.knownTraitsTags.Contains("stealth2"))
             {
-                Trait tr = mod.getTraitByTag("stealth2");
+                Trait tr = gv.mod.getTraitByTag("stealth2");
                 skillMod = tr.skillModifier;
             }
             else if (pc.knownTraitsTags.Contains("stealth"))
             {
-                Trait tr = mod.getTraitByTag("stealth");
+                Trait tr = gv.mod.getTraitByTag("stealth");
                 skillMod = tr.skillModifier;
             }
             else
@@ -2128,7 +2128,7 @@ namespace IceBlink2mini
         public void doCreatureTurn()
         {
             canMove = true;
-            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
             //do onStartTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
             creatureMoves = 0;
@@ -2136,7 +2136,7 @@ namespace IceBlink2mini
         }
         public void doCreatureNextAction()
         {
-            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
             //CalculateUpperLeftCreature();
             if ((crt.hp > 0) && (!crt.isHeld()))
             {
@@ -2144,7 +2144,7 @@ namespace IceBlink2mini
                 playerToAnimate = null;
                 //gv.Render();
                 animationState = AnimationState.CreatureThink;
-                gv.postDelayed("doAnimation", (int)(2.5f * mod.combatAnimationSpeed));
+                gv.postDelayed("doAnimation", (int)(2.5f * gv.mod.combatAnimationSpeed));
             }
             else
             {
@@ -2153,7 +2153,7 @@ namespace IceBlink2mini
         }
         public void doCreatureTurnAfterDelay()
         {
-            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
 
             gv.sf.ActionToTake = null;
             gv.sf.SpellToCast = null;
@@ -2198,7 +2198,7 @@ namespace IceBlink2mini
         }
         public void CreatureMoves()
         {
-            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
             if (creatureMoves + 0.5f < crt.getterMoveDistance())
             {
                 Player pc = targetClosestPC(crt);
@@ -2289,7 +2289,7 @@ namespace IceBlink2mini
                     if ((crt.combatLocX != newCoor.X) && (crt.combatLocY != newCoor.Y))
                     {
                         //enough  move points availbale to do the diagonal move
-                        if ((crt.getterMoveDistance() - creatureMoves) >= mod.diagonalMoveCost)
+                        if ((crt.getterMoveDistance() - creatureMoves) >= gv.mod.diagonalMoveCost)
                         {
                             if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
                             {
@@ -2301,12 +2301,12 @@ namespace IceBlink2mini
                             }
                             //CHANGE FACING BASED ON MOVE
                             doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
-                            moveCost = mod.diagonalMoveCost;
+                            moveCost = gv.mod.diagonalMoveCost;
                             crt.combatLocX = newCoor.X;
                             crt.combatLocY = newCoor.Y;
                             canMove = false;
                             animationState = AnimationState.CreatureMove;
-                            gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                            gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
 
                         }
 
@@ -2343,7 +2343,7 @@ namespace IceBlink2mini
                             crt.combatLocY = newCoor.Y;
                             canMove = false;
                             animationState = AnimationState.CreatureMove;
-                            gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                            gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
                             
                         }
                         //less than one move point, no move
@@ -2351,7 +2351,7 @@ namespace IceBlink2mini
                         {
                             canMove = false;
                             animationState = AnimationState.CreatureMove;
-                            gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                            gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
 
                         }
                     }
@@ -2372,7 +2372,7 @@ namespace IceBlink2mini
                         crt.combatLocY = newCoor.Y;
                         canMove = false;
                         animationState = AnimationState.CreatureMove;
-                        gv.postDelayed("doAnimation", (int)(1f * mod.combatAnimationSpeed));
+                        gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
 
                     }
                 }
@@ -2426,7 +2426,7 @@ namespace IceBlink2mini
                         creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
                         //set attack animation and do a delay
                         attackAnimationTimeElapsed = 0;
-                        attackAnimationLengthInMilliseconds = (int)(5f * mod.combatAnimationSpeed);
+                        attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.combatAnimationSpeed);
                         //add projectile animation
                         startX = getPixelLocX(crt.combatLocX);
                         startY = getPixelLocY(crt.combatLocY);
@@ -2549,7 +2549,7 @@ namespace IceBlink2mini
 
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
-                attackAnimationLengthInMilliseconds = (int)(5f * mod.combatAnimationSpeed);
+                attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.combatAnimationSpeed);
                 AnimationSequence newSeq = new AnimationSequence();
                 animationSeqStack.Add(newSeq);
                 //add projectile animation
@@ -2652,7 +2652,7 @@ namespace IceBlink2mini
             for (int i = 0; i < 10; i++)
             {
                 int rnd = gv.sf.RandInt(crt.knownSpellsTags.Count);
-                Spell sp = mod.getSpellByTag(crt.knownSpellsTags[rnd - 1]);
+                Spell sp = gv.mod.getSpellByTag(crt.knownSpellsTags[rnd - 1]);
                 if (sp != null)
                 {
                     if (sp.costSP <= crt.sp)
@@ -2737,7 +2737,7 @@ namespace IceBlink2mini
         }
         public void doStandardCreatureAttack()
         {
-            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
             Player pc = (Player)gv.sf.CombatTarget;
 
             bool hit = false;
@@ -2850,7 +2850,7 @@ namespace IceBlink2mini
                         float damage = (1 * gv.sf.RandInt(2)) + 0;
                         int fireDam = (int)(damage * resist);
 
-                        if (mod.debugMode)
+                        if (gv.mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
                                         + " fireDam = " + fireDam + "</font>" +
@@ -2881,7 +2881,7 @@ namespace IceBlink2mini
                             {
                                 gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is stunned by mace (" + saveChkRoll + " + " + crt.getterFortitude() + " < " + DC + ")</font><BR>");
                                 crt.cr_status = "Held";
-                                Effect ef = mod.getEffectByTag("hold");
+                                Effect ef = gv.mod.getEffectByTag("hold");
                                 crt.AddEffectByObject(ef, 1);
                             }
                         }
@@ -2892,7 +2892,7 @@ namespace IceBlink2mini
                         float damage = (1 * gv.sf.RandInt(2)) + 0;
                         int acidDam = (int)(damage * resist);
 
-                        if (mod.debugMode)
+                        if (gv.mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
                                     + " acidDam = " + acidDam + "</font>" +
@@ -2917,7 +2917,7 @@ namespace IceBlink2mini
                         {
                             gv.cc.addLogText("<font color='red'>" + pc.name + " is held by an acid stun (" + saveChkRoll + " + " + pc.fortitude + " < " + DC + ")</font><BR>");
                             pc.charStatus = "Held";
-                            Effect ef = mod.getEffectByTag("hold");
+                            Effect ef = gv.mod.getEffectByTag("hold");
                             pc.AddEffectByObject(ef, 1);
                         }
                     }
@@ -2927,7 +2927,7 @@ namespace IceBlink2mini
                         float damage = 1.0f;
                         int fireDam = (int)(damage * resist);
 
-                        if (mod.debugMode)
+                        if (gv.mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
                                         + " fireDam = " + fireDam + "</font>" +
@@ -2946,7 +2946,7 @@ namespace IceBlink2mini
                         float damage = (1 * gv.sf.RandInt(2)) + 0;
                         int fireDam = (int)(damage * resist);
 
-                        if (mod.debugMode)
+                        if (gv.mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
                                         + " fireDam = " + fireDam + "</font>" +
@@ -2965,7 +2965,7 @@ namespace IceBlink2mini
                         float damage = (1 * gv.sf.RandInt(2)) + 1;
                         int fireDam = (int)(damage * resist);
 
-                        if (mod.debugMode)
+                        if (gv.mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
                                         + " fireDam = " + fireDam + "</font>" +
@@ -2987,7 +2987,7 @@ namespace IceBlink2mini
                         {
                             gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids being poisoned" + "</font>" +
                                     "<BR>");
-                            if (mod.debugMode)
+                            if (gv.mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font>" +
                                             "<BR>");
@@ -2996,7 +2996,7 @@ namespace IceBlink2mini
                         else //failed check
                         {
                             gv.cc.addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");
-                            Effect ef = mod.getEffectByTag("poisonedLight");
+                            Effect ef = gv.mod.getEffectByTag("poisonedLight");
                             pc.AddEffectByObject(ef, 1);
                         }
                     }
@@ -3009,7 +3009,7 @@ namespace IceBlink2mini
                         {
                             gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids being poisoned" + "</font>" +
                                     "<BR>");
-                            if (mod.debugMode)
+                            if (gv.mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font>" +
                                             "<BR>");
@@ -3018,7 +3018,7 @@ namespace IceBlink2mini
                         else //failed check
                         {
                             gv.cc.addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");
-                            Effect ef = mod.getEffectByTag("poisonedMedium");
+                            Effect ef = gv.mod.getEffectByTag("poisonedMedium");
                             pc.AddEffectByObject(ef, 1);
                         }
                     }
@@ -3038,7 +3038,7 @@ namespace IceBlink2mini
         public bool checkEndEncounter()
         {
             int foundOneCrtr = 0;
-            foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if (crtr.hp > 0)
                 {
@@ -3049,29 +3049,29 @@ namespace IceBlink2mini
             {
                 gv.touchEnabled = true;
                 // give gold drop
-                if (mod.currentEncounter.goldDrop > 0)
+                if (gv.mod.currentEncounter.goldDrop > 0)
                 {
-                    gv.cc.addLogText("<yl>The party finds " + mod.currentEncounter.goldDrop + " " + mod.goldLabelPlural + ".<BR></yl>");
+                    gv.cc.addLogText("<yl>The party finds " + gv.mod.currentEncounter.goldDrop + " " + gv.mod.goldLabelPlural + ".<BR></yl>");
                 }
-                mod.partyGold += mod.currentEncounter.goldDrop;
+                gv.mod.partyGold += gv.mod.currentEncounter.goldDrop;
                 // give InventoryList
-                if (mod.currentEncounter.encounterInventoryRefsList.Count > 0)
+                if (gv.mod.currentEncounter.encounterInventoryRefsList.Count > 0)
                 {
 
                     string s = "<ma>" + "The party has found:<BR>";
-                    foreach (ItemRefs itRef in mod.currentEncounter.encounterInventoryRefsList)
+                    foreach (ItemRefs itRef in gv.mod.currentEncounter.encounterInventoryRefsList)
                     {
-                        mod.partyInventoryRefsList.Add(itRef.DeepCopy());
+                        gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());
                         s += itRef.name + "<BR>";
-                        //find this creatureRef in mod creature list
+                        //find this creatureRef in gv.mod creature list
 
                     }
                     gv.cc.addLogText(s + "</ma>" + "<BR>");
                 }
 
-                int giveEachXP = encounterXP / mod.playerList.Count;
+                int giveEachXP = encounterXP / gv.mod.playerList.Count;
                 gv.cc.addLogText("fuchsia", "Each receives " + giveEachXP + " XP");
-                foreach (Player givePcXp in mod.playerList)
+                foreach (Player givePcXp in gv.mod.playerList)
                 {
                     givePcXp.XP = givePcXp.XP + giveEachXP;
                 }
@@ -3094,7 +3094,7 @@ namespace IceBlink2mini
             }
 
             int foundOnePc = 0;
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 if (pc.hp > 0)
                 {
@@ -3215,16 +3215,16 @@ namespace IceBlink2mini
                         deathAnimationLocations.Clear();
 
                         //remove any dead creatures                        
-                        for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+                        for (int x = gv.mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
                         {
-                            if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
+                            if (gv.mod.currentEncounter.encounterCreatureList[x].hp <= 0)
                             {
                                 try
                                 {
                                     //do OnDeath IBScript
-                                    gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
-                                    mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                                    mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                                    gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, gv.mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
+                                    gv.mod.currentEncounter.encounterCreatureList.RemoveAt(x);
+                                    gv.mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
                                 }
                                 catch (Exception ex)
                                 {
@@ -3243,7 +3243,7 @@ namespace IceBlink2mini
                                 dontEndTurn = false;
                                 currentCombatMode = "move";
                                 //update all player stats in case their was a recently added spell or trait effect that would change them
-                                foreach (Player p in mod.playerList)
+                                foreach (Player p in gv.mod.playerList)
                                 {
                                     gv.sf.UpdateStats(p);
                                 }
@@ -3298,7 +3298,7 @@ namespace IceBlink2mini
         }
         public void refreshCreatureCoveredSquares()
         {
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 crt.tokenCoveredSquares.Clear();
                 //add normal creature size square location first...add other sizes as needed
@@ -3338,7 +3338,7 @@ namespace IceBlink2mini
             drawCombatPlayers();
             drawCombatCreatures();            
             drawSprites();
-            if (mod.currentEncounter.UseDayNightCycle)
+            if (gv.mod.currentEncounter.UseDayNightCycle)
             {
                 drawOverlayTints();
             }
@@ -3378,7 +3378,7 @@ namespace IceBlink2mini
                         ptr.show = false;
                     }
                     int index = 0;
-                    foreach (Player pc1 in mod.playerList)
+                    foreach (Player pc1 in gv.mod.playerList)
                     {
                         pnl.portraitList[index].show = true;
                         pnl.portraitList[index].ImgFilename = pc1.portraitFilename;
@@ -3399,7 +3399,7 @@ namespace IceBlink2mini
             }
 
             //SET MOVES LEFT TEXT
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
             float movesLeft = pc.moveDistance - currentMoves;
             if (movesLeft < 0) { movesLeft = 0; }
             IB2Button btn = combatUiLayout.GetButtonByTag("btnMoveCounter");
@@ -3409,7 +3409,7 @@ namespace IceBlink2mini
             }
 
             //SET KILL BUTTON
-            if (mod.debugMode)
+            if (gv.mod.debugMode)
             {
                 IB2ToggleButton tgl = combatUiLayout.GetToggleByTag("tglKill");
                 if (tgl != null)
@@ -3528,9 +3528,9 @@ namespace IceBlink2mini
             int minY = UpperLeftSquare.Y - (gv.playerOffsetY + 0);
             if (minY < 0) { minY = 0; }
             int maxX = UpperLeftSquare.X + gv.playerOffsetX + gv.playerOffsetX + 1;
-            if (maxX > this.mod.currentEncounter.MapSizeX) { maxX = this.mod.currentEncounter.MapSizeX; }
+            if (maxX > this.gv.mod.currentEncounter.MapSizeX) { maxX = this.gv.mod.currentEncounter.MapSizeX; }
             int maxY = UpperLeftSquare.Y + gv.playerOffsetY + gv.playerOffsetY + 2;
-            if (maxY > this.mod.currentEncounter.MapSizeY) { maxY = this.mod.currentEncounter.MapSizeY; }
+            if (maxY > this.gv.mod.currentEncounter.MapSizeY) { maxY = this.gv.mod.currentEncounter.MapSizeY; }
             if (use11x11)
             {
                 minX = UpperLeftSquare.X - (gv.playerOffsetZoom + 0);
@@ -3538,9 +3538,9 @@ namespace IceBlink2mini
                 minY = UpperLeftSquare.Y - (gv.playerOffsetZoom + 0);
                 if (minY < 0) { minY = 0; }
                 maxX = UpperLeftSquare.X + gv.playerOffsetZoom + gv.playerOffsetZoom + 1;
-                if (maxX > this.mod.currentEncounter.MapSizeX) { maxX = this.mod.currentEncounter.MapSizeX; }
+                if (maxX > this.gv.mod.currentEncounter.MapSizeX) { maxX = this.gv.mod.currentEncounter.MapSizeX; }
                 maxY = UpperLeftSquare.Y + gv.playerOffsetZoom + gv.playerOffsetZoom + 2;
-                if (maxY > this.mod.currentEncounter.MapSizeY) { maxY = this.mod.currentEncounter.MapSizeY; }
+                if (maxY > this.gv.mod.currentEncounter.MapSizeY) { maxY = this.gv.mod.currentEncounter.MapSizeY; }
             }
 
             #region Draw Layer1
@@ -3552,7 +3552,7 @@ namespace IceBlink2mini
                     {
                         continue;
                     }
-                    string tile = mod.currentEncounter.Layer1Filename[y * mod.currentEncounter.MapSizeX + x];
+                    string tile = gv.mod.currentEncounter.Layer1Filename[y * gv.mod.currentEncounter.MapSizeX + x];
                     IbRect srcLyr = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
 
                     if (srcLyr != null)
@@ -3569,8 +3569,8 @@ namespace IceBlink2mini
                         int brY = (int)((int)(gv.squareSize * sqrScale) * scalerY);
                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
                         bool mirror = false;
-                        if (mod.currentEncounter.Layer1Mirror[y * mod.currentEncounter.MapSizeX + x] == 1) { mirror = true; }
-                        gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, mod.currentEncounter.Layer1Rotate[y * mod.currentEncounter.MapSizeX + x], mirror);
+                        if (gv.mod.currentEncounter.Layer1Mirror[y * gv.mod.currentEncounter.MapSizeX + x] == 1) { mirror = true; }
+                        gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, gv.mod.currentEncounter.Layer1Rotate[y * gv.mod.currentEncounter.MapSizeX + x], mirror);
                     }
                 }
             }
@@ -3584,7 +3584,7 @@ namespace IceBlink2mini
                     {
                         continue;
                     }
-                    string tile = mod.currentEncounter.Layer2Filename[y * mod.currentEncounter.MapSizeX + x];
+                    string tile = gv.mod.currentEncounter.Layer2Filename[y * gv.mod.currentEncounter.MapSizeX + x];
                     IbRect srcLyr = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
 
                     if (srcLyr != null)
@@ -3601,14 +3601,14 @@ namespace IceBlink2mini
                         int brY = (int)((int)(gv.squareSize * sqrScale) * scalerY);
                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
                         bool mirror = false;
-                        if (mod.currentEncounter.Layer2Mirror[y * mod.currentEncounter.MapSizeX + x] == 1) { mirror = true; }
-                        gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, mod.currentEncounter.Layer2Rotate[y * mod.currentEncounter.MapSizeX + x], mirror);
+                        if (gv.mod.currentEncounter.Layer2Mirror[y * gv.mod.currentEncounter.MapSizeX + x] == 1) { mirror = true; }
+                        gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, gv.mod.currentEncounter.Layer2Rotate[y * gv.mod.currentEncounter.MapSizeX + x], mirror);
                     }
                 }
             }
             #endregion    
             #region Draw Layer3
-            if (mod.currentEncounter.Layer3Filename.Count > 0)
+            if (gv.mod.currentEncounter.Layer3Filename.Count > 0)
             {
                 for (int x = minX; x < maxX; x++)
                 {
@@ -3618,7 +3618,7 @@ namespace IceBlink2mini
                         {
                             continue;
                         }
-                        string tile = mod.currentEncounter.Layer3Filename[y * mod.currentEncounter.MapSizeX + x];
+                        string tile = gv.mod.currentEncounter.Layer3Filename[y * gv.mod.currentEncounter.MapSizeX + x];
                         IbRect srcLyr = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
 
                         if (srcLyr != null)
@@ -3635,8 +3635,8 @@ namespace IceBlink2mini
                             int brY = (int)((int)(gv.squareSize * sqrScale) * scalerY);
                             IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
                             bool mirror = false;
-                            if (mod.currentEncounter.Layer3Mirror[y * mod.currentEncounter.MapSizeX + x] == 1) { mirror = true; }
-                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, mod.currentEncounter.Layer3Rotate[y * mod.currentEncounter.MapSizeX + x], mirror);
+                            if (gv.mod.currentEncounter.Layer3Mirror[y * gv.mod.currentEncounter.MapSizeX + x] == 1) { mirror = true; }
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, gv.mod.currentEncounter.Layer3Rotate[y * gv.mod.currentEncounter.MapSizeX + x], mirror);
                         }
                     }
                 }
@@ -3644,11 +3644,11 @@ namespace IceBlink2mini
             #endregion        
             #region Draw Grid
             //I brought the pix width and height of source back to normal
-            if (mod.com_showGrid)
+            if (gv.mod.com_showGrid)
             {
-                for (int x = UpperLeftSquare.X; x < this.mod.currentEncounter.MapSizeX; x++)
+                for (int x = UpperLeftSquare.X; x < this.gv.mod.currentEncounter.MapSizeX; x++)
                 {
-                    for (int y = UpperLeftSquare.Y; y < this.mod.currentEncounter.MapSizeY; y++)
+                    for (int y = UpperLeftSquare.Y; y < this.gv.mod.currentEncounter.MapSizeY; y++)
                     {
                         if (!IsInVisibleCombatWindow(x, y))
                         {
@@ -3662,11 +3662,11 @@ namespace IceBlink2mini
 
                         IbRect srcGrid = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
                         IbRect dstGrid = new IbRect(tlX, tlY, brX, brY);
-                        if (mod.currentEncounter.LoSBlocked[y * mod.currentEncounter.MapSizeX + x] == 1)
+                        if (gv.mod.currentEncounter.LoSBlocked[y * gv.mod.currentEncounter.MapSizeX + x] == 1)
                         {
                             gv.DrawBitmap(gv.cc.losBlocked, srcGrid, dstGrid);
                         }
-                        if (mod.currentEncounter.Walkable[y * mod.currentEncounter.MapSizeX + x] == 0)
+                        if (gv.mod.currentEncounter.Walkable[y * gv.mod.currentEncounter.MapSizeX + x] == 0)
                         {
                             gv.DrawBitmap(gv.cc.walkBlocked, srcGrid, dstGrid);
                         }
@@ -3679,15 +3679,15 @@ namespace IceBlink2mini
             }
             #endregion
             #region Draw Pathfinding Numbers
-            for (int x = UpperLeftSquare.X; x < this.mod.currentEncounter.MapSizeX; x++)
+            for (int x = UpperLeftSquare.X; x < this.gv.mod.currentEncounter.MapSizeX; x++)
             {
-                for (int y = UpperLeftSquare.Y; y < this.mod.currentEncounter.MapSizeY; y++)
+                for (int y = UpperLeftSquare.Y; y < this.gv.mod.currentEncounter.MapSizeY; y++)
                 {
                     if (!IsInVisibleCombatWindow(x, y))
                     {
                         continue;
                     }
-                    if ((pf.values != null) && (mod.debugMode))
+                    if ((pf.values != null) && (gv.mod.debugMode))
                     {
                         gv.DrawText(pf.values[x, y].ToString(), x * (int)(gv.squareSize * sqrScale) + mapStartLocXinPixels, y * (int)(gv.squareSize * sqrScale), "wh");
                     }
@@ -3697,7 +3697,7 @@ namespace IceBlink2mini
         }
         public void drawCombatPlayers()
         {
-            Player p = mod.playerList[currentPlayerIndex];
+            Player p = gv.mod.playerList[currentPlayerIndex];
             
             IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Width);
             IbRect dst = new IbRect(getPixelLocX(p.combatLocX), getPixelLocY(p.combatLocY), (int)(gv.squareSize * sqrScale), (int)(gv.squareSize * sqrScale));
@@ -3709,7 +3709,7 @@ namespace IceBlink2mini
                 }
             }
             
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 if (!IsInVisibleCombatWindow(pc.combatLocX, pc.combatLocY))
                 {
@@ -3769,7 +3769,7 @@ namespace IceBlink2mini
         }
         public void drawLosTrail()
         {
-            Player p = mod.playerList[currentPlayerIndex];
+            Player p = gv.mod.playerList[currentPlayerIndex];
             if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")) || (currentCombatMode.Equals("usetrait")))
             {
                 //Uses the Screen Pixel Locations
@@ -3796,13 +3796,13 @@ namespace IceBlink2mini
         }
         public void drawCombatCreatures()
         {
-            if (mod.currentEncounter.encounterCreatureList.Count > 0)
+            if (gv.mod.currentEncounter.encounterCreatureList.Count > 0)
             {
                 if (!isPlayerTurn)
                 {
-                    if (creatureIndex < mod.currentEncounter.encounterCreatureList.Count)
+                    if (creatureIndex < gv.mod.currentEncounter.encounterCreatureList.Count)
                     {
-                        Creature cr = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                        Creature cr = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
                         IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
                         foreach (Coordinate coor in cr.tokenCoveredSquares)
                         {
@@ -3815,7 +3815,7 @@ namespace IceBlink2mini
                     }
                 }
             }
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if (!IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                 {
@@ -3884,7 +3884,7 @@ namespace IceBlink2mini
         {
             if (!animationsOn)
             {
-                foreach (Effect ef in mod.currentEncounter.effectsList)
+                foreach (Effect ef in gv.mod.currentEncounter.effectsList)
                 {
                     if (!IsInVisibleCombatWindow(ef.combatLocX, ef.combatLocY))
                     {
@@ -3898,7 +3898,7 @@ namespace IceBlink2mini
         }
         public void drawProps()
         {
-            foreach (Prop prp in mod.currentEncounter.propsList)
+            foreach (Prop prp in gv.mod.currentEncounter.propsList)
             {
                 if (!IsInVisibleCombatWindow(prp.LocationX, prp.LocationY))
                 {
@@ -3911,20 +3911,20 @@ namespace IceBlink2mini
         }
         public void drawTargetHighlight()
         {
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
             if (currentCombatMode.Equals("attack"))
             {
-                Item it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 //if using ranged and have ammo, use ammo properties
-                if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                        && (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (!gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                 {
                     //ranged weapon with ammo
-                    it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                    it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 }
                 if (it == null)
                 {
-                    it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                    it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 }
                 //set squares list
                 gv.sf.CreateAoeSquaresList(pc, targetHighlightCenterLocation, it.aoeShape, it.AreaOfEffect);
@@ -4108,7 +4108,7 @@ namespace IceBlink2mini
         {
             if ((showHP) && (!animationsOn))
             {
-                foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                 {
                     if (!IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                     {
@@ -4127,7 +4127,7 @@ namespace IceBlink2mini
                         drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), crt.hp + "", "rd");
                     }
                 }
-                foreach (Player pc in mod.playerList)
+                foreach (Player pc in gv.mod.playerList)
                 {
                     if (!IsInVisibleCombatWindow(pc.combatLocX, pc.combatLocY))
                     {
@@ -4153,7 +4153,7 @@ namespace IceBlink2mini
             if ((showSP) && (!animationsOn))
             {
                 int txtH = gv.fontHeight + 2;
-                foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                 {
                     if (!IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
                     {
@@ -4161,7 +4161,7 @@ namespace IceBlink2mini
                     }
                     drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) + txtH, crt.sp + "", "yl");                    
                 }
-                foreach (Player pc in mod.playerList)
+                foreach (Player pc in gv.mod.playerList)
                 {
                     if (!IsInVisibleCombatWindow(pc.combatLocX, pc.combatLocY))
                     {
@@ -4262,7 +4262,7 @@ namespace IceBlink2mini
             int txtH = (int)gv.fontHeight;
             int xLoc = (gv.playerOffsetX - 2) * gv.squareSize;
             int yLoc = (gv.playerOffsetY * 2) * gv.squareSize + gv.squareSize - gv.fontHeight - gv.fontHeight;
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
             float movesLeft = pc.moveDistance - currentMoves;
             if (movesLeft < 0) { movesLeft = 0; }
 
@@ -4318,14 +4318,14 @@ namespace IceBlink2mini
             }
             else if (keyData == Keys.A)
             {
-                Player pc = mod.playerList[currentPlayerIndex];
+                Player pc = gv.mod.playerList[currentPlayerIndex];
                 currentCombatMode = "attack";
                 gv.screenType = "combat";
                 setTargetHighlightStartLocation(pc);
             }
             else if (keyData == Keys.P)
             {
-                if (currentPlayerIndex > mod.playerList.Count - 1)
+                if (currentPlayerIndex > gv.mod.playerList.Count - 1)
                 {
                     return;
                 }
@@ -4345,7 +4345,7 @@ namespace IceBlink2mini
             }
             else if (keyData == Keys.C)
             {
-                Player pc = mod.playerList[currentPlayerIndex];
+                Player pc = gv.mod.playerList[currentPlayerIndex];
                 if (pc.knownSpellsTags.Count > 0)
                 {
                     currentCombatMode = "castSelector";
@@ -4445,7 +4445,7 @@ namespace IceBlink2mini
             else if (keyData == Keys.Down)
             {
                 
-                    if (UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - gv.playerOffsetY - gv.playerOffsetY - 1)
+                    if (UpperLeftSquare.Y < gv.mod.currentEncounter.MapSizeY - gv.playerOffsetY - gv.playerOffsetY - 1)
                     {
                         UpperLeftSquare.Y++;
                     }
@@ -4455,7 +4455,7 @@ namespace IceBlink2mini
             else if (keyData == Keys.Right)
             {
                 
-                    if (UpperLeftSquare.X < mod.currentEncounter.MapSizeX - gv.playerOffsetX - gv.playerOffsetX - 1)
+                    if (UpperLeftSquare.X < gv.mod.currentEncounter.MapSizeX - gv.playerOffsetX - gv.playerOffsetX - 1)
                     {
                         UpperLeftSquare.X++;
                     }
@@ -4466,7 +4466,7 @@ namespace IceBlink2mini
             #region Move PC mode
             if (currentCombatMode.Equals("move"))
             {
-                Player pc = mod.playerList[currentPlayerIndex];
+                Player pc = gv.mod.playerList[currentPlayerIndex];
                 if (keyData == Keys.NumPad7)
                 {
                     MoveUpLeft(pc);
@@ -4509,7 +4509,7 @@ namespace IceBlink2mini
             #region Move Targeting Mode
             if (currentCombatMode.Equals("attack"))
             {
-                Player pc = mod.playerList[currentPlayerIndex];
+                Player pc = gv.mod.playerList[currentPlayerIndex];
                 if (keyData == Keys.NumPad5)
                 {
                     TargetAttackPressed(pc);
@@ -4518,7 +4518,7 @@ namespace IceBlink2mini
             }
             if (currentCombatMode.Equals("cast"))
             {
-                Player pc = mod.playerList[currentPlayerIndex];
+                Player pc = gv.mod.playerList[currentPlayerIndex];
                 if (keyData == Keys.NumPad5)
                 {
                     TargetCastPressed(pc);
@@ -4527,7 +4527,7 @@ namespace IceBlink2mini
             }
             if (currentCombatMode.Equals("usetrait"))
             {
-                Player pc = mod.playerList[currentPlayerIndex];
+                Player pc = gv.mod.playerList[currentPlayerIndex];
                 if (keyData == Keys.NumPad5)
                 {
                     TargetUseTraitPressed(pc);
@@ -4609,7 +4609,7 @@ namespace IceBlink2mini
                         gv.cc.floatyText = "";
                         gv.cc.floatyText2 = "";
                         gv.cc.floatyText3 = "";
-                        foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                        foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                         {
                             //1=normal, 2=wide, 3=tall, 4=large
                             int crtSize = gv.cc.getCreatureSize(crt.cr_tokenFilename);
@@ -4663,12 +4663,12 @@ namespace IceBlink2mini
                                 }
                             }
                         }
-                        foreach (Player pc1 in mod.playerList)
+                        foreach (Player pc1 in gv.mod.playerList)
                         {
                             if ((pc1.combatLocX == gridx + UpperLeftSquare.X) && (pc1.combatLocY == gridy + UpperLeftSquare.Y))
                             {
                                 string am = "";
-                                ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc1.AmmoRefs.resref);
+                                ItemRefs itr = gv.mod.getItemRefsInInventoryByResRef(pc1.AmmoRefs.resref);
                                 if (itr != null)
                                 {
                                     am = itr.quantity + "";
@@ -4680,7 +4680,7 @@ namespace IceBlink2mini
 
                                 gv.cc.floatyText = pc1.name;
                                 int actext = 0;
-                                if (mod.ArmorClassAscending) { actext = pc1.AC; }
+                                if (gv.mod.ArmorClassAscending) { actext = pc1.AC; }
                                 else { actext = 20 - pc1.AC; }
                                 gv.cc.floatyText2 = "AC:" + actext + " " + pc1.charStatus;
                                 gv.cc.floatyText3 = "Ammo: " + am;
@@ -4724,14 +4724,14 @@ namespace IceBlink2mini
                         {
                             if (use11x11)
                             {
-                                if (UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - gv.playerOffsetZoom - gv.playerOffsetZoom - 1)
+                                if (UpperLeftSquare.Y < gv.mod.currentEncounter.MapSizeY - gv.playerOffsetZoom - gv.playerOffsetZoom - 1)
                                 {
                                     UpperLeftSquare.Y++;
                                 }
                             }
                             else
                             {
-                                if (UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - gv.playerOffsetY - gv.playerOffsetY - 1)
+                                if (UpperLeftSquare.Y < gv.mod.currentEncounter.MapSizeY - gv.playerOffsetY - gv.playerOffsetY - 1)
                                 {
                                     UpperLeftSquare.Y++;
                                 }
@@ -4751,14 +4751,14 @@ namespace IceBlink2mini
                     {
                         if (use11x11)
                         {
-                            if (UpperLeftSquare.X < mod.currentEncounter.MapSizeX - gv.playerOffsetZoom - gv.playerOffsetZoom - 1)
+                            if (UpperLeftSquare.X < gv.mod.currentEncounter.MapSizeX - gv.playerOffsetZoom - gv.playerOffsetZoom - 1)
                             {
                                 UpperLeftSquare.X++;
                             }
                         }
                         else
                         {
-                            if (UpperLeftSquare.X < mod.currentEncounter.MapSizeX - gv.playerOffsetX - gv.playerOffsetX - 1)
+                            if (UpperLeftSquare.X < gv.mod.currentEncounter.MapSizeX - gv.playerOffsetX - gv.playerOffsetX - 1)
                             {
                                 UpperLeftSquare.X++;
                             }
@@ -4769,7 +4769,7 @@ namespace IceBlink2mini
                     //NEW SYSTEM FOR GLOW
                     //combatUiLayout.setHover(-1, -1);
 
-                    Player pc = mod.playerList[currentPlayerIndex];
+                    Player pc = gv.mod.playerList[currentPlayerIndex];
 
                     //NEW SYSTEM
                     string rtn = combatUiLayout.getImpact(x, y);
@@ -4808,31 +4808,31 @@ namespace IceBlink2mini
                         IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
                         if (tgl == null) { return; }
 
-                        if (mod.combatAnimationSpeed == 100)
+                        if (gv.mod.combatAnimationSpeed == 100)
                         {
-                            mod.combatAnimationSpeed = 50;
-                            gv.toggleSettings.combatAnimationSpeed = mod.combatAnimationSpeed;
+                            gv.mod.combatAnimationSpeed = 50;
+                            gv.toggleSettings.combatAnimationSpeed = gv.mod.combatAnimationSpeed;
                             tgl.ImgOffFilename = "tgl_speed_2";
                             gv.cc.addLogText("lime", "combat speed: 2x");
                         }
-                        else if (mod.combatAnimationSpeed == 50)
+                        else if (gv.mod.combatAnimationSpeed == 50)
                         {
-                            mod.combatAnimationSpeed = 25;
-                            gv.toggleSettings.combatAnimationSpeed = mod.combatAnimationSpeed;
+                            gv.mod.combatAnimationSpeed = 25;
+                            gv.toggleSettings.combatAnimationSpeed = gv.mod.combatAnimationSpeed;
                             tgl.ImgOffFilename = "tgl_speed_4";
                             gv.cc.addLogText("lime", "combat speed: 4x");
                         }
-                        else if (mod.combatAnimationSpeed == 25)
+                        else if (gv.mod.combatAnimationSpeed == 25)
                         {
-                            mod.combatAnimationSpeed = 10;
-                            gv.toggleSettings.combatAnimationSpeed = mod.combatAnimationSpeed;
+                            gv.mod.combatAnimationSpeed = 10;
+                            gv.toggleSettings.combatAnimationSpeed = gv.mod.combatAnimationSpeed;
                             tgl.ImgOffFilename = "tgl_speed_10";
                             gv.cc.addLogText("lime", "combat speed: 10x");
                         }
-                        else if (mod.combatAnimationSpeed == 10)
+                        else if (gv.mod.combatAnimationSpeed == 10)
                         {
-                            mod.combatAnimationSpeed = 100;
-                            gv.toggleSettings.combatAnimationSpeed = mod.combatAnimationSpeed;
+                            gv.mod.combatAnimationSpeed = 100;
+                            gv.toggleSettings.combatAnimationSpeed = gv.mod.combatAnimationSpeed;
                             tgl.ImgOffFilename = "tgl_speed_1";
                             gv.cc.addLogText("lime", "combat speed: 1x");
                         }
@@ -4870,14 +4870,14 @@ namespace IceBlink2mini
                         if (tgl.toggleOn)
                         {
                             tgl.toggleOn = false;
-                            mod.playSoundFx = false;
+                            gv.mod.playSoundFx = false;
                             gv.toggleSettings.playSoundFx = false;
                             gv.cc.addLogText("lime", "SoundFX Off");
                         }
                         else
                         {
                             tgl.toggleOn = true;
-                            mod.playSoundFx = true;
+                            gv.mod.playSoundFx = true;
                             gv.toggleSettings.playSoundFx = true;
                             gv.cc.addLogText("lime", "SoundFX On");
                         }
@@ -4890,27 +4890,27 @@ namespace IceBlink2mini
                         if (tgl.toggleOn)
                         {
                             tgl.toggleOn = false;
-                            mod.com_showGrid = false;
-                            gv.toggleSettings.com_showGrid = mod.com_showGrid;
+                            gv.mod.com_showGrid = false;
+                            gv.toggleSettings.com_showGrid = gv.mod.com_showGrid;
                         }
                         else
                         {
                             tgl.toggleOn = true;
-                            mod.com_showGrid = true;
-                            gv.toggleSettings.com_showGrid = mod.com_showGrid;
+                            gv.mod.com_showGrid = true;
+                            gv.toggleSettings.com_showGrid = gv.mod.com_showGrid;
                         }
                         return;
                     }
-                    if ((rtn.Equals("tglHelp")) && (!mod.debugMode))
+                    if ((rtn.Equals("tglHelp")) && (!gv.mod.debugMode))
                     {                        
                         //tutorialMessageCombat(true);
                         gv.cc.tutorialMessageCombat(true);
                         return;
                     }
-                    if ((rtn.Equals("tglKill")) && (mod.debugMode))
+                    if ((rtn.Equals("tglKill")) && (gv.mod.debugMode))
                     {
-                        mod.currentEncounter.encounterCreatureList.Clear();
-                        mod.currentEncounter.encounterCreatureRefsList.Clear();
+                        gv.mod.currentEncounter.encounterCreatureList.Clear();
+                        gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
                         checkEndEncounter();
                         return;
                     }
@@ -5042,7 +5042,7 @@ namespace IceBlink2mini
                     }
                     else if (rtn.Equals("btnSwitchWeapon"))
                     {
-                        if (currentPlayerIndex > mod.playerList.Count - 1)
+                        if (currentPlayerIndex > gv.mod.playerList.Count - 1)
                         {
                             return;
                         }
@@ -5230,9 +5230,9 @@ namespace IceBlink2mini
         public void doUpdate(Player pc)
         {
             //CalculateUpperLeft();            
-            if (moveCost == mod.diagonalMoveCost)
+            if (moveCost == gv.mod.diagonalMoveCost)
             {
-                currentMoves += mod.diagonalMoveCost;
+                currentMoves += gv.mod.diagonalMoveCost;
                 moveCost = 1.0f;
             }
             else
@@ -5255,7 +5255,7 @@ namespace IceBlink2mini
                     }
                     break;
                 case 2: //down
-                    if (targetHighlightCenterLocation.Y < mod.currentEncounter.MapSizeY - 1)
+                    if (targetHighlightCenterLocation.Y < gv.mod.currentEncounter.MapSizeY - 1)
                     {
                         targetHighlightCenterLocation.Y++;                        
                     }
@@ -5267,20 +5267,20 @@ namespace IceBlink2mini
                     }
                     break;
                 case 6: //right
-                    if (targetHighlightCenterLocation.X < mod.currentEncounter.MapSizeX - 1)
+                    if (targetHighlightCenterLocation.X < gv.mod.currentEncounter.MapSizeX - 1)
                     {
                         targetHighlightCenterLocation.X++;                        
                     }
                     break;
                 case 9: //upright
-                    if ((targetHighlightCenterLocation.X < mod.currentEncounter.MapSizeX - 1) && (targetHighlightCenterLocation.Y > 0))
+                    if ((targetHighlightCenterLocation.X < gv.mod.currentEncounter.MapSizeX - 1) && (targetHighlightCenterLocation.Y > 0))
                     {
                         targetHighlightCenterLocation.X++;
                         targetHighlightCenterLocation.Y--;                        
                     }
                     break;
                 case 3: //downright
-                    if ((targetHighlightCenterLocation.X < mod.currentEncounter.MapSizeX - 1) && (targetHighlightCenterLocation.Y < mod.currentEncounter.MapSizeY - 1))
+                    if ((targetHighlightCenterLocation.X < gv.mod.currentEncounter.MapSizeX - 1) && (targetHighlightCenterLocation.Y < gv.mod.currentEncounter.MapSizeY - 1))
                     {
                         targetHighlightCenterLocation.X++;
                         targetHighlightCenterLocation.Y++;                        
@@ -5294,7 +5294,7 @@ namespace IceBlink2mini
                     }
                     break;
                 case 1: //downleft
-                    if ((targetHighlightCenterLocation.X > 0) && (targetHighlightCenterLocation.Y < mod.currentEncounter.MapSizeY - 1))
+                    if ((targetHighlightCenterLocation.X > 0) && (targetHighlightCenterLocation.Y < gv.mod.currentEncounter.MapSizeY - 1))
                     {
                         targetHighlightCenterLocation.X--;
                         targetHighlightCenterLocation.Y++;                        
@@ -5336,7 +5336,7 @@ namespace IceBlink2mini
         }
         public void MoveUpRight(Player pc)
         {            
-            if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY > 0))
+            if ((pc.combatLocX < gv.mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY > 0))
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY - 1))
                 {
@@ -5349,7 +5349,7 @@ namespace IceBlink2mini
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
+                    else if ((pc.moveDistance - currentMoves) >= gv.mod.diagonalMoveCost)
                     {
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY - 1);
                         doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY - 1);
@@ -5359,7 +5359,7 @@ namespace IceBlink2mini
                         {
                             pc.combatFacingLeft = false;
                         }
-                        moveCost = mod.diagonalMoveCost;
+                        moveCost = gv.mod.diagonalMoveCost;
                         doUpdate(pc);
                     }
                     if (isPlayerTurn)
@@ -5384,7 +5384,7 @@ namespace IceBlink2mini
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
+                    else if ((pc.moveDistance - currentMoves) >= gv.mod.diagonalMoveCost)
                     {
                         LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY - 1);
                         doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY - 1);
@@ -5394,7 +5394,7 @@ namespace IceBlink2mini
                         {
                             pc.combatFacingLeft = true;
                         }
-                        moveCost = mod.diagonalMoveCost;
+                        moveCost = gv.mod.diagonalMoveCost;
                         doUpdate(pc);
                     }
                     if (isPlayerTurn)
@@ -5406,7 +5406,7 @@ namespace IceBlink2mini
         }
         public void MoveDown(Player pc)
         {
-            if (pc.combatLocY < mod.currentEncounter.MapSizeY - 1)
+            if (pc.combatLocY < gv.mod.currentEncounter.MapSizeY - 1)
             {
                 if (isWalkable(pc.combatLocX, pc.combatLocY + 1))
                 {
@@ -5435,7 +5435,7 @@ namespace IceBlink2mini
         }
         public void MoveDownRight(Player pc)
         {
-            if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1))
+            if ((pc.combatLocX < gv.mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY < gv.mod.currentEncounter.MapSizeY - 1))
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY + 1))
                 {
@@ -5448,7 +5448,7 @@ namespace IceBlink2mini
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
+                    else if ((pc.moveDistance - currentMoves) >= gv.mod.diagonalMoveCost)
                     {
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY + 1);
                         doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY + 1);
@@ -5458,7 +5458,7 @@ namespace IceBlink2mini
                         {
                             pc.combatFacingLeft = false;
                         }
-                        moveCost = mod.diagonalMoveCost;
+                        moveCost = gv.mod.diagonalMoveCost;
                         doUpdate(pc);
                     }
                     if (isPlayerTurn)
@@ -5470,7 +5470,7 @@ namespace IceBlink2mini
         }
         public void MoveDownLeft(Player pc)
         {
-            if ((pc.combatLocX > 0) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1))
+            if ((pc.combatLocX > 0) && (pc.combatLocY < gv.mod.currentEncounter.MapSizeY - 1))
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY + 1))
                 {
@@ -5483,7 +5483,7 @@ namespace IceBlink2mini
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
+                    else if ((pc.moveDistance - currentMoves) >= gv.mod.diagonalMoveCost)
                     {
                         LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY + 1);
                         doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY + 1);
@@ -5493,7 +5493,7 @@ namespace IceBlink2mini
                         {
                             pc.combatFacingLeft = true;
                         }
-                        moveCost = mod.diagonalMoveCost;
+                        moveCost = gv.mod.diagonalMoveCost;
                         doUpdate(pc);
                     }
                     if (isPlayerTurn)
@@ -5505,7 +5505,7 @@ namespace IceBlink2mini
         }
         public void MoveRight(Player pc)
         {
-            if (pc.combatLocX < mod.currentEncounter.MapSizeX - 1)
+            if (pc.combatLocX < gv.mod.currentEncounter.MapSizeX - 1)
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY))
                 {
@@ -5587,10 +5587,10 @@ namespace IceBlink2mini
                 playerToAnimate = pc;
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
-                attackAnimationLengthInMilliseconds = (int)(5f * mod.combatAnimationSpeed);
-                if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
-                        || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
-                        || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.combatAnimationSpeed);
+                if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                        || (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
+                        || (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                 {
                     //do melee attack stuff and animations  
                     AnimationSequence newSeq = new AnimationSequence();
@@ -5610,14 +5610,14 @@ namespace IceBlink2mini
                 else //Ranged Attack
                 {
                     //play attack sound for ranged
-                    gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                     //do ranged attack stuff and animations
                     //add projectile animation
                     int startX = getPixelLocX(pc.combatLocX);
                     int startY = getPixelLocY(pc.combatLocY);
                     int endX = getPixelLocX(targetHighlightCenterLocation.X);
                     int endY = getPixelLocY(targetHighlightCenterLocation.Y);
-                    string filename = mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename;
+                    string filename = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename;
                     AnimationSequence newSeq = new AnimationSequence();
                     animationSeqStack.Add(newSeq);
                     AnimationStackGroup newGroup = new AnimationStackGroup();
@@ -5662,7 +5662,7 @@ namespace IceBlink2mini
                 playerToAnimate = pc;
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
-                attackAnimationLengthInMilliseconds = (int)(5f * mod.combatAnimationSpeed);
+                attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.combatAnimationSpeed);
                 AnimationSequence newSeq = new AnimationSequence();
                 animationSeqStack.Add(newSeq);
                 //add projectile animation
@@ -5721,7 +5721,7 @@ namespace IceBlink2mini
                 playerToAnimate = pc;
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
-                attackAnimationLengthInMilliseconds = (int)(5f * mod.combatAnimationSpeed);
+                attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.combatAnimationSpeed);
                 AnimationSequence newSeq = new AnimationSequence();
                 animationSeqStack.Add(newSeq);
                 //add projectile animation
@@ -5785,26 +5785,26 @@ namespace IceBlink2mini
         }
         public void addHitAnimation(AnimationStackGroup group)
         {
-            int ttl = 8 * mod.combatAnimationSpeed;
+            int ttl = 8 * gv.mod.combatAnimationSpeed;
             Sprite spr = new Sprite(gv, "hit_symbol", hitAnimationLocation.X, hitAnimationLocation.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.turnFloatyTextOn = true;
             group.SpriteGroup.Add(spr);
         }
         public void addMissAnimation(AnimationStackGroup group)
         {
-            int ttl = 8 * mod.combatAnimationSpeed;
+            int ttl = 8 * gv.mod.combatAnimationSpeed;
             Sprite spr = new Sprite(gv, "miss_symbol", hitAnimationLocation.X, hitAnimationLocation.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.SpriteGroup.Add(spr);
         }
         public void addDeathAnimation(AnimationStackGroup group, Coordinate Loc)
         {
-            int ttl = 16 * mod.combatAnimationSpeed;
+            int ttl = 16 * gv.mod.combatAnimationSpeed;
             Sprite spr = new Sprite(gv, "death_fx", Loc.X, Loc.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.SpriteGroup.Add(spr);
         }
         public void addEndingAnimation(AnimationStackGroup group, Coordinate Loc, string filename)
         {            
-            int ttl = 16 * mod.combatAnimationSpeed;            
+            int ttl = 16 * gv.mod.combatAnimationSpeed;            
             Sprite spr = new Sprite(gv, filename, Loc.X, Loc.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.turnFloatyTextOn = true;
             group.SpriteGroup.Add(spr);
@@ -5817,7 +5817,7 @@ namespace IceBlink2mini
         //Helper Methods
         public void CalculateUpperLeft()
         {
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
             int minX = pc.combatLocX - gv.playerOffsetX;
             if (minX < 0) { minX = 0; }
             int minY = pc.combatLocY - gv.playerOffsetY;
@@ -5839,13 +5839,13 @@ namespace IceBlink2mini
             {
                 return;
             }
-            Player pc = mod.playerList[currentPlayerIndex];
+            Player pc = gv.mod.playerList[currentPlayerIndex];
             int minX = pc.combatLocX - gv.playerOffsetX;
             if (minX < 0) { minX = 0; }            
             int minY = pc.combatLocY - gv.playerOffsetY;
             if (minY < 0) { minY = 0; }     
-            if (minX + (gv.playerOffsetX * 2) + 1 > this.mod.currentEncounter.MapSizeX) { minX = this.mod.currentEncounter.MapSizeX - ((gv.playerOffsetX * 2) + 1); }
-            if (minY + (gv.playerOffsetY * 2) + 1 > this.mod.currentEncounter.MapSizeY) { minY = this.mod.currentEncounter.MapSizeY - ((gv.playerOffsetY * 2) + 1); }
+            if (minX + (gv.playerOffsetX * 2) + 1 > this.gv.mod.currentEncounter.MapSizeX) { minX = this.gv.mod.currentEncounter.MapSizeX - ((gv.playerOffsetX * 2) + 1); }
+            if (minY + (gv.playerOffsetY * 2) + 1 > this.gv.mod.currentEncounter.MapSizeY) { minY = this.gv.mod.currentEncounter.MapSizeY - ((gv.playerOffsetY * 2) + 1); }
             
             UpperLeftSquare.X = minX;
             UpperLeftSquare.Y = minY; 
@@ -5856,13 +5856,13 @@ namespace IceBlink2mini
             {
                 return;
             }
-            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
             int minX = crt.combatLocX - gv.playerOffsetX;
             if (minX < 0) { minX = 0; }
             int minY = crt.combatLocY - gv.playerOffsetY;
             if (minY < 0) { minY = 0; }
-            if (minX + (gv.playerOffsetX * 2) + 1 > this.mod.currentEncounter.MapSizeX) { minX = this.mod.currentEncounter.MapSizeX - ((gv.playerOffsetX * 2) + 1); }
-            if (minY + (gv.playerOffsetY * 2) + 1 > this.mod.currentEncounter.MapSizeY) { minY = this.mod.currentEncounter.MapSizeY - ((gv.playerOffsetY * 2) + 1); }
+            if (minX + (gv.playerOffsetX * 2) + 1 > this.gv.mod.currentEncounter.MapSizeX) { minX = this.gv.mod.currentEncounter.MapSizeX - ((gv.playerOffsetX * 2) + 1); }
+            if (minY + (gv.playerOffsetY * 2) + 1 > this.gv.mod.currentEncounter.MapSizeY) { minY = this.gv.mod.currentEncounter.MapSizeY - ((gv.playerOffsetY * 2) + 1); }
 
             UpperLeftSquare.X = minX;
             UpperLeftSquare.Y = minY;
@@ -5940,17 +5940,17 @@ namespace IceBlink2mini
         {
             if (isInRange(pc))
             {
-                Item it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 //if using ranged and have ammo, use ammo properties
-                if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                        && (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (!gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                 {
                     //ranged weapon with ammo
-                    it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                    it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 }
                 if (it == null)
                 {
-                    it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                    it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 }
                 //check to see if is AoE or Point Target else needs a target PC or Creature
                 if (it.AreaOfEffect > 0)
@@ -5967,7 +5967,7 @@ namespace IceBlink2mini
                 if ((isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2)))
                     || (getDistance(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation) == 1))
                 {
-                    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                    foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                     {
                         foreach (Coordinate coor in crt.tokenCoveredSquares)
                         {
@@ -5996,7 +5996,7 @@ namespace IceBlink2mini
                     //check to see if target is a friend or self
                     if ((gv.cc.currentSelectedSpell.spellTargetType.Equals("Friend")) || (gv.cc.currentSelectedSpell.spellTargetType.Equals("Self")))
                     {
-                        foreach (Player p in mod.playerList)
+                        foreach (Player p in gv.mod.playerList)
                         {
                             if ((p.combatLocX == targetHighlightCenterLocation.X) && (p.combatLocY == targetHighlightCenterLocation.Y))
                             {
@@ -6006,7 +6006,7 @@ namespace IceBlink2mini
                     }
                     else //target is a creature
                     {
-                        foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                        foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                         {
                             foreach (Coordinate coor in crt.tokenCoveredSquares)
                             {
@@ -6036,7 +6036,7 @@ namespace IceBlink2mini
                     //check to see if target is a friend or self
                     if ((gv.cc.currentSelectedTrait.traitTargetType.Equals("Friend")) || (gv.cc.currentSelectedTrait.traitTargetType.Equals("Self")))
                     {
-                        foreach (Player p in mod.playerList)
+                        foreach (Player p in gv.mod.playerList)
                         {
                             if ((p.combatLocX == targetHighlightCenterLocation.X) && (p.combatLocY == targetHighlightCenterLocation.Y))
                             {
@@ -6046,7 +6046,7 @@ namespace IceBlink2mini
                     }
                     else //target is a creature
                     {
-                        foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                        foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                         {
                             foreach (Coordinate coor in crt.tokenCoveredSquares)
                             {
@@ -6076,7 +6076,7 @@ namespace IceBlink2mini
                     //check to see if target is a friend or self
                     if ((gv.cc.currentSelectedSpell.spellTargetType.Equals("Friend")) || (gv.cc.currentSelectedSpell.spellTargetType.Equals("Self")))
                     {
-                        foreach (Player p in mod.playerList)
+                        foreach (Player p in gv.mod.playerList)
                         {
                             if ((p.combatLocX == targetHighlightCenterLocation.X) && (p.combatLocY == targetHighlightCenterLocation.Y))
                             {
@@ -6086,7 +6086,7 @@ namespace IceBlink2mini
                     }
                     else //target is a creature
                     {
-                        foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                        foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                         {
                             foreach (Coordinate coor in crt.tokenCoveredSquares)
                             {
@@ -6116,7 +6116,7 @@ namespace IceBlink2mini
                     //check to see if target is a friend or self
                     if ((gv.cc.currentSelectedTrait.traitTargetType.Equals("Friend")) || (gv.cc.currentSelectedTrait.traitTargetType.Equals("Self")))
                     {
-                        foreach (Player p in mod.playerList)
+                        foreach (Player p in gv.mod.playerList)
                         {
                             if ((p.combatLocX == targetHighlightCenterLocation.X) && (p.combatLocY == targetHighlightCenterLocation.Y))
                             {
@@ -6126,7 +6126,7 @@ namespace IceBlink2mini
                     }
                     else //target is a creature
                     {
-                        foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                        foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                         {
                             foreach (Coordinate coor in crt.tokenCoveredSquares)
                             {
@@ -6146,15 +6146,15 @@ namespace IceBlink2mini
             if (currentCombatMode.Equals("attack"))
             {
                 int range = 1;
-                if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                        && (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                 {
                     //ranged weapon with no ammo
                     range = 1;
                 }
                 else
                 {
-                    range = mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange;
+                    range = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange;
                 }
 
                 if (getDistance(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation) <= range)
@@ -6180,7 +6180,7 @@ namespace IceBlink2mini
         }
         public bool isAdjacentEnemy(Player pc)
         {
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 foreach (Coordinate coor in crt.tokenCoveredSquares)
                 {
@@ -6200,7 +6200,7 @@ namespace IceBlink2mini
         }
         public bool isAdjacentPc(Creature crt)
         {
-            foreach (Player pc in mod.playerList)
+            foreach (Player pc in gv.mod.playerList)
             {
                 if (getDistance(new Coordinate(pc.combatLocX, pc.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) == 1)
                 {
@@ -6216,7 +6216,7 @@ namespace IceBlink2mini
         {
             //int gridx = ((nextPoint.X - mapStartLocXinPixels - gv.oXshift) / (int)(gv.squareSize * sqrScale)) + UpperLeftSquare.X;
             int gridx = ((nextPoint.X - mapStartLocXinPixels) / (int)(gv.squareSize * sqrScale)) + UpperLeftSquare.X;
-            if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
+            if (gridx > gv.mod.currentEncounter.MapSizeX - 1) { gridx = gv.mod.currentEncounter.MapSizeX - 1; }
             if (gridx < 0) { gridx = 0; }
             return gridx;
         }
@@ -6224,21 +6224,21 @@ namespace IceBlink2mini
         {
             //int gridy = ((nextPoint.Y - gv.oYshift) / (int)(gv.squareSize * sqrScale)) + UpperLeftSquare.Y;
             int gridy = ((nextPoint.Y) / (int)(gv.squareSize * sqrScale)) + UpperLeftSquare.Y;
-            if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
+            if (gridy > gv.mod.currentEncounter.MapSizeY - 1) { gridy = gv.mod.currentEncounter.MapSizeY - 1; }
             if (gridy < 0) { gridy = 0; }
             return gridy;
         }
         public int getMapSquareX(Coordinate nextPoint)
         {
             int gridx = (nextPoint.X / (int)(gv.squareSize * sqrScale));
-            if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
+            if (gridx > gv.mod.currentEncounter.MapSizeX - 1) { gridx = gv.mod.currentEncounter.MapSizeX - 1; }
             if (gridx < 0) { gridx = 0; }
             return gridx;
         }
         public int getMapSquareY(Coordinate nextPoint)
         {
             int gridy = (nextPoint.Y / (int)(gv.squareSize * sqrScale));
-            if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
+            if (gridy > gv.mod.currentEncounter.MapSizeY - 1) { gridy = gv.mod.currentEncounter.MapSizeY - 1; }
             if (gridy < 0) { gridy = 0; }
             return gridy;
         }
@@ -6274,7 +6274,7 @@ namespace IceBlink2mini
                         //do your checks here for LoS blocking
                         int gridx = getMapSquareX(nextPoint);
                         int gridy = getMapSquareY(nextPoint);
-                        if (mod.currentEncounter.LoSBlocked[gridy * mod.currentEncounter.MapSizeX + gridx] == 1)
+                        if (gv.mod.currentEncounter.LoSBlocked[gridy * gv.mod.currentEncounter.MapSizeX + gridx] == 1)
                         {
                             return false;
                         }
@@ -6294,7 +6294,7 @@ namespace IceBlink2mini
                         //do your checks here for LoS blocking
                         int gridx = getMapSquareX(nextPoint);
                         int gridy = getMapSquareY(nextPoint);
-                        if (mod.currentEncounter.LoSBlocked[gridy * mod.currentEncounter.MapSizeX + gridx] == 1)
+                        if (gv.mod.currentEncounter.LoSBlocked[gridy * gv.mod.currentEncounter.MapSizeX + gridx] == 1)
                         {
                             return false;
                         }
@@ -6323,7 +6323,7 @@ namespace IceBlink2mini
                         //do your checks here for LoS blocking
                         int gridx = getMapSquareX(nextPoint);
                         int gridy = getMapSquareY(nextPoint);
-                        if (mod.currentEncounter.LoSBlocked[gridy * mod.currentEncounter.MapSizeX + gridx] == 1)
+                        if (gv.mod.currentEncounter.LoSBlocked[gridy * gv.mod.currentEncounter.MapSizeX + gridx] == 1)
                         {
                             return false;
                         }
@@ -6343,7 +6343,7 @@ namespace IceBlink2mini
                         //do your checks here for LoS blocking
                         int gridx = getMapSquareX(nextPoint);
                         int gridy = getMapSquareY(nextPoint);
-                        if (mod.currentEncounter.LoSBlocked[gridy * mod.currentEncounter.MapSizeX + gridx] == 1)
+                        if (gv.mod.currentEncounter.LoSBlocked[gridy * gv.mod.currentEncounter.MapSizeX + gridx] == 1)
                         {
                             return false;
                         }
@@ -6391,7 +6391,7 @@ namespace IceBlink2mini
                         int gridx = getGridX(nextPoint);
                         int gridy = getGridY(nextPoint);
                         gv.DrawLine(lastX, lastY, nextPoint.X, nextPoint.Y, penColor, penWidth);
-                        if (mod.currentEncounter.LoSBlocked[gridy * mod.currentEncounter.MapSizeX + gridx] == 1)
+                        if (gv.mod.currentEncounter.LoSBlocked[gridy * gv.mod.currentEncounter.MapSizeX + gridx] == 1)
                         {
                             return false;
                         }
@@ -6416,7 +6416,7 @@ namespace IceBlink2mini
                         int gridx = getGridX(nextPoint);
                         int gridy = getGridY(nextPoint);
                         gv.DrawLine(lastX, lastY, nextPoint.X, nextPoint.Y, penColor, penWidth);
-                        if (mod.currentEncounter.LoSBlocked[gridy * mod.currentEncounter.MapSizeX + gridx] == 1)
+                        if (gv.mod.currentEncounter.LoSBlocked[gridy * gv.mod.currentEncounter.MapSizeX + gridx] == 1)
                         {
                             return false;
                         }
@@ -6450,7 +6450,7 @@ namespace IceBlink2mini
                         int gridx = getGridX(nextPoint);
                         int gridy = getGridY(nextPoint);
                         gv.DrawLine(lastX, lastY, nextPoint.X, nextPoint.Y, penColor, penWidth);
-                        if (mod.currentEncounter.LoSBlocked[gridy * mod.currentEncounter.MapSizeX + gridx] == 1)
+                        if (gv.mod.currentEncounter.LoSBlocked[gridy * gv.mod.currentEncounter.MapSizeX + gridx] == 1)
                         {
                             return false;
                         }
@@ -6475,7 +6475,7 @@ namespace IceBlink2mini
                         int gridx = getGridX(nextPoint);
                         int gridy = getGridY(nextPoint);
                         gv.DrawLine(lastX, lastY, nextPoint.X, nextPoint.Y, penColor, penWidth);
-                        if (mod.currentEncounter.LoSBlocked[gridy * mod.currentEncounter.MapSizeX + gridx] == 1)
+                        if (gv.mod.currentEncounter.LoSBlocked[gridy * gv.mod.currentEncounter.MapSizeX + gridx] == 1)
                         {
                             return false;
                         }
@@ -6524,11 +6524,11 @@ namespace IceBlink2mini
         }
         public bool isWalkable(int x, int y)
         {
-            if (mod.currentEncounter.Walkable[y * mod.currentEncounter.MapSizeX + x] == 0)
+            if (gv.mod.currentEncounter.Walkable[y * gv.mod.currentEncounter.MapSizeX + x] == 0)
             {
                 return false;
             }
-            foreach (Player p in mod.playerList)
+            foreach (Player p in gv.mod.playerList)
             {
                 if ((p.combatLocX == x) && (p.combatLocY == y))
                 {
@@ -6542,7 +6542,7 @@ namespace IceBlink2mini
         }
         public Creature isBumpIntoCreature(int x, int y)
         {
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {                
                 foreach (Coordinate coor in crt.tokenCoveredSquares)
                 {
@@ -6557,7 +6557,7 @@ namespace IceBlink2mini
         public void LeaveThreatenedCheck(Player pc, int futurePlayerLocationX, int futurePlayerLocationY)
         {
 
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if ((crt.hp > 0) && (!crt.isHeld()))
                 {
@@ -6598,10 +6598,10 @@ namespace IceBlink2mini
                 //go through all traits and see if has passive criticalstrike type trait
                 foreach (string taTag in pc.knownTraitsTags)
                 {
-                    Trait ta = mod.getTraitByTag(taTag);
+                    Trait ta = gv.mod.getTraitByTag(taTag);
                     foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                     {
-                        Effect ef = mod.getEffectByTag(efTag.tag);
+                        Effect ef = gv.mod.getEffectByTag(efTag.tag);
                         if ((ef.useDexterityForMeleeAttackModifierIfGreaterThanStrength) && (ta.isPassive))
                         {
                             useDexModifier = true;
@@ -6639,10 +6639,10 @@ namespace IceBlink2mini
                 //all attacks of the PC from behind get a +2 bonus to hit            
                 if (IsAttackFromBehind(pc, crt))
                 {
-                    modifier += mod.attackFromBehindToHitModifier;
-                    if (mod.attackFromBehindToHitModifier > 0)
+                    modifier += gv.mod.attackFromBehindToHitModifier;
+                    if (gv.mod.attackFromBehindToHitModifier > 0)
                     {
-                        gv.cc.addLogText("<gn> Attack from behind: +" + mod.attackFromBehindToHitModifier.ToString() + " to hit." + "</gn><BR>");
+                        gv.cc.addLogText("<gn> Attack from behind: +" + gv.mod.attackFromBehindToHitModifier.ToString() + " to hit." + "</gn><BR>");
                     }
                 }
             }
@@ -6691,11 +6691,11 @@ namespace IceBlink2mini
                 gv.cc.addLogText("<yl>" + "blinded by rage" + "</yl><BR>");
                 gv.cc.addLogText("<yl>" + "-2 attack penalty" + "</yl><BR>");
             }
-            int attackMod = modifier + pc.baseAttBonus + mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
-            Item it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+            int attackMod = modifier + pc.baseAttBonus + gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
+            Item it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
             if (it != null)
             {
-                attackMod += mod.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
+                attackMod += gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
             }
             return attackMod;
         }
@@ -6719,10 +6719,10 @@ namespace IceBlink2mini
                 damModifier += gv.sf.CalcPcMeleeDamageModifier(pc);
                 if (IsAttackFromBehind(pc, crt))
                 {
-                    damModifier += mod.attackFromBehindDamageModifier;
-                    if (mod.attackFromBehindDamageModifier > 0)
+                    damModifier += gv.mod.attackFromBehindDamageModifier;
+                    if (gv.mod.attackFromBehindDamageModifier > 0)
                     {
-                        gv.cc.addLogText("<gn> Attack from behind: +" + mod.attackFromBehindDamageModifier.ToString() + " damage." + "</gn><BR>");
+                        gv.cc.addLogText("<gn> Attack from behind: +" + gv.mod.attackFromBehindDamageModifier.ToString() + " damage." + "</gn><BR>");
                     }
                 }
             }
@@ -6751,78 +6751,78 @@ namespace IceBlink2mini
                 }
             }
 
-            int dDam = mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageDie;
-            float damage = (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageNumDice * gv.sf.RandInt(dDam)) + damModifier + adder + mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageAdder;
+            int dDam = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageDie;
+            float damage = (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageNumDice * gv.sf.RandInt(dDam)) + damModifier + adder + gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageAdder;
             if (damage < 0)
             {
                 damage = 0;
             }
-            Item it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+            Item it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
             if (it != null)
             {
-                damage += mod.getItemByResRefForInfo(pc.AmmoRefs.resref).damageAdder;
+                damage += gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).damageAdder;
             }
 
             float resist = 0;
 
             if (gv.sf.isMeleeAttack(pc))
             {
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
+                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueAcid() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
+                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueNormal() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Cold"))
+                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Cold"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueCold() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Electricity"))
+                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Electricity"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueElectricity() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Fire"))
+                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Fire"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueFire() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Magic"))
+                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Magic"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueMagic() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Poison"))
+                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Poison"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValuePoison() / 100f));
                 }
             }
             else //ranged weapon so use ammo mods
             {
-                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Acid"))
+                if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Acid"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueAcid() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Normal"))
+                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Normal"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueNormal() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Cold"))
+                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Cold"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueCold() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Electricity"))
+                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Electricity"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueElectricity() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Fire"))
+                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Fire"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueFire() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Magic"))
+                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Magic"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueMagic() / 100f));
                 }
-                else if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Poison"))
+                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Poison"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValuePoison() / 100f));
                 }
@@ -6935,7 +6935,7 @@ namespace IceBlink2mini
         {
             Player pc = null;
             int farDist = 99;
-            foreach (Player p in mod.playerList)
+            foreach (Player p in gv.mod.playerList)
             {
                 if ((!p.isDead()) && (p.hp >= 0) && (!p.steathModeOn))
                 {
@@ -6981,7 +6981,7 @@ namespace IceBlink2mini
                     selectedPoint = new Coordinate(crt.combatLocX + x, crt.combatLocY + y);
 
                     //check if selected point is a valid location on combat map
-                    if ((selectedPoint.X < 0) || (selectedPoint.X > mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > mod.currentEncounter.MapSizeY - 1))
+                    if ((selectedPoint.X < 0) || (selectedPoint.X > gv.mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > gv.mod.currentEncounter.MapSizeY - 1))
                     {
                         continue;
                     }
@@ -7004,14 +7004,14 @@ namespace IceBlink2mini
                             utility -= 4;
                         }
                     }
-                    foreach (Creature crtr in mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                    foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
                     {
                         if (this.CalcDistance(crtr, crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
                         {
                             utility -= 1;
                         }
                     }
-                    foreach (Player tgt_pc in mod.playerList)
+                    foreach (Player tgt_pc in gv.mod.playerList)
                     {
                         if ((this.CalcDistance(null, tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!
                         {
@@ -7135,7 +7135,7 @@ namespace IceBlink2mini
         {
             int lowHP = 999;
             Creature returnCrt = null;
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if (crt.hp > 0)
                 {
@@ -7152,7 +7152,7 @@ namespace IceBlink2mini
         {
             int damaged = 0;
             Creature returnCrt = null;
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if (crt.hp > 0)
                 {
@@ -7169,7 +7169,7 @@ namespace IceBlink2mini
         public List<string> alreadyTargetedCreatureTagsList = new List<string>();
         public Creature GetNextAdjacentCreature(Player pc)
         {
-            foreach (Creature nextCrt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature nextCrt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if (alreadyTargetedCreatureTagsList.Contains(nextCrt.cr_tag))
                 {
@@ -7186,7 +7186,7 @@ namespace IceBlink2mini
         }
         public Creature GetCreatureByTag(String tag)
         {
-            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if (crt.cr_tag.Equals(tag))
                 {

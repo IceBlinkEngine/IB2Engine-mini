@@ -13,7 +13,7 @@ namespace IceBlink2mini
 {
     public class ScreenPcCreation
     {
-        public Module mod;
+        //public Module gv.mod;
         public GameView gv;
 
         private IbbButton btnName = null;
@@ -43,7 +43,7 @@ namespace IceBlink2mini
 
         public ScreenPcCreation(Module m, GameView g)
         {
-            mod = m;
+            //gv.mod = m;
             gv = g;
             blankItemSlot = "item_slot";
             LoadPlayerBitmapList();
@@ -64,7 +64,7 @@ namespace IceBlink2mini
             pc = gv.cc.LoadPlayer(gv.mod.defaultPlayerFilename);
             //pc.token = gv.cc.LoadBitmap(pc.tokenFilename);
             //pc.portrait = gv.cc.LoadBitmap(pc.portraitFilename);
-            pc.playerClass = mod.getPlayerClass(pc.classTag);
+            pc.playerClass = gv.mod.getPlayerClass(pc.classTag);
             pc.race = this.getAllowedRace(pc.raceTag);
             //pc.name = "CharacterName";
             //pc.tag = "characterName";
@@ -75,7 +75,7 @@ namespace IceBlink2mini
         {
             //Create Race List
             playerRaces.Clear();
-            foreach (Race rc in mod.moduleRacesList)
+            foreach (Race rc in gv.mod.moduleRacesList)
             {
                 if (rc.UsableByPlayer)
                 {
@@ -83,7 +83,7 @@ namespace IceBlink2mini
                     newRace.classesAllowed.Clear();
                     foreach (string s in rc.classesAllowed)
                     {
-                        PlayerClass plc = mod.getPlayerClass(s);
+                        PlayerClass plc = gv.mod.getPlayerClass(s);
                         if ((plc != null) && (plc.UsableByPlayer))
                         {
                             newRace.classesAllowed.Add(s);
@@ -367,7 +367,7 @@ namespace IceBlink2mini
         public void redrawPcCreation()
         {
             setControlsStart();
-            //Player pc = mod.playerList.get(0);
+            //Player pc = gv.mod.playerList.get(0);
             gv.sf.UpdateStats(pc);
 
             int pW = (int)((float)gv.screenWidth / 100.0f);
@@ -393,14 +393,14 @@ namespace IceBlink2mini
             Color color = Color.White;
 
             int actext = 0;
-            if (mod.ArmorClassAscending) { actext = pc.AC; }
+            if (gv.mod.ArmorClassAscending) { actext = pc.AC; }
             else { actext = 20 - pc.AC; }
             
-            if (!mod.use3d6)
+            if (!gv.mod.use3d6)
             {
                 gv.DrawText("Rolling: 2d6 + 6", locX + pW, locY += (spacing), "gy");
             }
-            else if (mod.use3d6)
+            else if (gv.mod.use3d6)
             {
                 gv.DrawText("Rolling: 3d6", locX + pW, locY += (spacing), "gy");
             }
@@ -605,7 +605,7 @@ namespace IceBlink2mini
                         {
                             pcClassSelectionIndex = 0;
                         }
-                        pc.playerClass = mod.getPlayerClass(pc.race.classesAllowed[pcClassSelectionIndex]);
+                        pc.playerClass = gv.mod.getPlayerClass(pc.race.classesAllowed[pcClassSelectionIndex]);
                         pc.classTag = pc.playerClass.tag;
                         gv.sf.UpdateStats(pc);
                         pc.hp = pc.hpMax;
@@ -760,7 +760,7 @@ namespace IceBlink2mini
         }
         public void reRollStats(Player p)
         {
-            if (mod.use3d6 == true)
+            if (gv.mod.use3d6 == true)
             {
                 p.baseStr = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
                 p.baseDex = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
@@ -814,7 +814,7 @@ namespace IceBlink2mini
         public void resetClassSelection(Player p)
         {
             pcClassSelectionIndex = 0;
-            p.playerClass = mod.getPlayerClass(p.race.classesAllowed[pcClassSelectionIndex]);
+            p.playerClass = gv.mod.getPlayerClass(p.race.classesAllowed[pcClassSelectionIndex]);
             p.classTag = p.playerClass.tag;
             gv.sf.UpdateStats(p);
             p.hp = p.hpMax;

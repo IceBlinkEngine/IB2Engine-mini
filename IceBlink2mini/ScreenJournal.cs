@@ -12,7 +12,7 @@ namespace IceBlink2mini
     public class ScreenJournal 
     {
 
-	    public Module mod;
+	    //public Module gv.mod;
 	    public GameView gv;
 	    private int journalScreenQuestIndex = 0;
 	    private int journalScreenEntryIndex = 0;	
@@ -26,7 +26,7 @@ namespace IceBlink2mini
 	
 	    public ScreenJournal(Module m, GameView g)
 	    {
-		    mod = m;
+		    //gv.mod = m;
 		    gv = g;
 	    }
 	    public void setControlsStart()
@@ -125,13 +125,13 @@ namespace IceBlink2mini
             gv.DrawBitmap(gv.cc.GetFromBitmapList("journalback"), src, dst);
         
             //MAKE SURE NO OUT OF INDEX ERRORS
-    	    if (mod.partyJournalQuests.Count > 0)
+    	    if (gv.mod.partyJournalQuests.Count > 0)
     	    {
-	    	    if (journalScreenQuestIndex >= mod.partyJournalQuests.Count)
+	    	    if (journalScreenQuestIndex >= gv.mod.partyJournalQuests.Count)
 	    	    {
 	    		    journalScreenQuestIndex = 0;
 	    	    }    	
-	    	    if (journalScreenEntryIndex >= mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count)
+	    	    if (journalScreenEntryIndex >= gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count)
 	    	    {
 	    		    journalScreenEntryIndex = 0;
 	    	    }
@@ -141,10 +141,10 @@ namespace IceBlink2mini
             string color = "bk";
 		    gv.DrawText("Active Quests:", locX, locY += leftStartY, "bk");
 		    gv.DrawText("--------------", locX, locY += spacing, "bk");
-		    if (mod.partyJournalQuests.Count > 0)
+		    if (gv.mod.partyJournalQuests.Count > 0)
     	    {
 			    int cnt = 0;
-			    foreach (JournalQuest jq in mod.partyJournalQuests)
+			    foreach (JournalQuest jq in gv.mod.partyJournalQuests)
 			    {
                     if (journalScreenQuestIndex == cnt) { color = "gn"; }
 				    else { color = "bk"; }	
@@ -157,11 +157,11 @@ namespace IceBlink2mini
 		    locY = tabStartY;
 		    gv.DrawText("Quest Entry:", locX, locY, "bk");
 		    gv.DrawText("--------------", locX, locY += spacing, "bk");	
-		    if (mod.partyJournalQuests.Count > 0)
+		    if (gv.mod.partyJournalQuests.Count > 0)
     	    {
                 //Description
-                string textToSpan = "<gy>" + mod.partyJournalQuests[journalScreenQuestIndex].Entries[journalScreenEntryIndex].EntryTitle + "</gy><br>";
-                textToSpan += "<bk>" + mod.partyJournalQuests[journalScreenQuestIndex].Entries[journalScreenEntryIndex].EntryText + "</bk>";
+                string textToSpan = "<gy>" + gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries[journalScreenEntryIndex].EntryTitle + "</gy><br>";
+                textToSpan += "<bk>" + gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries[journalScreenEntryIndex].EntryText + "</bk>";
 	                            
                 int yLoc = pH * 18;
 
@@ -234,15 +234,15 @@ namespace IceBlink2mini
 				    if (journalScreenQuestIndex > 0)
 				    {
 					    journalScreenQuestIndex--;
-					    journalScreenEntryIndex = mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1;
+					    journalScreenEntryIndex = gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1;
 				    }
 			    }
 			    else if (ctrlDownArrow.getImpact(x, y))
 			    {
-				    if (journalScreenQuestIndex < mod.partyJournalQuests.Count - 1)
+				    if (journalScreenQuestIndex < gv.mod.partyJournalQuests.Count - 1)
 				    {
 					    journalScreenQuestIndex++;
-					    journalScreenEntryIndex = mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1;
+					    journalScreenEntryIndex = gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1;
 				    }
 			    }
 			    else if (ctrlLeftArrow.getImpact(x, y))
@@ -254,7 +254,7 @@ namespace IceBlink2mini
 			    }
 			    else if (ctrlRightArrow.getImpact(x, y))
 			    {
-				    if (journalScreenEntryIndex < mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1)
+				    if (journalScreenEntryIndex < gv.mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1)
 				    {
 					    journalScreenEntryIndex++;
 				    }
