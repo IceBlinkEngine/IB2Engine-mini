@@ -78,7 +78,7 @@ namespace IceBlink2mini
             try
             {
                 //foreach (Bitmap b in gv.cc.commonBitmapList)
-                foreach (KeyValuePair<string, SharpDX.Direct2D1.Bitmap> entry in gv.cc.commonBitmapList)
+                foreach (KeyValuePair<string, SharpDX.Direct2D1.Bitmap> entry in gv.cc.moduleBitmapList)
                 {
                     // do something with entry.Value or entry.Key
                     if (entry.Key.StartsWith("pc_"))

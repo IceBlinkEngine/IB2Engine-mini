@@ -65,8 +65,9 @@ namespace IceBlink2mini
         public Bitmap facing8;
         public Bitmap facing9;
         
-        public Dictionary<string, Bitmap> tileBitmapList = new Dictionary<string, Bitmap>();
+        //public Dictionary<string, Bitmap> tileBitmapList = new Dictionary<string, Bitmap>();
         public Dictionary<string, Bitmap> commonBitmapList = new Dictionary<string, Bitmap>();
+        public Dictionary<string, Bitmap> moduleBitmapList = new Dictionary<string, Bitmap>();
         public Dictionary<string, System.Drawing.Bitmap> tileGDIBitmapList = new Dictionary<string, System.Drawing.Bitmap>();
 
         public Spell currentSelectedSpell = new Spell();
@@ -860,7 +861,7 @@ namespace IceBlink2mini
                 gv.mod.playerList[0].mainPc = true;
             }
         }
-        public Module LoadModule(string folderAndFilename, bool fullPath)
+        /*public Module LoadModule(string folderAndFilename, bool fullPath)
         {
             Module toReturn = null;
             if (fullPath)
@@ -894,7 +895,7 @@ namespace IceBlink2mini
                         }
                     }
                     //Read in the images
-                    commonBitmapList.Clear();
+                    moduleBitmapList.Clear();
                     ImageData imd;
                     for (int i = 0; i < 9999; i++)
                     {
@@ -904,7 +905,7 @@ namespace IceBlink2mini
                             break;
                         }
                         imd = (ImageData)JsonConvert.DeserializeObject(s, typeof(ImageData));                        
-                        commonBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
+                        moduleBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
                     }
                 }
             }
@@ -970,7 +971,7 @@ namespace IceBlink2mini
                         toReturn.moduleConvoList.Add(cnv);
                     }
                     //Read in the images
-                    commonBitmapList.Clear();
+                    moduleBitmapList.Clear();
                     ImageData imd;
                     for (int i = 0; i < 9999; i++)
                     {
@@ -980,12 +981,12 @@ namespace IceBlink2mini
                             break;
                         }
                         imd = (ImageData)JsonConvert.DeserializeObject(s, typeof(ImageData));                        
-                        commonBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
+                        moduleBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
                     }
                 }
             }
             return toReturn;
-        }
+        }*/
         public Module LoadModule(string folderAndFilename)
         {
             Module toReturn = null;
@@ -996,7 +997,7 @@ namespace IceBlink2mini
                 {
                     string s = "";
                     string keyword = "";
-                    commonBitmapList.Clear();
+                    moduleBitmapList.Clear();
                     ImageData imd;
                     //toReturn.moduleAreasObjects.Clear();
                     Area ar;
@@ -1067,7 +1068,7 @@ namespace IceBlink2mini
                         else if (keyword.Equals("TITLEIMAGE"))
                         {
                             imd = (ImageData)JsonConvert.DeserializeObject(s, typeof(ImageData));
-                            commonBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
+                            moduleBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
                         }
                         else if (keyword.Equals("MODULE"))
                         {
@@ -1091,9 +1092,9 @@ namespace IceBlink2mini
                         else if (keyword.Equals("IMAGES"))
                         {
                             imd = (ImageData)JsonConvert.DeserializeObject(s, typeof(ImageData));
-                            if (!commonBitmapList.ContainsKey(imd.name))
+                            if (!moduleBitmapList.ContainsKey(imd.name))
                             {
-                                commonBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
+                                moduleBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
                             }
                         }
                         #endregion
@@ -1117,7 +1118,7 @@ namespace IceBlink2mini
                 {
                     string s = "";
                     string keyword = "";
-                    commonBitmapList.Clear();
+                    moduleBitmapList.Clear();
                     ImageData imd;
 
                     for (int i = 0; i < 99999; i++)
@@ -1155,7 +1156,7 @@ namespace IceBlink2mini
                         else if (keyword.Equals("TITLEIMAGE"))
                         {
                             imd = (ImageData)JsonConvert.DeserializeObject(s, typeof(ImageData));
-                            commonBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
+                            moduleBitmapList.Add(imd.name, ConvertGDIBitmapToD2D(gv.bsc.ConvertImageDataToBitmap(imd)));
                         }
                     }
                 }
@@ -3326,9 +3327,16 @@ namespace IceBlink2mini
         public SharpDX.Direct2D1.Bitmap GetFromBitmapList(string fileNameWithOutExt)
         {
             //check to see if in list already and return bitmap it if found
-            if (commonBitmapList.ContainsKey(fileNameWithOutExt))
+            if ((commonBitmapList.ContainsKey(fileNameWithOutExt)) || (moduleBitmapList.ContainsKey(fileNameWithOutExt)))
             {
-                return commonBitmapList[fileNameWithOutExt];
+                if (commonBitmapList.ContainsKey(fileNameWithOutExt))
+                {
+                    return commonBitmapList[fileNameWithOutExt];
+                }
+                else
+                {
+                    return moduleBitmapList[fileNameWithOutExt];
+                }
             }
             //try loading and adding to list and return bitmap
             else
@@ -3339,8 +3347,9 @@ namespace IceBlink2mini
         }
         public SharpDX.Direct2D1.Bitmap GetFromTileBitmapList(string fileNameWithOutExt)
         {
+            return GetFromBitmapList(fileNameWithOutExt);
             //check to see if in list already and return bitmap it if found
-            if (commonBitmapList.ContainsKey(fileNameWithOutExt))
+            /*if (commonBitmapList.ContainsKey(fileNameWithOutExt))
             {
                 return commonBitmapList[fileNameWithOutExt];
             }
@@ -3349,7 +3358,7 @@ namespace IceBlink2mini
             {
                 commonBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
                 return commonBitmapList[fileNameWithOutExt];
-            }
+            }*/
         }
         public System.Drawing.Bitmap GetFromTileGDIBitmapList(string fileNameWithOutExt)
         {
