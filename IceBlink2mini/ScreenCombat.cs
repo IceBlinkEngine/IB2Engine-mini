@@ -3548,11 +3548,12 @@ namespace IceBlink2mini
             {
                 for (int y = minY; y < maxY; y++)
                 {
-                    if (!IsInVisibleCombatWindow(x, y))
+                    int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                    if ((!IsInVisibleCombatWindow(x, y)) && (index >= gv.mod.currentEncounter.Layer1Filename.Count))
                     {
                         continue;
                     }
-                    string tile = gv.mod.currentEncounter.Layer1Filename[y * gv.mod.currentEncounter.MapSizeX + x];
+                    string tile = gv.mod.currentEncounter.Layer1Filename[index];
                     IbRect srcLyr = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
 
                     if (srcLyr != null)
@@ -3569,8 +3570,8 @@ namespace IceBlink2mini
                         int brY = (int)((int)(gv.squareSize * sqrScale) * scalerY);
                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
                         bool mirror = false;
-                        if (gv.mod.currentEncounter.Layer1Mirror[y * gv.mod.currentEncounter.MapSizeX + x] == 1) { mirror = true; }
-                        gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, gv.mod.currentEncounter.Layer1Rotate[y * gv.mod.currentEncounter.MapSizeX + x], mirror);
+                        if (gv.mod.currentEncounter.Layer1Mirror[index] == 1) { mirror = true; }
+                        gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, gv.mod.currentEncounter.Layer1Rotate[index], mirror);
                     }
                 }
             }
@@ -3580,11 +3581,12 @@ namespace IceBlink2mini
             {
                 for (int y = minY; y < maxY; y++)
                 {
-                    if (!IsInVisibleCombatWindow(x, y))
+                    int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                    if ((!IsInVisibleCombatWindow(x, y)) && (index >= gv.mod.currentEncounter.Layer2Filename.Count))
                     {
                         continue;
                     }
-                    string tile = gv.mod.currentEncounter.Layer2Filename[y * gv.mod.currentEncounter.MapSizeX + x];
+                    string tile = gv.mod.currentEncounter.Layer2Filename[index];
                     IbRect srcLyr = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
 
                     if (srcLyr != null)
@@ -3601,8 +3603,8 @@ namespace IceBlink2mini
                         int brY = (int)((int)(gv.squareSize * sqrScale) * scalerY);
                         IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
                         bool mirror = false;
-                        if (gv.mod.currentEncounter.Layer2Mirror[y * gv.mod.currentEncounter.MapSizeX + x] == 1) { mirror = true; }
-                        gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, gv.mod.currentEncounter.Layer2Rotate[y * gv.mod.currentEncounter.MapSizeX + x], mirror);
+                        if (gv.mod.currentEncounter.Layer2Mirror[index] == 1) { mirror = true; }
+                        gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, gv.mod.currentEncounter.Layer2Rotate[index], mirror);
                     }
                 }
             }
@@ -3614,11 +3616,12 @@ namespace IceBlink2mini
                 {
                     for (int y = minY; y < maxY; y++)
                     {
-                        if (!IsInVisibleCombatWindow(x, y))
+                        int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                        if ((!IsInVisibleCombatWindow(x, y)) && (index >= gv.mod.currentEncounter.Layer3Filename.Count))
                         {
                             continue;
                         }
-                        string tile = gv.mod.currentEncounter.Layer3Filename[y * gv.mod.currentEncounter.MapSizeX + x];
+                        string tile = gv.mod.currentEncounter.Layer3Filename[index];
                         IbRect srcLyr = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile).PixelSize.Height);
 
                         if (srcLyr != null)
@@ -3635,8 +3638,8 @@ namespace IceBlink2mini
                             int brY = (int)((int)(gv.squareSize * sqrScale) * scalerY);
                             IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
                             bool mirror = false;
-                            if (gv.mod.currentEncounter.Layer3Mirror[y * gv.mod.currentEncounter.MapSizeX + x] == 1) { mirror = true; }
-                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, gv.mod.currentEncounter.Layer3Rotate[y * gv.mod.currentEncounter.MapSizeX + x], mirror);
+                            if (gv.mod.currentEncounter.Layer3Mirror[index] == 1) { mirror = true; }
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile), srcLyr, dstLyr, gv.mod.currentEncounter.Layer3Rotate[index], mirror);
                         }
                     }
                 }
@@ -3650,10 +3653,11 @@ namespace IceBlink2mini
                 {
                     for (int y = UpperLeftSquare.Y; y < this.gv.mod.currentEncounter.MapSizeY; y++)
                     {
-                        if (!IsInVisibleCombatWindow(x, y))
+                        int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                        if ((!IsInVisibleCombatWindow(x, y)) && (index >= gv.mod.currentEncounter.LoSBlocked.Count))
                         {
                             continue;
-                        }          
+                        }
 
                         int tlX = ((x - UpperLeftSquare.X) * (int)(gv.squareSize * sqrScale)) + mapStartLocXinPixels;
                         int tlY = (y - UpperLeftSquare.Y) * (int)(gv.squareSize * sqrScale);
@@ -3662,11 +3666,11 @@ namespace IceBlink2mini
 
                         IbRect srcGrid = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
                         IbRect dstGrid = new IbRect(tlX, tlY, brX, brY);
-                        if (gv.mod.currentEncounter.LoSBlocked[y * gv.mod.currentEncounter.MapSizeX + x] == 1)
+                        if (gv.mod.currentEncounter.LoSBlocked[index] == 1)
                         {
                             gv.DrawBitmap(gv.cc.losBlocked, srcGrid, dstGrid);
                         }
-                        if (gv.mod.currentEncounter.Walkable[y * gv.mod.currentEncounter.MapSizeX + x] == 0)
+                        if (gv.mod.currentEncounter.Walkable[index] == 0)
                         {
                             gv.DrawBitmap(gv.cc.walkBlocked, srcGrid, dstGrid);
                         }

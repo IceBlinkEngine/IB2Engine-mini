@@ -390,7 +390,11 @@ namespace IceBlink2mini
             log.numberOfLinesToShow = mod.logNumberOfLines;            
                         
 		    mod.debugMode = false;
-		    mod.setCurrentArea(mod.startingArea, this);
+		    bool foundArea = mod.setCurrentArea(mod.startingArea, this);
+            if (!foundArea)
+            {
+                MessageBox.Show("Area: " + mod.startingArea + " does not exist in the module...check the spelling or make sure your are pointing to the correct starting area that you intended");
+            }
 		    mod.PlayerLocationX = mod.startingPlayerPositionX;
 		    mod.PlayerLocationY = mod.startingPlayerPositionY;
 		    LoadStandardImages();

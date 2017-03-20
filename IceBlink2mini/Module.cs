@@ -133,7 +133,7 @@ namespace IceBlink2mini
 
         }
               
-        public void setCurrentArea(string filename, GameView gv)
+        public bool setCurrentArea(string filename, GameView gv)
         {
             try
             {
@@ -142,12 +142,15 @@ namespace IceBlink2mini
                     if (area.Filename.Equals(filename))
                     {
                         this.currentArea = area;
+                        return true;
                     }
                 }
+                return false;
             }
             catch (Exception ex)
             {
                 gv.errorLog(ex.ToString());
+                return false;
             }
         }
 

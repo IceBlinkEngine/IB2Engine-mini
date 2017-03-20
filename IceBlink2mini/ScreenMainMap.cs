@@ -2719,7 +2719,10 @@ namespace IceBlink2mini
         private void setExplored()
         {
             // set current position to visible
-            gv.mod.currentArea.Visible[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX] = 1;
+            if (gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX < gv.mod.currentArea.Visible.Count)
+            {
+                gv.mod.currentArea.Visible[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX] = 1;
+            }
             // set tiles to visible around the PC
             for (int x = gv.mod.PlayerLocationX - gv.mod.currentArea.AreaVisibleDistance; x <= gv.mod.PlayerLocationX + gv.mod.currentArea.AreaVisibleDistance; x++)
             {

@@ -607,7 +607,11 @@ namespace IceBlink2mini
             this.updateAreas(saveMod);
             //
             //U  "currentArea": {},
-            gv.mod.setCurrentArea(saveMod.currentAreaFilename, gv);
+            bool foundArea = gv.mod.setCurrentArea(saveMod.currentAreaFilename, gv);
+            if (!foundArea)
+            {
+                MessageBox.Show("Area: " + saveMod.currentAreaFilename + " does not exist in the module...maybe the area in the module was changed since this save game was made.");
+            }
             //U  "moduleContainersList": [], (have an original containers items tags list and the current tags list to see what to add or delete from the save tags list)
             this.updateContainers(saveMod);
             //U  "moduleConvoSavedValuesList": [], (use all save)
@@ -3123,9 +3127,14 @@ namespace IceBlink2mini
         {
             try
             {
+                bool foundArea = gv.mod.setCurrentArea(areaFilename, gv);
+                if (!foundArea)
+                {
+                    MessageBox.Show("Area: " + areaFilename + " does not exist in the module...check the spelling of the 'area.Filename'");
+                    return;
+                }
                 gv.mod.PlayerLocationX = x;
-                gv.mod.PlayerLocationY = y;                    
-                gv.mod.setCurrentArea(areaFilename, gv);                    
+                gv.mod.PlayerLocationY = y;
                 gv.screenMainMap.resetMiniMapBitmap();
                 doOnEnterAreaUpdate = true;
                 doPropMoves();

@@ -18,7 +18,7 @@ namespace IceBlink2mini
         public bool showFullParty = false;
         public bool showMiniMap = false;
         public bool showTogglePanel = true; //both
-        public bool showLogPanel = true; //both 
+        public bool showLogPanel = false; //both 
         public bool showHP = false;
         public bool showSP = false;
         public bool showMO = false;
