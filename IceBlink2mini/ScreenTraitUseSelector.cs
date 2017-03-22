@@ -412,9 +412,20 @@ namespace IceBlink2mini
                             if (getTraitUsingPlayer().sp >= GetCurrentlySelectedTrait().costSP)
                             {
                                 gv.cc.currentSelectedTrait = GetCurrentlySelectedTrait();
-                                gv.screenType = "combat";
-                                gv.screenCombat.currentCombatMode = "usetrait";
-                                doCleanUp();
+                                //if target is SELF then just use trait on self now
+                                if (gv.cc.currentSelectedTrait.traitTargetType.Equals("Self"))
+                                {
+                                    gv.screenType = "combat";
+                                    gv.screenCombat.currentCombatMode = "usetrait";
+                                    doCleanUp();
+                                    gv.screenCombat.TargetUseTraitPressed(getTraitUsingPlayer());
+                                }
+                                else
+                                {
+                                    gv.screenType = "combat";
+                                    gv.screenCombat.currentCombatMode = "usetrait";
+                                    doCleanUp();
+                                }
                             }
                             else
                             {

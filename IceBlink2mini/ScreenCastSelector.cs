@@ -401,14 +401,23 @@ namespace IceBlink2mini
 			    if (getCastingPlayer().knownSpellsTags.Contains(GetCurrentlySelectedSpell().tag))
 			    {
 				    if (inCombat) //Combat Map
-				    {
-					
+				    {					
 					    if (getCastingPlayer().sp >= GetCurrentlySelectedSpell().costSP)
 					    {
 						    gv.cc.currentSelectedSpell = GetCurrentlySelectedSpell();
-						    gv.screenType = "combat";
-						    gv.screenCombat.currentCombatMode = "cast";
-						    doCleanUp();
+                            if (gv.cc.currentSelectedSpell.spellTargetType.Equals("Self"))
+                            {
+                                gv.screenType = "combat";
+                                gv.screenCombat.currentCombatMode = "cast";
+                                doCleanUp();
+                                gv.screenCombat.TargetCastPressed(getCastingPlayer());
+                            }
+                            else
+                            {
+                                gv.screenType = "combat";
+                                gv.screenCombat.currentCombatMode = "cast";
+                                doCleanUp();
+                            }
 					    }
 					    else
 					    {
