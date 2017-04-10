@@ -6516,8 +6516,6 @@ namespace IceBlink2mini
 
         public void spGeneric(Spell thisSpell, object src, object trg, bool outsideCombat)
         {
-            Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
-
             //set squares list
             CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
@@ -6539,9 +6537,45 @@ namespace IceBlink2mini
                 }
             }
 
+            if (!thisSpell.spellEffectTag.Equals("none"))
+            {
+                Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
+                spGenericLoop(thisSpellEffect, thisSpell, src, trg, outsideCombat);
+            }
+            else if (thisSpell.spellEffectTagList.Count > 0)
+            {
+                foreach (EffectTagForDropDownList eftag in thisSpell.spellEffectTagList)
+                {
+                    Effect thisSpellEffect = gv.mod.getEffectByTag(eftag.tag);
+                    spGenericLoop(thisSpellEffect, thisSpell, src, trg, outsideCombat);
+                }
+            }
+
+            #region remove dead creatures            
+            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+            {
+                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
+                {
+                    try
+                    {
+                        //do OnDeath IBScript
+                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
+                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
+                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
+            }*/
+            #endregion
+        }
+        public void spGenericLoop(Effect thisSpellEffect, Spell thisSpell, object src, object trg, bool outsideCombat)
+        {
             #region Get casting source information
             int classLevel = 0;
-            string sourceName = "";            
+            string sourceName = "";
             if (thisSpellEffect == null)
             {
                 gv.sf.MessageBoxHtml("EffectTag: " + thisSpell.spellEffectTag + " does not exist in this module. Abort spell cast.");
@@ -6748,7 +6782,7 @@ namespace IceBlink2mini
                             }
                             //Do floaty text heal
                             //gv.screenCombat.floatyTextOn = true;
-                            
+
                             #endregion
                         }
                         if (thisSpellEffect.doBuff)
@@ -6985,7 +7019,7 @@ namespace IceBlink2mini
                                 }
                                 //Do floaty text heal
                                 //gv.screenCombat.floatyTextOn = true;
-                                
+
                             }
                             #endregion
                         }
@@ -7066,29 +7100,8 @@ namespace IceBlink2mini
                 }
                 #endregion
             }
-
-            #region remove dead creatures            
-            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
-            {
-                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
-                {
-                    try
-                    {
-                        //do OnDeath IBScript
-                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
-                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
-                    }
-                    catch (Exception ex)
-                    {
-                        gv.errorLog(ex.ToString());
-                    }
-                }
-            }*/
-            #endregion
-
-//            gv.postDelayed("doFloatyText", 100);
         }
+
         public void trGeneric(Trait thisTrait, object src, object trg, bool outsideCombat)
         {
             //Effect thisTraitEffect = gv.mod.getEffectByTag(thisTrait.traitEffectTagList[0].tag);

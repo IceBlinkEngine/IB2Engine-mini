@@ -817,6 +817,10 @@ namespace IceBlink2mini
         }        
         public void redrawMain()
         {
+            if (gv.mod.currentArea.Layer1Filename.Count == 0)
+            {
+                return;
+            }
             setExplored();
             if (!gv.mod.currentArea.areaDark)
             {

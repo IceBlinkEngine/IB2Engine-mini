@@ -61,6 +61,12 @@ namespace IceBlink2mini
 		    copy.spellScript = this.spellScript;
             copy.spellEffectTag = this.spellEffectTag;
 
+            copy.spellEffectTagList = new List<EffectTagForDropDownList>();
+            foreach (EffectTagForDropDownList s in this.spellEffectTagList)
+            {
+                copy.spellEffectTagList.Add(s);
+            }
+
             copy.removeEffectTagList = new List<EffectTagForDropDownList>();
             foreach (EffectTagForDropDownList s in this.removeEffectTagList)
             {

@@ -3021,6 +3021,11 @@ namespace IceBlink2mini
                 gv.sf.spGeneric(spell, source, target, outsideCombat);
             }
 
+            else if (spell.spellEffectTagList.Count > 0)
+            {
+                gv.sf.spGeneric(spell, source, target, outsideCombat);
+            }
+
             //WIZARD SPELLS
             else if (spell.spellScript.Equals("spDimensionDoor"))
             {

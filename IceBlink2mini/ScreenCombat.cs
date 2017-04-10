@@ -3332,6 +3332,10 @@ namespace IceBlink2mini
         #region Combat Draw
         public void redrawCombat()
         {
+            if (gv.mod.currentEncounter.Layer1Filename.Count == 0)
+            {
+                return;
+            }
             drawCombatMap();
             drawProps();
             drawEffectSquares();
