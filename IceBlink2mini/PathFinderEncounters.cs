@@ -250,6 +250,235 @@ namespace IceBlink2mini
             }
             return newPoint;
         }
+        //called from outside to setup path nodes list
+        public void setupPathNodes(Creature crt, Coordinate end)
+        {
+            pathNodes.Clear();
+            foundEnd = false;
+            Coordinate newPoint = new Coordinate(-1, -1);
+            //set start value to 0
+            values[crt.combatLocX, crt.combatLocY] = 0;
+            foreach (Creature cr in mod.currentEncounter.encounterCreatureList)
+            {
+                if (cr != crt)
+                {
+                    //block all squares that are made up by all creatures cr (and squares based on their size)
+                    //also if crt is large, block squares around cr as needed                    
+                    int crSize = gv.cc.getCreatureSize(cr.cr_tokenFilename); //1=normal, 2=wide, 3=tall, 4=large
+                    int crtSize = gv.cc.getCreatureSize(crt.cr_tokenFilename); //1=normal, 2=wide, 3=tall, 4=large
+                    #region cr normal
+                    if (crSize == 1)
+                    {
+                        grid[cr.combatLocX, cr.combatLocY] = 1;
+                        //crt wide
+                        if (crtSize == 2)
+                        {
+                            if (cr.combatLocX > 0)
+                            {
+                                grid[cr.combatLocX - 1, cr.combatLocY] = 1;
+                            }
+                        }
+                        //crt tall
+                        if (crtSize == 3)
+                        {
+                            if (cr.combatLocY > 0)
+                            {
+                                grid[cr.combatLocX, cr.combatLocY - 1] = 1;
+                            }
+                        }
+                        //crt large
+                        if (crtSize == 4)
+                        {
+                            if (cr.combatLocX > 0)
+                            {
+                                grid[cr.combatLocX - 1, cr.combatLocY] = 1;
+                            }
+                            if (cr.combatLocY > 0)
+                            {
+                                grid[cr.combatLocX, cr.combatLocY - 1] = 1;
+                            }
+                            if ((cr.combatLocX > 0) && (cr.combatLocY > 0))
+                            {
+                                grid[cr.combatLocX - 1, cr.combatLocY - 1] = 1;
+                            }
+                        }
+                    }
+                    #endregion
+                    #region cr wide
+                    else if (crSize == 2)
+                    {
+                        grid[cr.combatLocX, cr.combatLocY] = 1;
+                        grid[cr.combatLocX + 1, cr.combatLocY] = 1;
+                        //crt wide
+                        if (crtSize == 2)
+                        {
+                            if (cr.combatLocX > 0)
+                            {
+                                grid[cr.combatLocX - 1, cr.combatLocY] = 1;
+                            }
+                        }
+                        //crt tall
+                        if (crtSize == 3)
+                        {
+                            if (cr.combatLocY > 0)
+                            {
+                                grid[cr.combatLocX, cr.combatLocY - 1] = 1;
+                                grid[cr.combatLocX + 1, cr.combatLocY - 1] = 1;
+                            }
+                        }
+                        //crt large
+                        if (crtSize == 4)
+                        {
+                            if (cr.combatLocX > 0)
+                            {
+                                grid[cr.combatLocX - 1, cr.combatLocY] = 1;
+                            }
+                            if (cr.combatLocY > 0)
+                            {
+                                grid[cr.combatLocX, cr.combatLocY - 1] = 1;
+                                grid[cr.combatLocX + 1, cr.combatLocY - 1] = 1;
+                            }
+                            if ((cr.combatLocX > 0) && (cr.combatLocY > 0))
+                            {
+                                grid[cr.combatLocX - 1, cr.combatLocY - 1] = 1;
+                            }
+                        }
+                    }
+                    #endregion
+                    #region cr tall
+                    else if (crSize == 3)
+                    {
+                        grid[cr.combatLocX, cr.combatLocY] = 1;
+                        grid[cr.combatLocX, cr.combatLocY + 1] = 1;
+                        //crt wide
+                        if (crtSize == 2)
+                        {
+                            if (cr.combatLocX > 0)
+                            {
+                                grid[cr.combatLocX - 1, cr.combatLocY] = 1;
+                                grid[cr.combatLocX - 1, cr.combatLocY + 1] = 1;
+                            }
+                        }
+                        //crt tall
+                        if (crtSize == 3)
+                        {
+                            if (cr.combatLocY > 0)
+                            {
+                                grid[cr.combatLocX, cr.combatLocY - 1] = 1;
+                            }
+                        }
+                        //crt large
+                        if (crtSize == 4)
+                        {
+                            if (cr.combatLocX > 0)
+                            {
+                                grid[cr.combatLocX - 1, cr.combatLocY] = 1;
+                                grid[cr.combatLocX - 1, cr.combatLocY + 1] = 1;
+                            }
+                            if (cr.combatLocY > 0)
+                            {
+                                grid[cr.combatLocX, cr.combatLocY - 1] = 1;
+                            }
+                            if ((cr.combatLocX > 0) && (cr.combatLocY > 0))
+                            {
+                                grid[cr.combatLocX - 1, cr.combatLocY - 1] = 1;
+                            }
+                        }
+                    }
+                    #endregion
+                    #region cr large
+                    else if (crSize == 4)
+                    {
+                        grid[cr.combatLocX, cr.combatLocY] = 1;
+                        grid[cr.combatLocX + 1, cr.combatLocY] = 1;
+                        grid[cr.combatLocX, cr.combatLocY + 1] = 1;
+                        grid[cr.combatLocX + 1, cr.combatLocY + 1] = 1;
+                        //crt wide
+                        if (crtSize == 2)
+                        {
+                            if (cr.combatLocX > 0)
+                            {
+                                grid[cr.combatLocX - 1, cr.combatLocY] = 1;
+                                grid[cr.combatLocX - 1, cr.combatLocY + 1] = 1;
+                            }
+                        }
+                        //crt tall
+                        if (crtSize == 3)
+                        {
+                            if (cr.combatLocY > 0)
+                            {
+                                grid[cr.combatLocX, cr.combatLocY - 1] = 1;
+                                grid[cr.combatLocX + 1, cr.combatLocY - 1] = 1;
+                            }
+                        }
+                        //crt large
+                        if (crtSize == 4)
+                        {
+                            if (cr.combatLocX > 0)
+                            {
+                                grid[cr.combatLocX - 1, cr.combatLocY] = 1;
+                                grid[cr.combatLocX - 1, cr.combatLocY + 1] = 1;
+                            }
+                            if (cr.combatLocY > 0)
+                            {
+                                grid[cr.combatLocX, cr.combatLocY - 1] = 1;
+                                grid[cr.combatLocX + 1, cr.combatLocY - 1] = 1;
+                            }
+                            if ((cr.combatLocX > 0) && (cr.combatLocY > 0))
+                            {
+                                grid[cr.combatLocX - 1, cr.combatLocY - 1] = 1;
+                            }
+                        }
+                    }
+                    #endregion
+                }
+            }
+            foreach (Player p in mod.playerList)
+            {
+                if (p.isAlive())
+                {
+                    grid[p.combatLocX, p.combatLocY] = 1;
+                }
+            }
+
+            //find all props that have collision and set there square to 1
+            /*TODO add props to encounters
+            foreach (Prop prp in mod.currentEncounter.Props)
+            {
+        	    if  ( ((prp.HasCollision) && (prp.isActive)) || ((prp.isMover) && (prp.isActive)) )
+        	    {
+        		    grid[prp.LocationX,prp.LocationY] = 1;
+        	    }
+            }*/
+            grid[crt.combatLocX, crt.combatLocY] = 2; //2 marks the start point in the grid
+
+            if (grid[end.X, end.Y] != 0)
+            {
+                //ending point is a wall or PC or creature square...skip this square target
+                return;
+            }
+            grid[end.X, end.Y] = 3; //3 marks the end point in the grid            
+            buildPath();
+
+            if (!foundEnd)
+            {
+                //do not build path for now so return (-1,-1), later add code for picking a spot to move
+            }
+            else
+            {
+                pathNodes.Add(new Coordinate(end.X, end.Y));
+                for (int i = 0; i < 9999; i++) //keep going until full path back to crt is built
+                {
+                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1]));
+                    if ((pathNodes[pathNodes.Count - 1].X == crt.combatLocX) && (pathNodes[pathNodes.Count - 1].Y == crt.combatLocY))
+                    {
+                        break;
+                    }
+                }
+                //build list of path points
+                newPoint = pathNodes[pathNodes.Count - 2];
+            }
+        }
         //called from outside to reset grid
         public void resetGrid(Creature crt)
         {

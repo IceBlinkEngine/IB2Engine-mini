@@ -2132,6 +2132,7 @@ namespace IceBlink2mini
             //do onStartTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
             creatureMoves = 0;
+            pf.pathNodes.Clear();
             doCreatureNextAction();
         }
         public void doCreatureNextAction()
@@ -2201,91 +2202,216 @@ namespace IceBlink2mini
             Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
             if (creatureMoves + 0.5f < crt.getterMoveDistance())
             {
-                Player pc = targetClosestPC(crt);
-                //run pathFinder to get new location
-                if (pc != null)
+                //if the path list is empty, create a list
+                if (pf.pathNodes.Count == 0)
                 {
-                    pf.resetGrid(crt);
-                    Coordinate newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
-                    if ((newCoor.X == -1) && (newCoor.Y == -1))
+                    //else just go to next square in list
+                    Player pc = targetClosestPC(crt);
+                    //run pathFinder to get new location
+                    if (pc != null)
                     {
-                        //didn't find a path, try other PCs
-                        bool foundOne = false;
-                        //try each PC
-                        for (int d = 0; d < gv.mod.playerList.Count; d++)
+                        pf.resetGrid(crt);
+                        pf.setupPathNodes(crt, new Coordinate(pc.combatLocX, pc.combatLocY));                        
+                        //Coordinate newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
+                        if (pf.pathNodes.Count == 0)
                         {
-                            if ((gv.mod.playerList[d].isAlive()) && (!gv.mod.playerList[d].steathModeOn) && (!gv.mod.playerList[d].isInvisible()))
+                            #region didn't find a path, try other PCs or give up and return
+                            bool foundOne = false;
+                            //try each PC
+                            for (int d = 0; d < gv.mod.playerList.Count; d++)
                             {
-                                pf.resetGrid(crt);
-                                newCoor = pf.findNewPoint(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY));
-                                if ((newCoor.X == -1) && (newCoor.Y == -1))
+                                #region try each
+                                if ((gv.mod.playerList[d].isAlive()) && (!gv.mod.playerList[d].steathModeOn) && (!gv.mod.playerList[d].isInvisible()))
                                 {
-                                    //didn't find a path so keep searching
-                                }
-                                else
-                                {
-                                    if (gv.mod.debugMode)
+                                    pf.resetGrid(crt);
+                                    pf.setupPathNodes(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY));
+                                    //newCoor = pf.findNewPoint(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY));
+                                    if (pf.pathNodes.Count == 0)
                                     {
-                                        gv.cc.addLogText("<yl>player " + d + ":" + newCoor.X + "," + newCoor.Y + "</yl><BR>");
+                                        //didn't find a path so keep searching
                                     }
-                                    //found a path so break
-                                    foundOne = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (!foundOne)
-                        {
-                            //try around the nearest PC
-                            int closestDist = 999;
-                            for (int j = 1; j < 5; j++) //used for radius around PC
-                            {
-                                for (int x = -j; x <= j; x++)
-                                {
-                                    for (int y = -j; y <= j; y++)
+                                    else
                                     {
-                                        if (isSquareOnCombatMap(pc.combatLocX + x, pc.combatLocY + y))
+                                        if (gv.mod.debugMode)
                                         {
-                                            pf.resetGrid(crt);
-                                            Coordinate testCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX + x, pc.combatLocY + y));
-                                            if ((testCoor.X == -1) && (testCoor.Y == -1))
+                                            gv.cc.addLogText("<yl>player " + d + ":" + pf.pathNodes[pf.pathNodes.Count - 2].X + "," + pf.pathNodes[pf.pathNodes.Count - 2].Y + "</yl><BR>");
+                                        }
+                                        //found a path so break
+                                        foundOne = true;
+                                        break;
+                                    }
+                                }
+                                #endregion
+                            }
+                            if (!foundOne)
+                            {
+                                #region try around the nearest PC
+                                int closestDist = 999;
+                                for (int j = 1; j < 5; j++) //used for radius around PC
+                                {
+                                    for (int x = -j; x <= j; x++)
+                                    {
+                                        for (int y = -j; y <= j; y++)
+                                        {
+                                            if (isSquareOnCombatMap(pc.combatLocX + x, pc.combatLocY + y))
                                             {
-                                                //didn't find a path so keep searching
-                                            }
-                                            else
-                                            {
-                                                //found a path so check if closer distance
-                                                int dist = getDistance(new Coordinate(pc.combatLocX + x, pc.combatLocY + y), new Coordinate(crt.combatLocX, crt.combatLocY));
-                                                if (dist < closestDist)
+                                                pf.resetGrid(crt);
+                                                pf.setupPathNodes(crt, new Coordinate(pc.combatLocX + x, pc.combatLocY + y));
+                                                //Coordinate testCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX + x, pc.combatLocY + y));
+                                                if (pf.pathNodes.Count == 0)
                                                 {
-                                                    closestDist = dist;
-                                                    newCoor.X = testCoor.X;
-                                                    newCoor.Y = testCoor.Y;
-                                                    foundOne = true;
-                                                    if (gv.mod.debugMode)
+                                                    //didn't find a path so keep searching
+                                                }
+                                                else
+                                                {
+                                                    //found a path so check if closer distance
+                                                    int dist = getDistance(new Coordinate(pc.combatLocX + x, pc.combatLocY + y), new Coordinate(crt.combatLocX, crt.combatLocY));
+                                                    if (dist < closestDist)
                                                     {
-                                                        gv.cc.addLogText("<yl>dist: " + dist + " coor:" + newCoor.X + "," + newCoor.Y + "</yl><BR>");
+                                                        closestDist = dist;
+                                                        //pf.pathNodes[pf.pathNodes.Count - 2].X = testCoor.X;
+                                                        //pf.pathNodes[pf.pathNodes.Count - 2].Y = testCoor.Y;
+                                                        foundOne = true;
+                                                        if (gv.mod.debugMode)
+                                                        {
+                                                            gv.cc.addLogText("<yl>dist: " + dist + " coor:" + pf.pathNodes[pf.pathNodes.Count - 2].X + "," + pf.pathNodes[pf.pathNodes.Count - 2].Y + "</yl><BR>");
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
                                 }
+                                #endregion
+                            }
+                            if (!foundOne)
+                            {
+                                //give up and end
+                                gv.Render();
+                                endCreatureTurn();
+                                return;
+                            }
+                            #endregion
+                        }
+
+                        pf.pathNodes.RemoveAt(pf.pathNodes.Count - 1);
+                        Coordinate newCoor = new Coordinate(pf.pathNodes[pf.pathNodes.Count - 1].X, pf.pathNodes[pf.pathNodes.Count - 1].Y);
+                        pf.pathNodes.RemoveAt(pf.pathNodes.Count - 1);
+
+                        if (gv.mod.debugMode)
+                        {
+                            gv.cc.addLogText("<yl>newCoor:" + newCoor.X + "," + newCoor.Y + "</yl><BR>");
+                        }
+                        #region it's a diagonal move
+                        if ((crt.combatLocX != newCoor.X) && (crt.combatLocY != newCoor.Y))
+                        {
+                            //enough  move points availbale to do the diagonal move
+                            if ((crt.getterMoveDistance() - creatureMoves) >= gv.mod.diagonalMoveCost)
+                            {
+                                if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                                {
+                                    crt.combatFacingLeft = true;
+                                }
+                                else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                                {
+                                    crt.combatFacingLeft = false;
+                                }
+                                //CHANGE FACING BASED ON MOVE
+                                doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
+                                moveCost = gv.mod.diagonalMoveCost;
+                                crt.combatLocX = newCoor.X;
+                                crt.combatLocY = newCoor.Y;
+                                canMove = false;
+                                animationState = AnimationState.CreatureMove;
+                                gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
+
+                            }
+
+                            //try to move horizontally or vertically instead if most points are not enough for diagonal move
+                            else if ((crt.getterMoveDistance() - creatureMoves) >= 1)
+                            {
+                                //don't move horizontally/vertically, just give up
+                                gv.Render();
+                                endCreatureTurn();
+                                return;
+
+                                pf.resetGrid(crt);
+                                //block the originial diagonal target square and calculate again
+                                newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
+                                if ((newCoor.X == -1) && (newCoor.Y == -1))
+                                {
+                                    //didn't find a path, don't move
+                                    gv.Render();
+                                    endCreatureTurn();
+                                    return;
+                                }
+                                if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                                {
+                                    crt.combatFacingLeft = true;
+                                }
+                                else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                                {
+                                    crt.combatFacingLeft = false;
+                                }
+                                //CHANGE FACING BASED ON MOVE
+                                doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
+                                moveCost = 1;
+                                crt.combatLocX = newCoor.X;
+                                crt.combatLocY = newCoor.Y;
+                                canMove = false;
+                                animationState = AnimationState.CreatureMove;
+                                gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
+
+                            }
+                            //less than one move point, no move
+                            else
+                            {
+                                canMove = false;
+                                animationState = AnimationState.CreatureMove;
+                                gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
+
                             }
                         }
-                        if (!foundOne)
+                        #endregion
+                        #region it's a horizontal or vertical move
+                        else
                         {
-                            //give up and end
-                            gv.Render();
-                            endCreatureTurn();
-                            return;
-                        }                        
+                            if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                            {
+                                crt.combatFacingLeft = true;
+                            }
+                            else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                            {
+                                crt.combatFacingLeft = false;
+                            }
+                            //CHANGE FACING BASED ON MOVE
+                            doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
+                            crt.combatLocX = newCoor.X;
+                            crt.combatLocY = newCoor.Y;
+                            canMove = false;
+                            animationState = AnimationState.CreatureMove;
+                            gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
+
+                        }
+                        #endregion
                     }
+                    else //no target found
+                    {
+                        gv.Render();
+                        endCreatureTurn();
+                        return;
+                    }
+                }
+                else //just use the next square in the list
+                {
+                    Coordinate newCoor = new Coordinate(pf.pathNodes[pf.pathNodes.Count - 1].X, pf.pathNodes[pf.pathNodes.Count - 1].Y);
+                    //remove the current node from list since we are moving there and are queueing up the next node for the next move
+                    pf.pathNodes.RemoveAt(pf.pathNodes.Count - 1);
                     if (gv.mod.debugMode)
                     {
                         gv.cc.addLogText("<yl>newCoor:" + newCoor.X + "," + newCoor.Y + "</yl><BR>");
                     }
-                    //it's a diagonal move
+                    #region it's a diagonal move
                     if ((crt.combatLocX != newCoor.X) && (crt.combatLocY != newCoor.Y))
                     {
                         //enough  move points availbale to do the diagonal move
@@ -2307,9 +2433,7 @@ namespace IceBlink2mini
                             canMove = false;
                             animationState = AnimationState.CreatureMove;
                             gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
-
                         }
-
                         //try to move horizontally or vertically instead if most points are not enough for diagonal move
                         else if ((crt.getterMoveDistance() - creatureMoves) >= 1)
                         {
@@ -2317,34 +2441,6 @@ namespace IceBlink2mini
                             gv.Render();
                             endCreatureTurn();
                             return;
-                            
-                            pf.resetGrid(crt);
-                            //block the originial diagonal target square and calculate again
-                            newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
-                            if ((newCoor.X == -1) && (newCoor.Y == -1))
-                            {
-                                //didn't find a path, don't move
-                                gv.Render();
-                                endCreatureTurn();
-                                return;
-                            }
-                            if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
-                            {
-                                crt.combatFacingLeft = true;
-                            }
-                            else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
-                            {
-                                crt.combatFacingLeft = false;
-                            }
-                            //CHANGE FACING BASED ON MOVE
-                            doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
-                            moveCost = 1;
-                            crt.combatLocX = newCoor.X;
-                            crt.combatLocY = newCoor.Y;
-                            canMove = false;
-                            animationState = AnimationState.CreatureMove;
-                            gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
-                            
                         }
                         //less than one move point, no move
                         else
@@ -2355,7 +2451,8 @@ namespace IceBlink2mini
 
                         }
                     }
-                    //it's a horizontal or vertical move
+                    #endregion
+                    #region it's a horizontal or vertical move
                     else
                     {
                         if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
@@ -2373,14 +2470,8 @@ namespace IceBlink2mini
                         canMove = false;
                         animationState = AnimationState.CreatureMove;
                         gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
-
                     }
-                }
-                else //no target found
-                {
-                    gv.Render();
-                    endCreatureTurn();
-                    return;
+                    #endregion
                 }
             }
             //less than a move point left, no move
