@@ -250,6 +250,7 @@ namespace IceBlink2mini
             }
             return newPoint;
         }
+        
         //called from outside to setup path nodes list
         public void setupPathNodes(Creature crt, Coordinate end)
         {
@@ -455,7 +456,7 @@ namespace IceBlink2mini
             if (grid[end.X, end.Y] != 0)
             {
                 //ending point is a wall or PC or creature square...skip this square target
-                return;
+                //return;
             }
             grid[end.X, end.Y] = 3; //3 marks the end point in the grid            
             buildPath();
@@ -479,6 +480,7 @@ namespace IceBlink2mini
                 newPoint = pathNodes[pathNodes.Count - 2];
             }
         }
+        
         //called from outside to reset grid
         public void resetGrid(Creature crt)
         {
@@ -544,6 +546,8 @@ namespace IceBlink2mini
                 }
             }
         }
+        
+        //helper functions
         public void buildPath()
         {
             //iterate through all values for next number and evaluate neighbors
