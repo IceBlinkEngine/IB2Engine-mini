@@ -2345,9 +2345,9 @@ namespace IceBlink2mini
                             else if ((crt.getterMoveDistance() - creatureMoves) >= 1)
                             {
                                 //don't move horizontally/vertically, just give up
-                                gv.Render();
-                                endCreatureTurn();
-                                return;
+                                //gv.Render();
+                                //endCreatureTurn();
+                                //return;
 
                                 pf.resetGrid(crt);
                                 //block the originial diagonal target square and calculate again
@@ -3804,7 +3804,7 @@ namespace IceBlink2mini
                     {
                         if (pf.values[x, y] != 9999)
                         {
-                            gv.DrawText(pf.values[x, y].ToString(), x * (int)(gv.squareSize * sqrScale) + mapStartLocXinPixels, y * (int)(gv.squareSize * sqrScale), "wh");
+                            gv.DrawText(pf.values[x, y].ToString(), x * (int)(gv.squareSize * sqrScale) + mapStartLocXinPixels + (int)((gv.squareSize * sqrScale) / 2), y * (int)(gv.squareSize * sqrScale) + (int)((gv.squareSize * sqrScale) / 2), "gy");
                         }
                     }
                 }

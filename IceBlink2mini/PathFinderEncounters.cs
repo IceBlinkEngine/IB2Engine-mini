@@ -439,6 +439,39 @@ namespace IceBlink2mini
                 if (p.isAlive())
                 {
                     grid[p.combatLocX, p.combatLocY] = 1;
+                    int crt3Size = gv.cc.getCreatureSize(crt.cr_tokenFilename); //1=normal, 2=wide, 3=tall, 4=large
+                                                                                //crt wide
+                    if (crt3Size == 2)
+                    {
+                        if (p.combatLocX > 0)
+                        {
+                            grid[p.combatLocX - 1, p.combatLocY] = 1;
+                        }
+                    }
+                    //crt tall
+                    if (crt3Size == 3)
+                    {
+                        if (p.combatLocY > 0)
+                        {
+                            grid[p.combatLocX, p.combatLocY - 1] = 1;
+                        }
+                    }
+                    //crt large
+                    if (crt3Size == 4)
+                    {
+                        if (p.combatLocX > 0)
+                        {
+                            grid[p.combatLocX - 1, p.combatLocY] = 1;
+                        }
+                        if (p.combatLocY > 0)
+                        {
+                            grid[p.combatLocX, p.combatLocY - 1] = 1;
+                        }
+                        if ((p.combatLocX > 0) && (p.combatLocY > 0))
+                        {
+                            grid[p.combatLocX - 1, p.combatLocY - 1] = 1;
+                        }
+                    }
                 }
             }
 

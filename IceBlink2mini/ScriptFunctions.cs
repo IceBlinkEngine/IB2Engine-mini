@@ -6442,45 +6442,45 @@ namespace IceBlink2mini
             int startY2 = 0;
             if (src is Player)
             {
-                startX2 = gv.screenCombat.targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
-                startY2 = gv.screenCombat.targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+                startX2 = (int)(gv.screenCombat.targetHighlightCenterLocation.X * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
+                startY2 = (int)(gv.screenCombat.targetHighlightCenterLocation.Y * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
             }
             else if (src is Item)
             {
-                startX2 = gv.screenCombat.targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
-                startY2 = gv.screenCombat.targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+                startX2 = (int)(gv.screenCombat.targetHighlightCenterLocation.X * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
+                startY2 = (int)(gv.screenCombat.targetHighlightCenterLocation.Y * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
             }
             else if (src is Coordinate) //called from a prop or trigger
             {
-                startX2 = gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX * gv.squareSize + (gv.squareSize / 2);
-                startY2 = gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX * gv.squareSize + (gv.squareSize / 2);
+                startX2 = (int)(gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
+                startY2 = (int)(gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
             }
             else if (src is Creature) //source is a Creature
             {
                 if (trg is Player)
                 {
                     Player pcs = (Player)trg;
-                    startX2 = pcs.combatLocX * gv.squareSize + (gv.squareSize / 2);
-                    startY2 = pcs.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                    startX2 = (int)(pcs.combatLocX * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
+                    startY2 = (int)(pcs.combatLocY * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
                 }
                 else if (trg is Creature)
                 {
                     Creature crts = (Creature)trg;
-                    startX2 = crts.combatLocX * gv.squareSize + (gv.squareSize / 2);
-                    startY2 = crts.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                    startX2 = (int)(crts.combatLocX * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
+                    startY2 = (int)(crts.combatLocY * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
                 }
                 else if (trg is Coordinate)
                 {
                     Coordinate pnt = (Coordinate)gv.sf.CombatTarget;
-                    startX2 = pnt.X * gv.squareSize + (gv.squareSize / 2);
-                    startY2 = pnt.Y * gv.squareSize + (gv.squareSize / 2);
+                    startX2 = (int)(pnt.X * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
+                    startY2 = (int)(pnt.Y * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
                 }
             }
 
             foreach (Coordinate coor in AoeSquaresList)
             {
-                int endX2 = coor.X * gv.squareSize + (gv.squareSize / 2);
-                int endY2 = coor.Y * gv.squareSize + (gv.squareSize / 2);
+                int endX2 = (int)(coor.X * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
+                int endY2 = (int)(coor.Y * gv.squareSize * gv.screenCombat.sqrScale + (gv.squareSize * gv.screenCombat.sqrScale / 2));
                 
                 if (gv.screenCombat.isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2)))
                 {
