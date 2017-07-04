@@ -45,11 +45,11 @@ namespace IceBlink2mini
         public List<Item> moduleItemsList = new List<Item>();            
         public List<Creature> moduleCreaturesList = new List<Creature>();
         public List<JournalQuest> moduleJournal = new List<JournalQuest>();
-        public List<PlayerClass> modulePlayerClassList = new List<PlayerClass>();
-        public List<Race> moduleRacesList = new List<Race>();
-        public List<Spell> moduleSpellsList = new List<Spell>();
-        public List<Trait> moduleTraitsList = new List<Trait>();
-        public List<Effect> moduleEffectsList = new List<Effect>();       
+        //public List<PlayerClass> modulePlayerClassList = new List<PlayerClass>();
+        //public List<Race> moduleRacesList = new List<Race>();
+        //public List<Spell> moduleSpellsList = new List<Spell>();
+        //public List<Trait> moduleTraitsList = new List<Trait>();
+        //public List<Effect> moduleEffectsList = new List<Effect>();       
         public List<IBScript> moduleIBScriptList = new List<IBScript>();
 
         [JsonIgnore]
@@ -170,22 +170,22 @@ namespace IceBlink2mini
             }
             return null;
         }
-        public Item getItemByTag(string tag)
+        /*public Item getItemByTag(string tag)
         {
             foreach (Item it in this.moduleItemsList)
             {
                 if (it.tag.Equals(tag)) return it;
             }
             return null;
-        }
-        public Item getItemByResRef(string resref)
+        }*/
+        /*public Item getItemByResRef(string resref)
         {
             foreach (Item it in this.moduleItemsList)
             {
                 if (it.resref.Equals(resref)) return it;
             }
             return null;
-        }
+        }*/
         public ItemRefs getItemRefsInInventoryByResRef(string resref)
         {
             foreach (ItemRefs itr in this.partyInventoryRefsList)
@@ -194,14 +194,14 @@ namespace IceBlink2mini
             }
             return null;
         }
-        public Item getItemByResRefForInfo(string resref)
+        /*public Item getItemByResRefForInfo(string resref)
         {
             foreach (Item it in this.moduleItemsList)
             {
                 if (it.resref.Equals(resref)) return it;
             }
             return new Item();
-        }
+        }*/
         public ItemRefs createItemRefsFromItem(Item it)
         {
             ItemRefs newIR = new ItemRefs();
@@ -252,46 +252,46 @@ namespace IceBlink2mini
             }
             return null;
         }
-        public Spell getSpellByTag(string tag)
+        /*public Spell getSpellByTag(string tag)
         {
             foreach (Spell s in this.moduleSpellsList)
             {
                 if (s.tag.Equals(tag)) return s;
             }
             return null;
-        }
-        public Trait getTraitByTag(string tag)
+        }*/
+        /*public Trait getTraitByTag(string tag)
         {
             foreach (Trait t in this.moduleTraitsList)
             {
                 if (t.tag.Equals(tag)) return t;
             }
             return null;
-        }        
-        public Effect getEffectByTag(string tag)
+        } */       
+        /*public Effect getEffectByTag(string tag)
         {
             foreach (Effect ef in this.moduleEffectsList)
             {
                 if (ef.tag.Equals(tag)) return ef;
             }
             return null;
-        }
-        public PlayerClass getPlayerClass(string tag)
+        }*/
+        /*public PlayerClass getPlayerClass(string tag)
         {
             foreach (PlayerClass p in this.modulePlayerClassList)
             {
                 if (p.tag.Equals(tag)) return p;
             }
             return null;
-        }
-        public Race getRace(string tag)
+        }*/
+        /*public Race getRace(string tag)
         {
             foreach (Race r in this.moduleRacesList)
             {
                 if (r.tag.Equals(tag)) return r;
             }
             return null;
-        }
+        }*/
         public IBScript getIBScriptByName(string name)
         {
             foreach (IBScript t in this.moduleIBScriptList)

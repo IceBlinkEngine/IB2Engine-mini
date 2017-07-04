@@ -102,7 +102,7 @@ namespace IceBlink2mini
                 if (cntSlot < pc.playerClass.traitsAllowed.Count)
                 {
                     TraitAllowed ta = pc.playerClass.traitsAllowed[cntSlot];
-                    Trait tr = gv.mod.getTraitByTag(ta.tag);
+                    Trait tr = gv.cc.getTraitByTag(ta.tag);
 
                     btn.Img2 = tr.traitImage;
                     btn.Img2Off = tr.traitImage + "_off";
@@ -478,7 +478,7 @@ namespace IceBlink2mini
                                         }
                                     }
 
-                                    gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, gv.mod.getPlayerClass(getTraitUsingPlayer().classTag).spellLabelSingular + " Target", "traituseselectortraittarget");
+                                    gv.itemListSelector.setupIBminiItemListSelector(gv, pcNames, gv.cc.getPlayerClass(getTraitUsingPlayer().classTag).spellLabelSingular + " Target", "traituseselectortraittarget");
                                     gv.itemListSelector.showIBminiItemListSelector = true;
                                 }
                             }
@@ -522,7 +522,7 @@ namespace IceBlink2mini
         public Trait GetCurrentlySelectedTrait()
         {
             TraitAllowed ta = getTraitUsingPlayer().playerClass.traitsAllowed[traitSlotIndex];
-            return gv.mod.getTraitByTag(ta.tag);
+            return gv.cc.getTraitByTag(ta.tag);
         }
         public bool isSelectedTraitSlotInKnownTraitsRange()
         {

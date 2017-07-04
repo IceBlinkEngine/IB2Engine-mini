@@ -6677,23 +6677,23 @@ namespace IceBlink2mini
                     }
                     else if (parm.EndsWith("SizeOfModulePlayerClassLists"))
                     {
-                        return gv.mod.modulePlayerClassList.Count.ToString();
+                        return gv.cc.datafile.dataPlayerClassList.Count.ToString();
                     }
                     else if (parm.EndsWith("SizeOfModuleRacesList"))
                     {
-                        return gv.mod.moduleRacesList.Count.ToString();
+                        return gv.cc.datafile.dataRacesList.Count.ToString();
                     }
                     else if (parm.EndsWith("SizeOfModuleSpellsList"))
                     {
-                        return gv.mod.moduleSpellsList.Count.ToString();
+                        return gv.cc.datafile.dataSpellsList.Count.ToString();
                     }
                     else if (parm.EndsWith("SizeOfModuleTraitsList"))
                     {
-                        return gv.mod.moduleTraitsList.Count.ToString();
+                        return gv.cc.datafile.dataTraitsList.Count.ToString();
                     }
                     else if (parm.EndsWith("SizeOfModuleEffectsList"))
                     {
-                        return gv.mod.moduleEffectsList.Count.ToString();
+                        return gv.cc.datafile.dataEffectsList.Count.ToString();
                     }
                     else if (parm.EndsWith("SizeOfModuleAreasList"))
                     {

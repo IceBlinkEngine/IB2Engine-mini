@@ -69,6 +69,10 @@ namespace IceBlink2mini
         public Dictionary<string, Bitmap> commonBitmapList = new Dictionary<string, Bitmap>();
         public Dictionary<string, Bitmap> moduleBitmapList = new Dictionary<string, Bitmap>();
         public Dictionary<string, System.Drawing.Bitmap> tileGDIBitmapList = new Dictionary<string, System.Drawing.Bitmap>();
+        public Data datafile = new Data();
+        public List<Item> allItemsList = new List<Item>();
+        public List<Creature> allCreaturesList = new List<Creature>();
+        public List<Prop> allPropsList = new List<Prop>();
 
         public Spell currentSelectedSpell = new Spell();
         public Trait currentSelectedTrait = new Trait();
@@ -691,7 +695,7 @@ namespace IceBlink2mini
                     updatedShop.shopItemRefs.Clear();
                     foreach (ItemRefs it in saveShp.shopItemRefs)
                     {
-                        Item newItem = gv.mod.getItemByResRef(it.resref);
+                        Item newItem = gv.cc.getItemByResRef(it.resref);
                         if (newItem != null)
                         {
                             updatedShop.shopItemRefs.Add(it.DeepCopy());
@@ -704,7 +708,7 @@ namespace IceBlink2mini
                         if (!saveShp.containsInitialItemWithResRef(itemRef.resref))
                         {
                             //item is not in the saved game initial container item list so add it to the container
-                            Item newItem = gv.mod.getItemByResRef(itemRef.resref);
+                            Item newItem = gv.cc.getItemByResRef(itemRef.resref);
                             if (newItem != null)
                             {
                                 updatedShop.shopItemRefs.Add(itemRef.DeepCopy());
@@ -803,7 +807,7 @@ namespace IceBlink2mini
                     foreach (ItemRefs it in saveCnt.containerItemRefs)
                     {
                         //check to see if item resref in save game container still exists in toolset
-                        Item newItem = gv.mod.getItemByResRef(it.resref);
+                        Item newItem = gv.cc.getItemByResRef(it.resref);
                         if (newItem != null)
                         {
                             updatedCont.containerItemRefs.Add(it.DeepCopy());
@@ -818,7 +822,7 @@ namespace IceBlink2mini
                         {
                             //item is not in the saved game initial container item list so add it to the container
                             //check to see if item resref in save game container still exists in toolset
-                            Item newItem = gv.mod.getItemByResRef(itemRef.resref);
+                            Item newItem = gv.cc.getItemByResRef(itemRef.resref);
                             if (newItem != null)
                             {
                                 updatedCont.containerItemRefs.Add(itemRef.DeepCopy());
@@ -835,9 +839,9 @@ namespace IceBlink2mini
         {
             foreach (Player pc in gv.mod.playerList)
             {
-                try { pc.race = gv.mod.getRace(pc.raceTag).DeepCopy(); }
+                try { pc.race = gv.cc.getRace(pc.raceTag).DeepCopy(); }
                 catch (Exception ex) { gv.errorLog(ex.ToString()); }
-                try { pc.playerClass = gv.mod.getPlayerClass(pc.classTag).DeepCopy(); }
+                try { pc.playerClass = gv.cc.getPlayerClass(pc.classTag).DeepCopy(); }
                 catch (Exception ex) { gv.errorLog(ex.ToString()); }
             }
         }
@@ -845,9 +849,9 @@ namespace IceBlink2mini
         {
             foreach (Player pc in gv.mod.partyRosterList)
             {
-                try { pc.race = gv.mod.getRace(pc.raceTag).DeepCopy(); }
+                try { pc.race = gv.cc.getRace(pc.raceTag).DeepCopy(); }
                 catch (Exception ex) { gv.errorLog(ex.ToString()); }
-                try { pc.playerClass = gv.mod.getPlayerClass(pc.classTag).DeepCopy(); }
+                try { pc.playerClass = gv.cc.getPlayerClass(pc.classTag).DeepCopy(); }
                 catch (Exception ex) { gv.errorLog(ex.ToString()); }
             }
         }
@@ -1108,6 +1112,55 @@ namespace IceBlink2mini
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to read Module for " + folderAndFilename + ": " + ex.ToString());
+            }
+
+            if (File.Exists("data.json"))
+            {
+                this.datafile = this.datafile.loadDataFile("data.json");
+            }
+            //ITEMS
+            allItemsList.Clear();
+            foreach (Item it in datafile.dataItemsList)
+            {
+                allItemsList.Add(it.DeepCopy());
+            }
+            foreach (Item it in gv.mod.moduleItemsList)
+            {
+                bool foundOne = false;
+                foreach (Item it2 in datafile.dataItemsList)
+                {
+                    if (it.resref == it2.resref)
+                    {
+                        foundOne = true;
+                    }
+                }
+                if (!foundOne)
+                {
+                    //it.moduleItem = true;
+                    allItemsList.Add(it.DeepCopy());
+                }
+            }
+            //CREATURES
+            allCreaturesList.Clear();
+            foreach (Creature it in datafile.dataCreaturesList)
+            {
+                allCreaturesList.Add(it.DeepCopy());
+            }
+            foreach (Creature it in gv.mod.moduleCreaturesList)
+            {
+                bool foundOne = false;
+                foreach (Creature it2 in this.datafile.dataCreaturesList)
+                {
+                    if (it.cr_resref == it2.cr_resref)
+                    {
+                        foundOne = true;
+                    }
+                }
+                if (!foundOne)
+                {
+                    //it.moduleCreature = true;
+                    allCreaturesList.Add(it.DeepCopy());
+                }
             }
 
             return toReturn;
@@ -1427,7 +1480,7 @@ namespace IceBlink2mini
             //foreach (ItemRefs itRef in gv.mod.partyInventoryRefsList)
             {
                 //code for capping number of rations and light sources
-                if ((gv.mod.getItemByResRef(gv.mod.partyInventoryRefsList[i].resref).isRation) && (gv.mod.numberOfRationsRemaining > gv.mod.maxNumberOfRationsAllowed))
+                if ((gv.cc.getItemByResRef(gv.mod.partyInventoryRefsList[i].resref).isRation) && (gv.mod.numberOfRationsRemaining > gv.mod.maxNumberOfRationsAllowed))
                 {
                     //gv.mod.numberOfRationsRemaining--;
                     gv.mod.numberOfRationsRemaining--;
@@ -1464,7 +1517,7 @@ namespace IceBlink2mini
                     bool foundRation = false;
                     foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
                     {
-                        if (gv.mod.getItemByResRef(it.resref).isRation)
+                        if (gv.cc.getItemByResRef(it.resref).isRation)
                         {
                             it.quantity--;
                             gv.mod.numberOfRationsRemaining--;
@@ -1509,7 +1562,7 @@ namespace IceBlink2mini
                     gv.mod.numberOfRationsRemaining = 0;
                     foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
                     {
-                        if (gv.mod.getItemByResRef(it.resref).isRation)
+                        if (gv.cc.getItemByResRef(it.resref).isRation)
                         {
                             gv.mod.numberOfRationsRemaining += it.quantity;
                         }
@@ -1531,7 +1584,7 @@ namespace IceBlink2mini
             gv.mod.numberOfRationsRemaining = 0;
             foreach (ItemRefs it in gv.mod.partyInventoryRefsList)
             {
-                if (gv.mod.getItemByResRef(it.resref).isRation)
+                if (gv.cc.getItemByResRef(it.resref).isRation)
                 {
                     //gv.mod.numberOfRationsRemaining = it.quantity;
                     if (it.quantity <= 1)
@@ -3154,7 +3207,7 @@ namespace IceBlink2mini
         }
         /*public void doItemScriptBasedOnUseItem(Player pc, ItemRefs itRef, bool destroyItemAfterUse)
         {
-            Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
+            Item it = gv.cc.getItemByResRefForInfo(itRef.resref);
             bool foundScript = false;
             if (it.onUseItem.Equals("itHealLight.cs"))
             {
@@ -3641,6 +3694,71 @@ namespace IceBlink2mini
                 }
             }
             return clr;
+        }
+
+        public Item getItemByTag(string tag)
+        {
+            foreach (Item it in this.allItemsList)
+            {
+                if (it.tag.Equals(tag)) return it;
+            }
+            return null;
+        }
+        public Item getItemByResRef(string resref)
+        {
+            foreach (Item it in this.allItemsList)
+            {
+                if (it.resref.Equals(resref)) return it;
+            }
+            return null;
+        }
+        public Item getItemByResRefForInfo(string resref)
+        {
+            foreach (Item it in this.allItemsList)
+            {
+                if (it.resref.Equals(resref)) return it;
+            }
+            return new Item();
+        }
+        public Spell getSpellByTag(string tag)
+        {
+            foreach (Spell s in this.datafile.dataSpellsList)
+            {
+                if (s.tag.Equals(tag)) return s;
+            }
+            return null;
+        }
+        public Trait getTraitByTag(string tag)
+        {
+            foreach (Trait t in this.datafile.dataTraitsList)
+            {
+                if (t.tag.Equals(tag)) return t;
+            }
+            return null;
+        }
+        public Effect getEffectByTag(string tag)
+        {
+            foreach (Effect ef in this.datafile.dataEffectsList)
+            {
+                if (ef.tag.Equals(tag)) return ef;
+            }
+            return null;
+        }
+        public PlayerClass getPlayerClass(string tag)
+        {
+            foreach (PlayerClass p in this.datafile.dataPlayerClassList)
+            {
+                if (p.tag.Equals(tag)) return p;
+            }
+            return null;
+        }
+        public Race getRace(string tag)
+        {
+            foreach (Race r in this.datafile.dataRacesList)
+            {
+                if (r.tag.Equals(tag)) return r;
+            }
+            return null;
         }
     }
 }

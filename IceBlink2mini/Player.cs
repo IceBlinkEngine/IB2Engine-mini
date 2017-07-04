@@ -288,7 +288,7 @@ namespace IceBlink2mini
             if (this.learningSpellsTags.Contains(sa.tag)) { return true; }
             return false;
         }
-	    public List<string> getTraitsToLearn(Module mod)
+	    public List<string> getTraitsToLearn(GameView gv)
 	    {
 		    List<string> traitTagsList = new List<string>();
 		    foreach (TraitAllowed ta in this.playerClass.traitsAllowed)
@@ -300,7 +300,7 @@ namespace IceBlink2mini
                         if (!hasTraitAlready(ta))
                         {
                     	    //check to see if needs prereq and if you have it
-                    	    Trait tr = mod.getTraitByTag(ta.tag);
+                    	    Trait tr = gv.cc.getTraitByTag(ta.tag);
                     	    if (!tr.prerequisiteTrait.Equals("none"))
                     	    {
                     		    //requires prereq so check if you have it

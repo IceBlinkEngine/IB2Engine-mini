@@ -20,6 +20,7 @@ namespace IceBlink2mini
     {
 	    public string name = "none"; //item name  
         public string itemImage = "blank";
+        public List<string> classesAllowed = new List<string>();
         public string ArmorWeightType = "Light"; //Light, Medium, Heavy 
         public string tag = "none"; //item unique tag name    
         public string resref = "none"; //item unique tag name    
@@ -92,7 +93,14 @@ namespace IceBlink2mini
 	    {
 		
 	    }
-	    public Item DeepCopy()
+
+        public bool containsAllowedClassByTag(string tag)
+        {
+            if (classesAllowed.Contains(tag)) { return true; }            
+            return false;
+        }
+
+        public Item DeepCopy()
 	    {
 		    Item copy = new Item();
 		    copy.name = this.name;
@@ -163,7 +171,12 @@ namespace IceBlink2mini
 		    copy.damageTypeResistanceValuePoison = this.damageTypeResistanceValuePoison;
 		    copy.typeOfDamage = this.typeOfDamage;
             copy.isRation = this.isRation;
-		    return copy;
+            copy.classesAllowed = new List<string>();
+            foreach (string s in this.classesAllowed)
+            {
+                copy.classesAllowed.Add(s);
+            }
+            return copy;
 	    }
     }
 }

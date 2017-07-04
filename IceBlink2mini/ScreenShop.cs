@@ -224,7 +224,7 @@ namespace IceBlink2mini
 			    if ((cntSlot + (shopPageIndex * 10)) < currentShop.shopItemRefs.Count)
 			    {
 				    ItemRefs itrs = currentShop.shopItemRefs[cntSlot + (shopPageIndex * 10)];
-				    Item it = gv.mod.getItemByResRefForInfo(itrs.resref);
+				    Item it = gv.cc.getItemByResRefForInfo(itrs.resref);
                     //gv.cc.DisposeOfBitmap(ref btn.Img2);
                     btn.Img2 = it.itemImage;	
 				    if (itrs.quantity < it.groupSizeForSellingStackableItems)
@@ -265,7 +265,7 @@ namespace IceBlink2mini
 		    if ((shopSlotIndex + (shopPageIndex * 10)) < currentShop.shopItemRefs.Count)
 		    {
                 //DRAW DESCRIPTION BOX
-			    Item it = gv.mod.getItemByResRefForInfo(currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)].resref);
+			    Item it = gv.cc.getItemByResRefForInfo(currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)].resref);
 
                 string textToSpan = "<gn>" + it.name + "</gn><BR>";
                 if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
@@ -317,7 +317,7 @@ namespace IceBlink2mini
 			    if ((cntSlot + (inventoryPageIndex * 10)) < gv.mod.partyInventoryRefsList.Count)
 			    {
 				    ItemRefs itr = gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * 10)];
-				    Item it = gv.mod.getItemByResRefForInfo(itr.resref);
+				    Item it = gv.cc.getItemByResRefForInfo(itr.resref);
                     //gv.cc.DisposeOfBitmap(ref btn.Img2);
                     btn.Img2 = it.itemImage;	
 				    if (itr.quantity < it.groupSizeForSellingStackableItems)
@@ -357,7 +357,7 @@ namespace IceBlink2mini
 		    if ((inventorySlotIndex + (inventoryPageIndex * 10)) < gv.mod.partyInventoryRefsList.Count)
 		    {
 			    ItemRefs itr = gv.mod.partyInventoryRefsList[inventorySlotIndex + (inventoryPageIndex * 10)];
-			    Item it = gv.mod.getItemByResRefForInfo(itr.resref);
+			    Item it = gv.cc.getItemByResRefForInfo(itr.resref);
                 string textToSpan = "<gn>" + it.name + "</gn><BR>";
                 if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
                 {
@@ -396,8 +396,13 @@ namespace IceBlink2mini
 	
         public string isUseableBy(Item it)
         {
-    	    string strg = "";
-    	    foreach (PlayerClass cls in gv.mod.modulePlayerClassList)
+            string strg = "";
+            foreach (string s in it.classesAllowed)
+            {
+                strg += s.Substring(0, 1) + ", ";
+            }
+
+            /*foreach (PlayerClass cls in gv.cc.datafile.dataPlayerClassList)
     	    {
     		    string firstLetter = cls.name.Substring(0,1);
     		    foreach (ItemRefs itr in cls.itemsAllowed)
@@ -407,7 +412,7 @@ namespace IceBlink2mini
     				    strg += firstLetter + ", ";
     			    }
     		    }
-    	    }
+    	    }*/
     	    return strg;
         }
         public void doItemStackingParty()
@@ -415,7 +420,7 @@ namespace IceBlink2mini
 		    for (int i = 0; i < gv.mod.partyInventoryRefsList.Count; i++)
 		    {
 			    ItemRefs itr = gv.mod.partyInventoryRefsList[i];
-			    Item itm = gv.mod.getItemByResRefForInfo(itr.resref);
+			    Item itm = gv.cc.getItemByResRefForInfo(itr.resref);
 			    if (itm.isStackable)
 			    {
 				    for (int j = gv.mod.partyInventoryRefsList.Count - 1; j >= 0; j--)
@@ -654,7 +659,7 @@ namespace IceBlink2mini
                 {
                     //sell item
                     ItemRefs itr = gv.mod.partyInventoryRefsList[inventorySlotIndex + (inventoryPageIndex * 10)];
-                    Item it = gv.mod.getItemByResRef(itr.resref);
+                    Item it = gv.cc.getItemByResRef(itr.resref);
                     if (it != null)
                     {
                         if (!it.plotItem)
@@ -703,7 +708,7 @@ namespace IceBlink2mini
 		    if ((shopSlotIndex + (shopPageIndex * 10)) < currentShop.shopItemRefs.Count)
 		    {
                 //check to see if have enough gold
-	            Item it = gv.mod.getItemByResRef(currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)].resref);
+	            Item it = gv.cc.getItemByResRef(currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)].resref);
                 
                 //DialogResult dlg = IBMessageBox.Show(gv, "Do you wish to buy this item?", enumMessageButton.YesNo);
                 if (selectedIndex == 0)
@@ -718,7 +723,7 @@ namespace IceBlink2mini
                     }
                     //buy item
                     ItemRefs itr = currentShop.shopItemRefs[shopSlotIndex + (shopPageIndex * 10)];
-                    it = gv.mod.getItemByResRef(itr.resref);
+                    it = gv.cc.getItemByResRef(itr.resref);
                     if (it != null)
                     {
                         if (itr.quantity < it.groupSizeForSellingStackableItems)

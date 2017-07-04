@@ -34,7 +34,7 @@ namespace IceBlink2mini
         public int[] traitsToLearnAtLevelTable = new int[] { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
         public int[] spellsToLearnAtLevelTable = new int[] { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
         public int[] xpTable = new int[]{0,200,400,800,1600,3200,6500,12500,25000,50000};
-	    public List<ItemRefs> itemsAllowed = new List<ItemRefs>();
+	    //public List<ItemRefs> itemsAllowed = new List<ItemRefs>();
 	    public List<TraitAllowed> traitsAllowed = new List<TraitAllowed>();
 	    public List<SpellAllowed> spellsAllowed = new List<SpellAllowed>();
 	
@@ -43,14 +43,14 @@ namespace IceBlink2mini
 		
 	    }
 	
-	    public bool containsItemRefsWithResRef(String resref)
+	    /*public bool containsItemRefsWithResRef(String resref)
 	    {
 		    foreach (ItemRefs i in this.itemsAllowed)
 		    {
 			    if (i.resref.Equals(resref)) { return true; }
 		    }
 		    return false;
-	    }
+	    }*/
 	
 	    public SpellAllowed getSpellAllowedByTag(String tag)
 	    {
@@ -96,11 +96,11 @@ namespace IceBlink2mini
 		    copy.xpTable = (int[])this.xpTable.Clone();
             copy.traitsToLearnAtLevelTable = (int[])this.traitsToLearnAtLevelTable.Clone();
             copy.spellsToLearnAtLevelTable = (int[])this.spellsToLearnAtLevelTable.Clone();
-            copy.itemsAllowed = new List<ItemRefs>();
+            /*copy.itemsAllowed = new List<ItemRefs>();
             foreach (ItemRefs s in this.itemsAllowed)
             {
                 copy.itemsAllowed.Add(s.DeepCopy());
-            }
+            }*/
             copy.spellsAllowed = new List<SpellAllowed>();
             foreach (SpellAllowed sa in this.spellsAllowed)
             {

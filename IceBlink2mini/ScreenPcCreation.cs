@@ -64,7 +64,7 @@ namespace IceBlink2mini
             pc = gv.cc.LoadPlayer(gv.mod.defaultPlayerFilename);
             //pc.token = gv.cc.LoadBitmap(pc.tokenFilename);
             //pc.portrait = gv.cc.LoadBitmap(pc.portraitFilename);
-            pc.playerClass = gv.mod.getPlayerClass(pc.classTag);
+            pc.playerClass = gv.cc.getPlayerClass(pc.classTag);
             pc.race = this.getAllowedRace(pc.raceTag);
             //pc.name = "CharacterName";
             //pc.tag = "characterName";
@@ -75,7 +75,7 @@ namespace IceBlink2mini
         {
             //Create Race List
             playerRaces.Clear();
-            foreach (Race rc in gv.mod.moduleRacesList)
+            foreach (Race rc in gv.cc.datafile.dataRacesList)
             {
                 if (rc.UsableByPlayer)
                 {
@@ -83,7 +83,7 @@ namespace IceBlink2mini
                     newRace.classesAllowed.Clear();
                     foreach (string s in rc.classesAllowed)
                     {
-                        PlayerClass plc = gv.mod.getPlayerClass(s);
+                        PlayerClass plc = gv.cc.getPlayerClass(s);
                         if ((plc != null) && (plc.UsableByPlayer))
                         {
                             newRace.classesAllowed.Add(s);
@@ -605,7 +605,7 @@ namespace IceBlink2mini
                         {
                             pcClassSelectionIndex = 0;
                         }
-                        pc.playerClass = gv.mod.getPlayerClass(pc.race.classesAllowed[pcClassSelectionIndex]);
+                        pc.playerClass = gv.cc.getPlayerClass(pc.race.classesAllowed[pcClassSelectionIndex]);
                         pc.classTag = pc.playerClass.tag;
                         gv.sf.UpdateStats(pc);
                         pc.hp = pc.hpMax;
@@ -653,7 +653,7 @@ namespace IceBlink2mini
 
                             //check to see if have any traits to learn
                             List<string> traitTagsList = new List<string>();
-                            traitTagsList = pc.getTraitsToLearn(gv.mod);
+                            traitTagsList = pc.getTraitsToLearn(gv);
 
                             //check to see if have any spells to learn
                             List<string> spellTagsList = new List<string>();
@@ -814,7 +814,7 @@ namespace IceBlink2mini
         public void resetClassSelection(Player p)
         {
             pcClassSelectionIndex = 0;
-            p.playerClass = gv.mod.getPlayerClass(p.race.classesAllowed[pcClassSelectionIndex]);
+            p.playerClass = gv.cc.getPlayerClass(p.race.classesAllowed[pcClassSelectionIndex]);
             p.classTag = p.playerClass.tag;
             gv.sf.UpdateStats(p);
             p.hp = p.hpMax;

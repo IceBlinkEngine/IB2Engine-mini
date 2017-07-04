@@ -159,7 +159,7 @@ namespace IceBlink2mini
             {
                 if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < gv.mod.partyInventoryRefsList.Count)
                 {
-                    Item it = gv.mod.getItemByResRefForInfo(gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
+                    Item it = gv.cc.getItemByResRefForInfo(gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
                     //gv.cc.DisposeOfBitmap(ref btn.Img2);
                     btn.Img2 = it.itemImage;
                     ItemRefs itr = gv.mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)];
@@ -231,7 +231,7 @@ namespace IceBlink2mini
 		    if (isSelectedItemSlotInPartyInventoryRange())
 		    {
 			    ItemRefs itRef = GetCurrentlySelectedItemRefs();
-        	    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
+        	    Item it = gv.cc.getItemByResRefForInfo(itRef.resref);
 
                 //Description
 		        string textToSpan = "";
@@ -279,7 +279,11 @@ namespace IceBlink2mini
         public string isUseableBy(Item it)
         {
     	    string strg = "";
-    	    foreach (PlayerClass cls in gv.mod.modulePlayerClassList)
+            foreach (string s in it.classesAllowed)
+            {
+                strg += s.Substring(0, 1) + ", ";
+            }
+    	    /*foreach (PlayerClass cls in gv.cc.datafile.dataPlayerClassList)
     	    {
                 string firstLetter = cls.name.Substring(0,1);
     		    foreach (ItemRefs stg in cls.itemsAllowed)
@@ -289,7 +293,7 @@ namespace IceBlink2mini
     				    strg += firstLetter + ", ";
     			    }
     		    }
-    	    }
+    	    }*/
     	    return strg;
         }
 	    public void onTouchInventory(int eX, int eY, MouseEventArgs e, MouseEventType.EventType eventType, bool inCombat)
@@ -419,7 +423,7 @@ namespace IceBlink2mini
 				    {				
 					    ItemRefs itRef = GetCurrentlySelectedItemRefs();
 					    if (itRef == null) { return;}
-	            	    Item it = gv.mod.getItemByResRef(itRef.resref);
+	            	    Item it = gv.cc.getItemByResRef(itRef.resref);
 	            	    if (it == null) {return;}
 					    gv.sf.ShowFullDescription(it);
 				    }				
@@ -471,7 +475,7 @@ namespace IceBlink2mini
         public void doItemAction(int selectedIndex)
 	    {            
             ItemRefs itRef = GetCurrentlySelectedItemRefs();
-	        Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
+	        Item it = gv.cc.getItemByResRefForInfo(itRef.resref);
             if ((selectedIndex == 0) && ( (!it.onUseItemIBScript.Equals("none")) || (!it.onUseItemCastSpellTag.Equals("none")) ) )
             {
                 doSelectPcUseItemSetup();
@@ -501,7 +505,7 @@ namespace IceBlink2mini
             {
                 //drop item
                 ItemRefs itRef = GetCurrentlySelectedItemRefs();
-                Item it = gv.mod.getItemByResRef(itRef.resref);
+                Item it = gv.cc.getItemByResRef(itRef.resref);
                 if (!it.plotItem)
                 {
                     gv.sf.RemoveItemFromInventory(itRef, 1);
@@ -540,7 +544,7 @@ namespace IceBlink2mini
                 try
                 {
                     ItemRefs itRef = GetCurrentlySelectedItemRefs();
-                    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
+                    Item it = gv.cc.getItemByResRefForInfo(itRef.resref);
                     if (inCombat)
                     {
                         //check to see if use IBScript first
@@ -606,7 +610,7 @@ namespace IceBlink2mini
     	    if (isSelectedItemSlotInPartyInventoryRange())
 		    {
     		    ItemRefs itRef = GetCurrentlySelectedItemRefs();
-    		    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
+    		    Item it = gv.cc.getItemByResRefForInfo(itRef.resref);
     		    gv.mod.indexOfPCtoLastUseItem = pcIndex;
                 //do IBScript
                 gv.cc.doIBScriptBasedOnFilename(it.onUseItemIBScript, it.onUseItemIBScriptParms);
@@ -622,9 +626,9 @@ namespace IceBlink2mini
             if (isSelectedItemSlotInPartyInventoryRange())
             {
                 ItemRefs itRef = GetCurrentlySelectedItemRefs();
-                Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
+                Item it = gv.cc.getItemByResRefForInfo(itRef.resref);
                 gv.mod.indexOfPCtoLastUseItem = pcIndex;
-                gv.cc.currentSelectedSpell = gv.mod.getSpellByTag(it.onUseItemCastSpellTag);
+                gv.cc.currentSelectedSpell = gv.cc.getSpellByTag(it.onUseItemCastSpellTag);
                 if (it.destroyItemAfterOnUseItemCastSpell)
                 {
                     gv.sf.RemoveItemFromInventory(itRef, 1);
@@ -637,8 +641,8 @@ namespace IceBlink2mini
             if (isSelectedItemSlotInPartyInventoryRange())
             {
                 ItemRefs itRef = GetCurrentlySelectedItemRefs();
-                Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
-                Spell sp = gv.mod.getSpellByTag(it.onUseItemCastSpellTag);
+                Item it = gv.cc.getItemByResRefForInfo(itRef.resref);
+                Spell sp = gv.cc.getSpellByTag(it.onUseItemCastSpellTag);
                 Player pc = gv.mod.playerList[pcIndex];
                 gv.mod.indexOfPCtoLastUseItem = pcIndex;
                 gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, pc, true);
@@ -659,7 +663,7 @@ namespace IceBlink2mini
 		    for (int i = 0; i < gv.mod.partyInventoryRefsList.Count; i++)
 		    {
 			    ItemRefs itr = gv.mod.partyInventoryRefsList[i];
-			    Item itm = gv.mod.getItemByResRefForInfo(itr.resref);
+			    Item itm = gv.cc.getItemByResRefForInfo(itr.resref);
 			    if (itm.isStackable)
 			    {
 				    for (int j = gv.mod.partyInventoryRefsList.Count - 1; j >= 0; j--)

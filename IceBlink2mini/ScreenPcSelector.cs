@@ -99,7 +99,7 @@ namespace IceBlink2mini
             gv.DrawText("Name: " + pc.name, locX, locY += leftStartY, "wh");
 
             //race
-            gv.DrawText("Race: " + gv.mod.getRace(pc.raceTag).name, locX, locY += spacing, "wh");
+            gv.DrawText("Race: " + gv.cc.getRace(pc.raceTag).name, locX, locY += spacing, "wh");
 
             //gender
             if (pc.isMale)
@@ -112,7 +112,7 @@ namespace IceBlink2mini
             }
 
             //class
-            gv.DrawText("Class: " + gv.mod.getPlayerClass(pc.classTag).name, locX, locY += spacing, "wh");
+            gv.DrawText("Class: " + gv.cc.getPlayerClass(pc.classTag).name, locX, locY += spacing, "wh");
             gv.DrawText("Level: " + pc.classLevel, locX, locY += spacing, "wh");
             gv.DrawText("XP: " + pc.XP + "/" + pc.XPNeeded, locX, locY += spacing, "wh");
             gv.DrawText("---------------", locX, locY += spacing, "wh");

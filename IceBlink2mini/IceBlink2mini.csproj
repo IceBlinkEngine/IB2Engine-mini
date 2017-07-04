@@ -91,6 +91,7 @@
     <Compile Include="Coordinate.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="CreatureRefs.cs" />
+    <Compile Include="Data.cs" />
     <Compile Include="Effect.cs" />
     <Compile Include="EffectTagForDropDownList.cs" />
     <Compile Include="Encounter.cs" />

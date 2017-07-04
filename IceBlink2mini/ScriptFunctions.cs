@@ -88,7 +88,11 @@ namespace IceBlink2mini
         public string isUseableBy(Item it)
         {
             string strg = "";
-            foreach (PlayerClass cls in mod.modulePlayerClassList)
+            foreach (string s in it.classesAllowed)
+            {
+                strg += s.Substring(0, 1) + ", ";
+            }
+            /*foreach (PlayerClass cls in gv.cc.datafile.dataPlayerClassList)
             {
                 string firstLetter = cls.name.Substring(0, 1);
                 foreach (ItemRefs ia in cls.itemsAllowed)
@@ -99,7 +103,7 @@ namespace IceBlink2mini
                         strg += firstLetter + ", ";
                     }
                 }
-            }
+            }*/
             return strg;
         }
 
@@ -1877,7 +1881,7 @@ namespace IceBlink2mini
         }
         public void GiveItem(string resref, int quantity)
         {
-            Item newItem = mod.getItemByResRef(resref);
+            Item newItem = gv.cc.getItemByResRef(resref);
             for (int i = 0; i < quantity; i++)
             {
                 ItemRefs ir = mod.createItemRefsFromItem(newItem);
@@ -1990,8 +1994,8 @@ namespace IceBlink2mini
                 Player newPc = gv.cc.LoadPlayer(filename); //ex: filename = "ezzbel.json"
                 //newPc.token = gv.cc.LoadBitmap(newPc.tokenFilename);
                 //newPc.portrait = gv.cc.LoadBitmap(newPc.portraitFilename);
-                newPc.playerClass = mod.getPlayerClass(newPc.classTag);
-                newPc.race = mod.getRace(newPc.raceTag);
+                newPc.playerClass = gv.cc.getPlayerClass(newPc.classTag);
+                newPc.race = gv.cc.getRace(newPc.raceTag);
                 //check to see if already in party before adding
                 bool foundOne = false;
                 foreach (Player pc in mod.playerList)
@@ -2112,8 +2116,8 @@ namespace IceBlink2mini
                 {
                     Player copyPC = pc.DeepCopy();
                     //copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
-                    copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
-                    copyPC.race = mod.getRace(copyPC.raceTag);
+                    copyPC.playerClass = gv.cc.getPlayerClass(copyPC.classTag);
+                    copyPC.race = gv.cc.getRace(copyPC.raceTag);
                     mod.partyRosterList.Add(copyPC);
                     mod.playerList.Remove(pc);
                 }
@@ -2181,8 +2185,8 @@ namespace IceBlink2mini
                 {
                     Player copyPC = pc.DeepCopy();
                     //copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
-                    copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
-                    copyPC.race = mod.getRace(copyPC.raceTag);
+                    copyPC.playerClass = gv.cc.getPlayerClass(copyPC.classTag);
+                    copyPC.race = gv.cc.getRace(copyPC.raceTag);
                     mod.playerList.Add(copyPC);
                     mod.partyRosterList.Remove(pc);
                 }
@@ -2750,7 +2754,7 @@ namespace IceBlink2mini
                 }
             }
             //get spell to add
-            Spell sp = mod.getSpellByTag(SpellTag);
+            Spell sp = gv.cc.getSpellByTag(SpellTag);
             if (sp != null)
             {
                 pc.knownSpellsTags.Add(sp.tag);
@@ -2796,7 +2800,7 @@ namespace IceBlink2mini
                 }
             }
             //get trait to add
-            Trait tr = mod.getTraitByTag(TraitTag);
+            Trait tr = gv.cc.getTraitByTag(TraitTag);
             if (tr != null)
             {
                 pc.knownTraitsTags.Add(tr.tag);
@@ -2808,13 +2812,13 @@ namespace IceBlink2mini
         }
         public void AddAllowedItemToPlayerClass(string tag, string resref)
         {
-            PlayerClass pcl = mod.getPlayerClass(tag);
+            PlayerClass pcl = gv.cc.getPlayerClass(tag);
             if (pcl != null)
             {
-                Item it = mod.getItemByResRef(resref);
+                Item it = gv.cc.getItemByResRef(resref);
                 if (it != null)
                 {
-                    if (pcl.containsItemRefsWithResRef(resref))
+                    if (it.containsAllowedClassByTag(pcl.tag))
                     {
                         if (mod.debugMode) //SD_20131102
                         {
@@ -2824,25 +2828,24 @@ namespace IceBlink2mini
                     }
                     else
                     {
-                        ItemRefs ir = mod.createItemRefsFromItem(it);
-                        pcl.itemsAllowed.Add(ir);
+                        it.classesAllowed.Add(pcl.tag);
                     }
                 }
             }
         }
         public void RemoveAllowedItemFromPlayerClass(string tag, string resref)
         {
-            PlayerClass pcl = mod.getPlayerClass(tag);
+            PlayerClass pcl = gv.cc.getPlayerClass(tag);
             if (pcl != null)
             {
-                Item it = mod.getItemByResRef(resref);
+                Item it = gv.cc.getItemByResRef(resref);
                 if (it != null)
                 {
-                    foreach (ItemRefs itref in pcl.itemsAllowed)
+                    foreach (string s in it.classesAllowed)
                     {
-                        if (itref.resref.Equals(resref))
+                        if (s.Equals(tag))
                         {
-                            pcl.itemsAllowed.Remove(itref);
+                            it.classesAllowed.Remove(s);
                             return;
                         }
                     }
@@ -3472,7 +3475,7 @@ namespace IceBlink2mini
             if (!foundLargest.Equals("none"))
             {
                 //PC has trait skill so do calculation check
-                Trait tr = mod.getTraitByTag(foundLargest);
+                Trait tr = gv.cc.getTraitByTag(foundLargest);
                 int skillMod = tr.skillModifier;
                 int attMod = 0;
                 if (tr.skillModifierAttribute.Equals("str"))
@@ -4269,7 +4272,7 @@ namespace IceBlink2mini
             }
 
             int modifierFromSPRelevantAttribute = 0;
-            foreach (PlayerClass pClass in gv.mod.modulePlayerClassList)
+            foreach (PlayerClass pClass in gv.cc.datafile.dataPlayerClassList)
             {
                 if (pc.classTag.Equals(pClass.tag))
                 {
@@ -4316,7 +4319,7 @@ namespace IceBlink2mini
             armBonus = CalcArmorBonuses(pc);
             acMods = CalcACModifiers(pc);
             pc.AC = pc.ACBase + dMod + armBonus + acMods;
-            if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).ArmorWeightType.Equals("Light"))
+            if (gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).ArmorWeightType.Equals("Light"))
             {
                 pc.moveDistance = pc.race.MoveDistanceLightArmor + CalcMovementBonuses(pc);
             }
@@ -4344,14 +4347,14 @@ namespace IceBlink2mini
         public int CalcSavingThrowModifiersReflex(Player pc)
         {
             int savBonuses = 0;
-            savBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).savingThrowModifierReflex;
-            savBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).savingThrowModifierReflex;
-            savBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierReflex;
-            savBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierReflex;
-            savBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierReflex;
-            savBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierReflex;
-            savBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierReflex;
-            savBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierReflex;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).savingThrowModifierReflex;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).savingThrowModifierReflex;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierReflex;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierReflex;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierReflex;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierReflex;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierReflex;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierReflex;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4373,14 +4376,14 @@ namespace IceBlink2mini
         public int CalcSavingThrowModifiersFortitude(Player pc)
         {
             int savBonuses = 0;
-            savBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).savingThrowModifierFortitude;
-            savBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).savingThrowModifierFortitude;
-            savBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierFortitude;
-            savBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierFortitude;
-            savBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierFortitude;
-            savBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierFortitude;
-            savBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierFortitude;
-            savBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierFortitude;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).savingThrowModifierFortitude;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).savingThrowModifierFortitude;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierFortitude;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierFortitude;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierFortitude;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierFortitude;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierFortitude;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierFortitude;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4402,14 +4405,14 @@ namespace IceBlink2mini
         public int CalcSavingThrowModifiersWill(Player pc)
         {
             int savBonuses = 0;
-            savBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).savingThrowModifierWill;
-            savBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).savingThrowModifierWill;
-            savBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierWill;
-            savBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierWill;
-            savBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierWill;
-            savBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierWill;
-            savBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierWill;
-            savBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierWill;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).savingThrowModifierWill;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).savingThrowModifierWill;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierWill;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierWill;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierWill;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierWill;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierWill;
+            savBonuses += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierWill;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4431,14 +4434,14 @@ namespace IceBlink2mini
         public int CalcAttributeModifierStr(Player pc)
         {
             int attBonuses = 0;
-            attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierStr;
-            attBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierStr;
-            attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierStr;
-            attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierStr;
-            attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierStr;
-            attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierStr;
-            attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierStr;
-            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierStr;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierStr;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierStr;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierStr;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierStr;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierStr;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierStr;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierStr;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierStr;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4460,14 +4463,14 @@ namespace IceBlink2mini
         public int CalcAttributeModifierDex(Player pc)
         {
             int attBonuses = 0;
-            attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierDex;
-            attBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierDex;
-            attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierDex;
-            attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierDex;
-            attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierDex;
-            attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierDex;
-            attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierDex;
-            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierDex;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierDex;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierDex;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierDex;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierDex;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierDex;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierDex;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierDex;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierDex;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4489,14 +4492,14 @@ namespace IceBlink2mini
         public int CalcAttributeModifierInt(Player pc)
         {
             int attBonuses = 0;
-            attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierInt;
-            attBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierInt;
-            attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierInt;
-            attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierInt;
-            attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierInt;
-            attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierInt;
-            attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierInt;
-            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierInt;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierInt;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierInt;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierInt;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierInt;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierInt;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierInt;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierInt;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierInt;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4518,14 +4521,14 @@ namespace IceBlink2mini
         public int CalcAttributeModifierCha(Player pc)
         {
             int attBonuses = 0;
-            attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierCha;
-            attBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierCha;
-            attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierCha;
-            attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierCha;
-            attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierCha;
-            attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierCha;
-            attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierCha;
-            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierCha;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierCha;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierCha;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierCha;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierCha;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierCha;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierCha;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierCha;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierCha;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4547,14 +4550,14 @@ namespace IceBlink2mini
         public int CalcAttributeModifierCon(Player pc)
         {
             int attBonuses = 0;
-            attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierCon;
-            attBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierCon;
-            attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierCon;
-            attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierCon;
-            attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierCon;
-            attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierCon;
-            attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierCon;
-            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierCon;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierCon;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierCon;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierCon;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierCon;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierCon;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierCon;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierCon;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierCon;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4576,14 +4579,14 @@ namespace IceBlink2mini
         public int CalcAttributeModifierWis(Player pc)
         {
             int attBonuses = 0;
-            attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierWis;
-            attBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierWis;
-            attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierWis;
-            attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierWis;
-            attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierWis;
-            attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierWis;
-            attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierWis;
-            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierWis;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierWis;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierWis;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierWis;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierWis;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierWis;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierWis;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierWis;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierWis;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4605,14 +4608,14 @@ namespace IceBlink2mini
         public int CalcAttributeModifierLuk(Player pc)
         {
             int attBonuses = 0;
-            attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierLuk;
-            attBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierLuk;
-            attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierLuk;
-            attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierLuk;
-            attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierLuk;
-            attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierLuk;
-            attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierLuk;
-            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierLuk;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierLuk;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierLuk;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierLuk;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierLuk;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierLuk;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierLuk;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierLuk;
+            attBonuses += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierLuk;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4634,14 +4637,14 @@ namespace IceBlink2mini
         public int CalcAcidModifiers(Player pc)
         {
             int md = 0;
-            md += mod.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValueAcid;
-            md += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValueAcid;
-            md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueAcid;
-            md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueAcid;
-            md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueAcid;
-            md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueAcid;
-            md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueAcid;
-            md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueAcid;
+            md += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValueAcid;
+            md += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValueAcid;
+            md += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueAcid;
+            md += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueAcid;
+            md += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueAcid;
+            md += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueAcid;
+            md += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueAcid;
+            md += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueAcid;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4663,14 +4666,14 @@ namespace IceBlink2mini
         public int CalcNormalModifiers(Player pc)
         {
             int md = 0;
-            md += mod.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValueNormal;
-            md += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValueNormal;
-            md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueNormal;
-            md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueNormal;
-            md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueNormal;
-            md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueNormal;
-            md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueNormal;
-            md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueNormal;
+            md += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValueNormal;
+            md += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValueNormal;
+            md += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueNormal;
+            md += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueNormal;
+            md += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueNormal;
+            md += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueNormal;
+            md += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueNormal;
+            md += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueNormal;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4692,14 +4695,14 @@ namespace IceBlink2mini
         public int CalcColdModifiers(Player pc)
         {
             int md = 0;
-            md += mod.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValueCold;
-            md += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValueCold;
-            md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueCold;
-            md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueCold;
-            md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueCold;
-            md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueCold;
-            md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueCold;
-            md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueCold;
+            md += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValueCold;
+            md += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValueCold;
+            md += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueCold;
+            md += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueCold;
+            md += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueCold;
+            md += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueCold;
+            md += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueCold;
+            md += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueCold;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4721,14 +4724,14 @@ namespace IceBlink2mini
         public int CalcElectricityModifiers(Player pc)
         {
             int md = 0;
-            md += mod.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValueElectricity;
-            md += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValueElectricity;
-            md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueElectricity;
-            md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueElectricity;
-            md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueElectricity;
-            md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueElectricity;
-            md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueElectricity;
-            md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueElectricity;
+            md += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValueElectricity;
+            md += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValueElectricity;
+            md += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueElectricity;
+            md += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueElectricity;
+            md += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueElectricity;
+            md += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueElectricity;
+            md += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueElectricity;
+            md += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueElectricity;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4750,14 +4753,14 @@ namespace IceBlink2mini
         public int CalcFireModifiers(Player pc)
         {
             int md = 0;
-            md += mod.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValueFire;
-            md += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValueFire;
-            md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueFire;
-            md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueFire;
-            md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueFire;
-            md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueFire;
-            md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueFire;
-            md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueFire;
+            md += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValueFire;
+            md += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValueFire;
+            md += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueFire;
+            md += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueFire;
+            md += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueFire;
+            md += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueFire;
+            md += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueFire;
+            md += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueFire;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4779,14 +4782,14 @@ namespace IceBlink2mini
         public int CalcMagicModifiers(Player pc)
         {
             int md = 0;
-            md += mod.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValueMagic;
-            md += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValueMagic;
-            md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueMagic;
-            md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueMagic;
-            md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueMagic;
-            md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueMagic;
-            md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueMagic;
-            md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueMagic;
+            md += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValueMagic;
+            md += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValueMagic;
+            md += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValueMagic;
+            md += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValueMagic;
+            md += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValueMagic;
+            md += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueMagic;
+            md += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueMagic;
+            md += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueMagic;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4808,14 +4811,14 @@ namespace IceBlink2mini
         public int CalcPoisonModifiers(Player pc)
         {
             int md = 0;
-            md += mod.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValuePoison;
-            md += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValuePoison;
-            md += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValuePoison;
-            md += mod.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValuePoison;
-            md += mod.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValuePoison;
-            md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValuePoison;
-            md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValuePoison;
-            md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValuePoison;
+            md += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).damageTypeResistanceValuePoison;
+            md += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).damageTypeResistanceValuePoison;
+            md += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).damageTypeResistanceValuePoison;
+            md += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).damageTypeResistanceValuePoison;
+            md += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).damageTypeResistanceValuePoison;
+            md += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValuePoison;
+            md += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValuePoison;
+            md += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValuePoison;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4879,48 +4882,48 @@ namespace IceBlink2mini
         public int CalcArmorBonuses(Player pc)
         {
             int armBonuses = 0;
-            armBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).armorBonus;
-            armBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).armorBonus;
-            armBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).armorBonus;
-            armBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).armorBonus;
-            armBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).armorBonus;
-            armBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).armorBonus;
-            armBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).armorBonus;
-            armBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).armorBonus;
+            armBonuses += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).armorBonus;
+            armBonuses += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).armorBonus;
+            armBonuses += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).armorBonus;
+            armBonuses += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).armorBonus;
+            armBonuses += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).armorBonus;
+            armBonuses += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).armorBonus;
+            armBonuses += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).armorBonus;
+            armBonuses += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).armorBonus;
             return armBonuses;
         }
         public int CalcMaxDexBonus(Player pc)
         {
             int armMaxDexBonuses = 99;
-            int mdb = mod.getItemByResRefForInfo(pc.BodyRefs.resref).maxDexBonus;
+            int mdb = gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).maxDexBonus;
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
-            mdb = mod.getItemByResRefForInfo(pc.MainHandRefs.resref).maxDexBonus;
+            mdb = gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).maxDexBonus;
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
-            mdb = mod.getItemByResRefForInfo(pc.OffHandRefs.resref).maxDexBonus;
+            mdb = gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).maxDexBonus;
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
-            mdb = mod.getItemByResRefForInfo(pc.RingRefs.resref).maxDexBonus;
+            mdb = gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).maxDexBonus;
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
-            mdb = mod.getItemByResRefForInfo(pc.HeadRefs.resref).maxDexBonus;
+            mdb = gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).maxDexBonus;
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
-            mdb = mod.getItemByResRefForInfo(pc.NeckRefs.resref).maxDexBonus;
+            mdb = gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).maxDexBonus;
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
-            mdb = mod.getItemByResRefForInfo(pc.FeetRefs.resref).maxDexBonus;
+            mdb = gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).maxDexBonus;
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
-            mdb = mod.getItemByResRefForInfo(pc.Ring2Refs.resref).maxDexBonus;
+            mdb = gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).maxDexBonus;
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
             return armMaxDexBonuses;
         }
         public int CalcMovementBonuses(Player pc)
         {
             int moveBonuses = 0;
-            moveBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).MovementPointModifier;
-            moveBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).MovementPointModifier;
-            moveBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).MovementPointModifier;
-            moveBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).MovementPointModifier;
-            moveBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).MovementPointModifier;
-            moveBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).MovementPointModifier;
-            moveBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).MovementPointModifier;
-            moveBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).MovementPointModifier;
+            moveBonuses += gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).MovementPointModifier;
+            moveBonuses += gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).MovementPointModifier;
+            moveBonuses += gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).MovementPointModifier;
+            moveBonuses += gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).MovementPointModifier;
+            moveBonuses += gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).MovementPointModifier;
+            moveBonuses += gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).MovementPointModifier;
+            moveBonuses += gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).MovementPointModifier;
+            moveBonuses += gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).MovementPointModifier;
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -4943,41 +4946,41 @@ namespace IceBlink2mini
         {
             try
             {
-                if (!mod.getItemByResRefForInfo(pc.BodyRefs.resref).onWhileEquipped.Equals("none"))
+                if (!gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).onWhileEquipped.Equals("none"))
                 {
-                    gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.BodyRefs.resref).onWhileEquipped, "", "", "", "");
+                    gv.cc.doScriptBasedOnFilename(gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).onWhileEquipped, "", "", "", "");
                 }
-                if (!mod.getItemByResRefForInfo(pc.MainHandRefs.resref).onWhileEquipped.Equals("none"))
+                if (!gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).onWhileEquipped.Equals("none"))
                 {
-                    gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).onWhileEquipped, "", "", "", "");
+                    gv.cc.doScriptBasedOnFilename(gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).onWhileEquipped, "", "", "", "");
                 }
-                if (!mod.getItemByResRefForInfo(pc.OffHandRefs.resref).onWhileEquipped.Equals("none"))
+                if (!gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).onWhileEquipped.Equals("none"))
                 {
-                    gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.OffHandRefs.resref).onWhileEquipped, "", "", "", "");
+                    gv.cc.doScriptBasedOnFilename(gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).onWhileEquipped, "", "", "", "");
                 }
-                if (!mod.getItemByResRefForInfo(pc.RingRefs.resref).onWhileEquipped.Equals("none"))
+                if (!gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).onWhileEquipped.Equals("none"))
                 {
-                    gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.RingRefs.resref).onWhileEquipped, "", "", "", "");
+                    gv.cc.doScriptBasedOnFilename(gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).onWhileEquipped, "", "", "", "");
                 }
-                if (!mod.getItemByResRefForInfo(pc.HeadRefs.resref).onWhileEquipped.Equals("none"))
+                if (!gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).onWhileEquipped.Equals("none"))
                 {
-                    gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.HeadRefs.resref).onWhileEquipped, "", "", "", "");
+                    gv.cc.doScriptBasedOnFilename(gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).onWhileEquipped, "", "", "", "");
                 }
-                if (!mod.getItemByResRefForInfo(pc.NeckRefs.resref).onWhileEquipped.Equals("none"))
+                if (!gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).onWhileEquipped.Equals("none"))
                 {
-                    gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.NeckRefs.resref).onWhileEquipped, "", "", "", "");
+                    gv.cc.doScriptBasedOnFilename(gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).onWhileEquipped, "", "", "", "");
                 }
-                if (!mod.getItemByResRefForInfo(pc.FeetRefs.resref).onWhileEquipped.Equals("none"))
+                if (!gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).onWhileEquipped.Equals("none"))
                 {
-                    gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.FeetRefs.resref).onWhileEquipped, "", "", "", "");
+                    gv.cc.doScriptBasedOnFilename(gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).onWhileEquipped, "", "", "", "");
                 }
-                if (!mod.getItemByResRefForInfo(pc.Ring2Refs.resref).onWhileEquipped.Equals("none"))
+                if (!gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).onWhileEquipped.Equals("none"))
                 {
-                    gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.Ring2Refs.resref).onWhileEquipped, "", "", "", "");
+                    gv.cc.doScriptBasedOnFilename(gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).onWhileEquipped, "", "", "", "");
                 }
-                if (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).onWhileEquipped.Equals("none"))
+                if (!gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).onWhileEquipped.Equals("none"))
                 {
-                    gv.cc.doScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).onWhileEquipped, "", "", "", "");
+                    gv.cc.doScriptBasedOnFilename(gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).onWhileEquipped, "", "", "", "");
                 }
             }
             catch (Exception ex)
@@ -5009,10 +5012,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive rapidshot type trait, use largest, not cumulative
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     //replace non-stackable positive with highest value
                     if ((ef.modifyNumberOfMeleeAttacks > numOfAdditionalPositiveMeleeAttacks) && (ta.isPassive) && (!ef.isStackableEffect))
                     {
@@ -5103,10 +5106,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive rapidshot type trait, use largest, not cumulative
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     //replace non-stackable positive with highest value
                     if ((ef.modifyNumberOfRangedAttacks > numOfAdditionalPositiveRangedAttacks) && (ta.isPassive) && (!ef.isStackableEffect))
                     {
@@ -5194,9 +5197,9 @@ namespace IceBlink2mini
         }
         public bool isMeleeAttack(Player pc)
         {
-            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
-                    || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
-                    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            if ((gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                    || (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
+                    || (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
             {
                 return true;
             }
@@ -5208,10 +5211,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive cleave type trait, use largest, not cumulative
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     if ((ef.modifyNumberOfEnemiesAttackedOnCleave > cleaveAttTargets) && (ta.isPassive))
                     {
                         cleaveAttTargets = ef.modifyNumberOfEnemiesAttackedOnCleave;
@@ -5245,10 +5248,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive sweep type trait, use largest, not cumulative
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     if ((ef.modifyNumberOfEnemiesAttackedOnSweepAttack > sweepAttTargets) && (ta.isPassive))
                     {
                         sweepAttTargets = ef.modifyNumberOfEnemiesAttackedOnSweepAttack;
@@ -5279,10 +5282,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive criticalstrike type trait
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     if ((ef.useDexterityForMeleeAttackModifierIfGreaterThanStrength) && (ta.isPassive))
                     {
                         useDexModifier = true;
@@ -5315,10 +5318,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive criticalstrike type trait
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     if ((ef.useDexterityForMeleeDamageModifierIfGreaterThanStrength) && (ta.isPassive))
                     {
                         useDexModifier = true;
@@ -5350,10 +5353,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive pointblankshot type trait
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     if ((ef.negateAttackPenaltyForAdjacentEnemyWithRangedAttack) && (ta.isPassive))
                     {
                         cancelAttackPenalty = true;
@@ -5381,10 +5384,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     if ((ef.babModifierForRangedAttack > preciseShotAdder) && (ta.isPassive))
                     {
                         preciseShotAdder = ef.babModifierForRangedAttack;
@@ -5409,10 +5412,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     if ((ef.damageModifierForMeleeAttack > adder) && (ta.isPassive))
                     {
                         adder = ef.damageModifierForMeleeAttack;
@@ -5435,10 +5438,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive preciseshot type trait, use largest, not cumulative
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     if ((ef.damageModifierForRangedAttack > preciseShotAdder) && (ta.isPassive))
                     {
                         preciseShotAdder = ef.damageModifierForRangedAttack;
@@ -5461,10 +5464,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive HP regen type trait, use largest, not cumulative
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     if ((ef.modifyHpInCombat > adder) && (ta.isPassive))
                     {
                         adder = ef.modifyHpInCombat;
@@ -5479,10 +5482,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive HP regen type trait, use largest, not cumulative
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     if ((ef.modifySpInCombat > adder) && (ta.isPassive))
                     {
                         adder = ef.modifySpInCombat;
@@ -5500,10 +5503,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive rapidshot type trait, use largest, not cumulative
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     //replace non-stackable positive with highest value
                     if ((ef.modifyShopBuyBackPrice > positiveMod) && (ta.isPassive) && (!ef.isStackableEffect))
                     {
@@ -5582,10 +5585,10 @@ namespace IceBlink2mini
             //go through all traits and see if has passive rapidshot type trait, use largest, not cumulative
             foreach (string taTag in pc.knownTraitsTags)
             {
-                Trait ta = mod.getTraitByTag(taTag);
+                Trait ta = gv.cc.getTraitByTag(taTag);
                 foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                 {
-                    Effect ef = mod.getEffectByTag(efTag.tag);
+                    Effect ef = gv.cc.getEffectByTag(efTag.tag);
                     //replace non-stackable positive with highest value
                     if ((ef.modifyShopSellPrice > positiveMod) && (ta.isPassive) && (!ef.isStackableEffect))
                     {
@@ -5665,12 +5668,12 @@ namespace IceBlink2mini
             foreach (Player pc in mod.playerList)
             {
                 //check to see if allow HP to regen
-                if (mod.getPlayerClass(pc.classTag).hpRegenTimeNeeded > 0)
+                if (gv.cc.getPlayerClass(pc.classTag).hpRegenTimeNeeded > 0)
                 {
                     if (pc.hp > 0) //do not regen if dead
                     {
                         pc.hpRegenTimePassedCounter += mod.currentArea.TimePerSquare;
-                        if (pc.hpRegenTimePassedCounter >= mod.getPlayerClass(pc.classTag).hpRegenTimeNeeded)
+                        if (pc.hpRegenTimePassedCounter >= gv.cc.getPlayerClass(pc.classTag).hpRegenTimeNeeded)
                         {
                             pc.hp++;
                             if (pc.hp > pc.hpMax)
@@ -5683,10 +5686,10 @@ namespace IceBlink2mini
                     }
                 }
                 //check to see if allow SP to regen
-                if (mod.getPlayerClass(pc.classTag).spRegenTimeNeeded > 0)
+                if (gv.cc.getPlayerClass(pc.classTag).spRegenTimeNeeded > 0)
                 {
                     pc.spRegenTimePassedCounter += mod.currentArea.TimePerSquare;
-                    if (pc.spRegenTimePassedCounter >= mod.getPlayerClass(pc.classTag).spRegenTimeNeeded)
+                    if (pc.spRegenTimePassedCounter >= gv.cc.getPlayerClass(pc.classTag).spRegenTimeNeeded)
                     {
                         pc.sp++;
                         if (pc.sp > pc.spMax) { pc.sp = pc.spMax; }
@@ -5713,85 +5716,85 @@ namespace IceBlink2mini
         {
             try
             {
-                if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).roundsPerSpRegenOutsideCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).roundsPerSpRegenOutsideCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.BodyRefs.resref).roundsPerSpRegenOutsideCombat);
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).roundsPerSpRegenOutsideCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).roundsPerHpRegenOutsideCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).roundsPerHpRegenOutsideCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.BodyRefs.resref).roundsPerHpRegenOutsideCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).roundsPerSpRegenOutsideCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.MainHandRefs.resref).roundsPerSpRegenOutsideCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).roundsPerHpRegenOutsideCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.MainHandRefs.resref).roundsPerHpRegenOutsideCombat);
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).roundsPerHpRegenOutsideCombat);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).roundsPerSpRegenOutsideCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).roundsPerSpRegenOutsideCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.OffHandRefs.resref).roundsPerSpRegenOutsideCombat);
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).roundsPerSpRegenOutsideCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).roundsPerHpRegenOutsideCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).roundsPerHpRegenOutsideCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.OffHandRefs.resref).roundsPerHpRegenOutsideCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.RingRefs.resref).roundsPerSpRegenOutsideCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.RingRefs.resref).roundsPerSpRegenOutsideCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.RingRefs.resref).roundsPerHpRegenOutsideCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.RingRefs.resref).roundsPerHpRegenOutsideCombat);
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).roundsPerHpRegenOutsideCombat);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.HeadRefs.resref).roundsPerSpRegenOutsideCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).roundsPerSpRegenOutsideCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).roundsPerSpRegenOutsideCombat);
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).roundsPerSpRegenOutsideCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.HeadRefs.resref).roundsPerHpRegenOutsideCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).roundsPerHpRegenOutsideCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).roundsPerHpRegenOutsideCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).roundsPerSpRegenOutsideCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.NeckRefs.resref).roundsPerSpRegenOutsideCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).roundsPerHpRegenOutsideCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.NeckRefs.resref).roundsPerHpRegenOutsideCombat);
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).roundsPerHpRegenOutsideCombat);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.FeetRefs.resref).roundsPerSpRegenOutsideCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).roundsPerSpRegenOutsideCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.FeetRefs.resref).roundsPerSpRegenOutsideCombat);
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).roundsPerSpRegenOutsideCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.FeetRefs.resref).roundsPerHpRegenOutsideCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).roundsPerHpRegenOutsideCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.FeetRefs.resref).roundsPerHpRegenOutsideCombat);
-                }
-
-                if (mod.getItemByResRefForInfo(pc.Ring2Refs.resref).roundsPerSpRegenOutsideCombat > 0)
-                {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.Ring2Refs.resref).roundsPerSpRegenOutsideCombat);
-                }
-                if (mod.getItemByResRefForInfo(pc.Ring2Refs.resref).roundsPerHpRegenOutsideCombat > 0)
-                {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.Ring2Refs.resref).roundsPerHpRegenOutsideCombat);
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).roundsPerHpRegenOutsideCombat);
                 }
 
-                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).roundsPerSpRegenOutsideCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).roundsPerSpRegenOutsideCombat > 0)
                 {
-                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).roundsPerSpRegenOutsideCombat);
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).roundsPerSpRegenOutsideCombat);
                 }
-                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).roundsPerHpRegenOutsideCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).roundsPerHpRegenOutsideCombat > 0)
                 {
-                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).roundsPerHpRegenOutsideCombat);
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).roundsPerHpRegenOutsideCombat);
+                }
+
+                if (gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).roundsPerSpRegenOutsideCombat > 0)
+                {
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).roundsPerSpRegenOutsideCombat);
+                }
+                if (gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).roundsPerHpRegenOutsideCombat > 0)
+                {
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).roundsPerHpRegenOutsideCombat);
+                }
+
+                if (gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).roundsPerSpRegenOutsideCombat > 0)
+                {
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).roundsPerSpRegenOutsideCombat);
+                }
+                if (gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).roundsPerHpRegenOutsideCombat > 0)
+                {
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).roundsPerHpRegenOutsideCombat);
+                }
+
+                if (gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).roundsPerSpRegenOutsideCombat > 0)
+                {
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).roundsPerSpRegenOutsideCombat);
+                }
+                if (gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).roundsPerHpRegenOutsideCombat > 0)
+                {
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).roundsPerHpRegenOutsideCombat);
+                }
+
+                if (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).roundsPerSpRegenOutsideCombat > 0)
+                {
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).roundsPerSpRegenOutsideCombat);
+                }
+                if (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).roundsPerHpRegenOutsideCombat > 0)
+                {
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).roundsPerHpRegenOutsideCombat);
                 }
             }
             catch (Exception ex)
@@ -5827,7 +5830,7 @@ namespace IceBlink2mini
                 {
                     foreach (ItemRefs ir in gv.mod.partyInventoryRefsList)
                     {
-                        if (gv.mod.getItemByResRef(ir.resref).isRation)
+                        if (gv.cc.getItemByResRef(ir.resref).isRation)
                         {
                             ir.quantity--;
                             if (ir.quantity < 1)
@@ -6539,14 +6542,14 @@ namespace IceBlink2mini
 
             if (!thisSpell.spellEffectTag.Equals("none"))
             {
-                Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
+                Effect thisSpellEffect = gv.cc.getEffectByTag(thisSpell.spellEffectTag);
                 spGenericLoop(thisSpellEffect, thisSpell, src, trg, outsideCombat);
             }
             else if (thisSpell.spellEffectTagList.Count > 0)
             {
                 foreach (EffectTagForDropDownList eftag in thisSpell.spellEffectTagList)
                 {
-                    Effect thisSpellEffect = gv.mod.getEffectByTag(eftag.tag);
+                    Effect thisSpellEffect = gv.cc.getEffectByTag(eftag.tag);
                     spGenericLoop(thisSpellEffect, thisSpell, src, trg, outsideCombat);
                 }
             }
@@ -7104,7 +7107,7 @@ namespace IceBlink2mini
 
         public void trGeneric(Trait thisTrait, object src, object trg, bool outsideCombat)
         {
-            //Effect thisTraitEffect = gv.mod.getEffectByTag(thisTrait.traitEffectTagList[0].tag);
+            //Effect thisTraitEffect = gv.cc.getEffectByTag(thisTrait.traitEffectTagList[0].tag);
 
             //set squares list
             CreateAoeSquaresList(src, trg, thisTrait.aoeShape, thisTrait.aoeRadius);
@@ -7130,7 +7133,7 @@ namespace IceBlink2mini
             //loop through all effects of trait here
             foreach (EffectTagForDropDownList eftag in thisTrait.traitEffectTagList)
             {
-                Effect thisTraitEffect = gv.mod.getEffectByTag(eftag.tag);
+                Effect thisTraitEffect = gv.cc.getEffectByTag(eftag.tag);
 
                 #region Get trait using source information
                 int classLevel = 0;

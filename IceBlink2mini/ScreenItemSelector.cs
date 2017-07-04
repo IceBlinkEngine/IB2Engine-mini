@@ -231,7 +231,7 @@ namespace IceBlink2mini
 			    else {btn.glowOn = false;}
 			    if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < thisItemRefs.Count)
 			    {
-                    Item it = gv.mod.getItemByResRefForInfo(thisItemRefs[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
+                    Item it = gv.cc.getItemByResRefForInfo(thisItemRefs[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
 				    btn.Img2 = it.itemImage;
                     ItemRefs itr = thisItemRefs[cntSlot + (inventoryPageIndex * slotsPerPage)];
 				    if (itr.quantity > 1)
@@ -257,7 +257,7 @@ namespace IceBlink2mini
 		    if (isSelectedItemSlotInPartyInventoryRange())
 		    {
 			    ItemRefs itRef = GetCurrentlySelectedItemRefs();
-        	    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
+        	    Item it = gv.cc.getItemByResRefForInfo(itRef.resref);
 
                 //Description
 		        string textToSpan = "";
@@ -305,8 +305,13 @@ namespace IceBlink2mini
         }
         public string isUseableBy(Item it)
         {
-    	    string strg = "";
-    	    foreach (PlayerClass cls in gv.mod.modulePlayerClassList)
+            string strg = "";
+            foreach (string s in it.classesAllowed)
+            {
+                strg += s.Substring(0, 1) + ", ";
+            }
+
+            /*foreach (PlayerClass cls in gv.cc.datafile.dataPlayerClassList)
     	    {
                 string firstLetter = cls.name.Substring(0,1);
     		    foreach (ItemRefs stg in cls.itemsAllowed)
@@ -316,7 +321,7 @@ namespace IceBlink2mini
     				    strg += firstLetter + ", ";
     			    }
     		    }
-    	    }
+    	    }*/
     	    return strg;
         }
 	    public void onTouchItemSelector(int eX, int eY, MouseEventArgs e, MouseEventType.EventType eventType)
@@ -456,7 +461,7 @@ namespace IceBlink2mini
 				    {				
 					    ItemRefs itRef = GetCurrentlySelectedItemRefs();
 					    if (itRef == null) { return;}
-	            	    Item it = gv.mod.getItemByResRef(itRef.resref);
+	            	    Item it = gv.cc.getItemByResRef(itRef.resref);
 	            	    if (it == null) {return;}
 					    gv.sf.ShowFullDescription(it);
 				    }				
@@ -556,7 +561,7 @@ namespace IceBlink2mini
                     gv.mod.partyInventoryRefsList.Remove(GetCurrentlySelectedItemRefs());
                 }
                 //if the item being equipped is a two-handed weapon, remove the item in off-hand if exists and place in inventory
-                if (gv.mod.getItemByResRef(pc.MainHandRefs.resref).twoHanded)
+                if (gv.cc.getItemByResRef(pc.MainHandRefs.resref).twoHanded)
                 {
                     if (!pc.OffHandRefs.resref.Equals("none"))
                     {
@@ -567,8 +572,8 @@ namespace IceBlink2mini
                     }
                 }
                 //if the item is a ranged weapon that uses ammo, check ammo slot to see if need to remove ammo not this type
-                Item itMH = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
-                Item itA = gv.mod.getItemByResRef(pc.AmmoRefs.resref);
+                Item itMH = gv.cc.getItemByResRef(pc.MainHandRefs.resref);
+                Item itA = gv.cc.getItemByResRef(pc.AmmoRefs.resref);
                 if ((itA != null) && (itMH != null))
                 {
                     if ((itMH.category.Equals("Ranged")) && (!itMH.ammoType.Equals("none")) && (itMH.ammoType.Equals(itA.ammoType)))

@@ -114,7 +114,7 @@ namespace IceBlink2mini
         {
             Player pc = getCastingPlayer();
 
-            btnSelect.Text = "LEARN SELECTED " + gv.mod.getPlayerClass(getCastingPlayer().classTag).spellLabelPlural;
+            btnSelect.Text = "LEARN SELECTED " + gv.cc.getPlayerClass(getCastingPlayer().classTag).spellLabelPlural;
 
             spellsToLearnTagsList.Clear();
     	    fillToLearnList();
@@ -135,7 +135,7 @@ namespace IceBlink2mini
             {
                 //DRAW TEXT		
                 locY = (gv.squareSize * 0) + (pH * 2);
-                gv.DrawText("Select " + spellToLearnIndex + " of " + gv.mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel] + " " + gv.mod.getPlayerClass(pc.classTag).spellLabelPlural + " to Learn", noticeX, pH * 1, "gy");
+                gv.DrawText("Select " + spellToLearnIndex + " of " + gv.cc.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel] + " " + gv.cc.getPlayerClass(pc.classTag).spellLabelPlural + " to Learn", noticeX, pH * 1, "gy");
                 gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 50, pH * 1, "yl");
 
                 //DRAW NOTIFICATIONS
@@ -158,14 +158,14 @@ namespace IceBlink2mini
                         }
                         else //not available yet
                         {
-                            gv.DrawText(gv.mod.getPlayerClass(pc.classTag).spellLabelSingular + " Not Available to Learn Yet", noticeX, noticeY, "rd");
+                            gv.DrawText(gv.cc.getPlayerClass(pc.classTag).spellLabelSingular + " Not Available to Learn Yet", noticeX, noticeY, "rd");
                         }
                     }
                 }
             }
             else
             {
-                gv.DrawText(gv.mod.getPlayerClass(pc.classTag).spellLabelPlural + " Known or Available for this Class", noticeX, pH * 1, "gy");
+                gv.DrawText(gv.cc.getPlayerClass(pc.classTag).spellLabelPlural + " Known or Available for this Class", noticeX, pH * 1, "gy");
             }
 
             //DRAW ALL SPELL SLOTS		
@@ -179,7 +179,7 @@ namespace IceBlink2mini
 			    if (cntSlot < pc.playerClass.spellsAllowed.Count)
 			    {
 				    SpellAllowed sa = pc.playerClass.spellsAllowed[cntSlot];
-				    Spell sp = gv.mod.getSpellByTag(sa.tag);
+				    Spell sp = gv.cc.getSpellByTag(sa.tag);
 
                     if (infoOnly)
                     {
@@ -267,7 +267,7 @@ namespace IceBlink2mini
             }
             else
             {
-                btnSelect.Text = "LEARN SELECTED " + gv.mod.getPlayerClass(pc.classTag).spellLabelSingular.ToUpper();
+                btnSelect.Text = "LEARN SELECTED " + gv.cc.getPlayerClass(pc.classTag).spellLabelSingular.ToUpper();
                 btnHelp.Draw();
                 btnExit.Draw();
                 btnSelect.Draw();
@@ -412,7 +412,7 @@ namespace IceBlink2mini
                     gv.screenParty.spellGained += sp.name + ", ";
                     //check to see if there are more spells to learn at this level
                     spellToLearnIndex++;
-                    if (spellToLearnIndex <= gv.mod.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel])
+                    if (spellToLearnIndex <= gv.cc.getPlayerClass(pc.classTag).spellsToLearnAtLevelTable[getCastingPlayer().classLevel])
                     {
                         //more to learn, keep going
                     }
@@ -482,7 +482,7 @@ namespace IceBlink2mini
         public Spell GetCurrentlySelectedSpell()
 	    {
     	    SpellAllowed sa = getCastingPlayer().playerClass.spellsAllowed[spellSlotIndex];
-		    return gv.mod.getSpellByTag(sa.tag);
+		    return gv.cc.getSpellByTag(sa.tag);
 	    }
 	    public bool isSelectedSpellSlotInKnownSpellsRange()
 	    {

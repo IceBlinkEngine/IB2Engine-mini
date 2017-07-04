@@ -1251,85 +1251,85 @@ namespace IceBlink2mini
         {
             try
             {
-                if (gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat);
-                }
-
-                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat > 0)
-                {
-                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat);
-                }
-                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat > 0)
-                {
-                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat);
                 }
 
-                if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat);
-                }
-
-                if (gv.mod.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat > 0)
-                {
-                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat);
-                }
-                if (gv.mod.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat > 0)
-                {
-                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat);
                 }
 
-                if (gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat);
-                }
-
-                if (gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat > 0)
-                {
-                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat);
-                }
-                if (gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat > 0)
-                {
-                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat);
                 }
 
-                if (gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat);
-                }
-
-                if (gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat > 0)
-                {
-                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat);
-                }
-                if (gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat > 0)
-                {
-                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat);
                 }
 
-                if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat > 0)
                 {
-                    doRegenSp(pc, gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat);
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat);
                 }
-                if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat > 0)
+                if (gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat > 0)
                 {
-                    doRegenHp(pc, gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat);
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat);
+                }
+                if (gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat);
                 }
             }
             catch (Exception ex)
@@ -1711,7 +1711,7 @@ namespace IceBlink2mini
         }
         public void doPropOrTriggerCastSpell(string tag)
         {
-            Spell sp = gv.mod.getSpellByTag(tag);
+            Spell sp = gv.cc.getSpellByTag(tag);
             if (sp == null) { return; }
             Coordinate srcCoor = new Coordinate(gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX, gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY);
             //if spell target type is coor, use coor...else use creature or PC on square
@@ -1762,8 +1762,8 @@ namespace IceBlink2mini
         #region PC Combat Stuff
         public void decrementAmmo(Player pc)
         {
-            if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                    && (!gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            if ((gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                    && (!gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
             {
                 ItemRefs itr = gv.mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
                 if (itr != null)
@@ -1818,16 +1818,16 @@ namespace IceBlink2mini
             if (isInRange(pc))
             {
 
-                Item itChk = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                Item itChk = gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 if (itChk != null)
                 {
                     if (itChk.automaticallyHitsTarget) //if AoE type attack and automatically hits
                     {
                         //if using ranged and have ammo, use ammo properties
-                        if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                        && (!gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                        if ((gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (!gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                         {
-                            itChk = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                            itChk = gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref);
                             if (itChk != null)
                             {
                                 //always decrement ammo by one whether a hit or miss
@@ -1972,7 +1972,7 @@ namespace IceBlink2mini
             int damage = CalcPcDamageToCreature(pc, crt);
 
             bool automaticallyHits = false;
-            Item itChk = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+            Item itChk = gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref);
             if (itChk != null)
             {
                 automaticallyHits = itChk.automaticallyHitsTarget;
@@ -1987,7 +1987,7 @@ namespace IceBlink2mini
                 gv.cc.addLogText("<gn>HITS (-" + damage + "hp)</gn><br>");
                 gv.cc.addLogText("<wh>" + attackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
 
-                Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                Item it = gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 if (it != null)
                 {
                     //doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
@@ -1997,7 +1997,7 @@ namespace IceBlink2mini
                     }
                 }
 
-                it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                it = gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 if (it != null)
                 {
                     //doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
@@ -2008,9 +2008,9 @@ namespace IceBlink2mini
                 }
 
                 //play attack sound for melee (not ranged)
-                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                if (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                 {
-                    gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    gv.PlaySound(gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                 }
 
                 //Draw floaty text showing damage above Creature
@@ -2035,9 +2035,9 @@ namespace IceBlink2mini
             else //MISSED
             {
                 //play attack sound for melee (not ranged)
-                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                if (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                 {
-                    gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    gv.PlaySound(gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                 }
                 gv.cc.addLogText("<bu>" + pc.name + "</bu><br>");
                 gv.cc.addLogText("<wh>attacks </wh><br>");
@@ -2049,7 +2049,7 @@ namespace IceBlink2mini
         }
         public void doItemOnHitCastSpell(string tag, Item it, object trg)
         {
-            Spell sp = gv.mod.getSpellByTag(tag);
+            Spell sp = gv.cc.getSpellByTag(tag);
             if (sp == null) { return; }
             gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, trg, false);
         }
@@ -2074,22 +2074,22 @@ namespace IceBlink2mini
             int skillMod = 0;
             if (pc.knownTraitsTags.Contains("stealth4"))
             {
-                Trait tr = gv.mod.getTraitByTag("stealth4");
+                Trait tr = gv.cc.getTraitByTag("stealth4");
                 skillMod = tr.skillModifier;
             }
             else if (pc.knownTraitsTags.Contains("stealth3"))
             {
-                Trait tr = gv.mod.getTraitByTag("stealth3");
+                Trait tr = gv.cc.getTraitByTag("stealth3");
                 skillMod = tr.skillModifier;
             }
             else if (pc.knownTraitsTags.Contains("stealth2"))
             {
-                Trait tr = gv.mod.getTraitByTag("stealth2");
+                Trait tr = gv.cc.getTraitByTag("stealth2");
                 skillMod = tr.skillModifier;
             }
             else if (pc.knownTraitsTags.Contains("stealth"))
             {
-                Trait tr = gv.mod.getTraitByTag("stealth");
+                Trait tr = gv.cc.getTraitByTag("stealth");
                 skillMod = tr.skillModifier;
             }
             else
@@ -2757,7 +2757,7 @@ namespace IceBlink2mini
             for (int i = 0; i < 10; i++)
             {
                 int rnd = gv.sf.RandInt(crt.knownSpellsTags.Count);
-                Spell sp = gv.mod.getSpellByTag(crt.knownSpellsTags[rnd - 1]);
+                Spell sp = gv.cc.getSpellByTag(crt.knownSpellsTags[rnd - 1]);
                 if (sp != null)
                 {
                     if (sp.costSP <= crt.sp)
@@ -2986,7 +2986,7 @@ namespace IceBlink2mini
                             {
                                 gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is stunned by mace (" + saveChkRoll + " + " + crt.getterFortitude() + " < " + DC + ")</font><BR>");
                                 crt.cr_status = "Held";
-                                Effect ef = gv.mod.getEffectByTag("hold");
+                                Effect ef = gv.cc.getEffectByTag("hold");
                                 crt.AddEffectByObject(ef, 1);
                             }
                         }
@@ -3022,7 +3022,7 @@ namespace IceBlink2mini
                         {
                             gv.cc.addLogText("<font color='red'>" + pc.name + " is held by an acid stun (" + saveChkRoll + " + " + pc.fortitude + " < " + DC + ")</font><BR>");
                             pc.charStatus = "Held";
-                            Effect ef = gv.mod.getEffectByTag("hold");
+                            Effect ef = gv.cc.getEffectByTag("hold");
                             pc.AddEffectByObject(ef, 1);
                         }
                     }
@@ -3101,7 +3101,7 @@ namespace IceBlink2mini
                         else //failed check
                         {
                             gv.cc.addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");
-                            Effect ef = gv.mod.getEffectByTag("poisonedLight");
+                            Effect ef = gv.cc.getEffectByTag("poisonedLight");
                             pc.AddEffectByObject(ef, 1);
                         }
                     }
@@ -3123,7 +3123,7 @@ namespace IceBlink2mini
                         else //failed check
                         {
                             gv.cc.addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");
-                            Effect ef = gv.mod.getEffectByTag("poisonedMedium");
+                            Effect ef = gv.cc.getEffectByTag("poisonedMedium");
                             pc.AddEffectByObject(ef, 1);
                         }
                     }
@@ -3136,7 +3136,7 @@ namespace IceBlink2mini
         }
         public void doCreatureOnHitCastSpell(Creature crt, Player pc)
         {
-            Spell sp = gv.mod.getSpellByTag(crt.onScoringHitCastSpellTag);
+            Spell sp = gv.cc.getSpellByTag(crt.onScoringHitCastSpellTag);
             if (sp == null) { return; }
             gv.cc.doSpellBasedOnScriptOrEffectTag(sp, crt, pc, false);
         }
@@ -4030,17 +4030,17 @@ namespace IceBlink2mini
             Player pc = gv.mod.playerList[currentPlayerIndex];
             if (currentCombatMode.Equals("attack"))
             {
-                Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                Item it = gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 //if using ranged and have ammo, use ammo properties
-                if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                        && (!gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                if ((gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (!gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                 {
                     //ranged weapon with ammo
-                    it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                    it = gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 }
                 if (it == null)
                 {
-                    it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                    it = gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 }
                 //set squares list
                 gv.sf.CreateAoeSquaresList(pc, targetHighlightCenterLocation, it.aoeShape, it.AreaOfEffect);
@@ -5708,9 +5708,9 @@ namespace IceBlink2mini
                 //set attack animation and do a delay
                 attackAnimationTimeElapsed = 0;
                 attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.combatAnimationSpeed);
-                if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
-                        || (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
-                        || (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                if ((gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                        || (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
+                        || (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                 {
                     //do melee attack stuff and animations  
                     AnimationSequence newSeq = new AnimationSequence();
@@ -5730,14 +5730,14 @@ namespace IceBlink2mini
                 else //Ranged Attack
                 {
                     //play attack sound for ranged
-                    gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    gv.PlaySound(gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                     //do ranged attack stuff and animations
                     //add projectile animation
                     int startX = getPixelLocX(pc.combatLocX);
                     int startY = getPixelLocY(pc.combatLocY);
                     int endX = getPixelLocX(targetHighlightCenterLocation.X);
                     int endY = getPixelLocY(targetHighlightCenterLocation.Y);
-                    string filename = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename;
+                    string filename = gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename;
                     AnimationSequence newSeq = new AnimationSequence();
                     animationSeqStack.Add(newSeq);
                     AnimationStackGroup newGroup = new AnimationStackGroup();
@@ -6060,17 +6060,17 @@ namespace IceBlink2mini
         {
             if (isInRange(pc))
             {
-                Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                Item it = gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 //if using ranged and have ammo, use ammo properties
-                if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                        && (!gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                if ((gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (!gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                 {
                     //ranged weapon with ammo
-                    it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                    it = gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 }
                 if (it == null)
                 {
-                    it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                    it = gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref);
                 }
                 //check to see if is AoE or Point Target else needs a target PC or Creature
                 if (it.AreaOfEffect > 0)
@@ -6266,15 +6266,15 @@ namespace IceBlink2mini
             if (currentCombatMode.Equals("attack"))
             {
                 int range = 1;
-                if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
-                        && (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                if ((gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                 {
                     //ranged weapon with no ammo
                     range = 1;
                 }
                 else
                 {
-                    range = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange;
+                    range = gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange;
                 }
 
                 if (getDistance(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation) <= range)
@@ -6718,10 +6718,10 @@ namespace IceBlink2mini
                 //go through all traits and see if has passive criticalstrike type trait
                 foreach (string taTag in pc.knownTraitsTags)
                 {
-                    Trait ta = gv.mod.getTraitByTag(taTag);
+                    Trait ta = gv.cc.getTraitByTag(taTag);
                     foreach (EffectTagForDropDownList efTag in ta.traitEffectTagList)
                     {
-                        Effect ef = gv.mod.getEffectByTag(efTag.tag);
+                        Effect ef = gv.cc.getEffectByTag(efTag.tag);
                         if ((ef.useDexterityForMeleeAttackModifierIfGreaterThanStrength) && (ta.isPassive))
                         {
                             useDexModifier = true;
@@ -6811,11 +6811,11 @@ namespace IceBlink2mini
                 gv.cc.addLogText("<yl>" + "blinded by rage" + "</yl><BR>");
                 gv.cc.addLogText("<yl>" + "-2 attack penalty" + "</yl><BR>");
             }
-            int attackMod = modifier + pc.baseAttBonus + gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
-            Item it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+            int attackMod = modifier + pc.baseAttBonus + gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
+            Item it = gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref);
             if (it != null)
             {
-                attackMod += gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
+                attackMod += gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
             }
             return attackMod;
         }
@@ -6871,78 +6871,78 @@ namespace IceBlink2mini
                 }
             }
 
-            int dDam = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageDie;
-            float damage = (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageNumDice * gv.sf.RandInt(dDam)) + damModifier + adder + gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageAdder;
+            int dDam = gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).damageDie;
+            float damage = (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).damageNumDice * gv.sf.RandInt(dDam)) + damModifier + adder + gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).damageAdder;
             if (damage < 0)
             {
                 damage = 0;
             }
-            Item it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+            Item it = gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref);
             if (it != null)
             {
-                damage += gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).damageAdder;
+                damage += gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).damageAdder;
             }
 
             float resist = 0;
 
             if (gv.sf.isMeleeAttack(pc))
             {
-                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
+                if (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueAcid() / 100f));
                 }
-                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
+                else if (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueNormal() / 100f));
                 }
-                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Cold"))
+                else if (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Cold"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueCold() / 100f));
                 }
-                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Electricity"))
+                else if (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Electricity"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueElectricity() / 100f));
                 }
-                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Fire"))
+                else if (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Fire"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueFire() / 100f));
                 }
-                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Magic"))
+                else if (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Magic"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueMagic() / 100f));
                 }
-                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Poison"))
+                else if (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Poison"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValuePoison() / 100f));
                 }
             }
             else //ranged weapon so use ammo mods
             {
-                if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Acid"))
+                if (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Acid"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueAcid() / 100f));
                 }
-                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Normal"))
+                else if (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Normal"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueNormal() / 100f));
                 }
-                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Cold"))
+                else if (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Cold"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueCold() / 100f));
                 }
-                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Electricity"))
+                else if (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Electricity"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueElectricity() / 100f));
                 }
-                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Fire"))
+                else if (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Fire"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueFire() / 100f));
                 }
-                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Magic"))
+                else if (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Magic"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValueMagic() / 100f));
                 }
-                else if (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Poison"))
+                else if (gv.cc.getItemByResRefForInfo(pc.AmmoRefs.resref).typeOfDamage.Equals("Poison"))
                 {
                     resist = (float)(1f - ((float)crt.getterDamageTypeResistanceValuePoison() / 100f));
                 }

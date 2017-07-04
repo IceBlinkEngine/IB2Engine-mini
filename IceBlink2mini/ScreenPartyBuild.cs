@@ -86,8 +86,8 @@ namespace IceBlink2mini
                 Player newPc = LoadPlayer(filename); //ex: filename = "ezzbel.json"
                 //newPc.token = gv.cc.LoadBitmap(newPc.tokenFilename);
                 //newPc.portrait = gv.cc.LoadBitmap(newPc.portraitFilename);
-                newPc.playerClass = gv.mod.getPlayerClass(newPc.classTag);
-                newPc.race = gv.mod.getRace(newPc.raceTag);
+                newPc.playerClass = gv.cc.getPlayerClass(newPc.classTag);
+                newPc.race = gv.cc.getRace(newPc.raceTag);
                 //check to see if already in party before adding
                 bool foundOne = false;
                 foreach (Player pc in pcList)
@@ -327,7 +327,7 @@ namespace IceBlink2mini
 
                 //DRAW LEFT STATS
                 gv.DrawText("Name: " + pc.name, locX, locY += leftStartY, "wh");
-                gv.DrawText("Race: " + gv.mod.getRace(pc.raceTag).name, locX, locY += spacing, "wh");
+                gv.DrawText("Race: " + gv.cc.getRace(pc.raceTag).name, locX, locY += spacing, "wh");
                 if (pc.isMale)
                 {
                     gv.DrawText("Gender: Male", locX, locY += spacing, "wh");
@@ -336,7 +336,7 @@ namespace IceBlink2mini
                 {
                     gv.DrawText("Gender: Female", locX, locY += spacing, "wh");
                 }
-                gv.DrawText("Class: " + gv.mod.getPlayerClass(pc.classTag).name, locX, locY += spacing, "wh");
+                gv.DrawText("Class: " + gv.cc.getPlayerClass(pc.classTag).name, locX, locY += spacing, "wh");
                 gv.DrawText("Level: " + pc.classLevel, locX, locY += spacing, "wh");
                 gv.DrawText("XP: " + pc.XP + "/" + pc.XPNeeded, locX, locY += spacing, "wh");
                 gv.DrawText("---------------", locX, locY += spacing, "wh");
@@ -345,16 +345,16 @@ namespace IceBlink2mini
                 string allSpells = "";
                 foreach (string s in pc.knownSpellsTags)
                 {
-                    Spell sp = gv.mod.getSpellByTag(s);
+                    Spell sp = gv.cc.getSpellByTag(s);
                     allSpells += sp.name + ", ";
                 }
-                gv.DrawText(gv.mod.getPlayerClass(pc.classTag).spellLabelPlural + ": " + allSpells, locX, locY += spacing, "wh");
+                gv.DrawText(gv.cc.getPlayerClass(pc.classTag).spellLabelPlural + ": " + allSpells, locX, locY += spacing, "wh");
 
                 //draw traits known list
                 string allTraits = "";
                 foreach (string s in pc.knownTraitsTags)
                 {
-                    Trait tr = gv.mod.getTraitByTag(s);
+                    Trait tr = gv.cc.getTraitByTag(s);
                     allTraits += tr.name + ", ";
                 }
                 gv.DrawText("Traits: " + allTraits, locX, locY += spacing, "wh");
@@ -484,8 +484,8 @@ namespace IceBlink2mini
                             Player copyPC = pcList[pcIndex].DeepCopy();
                             //copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
                             //copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
-                            copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
-                            copyPC.race = gv.mod.getRace(copyPC.raceTag);
+                            copyPC.playerClass = gv.cc.getPlayerClass(copyPC.classTag);
+                            copyPC.race = gv.cc.getRace(copyPC.raceTag);
                             gv.mod.playerList.Add(copyPC);
                             pcList.RemoveAt(pcIndex);
                         }
@@ -499,8 +499,8 @@ namespace IceBlink2mini
                             Player copyPC = gv.mod.playerList[partyScreenPcIndex].DeepCopy();
                             //copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
                             //copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
-                            copyPC.playerClass = gv.mod.getPlayerClass(copyPC.classTag);
-                            copyPC.race = gv.mod.getRace(copyPC.raceTag);
+                            copyPC.playerClass = gv.cc.getPlayerClass(copyPC.classTag);
+                            copyPC.race = gv.cc.getRace(copyPC.raceTag);
                             pcList.Add(copyPC);
                             gv.mod.playerList.RemoveAt(partyScreenPcIndex);
                         }

@@ -2965,7 +2965,7 @@ namespace IceBlink2mini
         {
             foreach (string s in pc.knownSpellsTags)
             {
-                Spell sp = gv.mod.getSpellByTag(s);
+                Spell sp = gv.cc.getSpellByTag(s);
                 if (sp == null) { continue; }
                 if ((sp.useableInSituation.Equals("Always")) || (sp.useableInSituation.Equals("OutOfCombat")))
                 {
@@ -2978,7 +2978,7 @@ namespace IceBlink2mini
         {
             foreach (string s in pc.knownTraitsTags)
             {
-                Trait tr = gv.mod.getTraitByTag(s);
+                Trait tr = gv.cc.getTraitByTag(s);
                 if (tr == null) { continue; }
                 if ((tr.useableInSituation.Equals("Always")) || (tr.useableInSituation.Equals("OutOfCombat")))
                 {
