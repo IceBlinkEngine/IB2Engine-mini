@@ -86,6 +86,13 @@ namespace IceBlink2mini
                 Player newPc = LoadPlayer(filename); //ex: filename = "ezzbel.json"
                 //newPc.token = gv.cc.LoadBitmap(newPc.tokenFilename);
                 //newPc.portrait = gv.cc.LoadBitmap(newPc.portraitFilename);
+                
+                //backwards compatible with Elderin Stone Paladin
+                if (newPc.classTag.Equals("newPlayerClassTag_525"))
+                {
+                    newPc.classTag = "paladin";
+                }
+               
                 newPc.playerClass = gv.cc.getPlayerClass(newPc.classTag);
                 newPc.race = gv.cc.getRace(newPc.raceTag);
                 //check to see if already in party before adding

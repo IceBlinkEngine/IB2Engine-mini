@@ -1023,6 +1023,31 @@ namespace IceBlink2mini
             //Load up all creature stuff
             foreach (CreatureRefs crf in gv.mod.currentEncounter.encounterCreatureRefsList)
             {
+                bool foundOne = false;
+                //find this creatureRef in gv.cc all creature list
+                foreach (Creature c in gv.cc.allCreaturesList)
+                {
+                    if (crf.creatureResRef.Equals(c.cr_resref))
+                    {
+                        //copy it and add to encounters creature object list
+                        try
+                        {
+                            Creature copy = c.DeepCopy();
+                            copy.cr_tag = crf.creatureTag;
+                            //gv.cc.DisposeOfBitmap(ref copy.token);
+                            //copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
+                            copy.combatLocX = crf.creatureStartLocationX;
+                            copy.combatLocY = crf.creatureStartLocationY;
+                            gv.mod.currentEncounter.encounterCreatureList.Add(copy);
+                            foundOne = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            gv.errorLog(ex.ToString());
+                        }
+                    }
+                }
+                if (foundOne) { continue; }
                 //find this creatureRef in gv.mod creature list
                 foreach (Creature c in gv.mod.moduleCreaturesList)
                 {

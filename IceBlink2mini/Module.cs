@@ -19,6 +19,7 @@ namespace IceBlink2mini
         public int moduleVersion = 1;
         public string saveName = "empty";
         public string defaultPlayerFilename = "drin.json";
+        public List<StringForDropDownList> defaultPlayerFilenameList = new List<StringForDropDownList>();
         public bool mustUsePreMadePC = false;
         public int numberOfPlayerMadePcsAllowed = 1;
         public int MaxPartySize = 6;

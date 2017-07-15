@@ -103,7 +103,20 @@ namespace IceBlink2mini
         //LOAD FILES
         public void LoadTestParty()
         {
-            gv.sf.AddCharacterToParty(gv.mod.defaultPlayerFilename); //drin.json is default
+            if ((gv.mod.defaultPlayerFilename.Equals("")) || (gv.mod.defaultPlayerFilename.Equals("none")))
+            {
+                if (gv.mod.defaultPlayerFilenameList.Count > 0)
+                {
+                    foreach (StringForDropDownList pcname in gv.mod.defaultPlayerFilenameList)
+                    {
+                        gv.sf.AddCharacterToParty(pcname.stringValue);
+                    }
+                }
+            }
+            else
+            {
+                gv.sf.AddCharacterToParty(gv.mod.defaultPlayerFilename); //drin.json is default
+            }            
             gv.mod.partyTokenFilename = "prp_party";
         }
         public Player LoadPlayer(string filename)
@@ -580,12 +593,28 @@ namespace IceBlink2mini
             {
                 gv.mod.playerList.Add(pc.DeepCopy());
             }
+            //backwards compatible with Elderin Stone Paladin
+            foreach (Player pc in gv.mod.playerList)
+            {
+                if (pc.classTag.Equals("newPlayerClassTag_525"))
+                {
+                    pc.classTag = "paladin";
+                }
+            }
             setMainPc();
             //U  "partyRosterList": [], (use all save)  Update PCs later further down
             gv.mod.partyRosterList = new List<Player>();
             foreach (Player pc in saveMod.partyRosterList)
             {
                 gv.mod.partyRosterList.Add(pc.DeepCopy());
+            }
+            //backwards compatible with Elderin Stone Paladin
+            foreach (Player pc in gv.mod.partyRosterList)
+            {
+                if (pc.classTag.Equals("newPlayerClassTag_525"))
+                {
+                    pc.classTag = "paladin";
+                }
             }
             //U  "partyJournalQuests": [], (use tags from save to get all from new)
             gv.mod.partyJournalQuests.Clear();

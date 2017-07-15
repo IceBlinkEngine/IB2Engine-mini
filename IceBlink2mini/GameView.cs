@@ -245,7 +245,7 @@ namespace IceBlink2mini
                 screenType = "title";
             }
 
-            gameTimer.Interval = 16; //~60 fps
+            gameTimer.Interval = 60; //~15 fps
             gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             gameTimerStopwatch.Start();
             previousTime = gameTimerStopwatch.ElapsedMilliseconds;

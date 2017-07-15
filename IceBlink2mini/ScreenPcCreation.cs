@@ -61,7 +61,18 @@ namespace IceBlink2mini
 
         public void resetPC()
         {
-            pc = gv.cc.LoadPlayer(gv.mod.defaultPlayerFilename);
+            if ((gv.mod.defaultPlayerFilename.Equals("")) || (gv.mod.defaultPlayerFilename.Equals("none")))
+            {
+                if (gv.mod.defaultPlayerFilenameList.Count > 0)
+                {
+                    pc = gv.cc.LoadPlayer(gv.mod.defaultPlayerFilenameList[0].stringValue);
+                }                
+            }
+            else
+            {
+                pc = gv.cc.LoadPlayer(gv.mod.defaultPlayerFilename);
+            }
+            //pc = gv.cc.LoadPlayer(gv.mod.defaultPlayerFilename);
             //pc.token = gv.cc.LoadBitmap(pc.tokenFilename);
             //pc.portrait = gv.cc.LoadBitmap(pc.portraitFilename);
             pc.playerClass = gv.cc.getPlayerClass(pc.classTag);
