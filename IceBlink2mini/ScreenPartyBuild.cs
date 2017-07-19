@@ -353,7 +353,10 @@ namespace IceBlink2mini
                 foreach (string s in pc.knownSpellsTags)
                 {
                     Spell sp = gv.cc.getSpellByTag(s);
-                    allSpells += sp.name + ", ";
+                    if (sp != null)
+                    {
+                        allSpells += sp.name + ", ";
+                    }
                 }
                 gv.DrawText(gv.cc.getPlayerClass(pc.classTag).spellLabelPlural + ": " + allSpells, locX, locY += spacing, "wh");
 
@@ -362,7 +365,10 @@ namespace IceBlink2mini
                 foreach (string s in pc.knownTraitsTags)
                 {
                     Trait tr = gv.cc.getTraitByTag(s);
-                    allTraits += tr.name + ", ";
+                    if (tr != null)
+                    {
+                        allTraits += tr.name + ", ";
+                    }
                 }
                 gv.DrawText("Traits: " + allTraits, locX, locY += spacing, "wh");
 

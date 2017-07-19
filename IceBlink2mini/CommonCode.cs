@@ -1143,9 +1143,13 @@ namespace IceBlink2mini
                 MessageBox.Show("Failed to read Module for " + folderAndFilename + ": " + ex.ToString());
             }
 
-            if (File.Exists("data.json"))
+            if (File.Exists("override/data.json"))
             {
-                this.datafile = this.datafile.loadDataFile("data.json");
+                this.datafile = this.datafile.loadDataFile("override/data.json");
+            }
+            else if (File.Exists("default/NewModule/data/data.json"))
+            {
+                this.datafile = this.datafile.loadDataFile("default/NewModule/data/data.json");
             }
             //ITEMS
             allItemsList.Clear();
