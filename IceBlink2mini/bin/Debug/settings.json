@@ -1,17 +1,17 @@
 {
   "debugMode": false,
-  "com_showGrid": false,
+  "com_showGrid": true,
   "map_showGrid": false,
   "playSoundFx": false,
-  "com_use11x11": false,
+  "com_use11x11": true,
   "map_use11x11": false,
   "showClock": true,
   "showFullParty": false,
   "showMiniMap": false,
-  "showTogglePanel": true,
+  "showTogglePanel": false,
   "showLogPanel": false,
-  "showHP": false,
-  "showSP": false,
-  "showMO": false,
+  "showHP": true,
+  "showSP": true,
+  "showMO": true,
   "combatAnimationSpeed": 100
 }

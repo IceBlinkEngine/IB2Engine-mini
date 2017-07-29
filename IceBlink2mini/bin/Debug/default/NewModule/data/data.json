@@ -6590,10 +6590,10 @@
       "name": "Cleric",
       "tag": "cleric",
       "UsableByPlayer": true,
-      "description": "A capable combatant with divine magic as well.",
+      "description": "A capable combatant with divine magic as well. SP adjustments based on wisdom attrribute.",
       "startingHP": 8,
       "startingSP": 10,
-      "modifierFromSPRelevantAttribute": "intelligence",
+      "modifierFromSPRelevantAttribute": "wisdom",
       "hpPerLevelUp": 8,
       "spPerLevelUp": 10,
       "hpRegenTimeNeeded": 0,
@@ -6684,7 +6684,7 @@
       "itemsAllowed": [
         {
           "resref": "chainmail",
-          "tag": "chainmail_23552",
+          "tag": "chainmail_29791",
           "name": "Chainmail Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6692,7 +6692,7 @@
         },
         {
           "resref": "largeshield",
-          "tag": "largeshield_23553",
+          "tag": "largeshield_29792",
           "name": "Large Shield",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6700,7 +6700,7 @@
         },
         {
           "resref": "larmor1",
-          "tag": "larmor1_23554",
+          "tag": "larmor1_29793",
           "name": "Leather Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6708,7 +6708,7 @@
         },
         {
           "resref": "studdedLeather",
-          "tag": "studdedLeather_23555",
+          "tag": "studdedLeather_29794",
           "name": "Studded Leather Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6716,7 +6716,7 @@
         },
         {
           "resref": "platemail",
-          "tag": "platemail_23556",
+          "tag": "platemail_29795",
           "name": "Platemail Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6724,7 +6724,7 @@
         },
         {
           "resref": "robes",
-          "tag": "robes_23557",
+          "tag": "robes_29796",
           "name": "Robes",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6732,7 +6732,7 @@
         },
         {
           "resref": "campingKit",
-          "tag": "campingKit_23558",
+          "tag": "campingKit_29797",
           "name": "Camping Kit",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6740,7 +6740,7 @@
         },
         {
           "resref": "ringOfProtection",
-          "tag": "ringOfProtection_23559",
+          "tag": "ringOfProtection_29798",
           "name": "Ring of Protection",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6748,7 +6748,7 @@
         },
         {
           "resref": "ringOfFireResist",
-          "tag": "ringOfFireResist_23560",
+          "tag": "ringOfFireResist_29799",
           "name": "Ring of Fire Resistance",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6756,7 +6756,7 @@
         },
         {
           "resref": "healingPotion",
-          "tag": "healingPotion_23561",
+          "tag": "healingPotion_29800",
           "name": "Healing Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6764,7 +6764,7 @@
         },
         {
           "resref": "healingPotionExtra",
-          "tag": "healingPotionExtra_23562",
+          "tag": "healingPotionExtra_29801",
           "name": "Extra Healing Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6772,7 +6772,7 @@
         },
         {
           "resref": "spPotion",
-          "tag": "spPotion_23563",
+          "tag": "spPotion_29802",
           "name": "Spell Points Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6780,7 +6780,7 @@
         },
         {
           "resref": "dagger01",
-          "tag": "dagger01_23564",
+          "tag": "dagger01_29803",
           "name": "Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6788,7 +6788,7 @@
         },
         {
           "resref": "fireDagger",
-          "tag": "fireDagger_23565",
+          "tag": "fireDagger_29804",
           "name": "Fire Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6796,7 +6796,7 @@
         },
         {
           "resref": "mace",
-          "tag": "mace_23566",
+          "tag": "mace_29805",
           "name": "Mace",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6804,7 +6804,7 @@
         },
         {
           "resref": "sling",
-          "tag": "sling_23567",
+          "tag": "sling_29806",
           "name": "Sling",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6812,7 +6812,7 @@
         },
         {
           "resref": "fireSling",
-          "tag": "fireSling_23568",
+          "tag": "fireSling_29807",
           "name": "Sling of Fire",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6820,7 +6820,7 @@
         },
         {
           "resref": "stone",
-          "tag": "stone_23569",
+          "tag": "stone_29808",
           "name": "Stone",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -6828,7 +6828,7 @@
         },
         {
           "resref": "stonefire",
-          "tag": "stonefire_23570",
+          "tag": "stonefire_29809",
           "name": "Stone of Fire",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -6836,7 +6836,7 @@
         },
         {
           "resref": "magicamulet",
-          "tag": "magicamulet_23571",
+          "tag": "magicamulet_29810",
           "name": "Magic Amulet",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6844,7 +6844,7 @@
         },
         {
           "resref": "magicbook",
-          "tag": "magicbook_23572",
+          "tag": "magicbook_29811",
           "name": "Magic Book",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6852,7 +6852,7 @@
         },
         {
           "resref": "maceofstunning",
-          "tag": "maceofstunning_23573",
+          "tag": "maceofstunning_29812",
           "name": "Mace of Stunning",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6860,7 +6860,7 @@
         },
         {
           "resref": "firebomb",
-          "tag": "firebomb_23574",
+          "tag": "firebomb_29813",
           "name": "Fire Flask Bomb",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6868,7 +6868,7 @@
         },
         {
           "resref": "antidote",
-          "tag": "antidote_23575",
+          "tag": "antidote_29814",
           "name": "Antidote Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6876,7 +6876,7 @@
         },
         {
           "resref": "firehorn",
-          "tag": "firehorn_23576",
+          "tag": "firehorn_29815",
           "name": "Fire Horn",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -6884,7 +6884,7 @@
         },
         {
           "resref": "firehorncharge",
-          "tag": "firehorncharge_23577",
+          "tag": "firehorncharge_29816",
           "name": "Fire Horn Charge",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -7028,10 +7028,10 @@
       "UsableByPlayer": true,
       "description": "Skilled warrior. Gains the Cleave trait at level 2 and two attacks per round at level 4.",
       "startingHP": 10,
-      "startingSP": 0,
+      "startingSP": 5,
       "modifierFromSPRelevantAttribute": "intelligence",
       "hpPerLevelUp": 10,
-      "spPerLevelUp": 0,
+      "spPerLevelUp": 5,
       "hpRegenTimeNeeded": 0,
       "spRegenTimeNeeded": 0,
       "spellLabelSingular": "Spell",
@@ -7120,7 +7120,7 @@
       "itemsAllowed": [
         {
           "resref": "chainmail",
-          "tag": "chainmail_23578",
+          "tag": "chainmail_29716",
           "name": "Chainmail Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7128,7 +7128,7 @@
         },
         {
           "resref": "largeshield",
-          "tag": "largeshield_23579",
+          "tag": "largeshield_29717",
           "name": "Large Shield",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7136,7 +7136,7 @@
         },
         {
           "resref": "larmor1",
-          "tag": "larmor1_23580",
+          "tag": "larmor1_29718",
           "name": "Leather Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7144,7 +7144,7 @@
         },
         {
           "resref": "studdedLeather",
-          "tag": "studdedLeather_23581",
+          "tag": "studdedLeather_29719",
           "name": "Studded Leather Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7152,7 +7152,7 @@
         },
         {
           "resref": "platemail",
-          "tag": "platemail_23582",
+          "tag": "platemail_29720",
           "name": "Platemail Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7160,7 +7160,7 @@
         },
         {
           "resref": "robes",
-          "tag": "robes_23583",
+          "tag": "robes_29721",
           "name": "Robes",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7168,7 +7168,7 @@
         },
         {
           "resref": "campingKit",
-          "tag": "campingKit_23584",
+          "tag": "campingKit_29722",
           "name": "Camping Kit",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7176,7 +7176,7 @@
         },
         {
           "resref": "ringOfProtection",
-          "tag": "ringOfProtection_23585",
+          "tag": "ringOfProtection_29723",
           "name": "Ring of Protection",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7184,7 +7184,7 @@
         },
         {
           "resref": "ringOfFireResist",
-          "tag": "ringOfFireResist_23586",
+          "tag": "ringOfFireResist_29724",
           "name": "Ring of Fire Resistance",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7192,7 +7192,7 @@
         },
         {
           "resref": "healingPotion",
-          "tag": "healingPotion_23587",
+          "tag": "healingPotion_29725",
           "name": "Healing Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7200,7 +7200,7 @@
         },
         {
           "resref": "healingPotionExtra",
-          "tag": "healingPotionExtra_23588",
+          "tag": "healingPotionExtra_29726",
           "name": "Extra Healing Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7208,7 +7208,7 @@
         },
         {
           "resref": "spPotion",
-          "tag": "spPotion_23589",
+          "tag": "spPotion_29727",
           "name": "Spell Points Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7216,7 +7216,7 @@
         },
         {
           "resref": "battleaxe",
-          "tag": "battleaxe_23590",
+          "tag": "battleaxe_29728",
           "name": "Battle Axe",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7224,7 +7224,7 @@
         },
         {
           "resref": "crossbow",
-          "tag": "crossbow_23591",
+          "tag": "crossbow_29729",
           "name": "Crossbow",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7232,23 +7232,15 @@
         },
         {
           "resref": "dagger01",
-          "tag": "dagger01_23592",
+          "tag": "dagger01_29730",
           "name": "Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
           "isRation": false
         },
         {
-          "resref": "elvishshortsword",
-          "tag": "elvishshortsword_23593",
-          "name": "Elvish Short Sword +1",
-          "canNotBeUnequipped": false,
-          "quantity": 1,
-          "isRation": false
-        },
-        {
           "resref": "fireDagger",
-          "tag": "fireDagger_23594",
+          "tag": "fireDagger_29731",
           "name": "Fire Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7256,7 +7248,7 @@
         },
         {
           "resref": "fireLongSword",
-          "tag": "fireLongSword_23595",
+          "tag": "fireLongSword_29732",
           "name": "Flaming Long Sword",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7264,7 +7256,7 @@
         },
         {
           "resref": "handaxe",
-          "tag": "handaxe_23596",
+          "tag": "handaxe_29733",
           "name": "Hand Axe",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7272,7 +7264,7 @@
         },
         {
           "resref": "lsword01",
-          "tag": "lsword01_23597",
+          "tag": "lsword01_29734",
           "name": "Long Sword",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7280,7 +7272,7 @@
         },
         {
           "resref": "mace",
-          "tag": "mace_23598",
+          "tag": "mace_29735",
           "name": "Mace",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7288,7 +7280,7 @@
         },
         {
           "resref": "shortBow",
-          "tag": "shortBow_23599",
+          "tag": "shortBow_29736",
           "name": "Short Bow",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7296,7 +7288,7 @@
         },
         {
           "resref": "ssword01",
-          "tag": "ssword01_23600",
+          "tag": "ssword01_29737",
           "name": "Short Sword",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7304,7 +7296,7 @@
         },
         {
           "resref": "sling",
-          "tag": "sling_23601",
+          "tag": "sling_29738",
           "name": "Sling",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7312,7 +7304,7 @@
         },
         {
           "resref": "fireSling",
-          "tag": "fireSling_23602",
+          "tag": "fireSling_29739",
           "name": "Sling of Fire",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7320,7 +7312,7 @@
         },
         {
           "resref": "spear",
-          "tag": "spear_23603",
+          "tag": "spear_29740",
           "name": "Spear",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7328,7 +7320,7 @@
         },
         {
           "resref": "arrow",
-          "tag": "arrow_23604",
+          "tag": "arrow_29741",
           "name": "Arrow",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -7336,7 +7328,7 @@
         },
         {
           "resref": "stone",
-          "tag": "stone_23605",
+          "tag": "stone_29742",
           "name": "Stone",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -7344,7 +7336,7 @@
         },
         {
           "resref": "stonefire",
-          "tag": "stonefire_23606",
+          "tag": "stonefire_29743",
           "name": "Stone of Fire",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -7352,7 +7344,7 @@
         },
         {
           "resref": "magicamulet",
-          "tag": "magicamulet_23607",
+          "tag": "magicamulet_29744",
           "name": "Magic Amulet",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7360,7 +7352,7 @@
         },
         {
           "resref": "magicbook",
-          "tag": "magicbook_23608",
+          "tag": "magicbook_29745",
           "name": "Magic Book",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7368,7 +7360,7 @@
         },
         {
           "resref": "bolt",
-          "tag": "bolt_23609",
+          "tag": "bolt_29746",
           "name": "Bolt",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -7376,7 +7368,7 @@
         },
         {
           "resref": "maceofstunning",
-          "tag": "maceofstunning_23610",
+          "tag": "maceofstunning_29747",
           "name": "Mace of Stunning",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7384,7 +7376,7 @@
         },
         {
           "resref": "thsworddefender",
-          "tag": "thsworddefender_23611",
+          "tag": "thsworddefender_29748",
           "name": "Two Handed Sword of the Defender",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7392,7 +7384,7 @@
         },
         {
           "resref": "poisonDagger",
-          "tag": "poisonDagger_23612",
+          "tag": "poisonDagger_29749",
           "name": "Poison Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7400,7 +7392,7 @@
         },
         {
           "resref": "firebomb",
-          "tag": "firebomb_23613",
+          "tag": "firebomb_29750",
           "name": "Fire Flask Bomb",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7408,7 +7400,7 @@
         },
         {
           "resref": "antidote",
-          "tag": "antidote_23614",
+          "tag": "antidote_29751",
           "name": "Antidote Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7416,7 +7408,7 @@
         },
         {
           "resref": "firehorn",
-          "tag": "firehorn_23615",
+          "tag": "firehorn_29752",
           "name": "Fire Horn",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7424,7 +7416,7 @@
         },
         {
           "resref": "firehorncharge",
-          "tag": "firehorncharge_23616",
+          "tag": "firehorncharge_29753",
           "name": "Fire Horn Charge",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -7481,10 +7473,10 @@
       "name": "Paladin",
       "tag": "paladin",
       "UsableByPlayer": true,
-      "description": "destroy all evil",
+      "description": "destroy all evil. SP adjustments based on wisdom attrribute.",
       "startingHP": 10,
       "startingSP": 5,
-      "modifierFromSPRelevantAttribute": "intelligence",
+      "modifierFromSPRelevantAttribute": "wisdom",
       "hpPerLevelUp": 10,
       "spPerLevelUp": 5,
       "hpRegenTimeNeeded": 0,
@@ -7575,7 +7567,7 @@
       "itemsAllowed": [
         {
           "resref": "chainmail",
-          "tag": "chainmail_23484",
+          "tag": "chainmail_29754",
           "name": "Chainmail Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7583,7 +7575,7 @@
         },
         {
           "resref": "largeshield",
-          "tag": "largeshield_23485",
+          "tag": "largeshield_29755",
           "name": "Large Shield",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7591,7 +7583,7 @@
         },
         {
           "resref": "larmor1",
-          "tag": "larmor1_23486",
+          "tag": "larmor1_29756",
           "name": "Leather Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7599,7 +7591,7 @@
         },
         {
           "resref": "studdedLeather",
-          "tag": "studdedLeather_23487",
+          "tag": "studdedLeather_29757",
           "name": "Studded Leather Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7607,7 +7599,7 @@
         },
         {
           "resref": "platemail",
-          "tag": "platemail_23488",
+          "tag": "platemail_29758",
           "name": "Platemail Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7615,7 +7607,7 @@
         },
         {
           "resref": "robes",
-          "tag": "robes_23489",
+          "tag": "robes_29759",
           "name": "Robes",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7623,7 +7615,7 @@
         },
         {
           "resref": "campingKit",
-          "tag": "campingKit_23490",
+          "tag": "campingKit_29760",
           "name": "Camping Kit",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7631,7 +7623,7 @@
         },
         {
           "resref": "ringOfProtection",
-          "tag": "ringOfProtection_23491",
+          "tag": "ringOfProtection_29761",
           "name": "Ring of Protection",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7639,7 +7631,7 @@
         },
         {
           "resref": "ringOfFireResist",
-          "tag": "ringOfFireResist_23492",
+          "tag": "ringOfFireResist_29762",
           "name": "Ring of Fire Resistance",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7647,7 +7639,7 @@
         },
         {
           "resref": "healingPotion",
-          "tag": "healingPotion_23493",
+          "tag": "healingPotion_29763",
           "name": "Healing Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7655,7 +7647,7 @@
         },
         {
           "resref": "healingPotionExtra",
-          "tag": "healingPotionExtra_23494",
+          "tag": "healingPotionExtra_29764",
           "name": "Extra Healing Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7663,7 +7655,7 @@
         },
         {
           "resref": "spPotion",
-          "tag": "spPotion_23495",
+          "tag": "spPotion_29765",
           "name": "Spell Points Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7671,7 +7663,7 @@
         },
         {
           "resref": "battleaxe",
-          "tag": "battleaxe_23496",
+          "tag": "battleaxe_29766",
           "name": "Battle Axe",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7679,7 +7671,7 @@
         },
         {
           "resref": "crossbow",
-          "tag": "crossbow_23497",
+          "tag": "crossbow_29767",
           "name": "Crossbow",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7687,23 +7679,15 @@
         },
         {
           "resref": "dagger01",
-          "tag": "dagger01_23498",
+          "tag": "dagger01_29768",
           "name": "Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
           "isRation": false
         },
         {
-          "resref": "elvishshortsword",
-          "tag": "elvishshortsword_23499",
-          "name": "Elvish Short Sword +1",
-          "canNotBeUnequipped": false,
-          "quantity": 1,
-          "isRation": false
-        },
-        {
           "resref": "fireDagger",
-          "tag": "fireDagger_23500",
+          "tag": "fireDagger_29769",
           "name": "Fire Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7711,7 +7695,7 @@
         },
         {
           "resref": "fireLongSword",
-          "tag": "fireLongSword_23501",
+          "tag": "fireLongSword_29770",
           "name": "Flaming Long Sword",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7719,7 +7703,7 @@
         },
         {
           "resref": "handaxe",
-          "tag": "handaxe_23502",
+          "tag": "handaxe_29771",
           "name": "Hand Axe",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7727,7 +7711,7 @@
         },
         {
           "resref": "lsword01",
-          "tag": "lsword01_23503",
+          "tag": "lsword01_29772",
           "name": "Long Sword",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7735,7 +7719,7 @@
         },
         {
           "resref": "mace",
-          "tag": "mace_23504",
+          "tag": "mace_29773",
           "name": "Mace",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7743,7 +7727,7 @@
         },
         {
           "resref": "shortBow",
-          "tag": "shortBow_23505",
+          "tag": "shortBow_29774",
           "name": "Short Bow",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7751,7 +7735,7 @@
         },
         {
           "resref": "ssword01",
-          "tag": "ssword01_23506",
+          "tag": "ssword01_29775",
           "name": "Short Sword",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7759,7 +7743,7 @@
         },
         {
           "resref": "sling",
-          "tag": "sling_23507",
+          "tag": "sling_29776",
           "name": "Sling",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7767,7 +7751,7 @@
         },
         {
           "resref": "fireSling",
-          "tag": "fireSling_23508",
+          "tag": "fireSling_29777",
           "name": "Sling of Fire",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7775,7 +7759,7 @@
         },
         {
           "resref": "spear",
-          "tag": "spear_23509",
+          "tag": "spear_29778",
           "name": "Spear",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7783,7 +7767,7 @@
         },
         {
           "resref": "arrow",
-          "tag": "arrow_23510",
+          "tag": "arrow_29779",
           "name": "Arrow",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -7791,7 +7775,7 @@
         },
         {
           "resref": "stone",
-          "tag": "stone_23511",
+          "tag": "stone_29780",
           "name": "Stone",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -7799,7 +7783,7 @@
         },
         {
           "resref": "stonefire",
-          "tag": "stonefire_23512",
+          "tag": "stonefire_29781",
           "name": "Stone of Fire",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -7807,7 +7791,7 @@
         },
         {
           "resref": "magicamulet",
-          "tag": "magicamulet_23513",
+          "tag": "magicamulet_29782",
           "name": "Magic Amulet",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7815,7 +7799,7 @@
         },
         {
           "resref": "magicbook",
-          "tag": "magicbook_23514",
+          "tag": "magicbook_29783",
           "name": "Magic Book",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7823,7 +7807,7 @@
         },
         {
           "resref": "bolt",
-          "tag": "bolt_23515",
+          "tag": "bolt_29784",
           "name": "Bolt",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -7831,7 +7815,7 @@
         },
         {
           "resref": "maceofstunning",
-          "tag": "maceofstunning_23516",
+          "tag": "maceofstunning_29785",
           "name": "Mace of Stunning",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7839,7 +7823,7 @@
         },
         {
           "resref": "thsworddefender",
-          "tag": "thsworddefender_23517",
+          "tag": "thsworddefender_29786",
           "name": "Two Handed Sword of the Defender",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7847,7 +7831,7 @@
         },
         {
           "resref": "firebomb",
-          "tag": "firebomb_23518",
+          "tag": "firebomb_29787",
           "name": "Fire Flask Bomb",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7855,7 +7839,7 @@
         },
         {
           "resref": "antidote",
-          "tag": "antidote_23519",
+          "tag": "antidote_29788",
           "name": "Antidote Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7863,7 +7847,7 @@
         },
         {
           "resref": "firehorn",
-          "tag": "firehorn_23520",
+          "tag": "firehorn_29789",
           "name": "Fire Horn",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -7871,7 +7855,7 @@
         },
         {
           "resref": "firehorncharge",
-          "tag": "firehorncharge_23521",
+          "tag": "firehorncharge_29790",
           "name": "Fire Horn Charge",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -8058,7 +8042,7 @@
       "itemsAllowed": [
         {
           "resref": "larmor1",
-          "tag": "larmor1_23394",
+          "tag": "larmor1_29680",
           "name": "Leather Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8066,7 +8050,7 @@
         },
         {
           "resref": "studdedLeather",
-          "tag": "studdedLeather_23395",
+          "tag": "studdedLeather_29681",
           "name": "Studded Leather Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8074,7 +8058,7 @@
         },
         {
           "resref": "robes",
-          "tag": "robes_23396",
+          "tag": "robes_29682",
           "name": "Robes",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8082,7 +8066,7 @@
         },
         {
           "resref": "campingKit",
-          "tag": "campingKit_23397",
+          "tag": "campingKit_29683",
           "name": "Camping Kit",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8090,7 +8074,7 @@
         },
         {
           "resref": "ringOfProtection",
-          "tag": "ringOfProtection_23398",
+          "tag": "ringOfProtection_29684",
           "name": "Ring of Protection",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8098,7 +8082,7 @@
         },
         {
           "resref": "ringOfFireResist",
-          "tag": "ringOfFireResist_23399",
+          "tag": "ringOfFireResist_29685",
           "name": "Ring of Fire Resistance",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8106,7 +8090,7 @@
         },
         {
           "resref": "healingPotion",
-          "tag": "healingPotion_23400",
+          "tag": "healingPotion_29686",
           "name": "Healing Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8114,7 +8098,7 @@
         },
         {
           "resref": "healingPotionExtra",
-          "tag": "healingPotionExtra_23401",
+          "tag": "healingPotionExtra_29687",
           "name": "Extra Healing Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8122,7 +8106,7 @@
         },
         {
           "resref": "spPotion",
-          "tag": "spPotion_23402",
+          "tag": "spPotion_29688",
           "name": "Spell Points Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8130,7 +8114,7 @@
         },
         {
           "resref": "battleaxe",
-          "tag": "battleaxe_23403",
+          "tag": "battleaxe_29689",
           "name": "Battle Axe",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8138,7 +8122,7 @@
         },
         {
           "resref": "crossbow",
-          "tag": "crossbow_23404",
+          "tag": "crossbow_29690",
           "name": "Crossbow",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8146,23 +8130,15 @@
         },
         {
           "resref": "dagger01",
-          "tag": "dagger01_23405",
+          "tag": "dagger01_29691",
           "name": "Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
           "isRation": false
         },
         {
-          "resref": "elvishshortsword",
-          "tag": "elvishshortsword_23406",
-          "name": "Elvish Short Sword +1",
-          "canNotBeUnequipped": false,
-          "quantity": 1,
-          "isRation": false
-        },
-        {
           "resref": "fireDagger",
-          "tag": "fireDagger_23407",
+          "tag": "fireDagger_29692",
           "name": "Fire Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8170,7 +8146,7 @@
         },
         {
           "resref": "fireLongSword",
-          "tag": "fireLongSword_23408",
+          "tag": "fireLongSword_29693",
           "name": "Flaming Long Sword",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8178,7 +8154,7 @@
         },
         {
           "resref": "handaxe",
-          "tag": "handaxe_23409",
+          "tag": "handaxe_29694",
           "name": "Hand Axe",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8186,7 +8162,7 @@
         },
         {
           "resref": "lbow1",
-          "tag": "lbow1_23410",
+          "tag": "lbow1_29695",
           "name": "Long Bow",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8194,7 +8170,7 @@
         },
         {
           "resref": "lsword01",
-          "tag": "lsword01_23411",
+          "tag": "lsword01_29696",
           "name": "Long Sword",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8202,7 +8178,7 @@
         },
         {
           "resref": "mace",
-          "tag": "mace_23412",
+          "tag": "mace_29697",
           "name": "Mace",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8210,7 +8186,7 @@
         },
         {
           "resref": "shortBow",
-          "tag": "shortBow_23413",
+          "tag": "shortBow_29698",
           "name": "Short Bow",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8218,7 +8194,7 @@
         },
         {
           "resref": "ssword01",
-          "tag": "ssword01_23414",
+          "tag": "ssword01_29699",
           "name": "Short Sword",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8226,7 +8202,7 @@
         },
         {
           "resref": "sling",
-          "tag": "sling_23415",
+          "tag": "sling_29700",
           "name": "Sling",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8234,7 +8210,7 @@
         },
         {
           "resref": "fireSling",
-          "tag": "fireSling_23416",
+          "tag": "fireSling_29701",
           "name": "Sling of Fire",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8242,7 +8218,7 @@
         },
         {
           "resref": "spear",
-          "tag": "spear_23417",
+          "tag": "spear_29702",
           "name": "Spear",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8250,7 +8226,7 @@
         },
         {
           "resref": "arrow",
-          "tag": "arrow_23418",
+          "tag": "arrow_29703",
           "name": "Arrow",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -8258,7 +8234,7 @@
         },
         {
           "resref": "stone",
-          "tag": "stone_23419",
+          "tag": "stone_29704",
           "name": "Stone",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -8266,7 +8242,7 @@
         },
         {
           "resref": "stonefire",
-          "tag": "stonefire_23420",
+          "tag": "stonefire_29705",
           "name": "Stone of Fire",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -8274,7 +8250,7 @@
         },
         {
           "resref": "magicamulet",
-          "tag": "magicamulet_23421",
+          "tag": "magicamulet_29706",
           "name": "Magic Amulet",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8282,7 +8258,7 @@
         },
         {
           "resref": "magicbook",
-          "tag": "magicbook_23422",
+          "tag": "magicbook_29707",
           "name": "Magic Book",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8290,7 +8266,7 @@
         },
         {
           "resref": "bolt",
-          "tag": "bolt_23423",
+          "tag": "bolt_29708",
           "name": "Bolt",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -8298,7 +8274,7 @@
         },
         {
           "resref": "maceofstunning",
-          "tag": "maceofstunning_23424",
+          "tag": "maceofstunning_29709",
           "name": "Mace of Stunning",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8306,7 +8282,7 @@
         },
         {
           "resref": "thsworddefender",
-          "tag": "thsworddefender_23425",
+          "tag": "thsworddefender_29710",
           "name": "Two Handed Sword of the Defender",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8314,7 +8290,7 @@
         },
         {
           "resref": "poisonDagger",
-          "tag": "poisonDagger_23426",
+          "tag": "poisonDagger_29711",
           "name": "Poison Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8322,7 +8298,7 @@
         },
         {
           "resref": "firebomb",
-          "tag": "firebomb_23427",
+          "tag": "firebomb_29712",
           "name": "Fire Flask Bomb",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8330,7 +8306,7 @@
         },
         {
           "resref": "antidote",
-          "tag": "antidote_23428",
+          "tag": "antidote_29713",
           "name": "Antidote Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8338,7 +8314,7 @@
         },
         {
           "resref": "firehorn",
-          "tag": "firehorn_23429",
+          "tag": "firehorn_29714",
           "name": "Fire Horn",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8346,7 +8322,7 @@
         },
         {
           "resref": "firehorncharge",
-          "tag": "firehorncharge_23430",
+          "tag": "firehorncharge_29715",
           "name": "Fire Horn Charge",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -8554,7 +8530,7 @@
       "itemsAllowed": [
         {
           "resref": "larmor1",
-          "tag": "larmor1_23431",
+          "tag": "larmor1_29651",
           "name": "Leather Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8562,7 +8538,7 @@
         },
         {
           "resref": "studdedLeather",
-          "tag": "studdedLeather_23432",
+          "tag": "studdedLeather_29652",
           "name": "Studded Leather Armor",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8570,7 +8546,7 @@
         },
         {
           "resref": "robes",
-          "tag": "robes_23433",
+          "tag": "robes_29653",
           "name": "Robes",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8578,7 +8554,7 @@
         },
         {
           "resref": "campingKit",
-          "tag": "campingKit_23434",
+          "tag": "campingKit_29654",
           "name": "Camping Kit",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8586,7 +8562,7 @@
         },
         {
           "resref": "ringOfProtection",
-          "tag": "ringOfProtection_23435",
+          "tag": "ringOfProtection_29655",
           "name": "Ring of Protection",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8594,7 +8570,7 @@
         },
         {
           "resref": "ringOfFireResist",
-          "tag": "ringOfFireResist_23436",
+          "tag": "ringOfFireResist_29656",
           "name": "Ring of Fire Resistance",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8602,7 +8578,7 @@
         },
         {
           "resref": "healingPotion",
-          "tag": "healingPotion_23437",
+          "tag": "healingPotion_29657",
           "name": "Healing Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8610,7 +8586,7 @@
         },
         {
           "resref": "healingPotionExtra",
-          "tag": "healingPotionExtra_23438",
+          "tag": "healingPotionExtra_29658",
           "name": "Extra Healing Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8618,7 +8594,7 @@
         },
         {
           "resref": "spPotion",
-          "tag": "spPotion_23439",
+          "tag": "spPotion_29659",
           "name": "Spell Points Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8626,7 +8602,7 @@
         },
         {
           "resref": "crossbow",
-          "tag": "crossbow_23440",
+          "tag": "crossbow_29660",
           "name": "Crossbow",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8634,23 +8610,15 @@
         },
         {
           "resref": "dagger01",
-          "tag": "dagger01_23441",
+          "tag": "dagger01_29661",
           "name": "Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
           "isRation": false
         },
         {
-          "resref": "elvishshortsword",
-          "tag": "elvishshortsword_23442",
-          "name": "Elvish Short Sword +1",
-          "canNotBeUnequipped": false,
-          "quantity": 1,
-          "isRation": false
-        },
-        {
           "resref": "fireDagger",
-          "tag": "fireDagger_23443",
+          "tag": "fireDagger_29662",
           "name": "Fire Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8658,7 +8626,7 @@
         },
         {
           "resref": "handaxe",
-          "tag": "handaxe_23444",
+          "tag": "handaxe_29663",
           "name": "Hand Axe",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8666,7 +8634,7 @@
         },
         {
           "resref": "mace",
-          "tag": "mace_23445",
+          "tag": "mace_29664",
           "name": "Mace",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8674,7 +8642,7 @@
         },
         {
           "resref": "shortBow",
-          "tag": "shortBow_23446",
+          "tag": "shortBow_29665",
           "name": "Short Bow",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8682,7 +8650,7 @@
         },
         {
           "resref": "ssword01",
-          "tag": "ssword01_23447",
+          "tag": "ssword01_29666",
           "name": "Short Sword",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8690,7 +8658,7 @@
         },
         {
           "resref": "sling",
-          "tag": "sling_23448",
+          "tag": "sling_29667",
           "name": "Sling",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8698,7 +8666,7 @@
         },
         {
           "resref": "fireSling",
-          "tag": "fireSling_23449",
+          "tag": "fireSling_29668",
           "name": "Sling of Fire",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8706,7 +8674,7 @@
         },
         {
           "resref": "arrow",
-          "tag": "arrow_23450",
+          "tag": "arrow_29669",
           "name": "Arrow",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -8714,7 +8682,7 @@
         },
         {
           "resref": "stone",
-          "tag": "stone_23451",
+          "tag": "stone_29670",
           "name": "Stone",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -8722,7 +8690,7 @@
         },
         {
           "resref": "stonefire",
-          "tag": "stonefire_23452",
+          "tag": "stonefire_29671",
           "name": "Stone of Fire",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -8730,7 +8698,7 @@
         },
         {
           "resref": "magicamulet",
-          "tag": "magicamulet_23453",
+          "tag": "magicamulet_29672",
           "name": "Magic Amulet",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8738,7 +8706,7 @@
         },
         {
           "resref": "magicbook",
-          "tag": "magicbook_23454",
+          "tag": "magicbook_29673",
           "name": "Magic Book",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8746,7 +8714,7 @@
         },
         {
           "resref": "bolt",
-          "tag": "bolt_23455",
+          "tag": "bolt_29674",
           "name": "Bolt",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -8754,7 +8722,7 @@
         },
         {
           "resref": "poisonDagger",
-          "tag": "poisonDagger_23456",
+          "tag": "poisonDagger_29675",
           "name": "Poison Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8762,7 +8730,7 @@
         },
         {
           "resref": "firebomb",
-          "tag": "firebomb_23457",
+          "tag": "firebomb_29676",
           "name": "Fire Flask Bomb",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8770,7 +8738,7 @@
         },
         {
           "resref": "antidote",
-          "tag": "antidote_23458",
+          "tag": "antidote_29677",
           "name": "Antidote Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8778,7 +8746,7 @@
         },
         {
           "resref": "firehorn",
-          "tag": "firehorn_23459",
+          "tag": "firehorn_29678",
           "name": "Fire Horn",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -8786,7 +8754,7 @@
         },
         {
           "resref": "firehorncharge",
-          "tag": "firehorncharge_23460",
+          "tag": "firehorncharge_29679",
           "name": "Fire Horn Charge",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -8925,7 +8893,7 @@
       "startingSP": 20,
       "modifierFromSPRelevantAttribute": "intelligence",
       "hpPerLevelUp": 4,
-      "spPerLevelUp": 20,
+      "spPerLevelUp": 10,
       "hpRegenTimeNeeded": 0,
       "spRegenTimeNeeded": 0,
       "spellLabelSingular": "Spell",
@@ -9014,7 +8982,7 @@
       "itemsAllowed": [
         {
           "resref": "robes",
-          "tag": "robes_23461",
+          "tag": "robes_29628",
           "name": "Robes",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9022,7 +8990,7 @@
         },
         {
           "resref": "campingKit",
-          "tag": "campingKit_23462",
+          "tag": "campingKit_29629",
           "name": "Camping Kit",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9030,7 +8998,7 @@
         },
         {
           "resref": "ringOfProtection",
-          "tag": "ringOfProtection_23463",
+          "tag": "ringOfProtection_29630",
           "name": "Ring of Protection",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9038,7 +9006,7 @@
         },
         {
           "resref": "ringOfFireResist",
-          "tag": "ringOfFireResist_23464",
+          "tag": "ringOfFireResist_29631",
           "name": "Ring of Fire Resistance",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9046,7 +9014,7 @@
         },
         {
           "resref": "healingPotion",
-          "tag": "healingPotion_23465",
+          "tag": "healingPotion_29632",
           "name": "Healing Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9054,7 +9022,7 @@
         },
         {
           "resref": "healingPotionExtra",
-          "tag": "healingPotionExtra_23466",
+          "tag": "healingPotionExtra_29633",
           "name": "Extra Healing Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9062,7 +9030,7 @@
         },
         {
           "resref": "spPotion",
-          "tag": "spPotion_23467",
+          "tag": "spPotion_29634",
           "name": "Spell Points Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9070,7 +9038,7 @@
         },
         {
           "resref": "crossbow",
-          "tag": "crossbow_23468",
+          "tag": "crossbow_29635",
           "name": "Crossbow",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9078,7 +9046,7 @@
         },
         {
           "resref": "dagger01",
-          "tag": "dagger01_23469",
+          "tag": "dagger01_29636",
           "name": "Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9086,7 +9054,7 @@
         },
         {
           "resref": "fireDagger",
-          "tag": "fireDagger_23470",
+          "tag": "fireDagger_29637",
           "name": "Fire Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9094,7 +9062,7 @@
         },
         {
           "resref": "sling",
-          "tag": "sling_23471",
+          "tag": "sling_29638",
           "name": "Sling",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9102,7 +9070,7 @@
         },
         {
           "resref": "fireSling",
-          "tag": "fireSling_23472",
+          "tag": "fireSling_29639",
           "name": "Sling of Fire",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9110,7 +9078,7 @@
         },
         {
           "resref": "arrow",
-          "tag": "arrow_23473",
+          "tag": "arrow_29640",
           "name": "Arrow",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -9118,7 +9086,7 @@
         },
         {
           "resref": "stone",
-          "tag": "stone_23474",
+          "tag": "stone_29641",
           "name": "Stone",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -9126,7 +9094,7 @@
         },
         {
           "resref": "stonefire",
-          "tag": "stonefire_23475",
+          "tag": "stonefire_29642",
           "name": "Stone of Fire",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -9134,7 +9102,7 @@
         },
         {
           "resref": "magicamulet",
-          "tag": "magicamulet_23476",
+          "tag": "magicamulet_29643",
           "name": "Magic Amulet",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9142,7 +9110,7 @@
         },
         {
           "resref": "magicbook",
-          "tag": "magicbook_23477",
+          "tag": "magicbook_29644",
           "name": "Magic Book",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9150,7 +9118,7 @@
         },
         {
           "resref": "bolt",
-          "tag": "bolt_23478",
+          "tag": "bolt_29645",
           "name": "Bolt",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -9158,7 +9126,7 @@
         },
         {
           "resref": "poisonDagger",
-          "tag": "poisonDagger_23479",
+          "tag": "poisonDagger_29646",
           "name": "Poison Dagger",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9166,7 +9134,7 @@
         },
         {
           "resref": "firebomb",
-          "tag": "firebomb_23480",
+          "tag": "firebomb_29647",
           "name": "Fire Flask Bomb",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9174,7 +9142,7 @@
         },
         {
           "resref": "antidote",
-          "tag": "antidote_23481",
+          "tag": "antidote_29648",
           "name": "Antidote Potion",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9182,7 +9150,7 @@
         },
         {
           "resref": "firehorn",
-          "tag": "firehorn_23482",
+          "tag": "firehorn_29649",
           "name": "Fire Horn",
           "canNotBeUnequipped": false,
           "quantity": 1,
@@ -9190,7 +9158,7 @@
         },
         {
           "resref": "firehorncharge",
-          "tag": "firehorncharge_23483",
+          "tag": "firehorncharge_29650",
           "name": "Fire Horn Charge",
           "canNotBeUnequipped": false,
           "quantity": 20,
@@ -9605,7 +9573,7 @@
       "spriteEndingFilename": "fx_fireball3x3end",
       "spellStartSound": "fireballstart",
       "spellEndSound": "fireballend",
-      "costSP": 15,
+      "costSP": 14,
       "spellTargetType": "PointLocation",
       "isUsedForCombatSquareEffect": false,
       "spellEffectType": "Damage",
@@ -9781,7 +9749,7 @@
       "spriteEndingFilename": "fx_heal1x1end",
       "spellStartSound": "buffer",
       "spellEndSound": "buffer",
-      "costSP": 10,
+      "costSP": 20,
       "spellTargetType": "Friend",
       "isUsedForCombatSquareEffect": false,
       "spellEffectType": "Damage",
@@ -10052,7 +10020,7 @@
       "spriteEndingFilename": "fx_heal1x1end",
       "spellStartSound": "buffer",
       "spellEndSound": "buffer",
-      "costSP": 15,
+      "costSP": 14,
       "spellTargetType": "Friend",
       "isUsedForCombatSquareEffect": false,
       "spellEffectType": "Heal",
@@ -10150,7 +10118,7 @@
       "spriteEndingFilename": "fx_heal",
       "spellStartSound": "buffer",
       "spellEndSound": "buffer",
-      "costSP": 0,
+      "costSP": 10,
       "spellTargetType": "Friend",
       "isUsedForCombatSquareEffect": false,
       "spellEffectType": "Buff",
@@ -10172,7 +10140,7 @@
       "spriteEndingFilename": "fx_heal",
       "spellStartSound": "buffer",
       "spellEndSound": "buffer",
-      "costSP": 0,
+      "costSP": 10,
       "spellTargetType": "Friend",
       "isUsedForCombatSquareEffect": false,
       "spellEffectType": "Buff",
@@ -10238,7 +10206,7 @@
       "spriteEndingFilename": "fx_web3x3end",
       "spellStartSound": "buffer",
       "spellEndSound": "buffer",
-      "costSP": 15,
+      "costSP": 14,
       "spellTargetType": "PointLocation",
       "isUsedForCombatSquareEffect": false,
       "spellEffectType": "DeBuff",
@@ -10298,13 +10266,13 @@
       "name": "Stinking Cloud",
       "tag": "stinkingcloud",
       "spellImage": "sp_stinkingcloud",
-      "description": "a cloud of noxious gas fills the area of effect causing all living to take 1-3 points of damage each round that they remain in the area.",
+      "description": "a cloud of noxious gas fills the area of effect causing all living to take 1-3 points of damage each round that they remain in the area. They may also begin chocking causing them to be helpless (held).",
       "useableInSituation": "InCombat",
       "spriteFilename": "fx_genericspell",
       "spriteEndingFilename": "fx_stinkingcloudend",
       "spellStartSound": "buffer",
       "spellEndSound": "buffer",
-      "costSP": 7,
+      "costSP": 14,
       "spellTargetType": "PointLocation",
       "isUsedForCombatSquareEffect": true,
       "spellEffectType": "DeBuff",
@@ -11709,7 +11677,7 @@
       "name": "Power Attack",
       "tag": "powerattack",
       "traitImage": "tr_cleave",
-      "description": "",
+      "description": "+2 attack and damage, -2 AC for one round.",
       "prerequisiteTrait": "none",
       "skillModifier": 0,
       "skillModifierAttribute": "str",
@@ -15233,11 +15201,11 @@
       "usedForUpdateStats": false,
       "effectScript": "efGeneric",
       "saveCheckType": "fortitude",
-      "saveCheckDC": 13,
+      "saveCheckDC": 10,
       "doDamage": true,
       "damType": "Poison",
       "damNumOfDice": 1,
-      "damDie": 2,
+      "damDie": 3,
       "damAdder": 0,
       "damAttacksEveryNLevels": 0,
       "damAttacksAfterLevelN": 0,
@@ -15257,7 +15225,7 @@
       "healActionsUpToNLevelsTotal": 0,
       "doBuff": false,
       "doDeBuff": true,
-      "statusType": "Poisoned",
+      "statusType": "Held",
       "modifyFortitude": 0,
       "modifyWill": 0,
       "modifyReflex": 0,
@@ -15304,7 +15272,7 @@
       "startingTimeInUnits": 0,
       "babModifier": 2,
       "babModifierForRangedAttack": 0,
-      "damageModifierForMeleeAttack": 0,
+      "damageModifierForMeleeAttack": 2,
       "damageModifierForRangedAttack": 0,
       "acModifier": -2,
       "isStackableEffect": false,

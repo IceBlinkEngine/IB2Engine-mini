@@ -2228,16 +2228,15 @@ namespace IceBlink2mini
             Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
             if (creatureMoves + 0.5f < crt.getterMoveDistance())
             {
-                //if the path list is empty, create a list
+                //if the path list is empty, create a list, else just go to next square in list
                 if (currentCreaturePathNodes.Count == 0)
-                {
-                    //else just go to next square in list
+                {                    
                     Player pc = targetClosestPC(crt);
                     //run pathFinder to get new location
                     if (pc != null)
                     {
                         pf.resetGrid(crt);
-                        pf.setupPathNodes(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
+                        pf.setupPathNodes(crt, new Coordinate(pc.combatLocX, pc.combatLocY), false);
                         foreach (Coordinate crd in pf.pathNodes)
                         {
                             currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
@@ -2254,7 +2253,7 @@ namespace IceBlink2mini
                                 if ((gv.mod.playerList[d].isAlive()) && (!gv.mod.playerList[d].steathModeOn) && (!gv.mod.playerList[d].isInvisible()))
                                 {
                                     pf.resetGrid(crt);
-                                    pf.setupPathNodes(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY));
+                                    pf.setupPathNodes(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY), false);
                                     foreach (Coordinate crd in pf.pathNodes)
                                     {
                                         currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
@@ -2278,6 +2277,67 @@ namespace IceBlink2mini
                                 #endregion
                             }
                             if (!foundOne)
+                            {
+                                //find shortest path ignoring creatures then reverse iterate that pat trying to find a good path
+                                //go through each PC and setup a path
+                                int closestDist = 999;
+                                List<Coordinate> tempPathNodeList = new List<Coordinate>();
+                                foreach (Player pc2 in gv.mod.playerList)
+                                {
+                                    if ((pc2.isAlive()) && (!pc2.steathModeOn) && (!pc2.isInvisible()))
+                                    {
+                                        pf.resetGrid(crt);
+                                        pf.setupPathNodes(crt, new Coordinate(pc2.combatLocX, pc2.combatLocY), true);
+                                        if (pf.pathNodes.Count == 0)
+                                        {
+                                            //didn't find a path so keep searching
+                                        }
+                                        else
+                                        {
+                                            //found a path so check if closer distance
+                                            if (pf.pathNodes.Count < closestDist)
+                                            {
+                                                //if path node count is less than the last replace the temp list
+                                                closestDist = pf.pathNodes.Count;
+                                                //foundOne = true;
+                                                tempPathNodeList.Clear();
+                                                foreach (Coordinate crd in pf.pathNodes)
+                                                {
+                                                    tempPathNodeList.Add(new Coordinate(crd.X, crd.Y));
+                                                }
+                                                if (gv.mod.debugMode)
+                                                {
+                                                    gv.cc.addLogText("<yl>dist: " + pf.pathNodes.Count + " coor:" + tempPathNodeList[tempPathNodeList.Count - 2].X + "," + tempPathNodeList[tempPathNodeList.Count - 2].Y + "</yl><BR>");
+                                                }
+                                            }
+                                        }
+                                    }
+                                }                                
+                                //iterate through temp list until find a good path
+                                if (tempPathNodeList.Count > 0)
+                                {
+                                    for (int r = 0; r < tempPathNodeList.Count - 2; r++)
+                                    {
+                                        pf.resetGrid(crt);
+                                        pf.setupPathNodes(crt, new Coordinate(tempPathNodeList[r].X, tempPathNodeList[r].Y), false);
+                                        if (pf.pathNodes.Count == 0)
+                                        {
+                                            //didn't find a path so keep looking
+                                        }
+                                        else
+                                        {
+                                            //found a path so save to currentCreaturePathNodes and break out of loop
+                                            foreach (Coordinate crd in pf.pathNodes)
+                                            {
+                                                currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                            }
+                                            foundOne = true;
+                                            break;
+                                        }                                        
+                                    }
+                                }
+                            }
+                            /*if (!foundOne)
                             {
                                 #region try around the nearest PC
                                 int closestDist = 999;
@@ -2322,7 +2382,7 @@ namespace IceBlink2mini
                                     }
                                 }
                                 #endregion
-                            }
+                            }*/
                             if (!foundOne)
                             {
                                 //give up and end
@@ -2335,8 +2395,14 @@ namespace IceBlink2mini
 
                         currentCreaturePathNodes.RemoveAt(currentCreaturePathNodes.Count - 1);
                         Coordinate newCoor = new Coordinate(currentCreaturePathNodes[currentCreaturePathNodes.Count - 1].X, currentCreaturePathNodes[currentCreaturePathNodes.Count - 1].Y);
+                        //remove the current node from list since we are moving there and are queueing up the next node for the next move
                         currentCreaturePathNodes.RemoveAt(currentCreaturePathNodes.Count - 1);
-
+                        if (isSquareOccupied(newCoor.X, newCoor.Y))
+                        {
+                            gv.Render();
+                            endCreatureTurn();
+                            return;
+                        }
                         if (gv.mod.debugMode)
                         {
                             gv.cc.addLogText("<yl>newCoor:" + newCoor.X + "," + newCoor.Y + "</yl><BR>");
@@ -2446,6 +2512,12 @@ namespace IceBlink2mini
                     Coordinate newCoor = new Coordinate(currentCreaturePathNodes[currentCreaturePathNodes.Count - 1].X, currentCreaturePathNodes[currentCreaturePathNodes.Count - 1].Y);
                     //remove the current node from list since we are moving there and are queueing up the next node for the next move
                     currentCreaturePathNodes.RemoveAt(currentCreaturePathNodes.Count - 1);
+                    if (isSquareOccupied(newCoor.X, newCoor.Y))
+                    {
+                        gv.Render();
+                        endCreatureTurn();
+                        return;
+                    }
                     if (gv.mod.debugMode)
                     {
                         gv.cc.addLogText("<yl>newCoor:" + newCoor.X + "," + newCoor.Y + "</yl><BR>");
@@ -2520,6 +2592,27 @@ namespace IceBlink2mini
                 endCreatureTurn();
                 return;
             }
+        }
+        public bool isSquareOccupied(int x, int y)
+        {
+            foreach (Player pc in gv.mod.playerList)
+            {
+                if ((pc.combatLocX == x) && (pc.combatLocY == y))
+                {
+                    if (pc.isAlive())
+                    {
+                        return true;
+                    }
+                }
+            }
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+            {
+                if ((crt.combatLocX == x) && (crt.combatLocY == y))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         public void CreatureDoesAttack(Creature crt)
         {

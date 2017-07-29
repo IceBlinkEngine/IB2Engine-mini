@@ -3,28 +3,28 @@
     "moduleName": "Hearkenwold",
     "moduleLabelName": "Hearkenwold",
     "titleImageName": "title",
-    "moduleVersion": 21,
+    "moduleVersion": 22,
     "moduleDescription": "The adventure begins with the party fleeing an attack on a feudal manor, and seeking refuge in Castle Hearkenwold. From there, they can be enlisted into service of the Kingdom, or try to explore on their own. This is designed an open world sandbox style campaign."
   },
   {
     "moduleName": "Lanterna",
     "moduleLabelName": "Lanterna",
     "titleImageName": "title",
-    "moduleVersion": 5,
+    "moduleVersion": 6,
     "moduleDescription": "Welcome to Lanterna - The Exile"
   },
   {
     "moduleName": "TheElderinStone",
     "moduleLabelName": "The Elderin Stone",
     "titleImageName": "title",
-    "moduleVersion": 5,
+    "moduleVersion": 6,
     "moduleDescription": "A 3-4hr dungeon crawl for up to six level one characters."
   },
   {
   		"moduleName":"Lanterna2",
   		"moduleLabelName":"Lanterna 2 - Return to Charn",
   		"titleImageName":"title",
-  		"moduleVersion":2,
+  		"moduleVersion":3,
   		"moduleDescription":"(Early BETA Version) This adventure module currently contains the first chapter (of three) of Lanterna 2 - Return to Charn. The story was designed for a human male or female as your main character. Others may join your party during your adventure. Possible companions are a cleric, ranger, thief and a wizard."
   }
 ]
