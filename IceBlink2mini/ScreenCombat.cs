@@ -2397,7 +2397,7 @@ namespace IceBlink2mini
                         Coordinate newCoor = new Coordinate(currentCreaturePathNodes[currentCreaturePathNodes.Count - 1].X, currentCreaturePathNodes[currentCreaturePathNodes.Count - 1].Y);
                         //remove the current node from list since we are moving there and are queueing up the next node for the next move
                         currentCreaturePathNodes.RemoveAt(currentCreaturePathNodes.Count - 1);
-                        if (isSquareOccupied(newCoor.X, newCoor.Y))
+                        if (isSquareOccupied(newCoor.X, newCoor.Y, crt))
                         {
                             gv.Render();
                             endCreatureTurn();
@@ -2512,7 +2512,7 @@ namespace IceBlink2mini
                     Coordinate newCoor = new Coordinate(currentCreaturePathNodes[currentCreaturePathNodes.Count - 1].X, currentCreaturePathNodes[currentCreaturePathNodes.Count - 1].Y);
                     //remove the current node from list since we are moving there and are queueing up the next node for the next move
                     currentCreaturePathNodes.RemoveAt(currentCreaturePathNodes.Count - 1);
-                    if (isSquareOccupied(newCoor.X, newCoor.Y))
+                    if (isSquareOccupied(newCoor.X, newCoor.Y, crt))
                     {
                         gv.Render();
                         endCreatureTurn();
@@ -2593,23 +2593,149 @@ namespace IceBlink2mini
                 return;
             }
         }
-        public bool isSquareOccupied(int x, int y)
+        public bool isSquareOccupied(int x, int y, Creature movingCrt)
         {
+            List<Coordinate> mySquares = new List<Coordinate>();
+            int crtMovingSize = gv.cc.getCreatureSize(movingCrt.cr_tokenFilename); //1=normal, 2=wide, 3=tall, 4=large
+            //normal
+            if (crtMovingSize == 1)
+            {
+                mySquares.Add(new Coordinate(x, y));                
+            }
+            //crt wide
+            if (crtMovingSize == 2)
+            {
+                mySquares.Add(new Coordinate(x, y));
+                if (x < gv.mod.currentEncounter.MapSizeX - 1)
+                {
+                    mySquares.Add(new Coordinate(x + 1, y));
+                }
+            }
+            //crt tall
+            if (crtMovingSize == 3)
+            {
+                mySquares.Add(new Coordinate(x, y));
+                if (y < gv.mod.currentEncounter.MapSizeY - 1)
+                {
+                    mySquares.Add(new Coordinate(x, y + 1));
+                }
+            }
+            //crt large
+            if (crtMovingSize == 4)
+            {
+                mySquares.Add(new Coordinate(x, y));
+                if (x < gv.mod.currentEncounter.MapSizeX - 1)
+                {
+                    mySquares.Add(new Coordinate(x + 1, y));
+                }
+                if (y < gv.mod.currentEncounter.MapSizeY - 1)
+                {
+                    mySquares.Add(new Coordinate(x, y + 1));
+                }
+                if ((x < gv.mod.currentEncounter.MapSizeX - 1) && (y < gv.mod.currentEncounter.MapSizeY - 1))
+                {
+                    mySquares.Add(new Coordinate(x + 1, y + 1));
+                }
+            }
+
             foreach (Player pc in gv.mod.playerList)
             {
-                if ((pc.combatLocX == x) && (pc.combatLocY == y))
+                foreach (Coordinate myCrd in mySquares)
                 {
-                    if (pc.isAlive())
+                    if ((pc.combatLocX == myCrd.X) && (pc.combatLocY == myCrd.Y))
                     {
-                        return true;
+                        if (pc.isAlive())
+                        {
+                            return true;
+                        }
                     }
                 }
             }
-            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+            foreach (Creature crtTarget in gv.mod.currentEncounter.encounterCreatureList)
             {
-                if ((crt.combatLocX == x) && (crt.combatLocY == y))
+                if (crtTarget == movingCrt)
                 {
-                    return true;
+                    continue;
+                }
+                int crtTargetSize = gv.cc.getCreatureSize(crtTarget.cr_tokenFilename); //1=normal, 2=wide, 3=tall, 4=large
+                //crtTargetSize normal
+                if (crtTargetSize == 1)
+                {
+                    foreach (Coordinate myCrd in mySquares)
+                    {
+                        if ((crtTarget.combatLocX == myCrd.X) && (crtTarget.combatLocY == myCrd.Y))
+                        {
+                            return true;
+                        }
+                    }
+                }
+                //crtTargetSize wide
+                if (crtTargetSize == 2)
+                {
+                    foreach (Coordinate myCrd in mySquares)
+                    {
+                        if ((crtTarget.combatLocX == myCrd.X) && (crtTarget.combatLocY == myCrd.Y))
+                        {
+                            return true;
+                        }
+                    }
+                    foreach (Coordinate myCrd in mySquares)
+                    {
+                        if ((crtTarget.combatLocX + 1 == myCrd.X) && (crtTarget.combatLocY == myCrd.Y))
+                        {
+                            return true;
+                        }
+                    }
+                }
+                //crtTargetSize tall
+                if (crtTargetSize == 3)
+                {
+                    foreach (Coordinate myCrd in mySquares)
+                    {
+                        if ((crtTarget.combatLocX == myCrd.X) && (crtTarget.combatLocY == myCrd.Y))
+                        {
+                            return true;
+                        }
+                    }
+                    foreach (Coordinate myCrd in mySquares)
+                    {
+                        if ((crtTarget.combatLocX == myCrd.X) && (crtTarget.combatLocY + 1 == myCrd.Y))
+                        {
+                            return true;
+                        }
+                    }
+                }
+                //crtTargetSize large
+                if (crtTargetSize == 4)
+                {
+                    foreach (Coordinate myCrd in mySquares)
+                    {
+                        if ((crtTarget.combatLocX == myCrd.X) && (crtTarget.combatLocY == myCrd.Y))
+                        {
+                            return true;
+                        }
+                    }
+                    foreach (Coordinate myCrd in mySquares)
+                    {
+                        if ((crtTarget.combatLocX + 1 == myCrd.X) && (crtTarget.combatLocY == myCrd.Y))
+                        {
+                            return true;
+                        }
+                    }
+                    foreach (Coordinate myCrd in mySquares)
+                    {
+                        if ((crtTarget.combatLocX == myCrd.X) && (crtTarget.combatLocY + 1 == myCrd.Y))
+                        {
+                            return true;
+                        }
+                    }
+                    foreach (Coordinate myCrd in mySquares)
+                    {
+                        if ((crtTarget.combatLocX + 1 == myCrd.X) && (crtTarget.combatLocY + 1 == myCrd.Y))
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
             return false;
