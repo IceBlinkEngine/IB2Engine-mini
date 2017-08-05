@@ -437,7 +437,7 @@ namespace IceBlink2mini
             }
             if (highestNonStackable > -99) { adder = highestNonStackable; }
             int att = this.cr_att + adder;
-            return adder;
+            return att;
         }
         public int getterNumberOfAttacks()
         {
