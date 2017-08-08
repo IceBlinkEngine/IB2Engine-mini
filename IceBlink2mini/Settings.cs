@@ -12,7 +12,7 @@ namespace IceBlink2mini
         public bool com_showGrid = false;
         public bool map_showGrid = false;
         public bool playSoundFx = false;
-        public bool com_use11x11 = false;
+        public bool com_use11x11 = true;
         public bool map_use11x11 = false;
         public bool showClock = true;
         public bool showFullParty = false;

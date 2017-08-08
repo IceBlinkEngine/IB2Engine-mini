@@ -145,6 +145,10 @@ namespace IceBlink2mini
             try
             {
                 //QuickSave();
+                Player pc = gv.mod.playerList[0];
+                if (pc == null) { return; }
+                gv.mod.saveName = pc.name + ", Lvl:" + pc.classLevel + ", XP:" + pc.XP + ", Time:" + gv.mod.WorldTime;
+                slot0 = "Quicksave - " + gv.mod.saveName;
                 SaveSaveGame("quicksave.json");
             }
             catch (Exception ex)
@@ -157,6 +161,10 @@ namespace IceBlink2mini
         {
             if (selectedIndex == 0)
             {
+                Player pc = gv.mod.playerList[0];
+                if (pc == null) { return; }
+                gv.mod.saveName = pc.name + ", Lvl:" + pc.classLevel + ", XP:" + pc.XP + ", Time:" + gv.mod.WorldTime;
+                slot0 = "Quicksave - " + gv.mod.saveName;
                 try
                 {
                     SaveSaveGame("quicksave.json");
@@ -416,6 +424,7 @@ namespace IceBlink2mini
         }
         public void LoadSaveListItems()
         {
+            slot0 = "Quicksave - " + LoadModuleInfo("quicksave.json").saveName;
             slot1 = LoadModuleInfo("slot1.json").saveName;
             slot2 = LoadModuleInfo("slot2.json").saveName;
             slot3 = LoadModuleInfo("slot3.json").saveName;

@@ -844,10 +844,7 @@ namespace IceBlink2mini
                     drawOverlayTints();
                 }
                 drawFogOfWar();
-            }
-
-            drawFloatyTextPool();
-            drawMainMapFloatyText();
+            }                                  
 
             if ((showClock) && (!hideClock))
             {
@@ -855,6 +852,10 @@ namespace IceBlink2mini
             }
             drawUiLayout();
             drawMiniMap();
+
+            drawFloatyTextPool();
+            drawMainMapFloatyText();
+
             if (gv.showMessageBox)
             {
                 gv.messageBox.onDrawLogBox();
@@ -1119,18 +1120,19 @@ namespace IceBlink2mini
                 int drawW = minimapSquareSizeInPixels * gv.mod.currentArea.MapSizeX;
                 int drawH = minimapSquareSizeInPixels * gv.mod.currentArea.MapSizeY;
 
-                /*TODO
-                    //draw a dark border
-                    Paint pnt = new Paint();
-                    pnt.setColor(Color.DKGRAY);
-                    pnt.setStrokeWidth(pW * 2);
-                    pnt.setStyle(Paint.Style.STROKE);	
-                    canvas.drawRect(new Rect(gv.oXshift, pH, gv.oXshift + drawW + pW, pH + drawH + pW), pnt);
-                */
+                //draw background border
+                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList("ui_portrait_frame").PixelSize.Width, gv.cc.GetFromBitmapList("ui_portrait_frame").PixelSize.Height);
+                //IbRect dst = new IbRect(gv.squareSize, pH, drawW, drawH);
+                IbRect dst = new IbRect(gv.squareSize - (int)(10 * gv.screenDensity),
+                                            pH - (int)(10 * gv.screenDensity),
+                                            drawW + (int)(20 * gv.screenDensity),
+                                            drawH + (int)(20 * gv.screenDensity));
+                gv.DrawBitmap(gv.cc.GetFromBitmapList("ui_portrait_frame"), src, dst);
+
                 //draw minimap
                 if (minimap == null) { resetMiniMapBitmap(); }
-                IbRect src = new IbRect(0, 0, minimap.PixelSize.Width, minimap.PixelSize.Height);
-                IbRect dst = new IbRect(gv.squareSize, pH, drawW, drawH);
+                src = new IbRect(0, 0, minimap.PixelSize.Width, minimap.PixelSize.Height);
+                dst = new IbRect(gv.squareSize, pH, drawW, drawH);
                 gv.DrawBitmap(minimap, src, dst);
 
                 //draw Fog of War
