@@ -3383,6 +3383,13 @@ namespace IceBlink2mini
             Spell sp = gv.cc.getSpellByTag(crt.onScoringHitCastSpellTag);
             if (sp == null) { return; }
             gv.cc.doSpellBasedOnScriptOrEffectTag(sp, crt, pc, false);
+            AnimationStackGroup newGroup = new AnimationStackGroup();
+            animationSeqStack[0].AnimationSeq.Add(newGroup);
+            string filename = sp.spriteEndingFilename;
+            foreach (Coordinate coor in gv.sf.AoeSquaresList)
+            {
+                addEndingAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)), filename);
+            }
         }
         public bool checkEndEncounter()
         {
