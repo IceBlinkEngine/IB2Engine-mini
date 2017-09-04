@@ -481,26 +481,12 @@ namespace IceBlink2mini
 
             //toggle
             newToggle = new IB2ToggleButton(gv);
-            newToggle.tag = "tglSoundFx";
-            newToggle.ImgOnFilename = "tgl_sound_on";
-            newToggle.ImgOffFilename = "tgl_sound_off";
-            newToggle.toggleOn = gv.toggleSettings.playSoundFx;
-            gv.mod.playSoundFx = gv.toggleSettings.playSoundFx;
-            newToggle.X = 192;
-            newToggle.Y = 0;
-            newToggle.Width = 48;
-            newToggle.Height = 48;
-            newToggle.show = true;
-            newPanel.toggleList.Add(newToggle);
-
-            //toggle
-            newToggle = new IB2ToggleButton(gv);
             newToggle.tag = "tglGrid";
             newToggle.ImgOnFilename = "tgl_grid_on";
             newToggle.ImgOffFilename = "tgl_grid_off";
             newToggle.toggleOn = gv.toggleSettings.com_showGrid;
             gv.mod.com_showGrid = gv.toggleSettings.com_showGrid;
-            newToggle.X = 240;
+            newToggle.X = 192;
             newToggle.Y = 0;
             newToggle.Width = 48;
             newToggle.Height = 48;
@@ -522,11 +508,25 @@ namespace IceBlink2mini
             {
                 sqrScale = 1.0f;
             }
-            newToggle.X = 288;
+            newToggle.X = 240;
             newToggle.Y = 0;
             newToggle.Width = 48;
             newToggle.Height = 48;
             newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglSoundFx";
+            newToggle.ImgOnFilename = "tgl_sound_on";
+            newToggle.ImgOffFilename = "tgl_sound_off";
+            newToggle.toggleOn = gv.toggleSettings.playSoundFx;
+            gv.mod.playSoundFx = gv.toggleSettings.playSoundFx;
+            newToggle.X = 288;
+            newToggle.Y = 0;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = false;
             newPanel.toggleList.Add(newToggle);
 
             combatUiLayout.panelList.Add(newPanel);

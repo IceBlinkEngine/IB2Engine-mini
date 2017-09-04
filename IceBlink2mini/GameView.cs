@@ -582,7 +582,7 @@ namespace IceBlink2mini
 	    }
 	    public void PlaySound(string filenameNoExtension)
 	    {            
-            if ((filenameNoExtension.Equals("none")) || (filenameNoExtension.Equals("")) || (!mod.playSoundFx))
+            /*if ((filenameNoExtension.Equals("none")) || (filenameNoExtension.Equals("")) || (!mod.playSoundFx))
             {
                 //play nothing
                 return;
@@ -603,7 +603,7 @@ namespace IceBlink2mini
                     }
                     initializeSounds();
                 }
-            }            
+            }*/            
 	    }
 
         //Animation Timer Stuff

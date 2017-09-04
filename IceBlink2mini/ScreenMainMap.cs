@@ -336,20 +336,6 @@ namespace IceBlink2mini
 
             //toggle
             newToggle = new IB2ToggleButton(gv);
-            newToggle.tag = "tglSound";
-            newToggle.ImgOnFilename = "tgl_sound_on";
-            newToggle.ImgOffFilename = "tgl_sound_off";
-            newToggle.toggleOn = gv.toggleSettings.playSoundFx;
-            gv.mod.playSoundFx = gv.toggleSettings.playSoundFx;
-            newToggle.X = 96;
-            newToggle.Y = 0;
-            newToggle.Width = 48;
-            newToggle.Height = 48;
-            newToggle.show = true;
-            newPanel.toggleList.Add(newToggle);
-
-            //toggle
-            newToggle = new IB2ToggleButton(gv);
             newToggle.tag = "tglZoom";
             newToggle.ImgOnFilename = "tgl_zoom_on";
             newToggle.ImgOffFilename = "tgl_zoom_off";
@@ -363,7 +349,7 @@ namespace IceBlink2mini
             {
                 sqrScale = 1.0f;
             }
-            newToggle.X = 144;
+            newToggle.X = 96;
             newToggle.Y = 0;
             newToggle.Width = 48;
             newToggle.Height = 48;
@@ -377,11 +363,25 @@ namespace IceBlink2mini
             newToggle.ImgOffFilename = "tgl_debugmode_off";
             newToggle.toggleOn = gv.toggleSettings.debugMode;
             gv.mod.debugMode = gv.toggleSettings.debugMode;
-            newToggle.X = 192;
+            newToggle.X = 144;
             newToggle.Y = 0;
             newToggle.Width = 48;
             newToggle.Height = 48;
             newToggle.show = true;
+            newPanel.toggleList.Add(newToggle);
+
+            //toggle
+            newToggle = new IB2ToggleButton(gv);
+            newToggle.tag = "tglSound";
+            newToggle.ImgOnFilename = "tgl_sound_on";
+            newToggle.ImgOffFilename = "tgl_sound_off";
+            newToggle.toggleOn = gv.toggleSettings.playSoundFx;
+            gv.mod.playSoundFx = gv.toggleSettings.playSoundFx;
+            newToggle.X = 192;
+            newToggle.Y = 0;
+            newToggle.Width = 48;
+            newToggle.Height = 48;
+            newToggle.show = false;
             newPanel.toggleList.Add(newToggle);
 
             mainUiLayout.panelList.Add(newPanel);
